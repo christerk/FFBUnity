@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
-using System.Text;
-using System;
-using Newtonsoft.Json.Linq;
-using FUMBBL;
+﻿using Fumbbl;
 using Fumbbl.Dto;
+using Fumbbl.Dto.Reports;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
 
 public class Networking
 {
@@ -16,6 +15,12 @@ public class Networking
     private IWebsocket socket;
     private string apiToken;
     private Protocol Protocol;
+    private DtoFactory DtoFactory;
+
+    public Networking()
+    {
+        DtoFactory = new DtoFactory();
+    }
 
     // Start is called before the first frame update
     public async Task Connect()
@@ -23,7 +28,7 @@ public class Networking
         Protocol = new Protocol(true);
         Debug.Log("Starting Networking");
 
-        socket = new FUMBBL.Websocket(Receive);
+        socket = new Fumbbl.Websocket(Receive);
 
         FumbblApi api = new FumbblApi();
         api.Auth();
@@ -36,14 +41,14 @@ public class Networking
 
             await Task.Delay(100);
             Debug.Log($"Connecting to {uri}");
-            MainHandler.Instance.AddLogEntry($"Connecting to {uri}");
+            MainHandler.Instance.AddReport(RawString.Create($"Connecting to {uri}"));
             await socket.Connect(uri);
             Debug.Log("Connected");
         }
         catch (Exception e)
         {
             Debug.Log($"<style=\"Error\">Error connecting: {e.Message}</style>");
-            MainHandler.Instance.AddLogEntry($"<style=\"Error\">Error connecting: {e.Message}</style>");
+            MainHandler.Instance.AddReport(RawString.Create($"<style=\"Error\">Error connecting: {e.Message}</style>"));
         }
 
         RequestVersion();
@@ -60,17 +65,32 @@ public class Networking
         dynamic obj = JObject.Parse(message);
         if (string.Equals(obj.netCommandId.ToString(), "serverVersion"))
         {
-            Spectate(apiToken, 1199282);
+            Spectate(apiToken, 1199446);
         }
         if (string.Equals(obj.netCommandId.ToString(), "serverTalk"))
         {
             FFB.Instance.AddChatEntry(obj.coach.ToString(), obj.talks[0].ToString());
         }
+        if (obj?.modelChangeList?.modelChangeArray != null)
+        {
+            foreach (var x in obj.modelChangeList.modelChangeArray)
+            {
+                IModelChange change = DtoFactory.CreateModelChange(x);
+                if (change != null)
+                {
+                    FFB.Instance.Model.ApplyChange(change);
+                }
+            }
+        }
         if (obj?.reportList?.reports != null)
         {
             foreach (var x in obj.reportList.reports)
             {
-                FFB.Instance.AddLogEntry(x.ToString());
+                IReport report = DtoFactory.CreateReport(x);
+                if (report != null)
+                {
+                    FFB.Instance.AddReport(report);
+                }
             }
         }
     }

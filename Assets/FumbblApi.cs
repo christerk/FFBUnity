@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using UnityEngine;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 public class FumbblApi
 {
@@ -16,7 +13,7 @@ public class FumbblApi
     public void Auth()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
-        string clientSecret= PlayerPrefs.GetString("OAuth.ClientSecret");
+        string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
 
         string result = Post("oauth", "token", new Dictionary<string, string>()
         {
@@ -56,7 +53,7 @@ public class FumbblApi
             string result = client.DownloadString($"http://dev.fumbbl.com/api/{component}/{endpoint}");
             return result;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.Log($"Error during API access {e.Message}");
         }

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
-namespace FUMBBL
+namespace Fumbbl
 {
     public class Protocol
     {
@@ -41,7 +38,7 @@ namespace FUMBBL
 
         }
 
-
+        #region LZString
         /**
          * LZString Java Implementation by diogoduailibe. source
          * https://github.com/diogoduailibe/lzstring4j
@@ -745,6 +742,6 @@ namespace FUMBBL
             }
 
         }
-
+        #endregion
     }
 }

@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{E1668AE0-8598-5F24-5625-D926BFFB68C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -70,11 +69,36 @@
     <Compile Include="Assets\Scripts\Dto\AbstractCommand.cs" />
     <Compile Include="Assets\Scripts\Dto\ClientJoin.cs" />
     <Compile Include="Assets\Scripts\Dto\ClientRequestVersion.cs" />
+    <Compile Include="Assets\Scripts\Dto\Commands\ServerModelSync.cs" />
+    <Compile Include="Assets\Scripts\Dto\DtoFactory.cs" />
+    <Compile Include="Assets\Scripts\Dto\ICommand.cs" />
+    <Compile Include="Assets\Scripts\Dto\IModelChange.cs" />
+    <Compile Include="Assets\Scripts\Dto\IReport.cs" />
+    <Compile Include="Assets\Scripts\Dto\ModelChanges\ActingPlayerSetPlayerId.cs" />
+    <Compile Include="Assets\Scripts\Dto\Reports\ApothecaryChoice.cs" />
+    <Compile Include="Assets\Scripts\Dto\Reports\Block.cs" />
+    <Compile Include="Assets\Scripts\Dto\Reports\PlayerAction.cs" />
+    <Compile Include="Assets\Scripts\Dto\Reports\ProtocolIdAttribute.cs" />
+    <Compile Include="Assets\Scripts\Dto\Reports\RawString.cs" />
+    <Compile Include="Assets\Scripts\Dto\Reports\RegenerationRoll.cs" />
+    <Compile Include="Assets\Scripts\Dto\Reports\SkillRoll.cs" />
     <Compile Include="Assets\Scripts\FFB.cs" />
     <Compile Include="Assets\Scripts\IWebsocket.cs" />
     <Compile Include="Assets\Scripts\MainHandler.cs" />
+    <Compile Include="Assets\Scripts\Model\ActingPlayer.cs" />
+    <Compile Include="Assets\Scripts\Model\IModelUpdater.cs" />
+    <Compile Include="Assets\Scripts\Model\Model.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChangeAttribute.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChangeFactory.cs" />
     <Compile Include="Assets\Scripts\Networking.cs" />
     <Compile Include="Assets\Scripts\Protocol.cs" />
+    <Compile Include="Assets\Scripts\UI\ILogTextGenerator.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\Block.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
+    <Compile Include="Assets\Scripts\UI\LogTextFactory.cs" />
+    <Compile Include="Assets\Scripts\UI\ReportTypeAttribute.cs" />
     <Compile Include="Assets\Scripts\Websocket.cs" />
     <Compile Include="Assets\SettingsHandler.cs" />
     <Compile Include="Assets\TextPanelHandler.cs" />
@@ -96,7 +120,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="packages.config" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

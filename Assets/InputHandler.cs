@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
-    public Camera camera;
+    public Camera Camera;
 
     public float mouseSensitivity = 1.0f;
     private Vector3 lastPosition;
@@ -12,7 +9,7 @@ public class InputHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,7 +17,7 @@ public class InputHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Home))
         {
-            camera.transform.position = new Vector3(0, 0, -10);
+            Camera.transform.position = new Vector3(0, 0, -10);
         }
         if (Input.GetMouseButtonDown(2))
         {
@@ -29,8 +26,8 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetMouseButton(2))
         {
-            Vector3 delta  = Input.mousePosition - lastPosition;
-            camera.transform.Translate(-delta.x * mouseSensitivity, -delta.y * mouseSensitivity, 0);
+            Vector3 delta = Input.mousePosition - lastPosition;
+            Camera.transform.Translate(-delta.x * mouseSensitivity, -delta.y * mouseSensitivity, 0);
             lastPosition = Input.mousePosition;
         }
 

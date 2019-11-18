@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Fumbbl.Dto;
+using Fumbbl.Model;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class FFB
@@ -11,13 +10,19 @@ public class FFB
 
     private bool Initialized;
     public Networking Network;
-    private List<string> LogText;
+    private List<IReport> LogText;
     private List<string> ChatText;
+
+    public Model Model { get; }
 
     public string CoachName { get; private set; }
 
-    public delegate void AddText(LogPanelType type, string text);
-    public event AddText OnText;
+    public delegate void AddReportDelegate(IReport text);
+
+    public event AddReportDelegate OnReport;
+
+    public delegate void AddChatDelegate(string text);
+    public event AddChatDelegate OnChat;
 
     public enum LogPanelType
     {
@@ -28,9 +33,10 @@ public class FFB
 
     private FFB()
     {
-        LogText = new List<string>();
+        LogText = new List<IReport>();
         ChatText = new List<string>();
         Network = new Networking();
+        Model = new Model();
     }
 
     public async void Initialize()
@@ -48,13 +54,13 @@ public class FFB
         Network.Disconnect();
     }
 
-    internal void AddLogEntry(string text)
+    internal void AddReport(IReport report)
     {
-        LogText.Add(text);
-        TriggerLogChanged(text);
+        LogText.Add(report);
+        TriggerLogChanged(report);
     }
 
-    internal List<string> GetLog()
+    internal List<IReport> GetLog()
     {
         return LogText;
     }
@@ -64,21 +70,21 @@ public class FFB
         return ChatText;
     }
 
-    private void TriggerLogChanged(string text)
+    private void TriggerLogChanged(IReport text)
     {
-        if (OnText != null)
+        if (OnReport != null)
         {
-            OnText(LogPanelType.Log, text);
+            OnReport(text);
         }
     }
 
     private void TriggerLogRefresh()
     {
-        if (OnText != null)
+        if (OnReport != null)
         {
-            foreach (string entry in LogText)
+            foreach (IReport entry in LogText)
             {
-                OnText(LogPanelType.Log, entry);
+                OnReport(entry);
             }
         }
     }
@@ -86,6 +92,11 @@ public class FFB
     internal void SetCoachName(string coachName)
     {
         CoachName = coachName;
+    }
+
+    internal object GetPlayerName(string actingPlayerId)
+    {
+        return actingPlayerId;
     }
 
     internal void RefreshState()
@@ -104,20 +115,19 @@ public class FFB
 
     private void TriggerChatChanged(string text)
     {
-        if (OnText != null)
+        if (OnReport != null)
         {
-            OnText(LogPanelType.Chat, text);
+            OnChat(text);
         }
     }
     private void TriggerChatRefresh()
     {
-        if (OnText != null)
+        if (OnReport != null)
         {
             foreach (string entry in ChatText)
             {
-                OnText(LogPanelType.Chat, entry);
+                OnChat(entry);
             }
         }
     }
-
 }

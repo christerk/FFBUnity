@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,7 +36,7 @@ public class SettingsHandler : MonoBehaviour
 
         int closestDistance = int.MaxValue;
         int closest = 0;
-        for (int i=0; i<options.Count; i++)
+        for (int i = 0; i < options.Count; i++)
         {
             string res = options[i];
             int dist = Mathf.Abs(GetResolutionKey(RDict[res][0]) - GetResolutionKey(Screen.width, Screen.height));

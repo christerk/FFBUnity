@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using Fumbbl.Dto;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,7 +23,7 @@ public class MainHandler : MonoBehaviour
         //    Destroy(this.gameObject);
         //} else
         //{
-            Instance = this;
+        Instance = this;
         //}
         //DontDestroyOnLoad(this.gameObject);
     }
@@ -32,19 +31,21 @@ public class MainHandler : MonoBehaviour
     void Start()
     {
         Debug.Log("MainHandler Initialized");
-        FFB.Instance.Initialize();
         StartCoroutine(DeferredInit());
     }
 
     private IEnumerator DeferredInit()
     {
         yield return null;
+        yield return null;
+        FFB.Instance.Initialize();
+        yield return null;
         FFB.Instance.RefreshState();
     }
 
-    public void AddLogEntry(string text)
+    public void AddReport(IReport text)
     {
-        FFB.Instance.AddLogEntry(text);
+        FFB.Instance.AddReport(text);
     }
 
     public void AddChatEntry(string text)
