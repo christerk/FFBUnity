@@ -1691,6 +1691,11 @@ PrefabInstance:
       propertyPath: EnableOclusion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5636266687713046142, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: debugText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5636266687313869507, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_AnchorMax.x
