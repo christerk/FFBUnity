@@ -11,7 +11,7 @@ namespace Fumbbl
 {
     public class Networking
     {
-        static UTF8Encoding encoder = new UTF8Encoding();
+        static readonly UTF8Encoding encoder = new UTF8Encoding();
         private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(30000);
         private IWebsocket socket;
         private string apiToken;
