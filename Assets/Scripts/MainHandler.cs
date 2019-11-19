@@ -3,68 +3,71 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainHandler : MonoBehaviour
+namespace Fumbbl
 {
-    public static MainHandler Instance;
-
-    public enum SceneType
+    public class MainHandler : MonoBehaviour
     {
-        None,
-        MainScene,
-        SettingsScene,
-    }
+        public static MainHandler Instance;
 
-    private void Awake()
-    {
-        //GameObject[] objs = GameObject.FindGameObjectsWithTag("MainHandler");
+        public enum SceneType
+        {
+            None,
+            MainScene,
+            SettingsScene,
+        }
 
-        //if (objs.Length > 1)
-        //{
-        //    Destroy(this.gameObject);
-        //} else
-        //{
-        Instance = this;
-        //}
-        //DontDestroyOnLoad(this.gameObject);
-    }
+        private void Awake()
+        {
+            //GameObject[] objs = GameObject.FindGameObjectsWithTag("MainHandler");
 
-    void Start()
-    {
-        Debug.Log("MainHandler Initialized");
-        StartCoroutine(DeferredInit());
-    }
+            //if (objs.Length > 1)
+            //{
+            //    Destroy(this.gameObject);
+            //} else
+            //{
+            Instance = this;
+            //}
+            //DontDestroyOnLoad(this.gameObject);
+        }
 
-    private IEnumerator DeferredInit()
-    {
-        yield return null;
-        yield return null;
-        FFB.Instance.Initialize();
-        yield return null;
-        FFB.Instance.RefreshState();
-    }
+        void Start()
+        {
+            Debug.Log("MainHandler Initialized");
+            StartCoroutine(DeferredInit());
+        }
 
-    public void AddReport(IReport text)
-    {
-        FFB.Instance.AddReport(text);
-    }
+        private IEnumerator DeferredInit()
+        {
+            yield return null;
+            yield return null;
+            FFB.Instance.Initialize();
+            yield return null;
+            FFB.Instance.RefreshState();
+        }
 
-    public void AddChatEntry(string text)
-    {
-        FFB.Instance.AddChatEntry(FFB.Instance.CoachName, text);
-    }
+        public void AddReport(IReport text)
+        {
+            FFB.Instance.AddReport(text);
+        }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
+        public void AddChatEntry(string text)
+        {
+            FFB.Instance.AddChatEntry(FFB.Instance.CoachName, text);
+        }
 
-    private void OnApplicationQuit()
-    {
-        FFB.Instance.Stop();
-    }
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
 
-    public void SetScene(SceneType scene)
-    {
-        SceneManager.LoadScene(scene.ToString());
+        private void OnApplicationQuit()
+        {
+            FFB.Instance.Stop();
+        }
+
+        public void SetScene(SceneType scene)
+        {
+            SceneManager.LoadScene(scene.ToString());
+        }
     }
 }

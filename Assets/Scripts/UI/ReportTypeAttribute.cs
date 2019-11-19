@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fumbbl.UI.LogText
+namespace Fumbbl.UI
 {
     internal class ReportTypeAttribute : Attribute
     {

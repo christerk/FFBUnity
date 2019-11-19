@@ -3,13 +3,13 @@ using System;
 
 namespace Fumbbl.Model
 {
-    public class Model
+    public class Core
     {
         //private ModelChangeFactory ModelChangeFactory { get; }
         private ReflectedFactory<IModelUpdater, Type> ModelChangeFactory { get; }
         public ActingPlayer ActingPlayer { get; }
 
-        public Model()
+        public Core()
         {
             //ModelChangeFactory = new ModelChangeFactory();
             ModelChangeFactory = new ReflectedFactory<IModelUpdater, Type>(typeof(ModelChangeAttribute));

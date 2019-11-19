@@ -1,7 +1,6 @@
 ﻿using Fumbbl;
 using Fumbbl.Dto;
 using Fumbbl.UI;
-using Fumbbl.UI.LogText;
 using System;
 using System.Collections.Generic;
 using TMPro;

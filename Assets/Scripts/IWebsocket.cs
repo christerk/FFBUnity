@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
-
-interface IWebsocket
+namespace Fumbbl
 {
-    Task Connect(string url);
-    Task Send(string data);
-    void Stop();
-    Task Start();
+    interface IWebsocket
+    {
+        Task Connect(string url);
+        Task Send(string data);
+        void Stop();
+        Task Start();
+    }
 }

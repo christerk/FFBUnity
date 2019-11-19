@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Fumbbl;
+using TMPro;
 using UnityEngine;
 
 public class ChatInputHandler : MonoBehaviour
