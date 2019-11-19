@@ -8,6 +8,9 @@ using System.Net;
 using System.Text;
 using UnityEngine;
 
+
+
+
 public class FumbblApi
 {
     private string accessToken;
@@ -23,16 +26,16 @@ public class FumbblApi
             ["client_secret"] = clientSecret
         });
 
-        dynamic obj = JObject.Parse(result);
-        accessToken = obj.access_token;
+        Fumbbl.Dto.OAuthResponse o_auth = JsonConvert.DeserializeObject<Fumbbl.Dto.OAuthResponse>(result);
+       
+        accessToken = o_auth.access_token;
 
         result = Get("oauth", "identity");
         int coachId = int.Parse(result);
 
         result = Get("coach", $"get/{coachId}");
-        obj = JObject.Parse(result);
-        string coachName = obj.name;
-        FFB.Instance.SetCoachName(coachName);
+        Fumbbl.Dto.CoachResponse coach = JsonConvert.DeserializeObject<Fumbbl.Dto.CoachResponse>(result);
+        FFB.Instance.SetCoachName(coach.name);
     }
 
     public string GetToken()
