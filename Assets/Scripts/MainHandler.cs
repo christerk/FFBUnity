@@ -18,16 +18,7 @@ namespace Fumbbl
 
         private void Awake()
         {
-            //GameObject[] objs = GameObject.FindGameObjectsWithTag("MainHandler");
-
-            //if (objs.Length > 1)
-            //{
-            //    Destroy(this.gameObject);
-            //} else
-            //{
             Instance = this;
-            //}
-            //DontDestroyOnLoad(this.gameObject);
         }
 
         void Start()

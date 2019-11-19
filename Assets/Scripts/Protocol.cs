@@ -15,14 +15,14 @@ namespace Fumbbl
 
         public string Test(String s)
         {
-            return LZString.compressToUTF16(s);
+            return LZString.CompressToUTF16(s);
         }
 
         public string Compress(string data)
         {
             if (Compression)
             {
-                return LZString.compressToUTF16(data);
+                return LZString.CompressToUTF16(data);
             }
 
             return data;
@@ -32,7 +32,7 @@ namespace Fumbbl
         {
             if (Compression)
             {
-                return LZString.decompressFromUTF16(data);
+                return LZString.DecompressFromUTF16(data);
             }
             return data;
 
@@ -48,7 +48,7 @@ namespace Fumbbl
          */
         class LZString
         {
-            public static String compress(String uncompressed)
+            public static String Compress(String uncompressed)
             {
 
                 if (uncompressed == null)
@@ -56,8 +56,8 @@ namespace Fumbbl
                 int value;
                 Dictionary<string, int> context_dictionary = new Dictionary<string, int>();
                 HashSet<string> context_dictionaryToCreate = new HashSet<string>();
-                string context_c = "";
-                string context_wc = "";
+                string context_c;
+                string context_wc;
                 string context_w = "";
                 double context_enlargeIn = 2d; // Compensate for the first entry which
                                                // should not count
@@ -117,7 +117,7 @@ namespace Fumbbl
                                     {
                                         context_data_position++;
                                     }
-                                    value = value >> 1;
+                                    value >>= 1;
                                 }
                             }
                             else
@@ -152,7 +152,7 @@ namespace Fumbbl
                                     {
                                         context_data_position++;
                                     }
-                                    value = value >> 1;
+                                    value >>= 1;
                                 }
                             }
                             context_enlargeIn--;
@@ -179,7 +179,7 @@ namespace Fumbbl
                                 {
                                     context_data_position++;
                                 }
-                                value = value >> 1;
+                                value >>= 1;
                             }
 
                         }
@@ -230,7 +230,7 @@ namespace Fumbbl
                                 {
                                     context_data_position++;
                                 }
-                                value = value >> 1;
+                                value >>= 1;
                             }
                         }
                         else
@@ -265,7 +265,7 @@ namespace Fumbbl
                                 {
                                     context_data_position++;
                                 }
-                                value = value >> 1;
+                                value >>= 1;
                             }
                         }
                         context_enlargeIn--;
@@ -292,14 +292,14 @@ namespace Fumbbl
                             {
                                 context_data_position++;
                             }
-                            value = value >> 1;
+                            value >>= 1;
                         }
 
                     }
                     context_enlargeIn--;
                     if ((int)context_enlargeIn == 0)
                     {
-                        context_enlargeIn = Math.Pow(2, context_numBits);
+                        //context_enlargeIn = Math.Pow(2, context_numBits);
                         context_numBits++;
                     }
                 }
@@ -319,7 +319,7 @@ namespace Fumbbl
                     {
                         context_data_position++;
                     }
-                    value = value >> 1;
+                    value >>= 1;
                 }
 
                 // Flush the last char
@@ -337,7 +337,7 @@ namespace Fumbbl
                 return context_data_string;
             }
 
-            public static String decompress(String compressed)
+            public static String Decompress(String compressed)
             {
 
                 if (compressed == null)
@@ -348,7 +348,7 @@ namespace Fumbbl
                 double enlargeIn = 4;
                 int dictSize = 4;
                 int numBits = 3;
-                String entry = "";
+                String entry;
                 StringBuilder result;
                 String w;
                 int bits;
@@ -357,7 +357,7 @@ namespace Fumbbl
                 int power;
                 String c = "";
                 int d;
-                Data data = Data.getInstance();
+                Data data = Data.GetInstance();
                 data.data = compressed;
                 data.val = (int)compressed[0];
                 data.position = 32768;
@@ -555,7 +555,7 @@ namespace Fumbbl
                 }
             }
 
-            public static String compressToUTF16(String input)
+            public static String CompressToUTF16(String input)
             {
                 if (input == null)
                     return "";
@@ -564,7 +564,7 @@ namespace Fumbbl
                 int current = 0;
                 int status = 0;
 
-                input = LZString.compress(input);
+                input = LZString.Compress(input);
 
                 for (int i = 0; i < input.Length; i++)
                 {
@@ -641,7 +641,7 @@ namespace Fumbbl
                 return output;
             }
 
-            public static String decompressFromUTF16(String input)
+            public static String DecompressFromUTF16(String input)
             {
                 if (input == null)
                     return "";
@@ -723,7 +723,7 @@ namespace Fumbbl
                     i++;
                 }
 
-                return LZString.decompress(output.ToString());
+                return LZString.Decompress(output.ToString());
                 // return output;
 
             }
@@ -736,7 +736,7 @@ namespace Fumbbl
             public int position;
             public int index;
 
-            public static Data getInstance()
+            public static Data GetInstance()
             {
                 return new Data();
             }

@@ -10,8 +10,8 @@ namespace Fumbbl
 
         private bool Initialized;
         public Networking Network;
-        private List<IReport> LogText;
-        private List<string> ChatText;
+        private readonly List<IReport> LogText;
+        private readonly List<string> ChatText;
 
         public Core Model { get; }
 
@@ -44,7 +44,6 @@ namespace Fumbbl
             if (!Initialized)
             {
                 Initialized = true;
-                Debug.Log(LogText.ToString());
                 await Network.Connect();
             }
         }
@@ -72,10 +71,7 @@ namespace Fumbbl
 
         private void TriggerLogChanged(IReport text)
         {
-            if (OnReport != null)
-            {
-                OnReport(text);
-            }
+            OnReport?.Invoke(text);
         }
 
         private void TriggerLogRefresh()
@@ -115,14 +111,11 @@ namespace Fumbbl
 
         private void TriggerChatChanged(string text)
         {
-            if (OnReport != null)
-            {
-                OnChat(text);
-            }
+            OnChat?.Invoke(text);
         }
         private void TriggerChatRefresh()
         {
-            if (OnReport != null)
+            if (OnChat != null)
             {
                 foreach (string entry in ChatText)
                 {

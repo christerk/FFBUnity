@@ -19,7 +19,6 @@ public class TextPanelHandler : MonoBehaviour
     private ScrollRect scrollRect;
 
     private List<TMPro.TextMeshProUGUI> Items;
-    private const float DisableMargin = 10f;
 
     private bool Dirty = false;
     private float contentHeight;
@@ -66,20 +65,7 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Chat)
         {
-            float panelWidth = ContentRect.rect.width;
-
-            if (text != null)
-            {
-                TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
-                obj.SetText(text);
-                obj.transform.SetParent(Content.transform);
-                float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;
-                obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
-                this.contentHeight += preferredHeight;
-                ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
-                Items.Add(obj);
-                Dirty = true;
-            }
+            AddText(text);
         }
     }
 
@@ -87,21 +73,26 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {
-            float panelWidth = ContentRect.rect.width;
-
             string text = LogTextFactory.GetReflectedInstance(report.GetType()).Convert(report);
-            if (text != null)
-            {
-                TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
-                obj.SetText(text);
-                obj.transform.SetParent(Content.transform);
-                float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;
-                obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
-                this.contentHeight += preferredHeight;
-                ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
-                Items.Add(obj);
-                Dirty = true;
-            }
+            AddText(text);
+        }
+    }
+
+    private void AddText(string text)
+    {
+        float panelWidth = ContentRect.rect.width;
+
+        if (text != null)
+        {
+            TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
+            obj.SetText(text);
+            obj.transform.SetParent(Content.transform);
+            float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;
+            obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
+            this.contentHeight += preferredHeight;
+            ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
+            Items.Add(obj);
+            Dirty = true;
         }
     }
 
