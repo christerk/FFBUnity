@@ -1,6 +1,4 @@
-﻿using Fumbbl.Dto;
-
-namespace Fumbbl.Model
+﻿namespace Fumbbl.Model
 {
     public interface IModelUpdater
     {

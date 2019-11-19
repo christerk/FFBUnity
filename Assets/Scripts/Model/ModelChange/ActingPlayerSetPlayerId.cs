@@ -1,5 +1,4 @@
 ﻿using Fumbbl.Dto;
-using Fumbbl.Dto.Reports;
 using UnityEngine;
 
 namespace Fumbbl.Model.ModelChange

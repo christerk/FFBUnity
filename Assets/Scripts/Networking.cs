@@ -15,11 +15,14 @@ public class Networking
     private IWebsocket socket;
     private string apiToken;
     private Protocol Protocol;
-    private DtoFactory DtoFactory;
+
+    private readonly ReflectedFactory<IReport, string> ReportFactory;
+    private readonly ReflectedFactory<IModelChange, string> ModelChangeFactory;
 
     public Networking()
     {
-        DtoFactory = new DtoFactory();
+        ReportFactory = new ReflectedFactory<IReport, string>(typeof(ProtocolIdAttribute));
+        ModelChangeFactory = new ReflectedFactory<IModelChange, string>(typeof(ProtocolIdAttribute));
     }
 
     // Start is called before the first frame update
@@ -65,7 +68,7 @@ public class Networking
         dynamic obj = JObject.Parse(message);
         if (string.Equals(obj.netCommandId.ToString(), "serverVersion"))
         {
-            Spectate(apiToken, 1199446);
+            Spectate(apiToken, 1199709);
         }
         if (string.Equals(obj.netCommandId.ToString(), "serverTalk"))
         {
@@ -75,7 +78,8 @@ public class Networking
         {
             foreach (var x in obj.modelChangeList.modelChangeArray)
             {
-                IModelChange change = DtoFactory.CreateModelChange(x);
+                IModelChange change = ModelChangeFactory.DeserializeJson(x, x?.modelChangeId?.ToString());
+
                 if (change != null)
                 {
                     FFB.Instance.Model.ApplyChange(change);
@@ -86,10 +90,14 @@ public class Networking
         {
             foreach (var x in obj.reportList.reports)
             {
-                IReport report = DtoFactory.CreateReport(x);
+                IReport report = ReportFactory.DeserializeJson(x, x?.reportId?.ToString());
                 if (report != null)
                 {
                     FFB.Instance.AddReport(report);
+                }
+                else
+                {
+                    FFB.Instance.AddReport(RawString.Create(x.ToString()));
                 }
             }
         }

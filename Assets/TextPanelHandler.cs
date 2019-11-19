@@ -1,4 +1,8 @@
-﻿using Fumbbl.Dto;
+﻿using Fumbbl;
+using Fumbbl.Dto;
+using Fumbbl.UI;
+using Fumbbl.UI.LogText;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,11 +25,11 @@ public class TextPanelHandler : MonoBehaviour
     private bool Dirty = false;
     private float contentHeight;
 
-    private LogTextFactory LogTextFactory;
+    private ReflectedFactory<ILogTextGenerator, Type> LogTextFactory;
 
     private void Awake()
     {
-        LogTextFactory = new LogTextFactory();
+        LogTextFactory = new ReflectedFactory<ILogTextGenerator, Type>(typeof(ReportTypeAttribute));
     }
 
     void Start()
@@ -48,7 +52,7 @@ public class TextPanelHandler : MonoBehaviour
     public void OnScroll(Vector2 pos)
     {
         float height = ((RectTransform)this.gameObject.transform).rect.height;
-        float viewportTop = Content.transform.localPosition.y - height/2;
+        float viewportTop = Content.transform.localPosition.y - height / 2;
         float viewportBottom = viewportTop + height;
 
         foreach (var item in Items)
@@ -86,7 +90,7 @@ public class TextPanelHandler : MonoBehaviour
         {
             float panelWidth = ContentRect.rect.width;
 
-            string text = LogTextFactory.GetTextForReport(report);
+            string text = LogTextFactory.GetReflectedInstance(report.GetType()).Convert(report);
             if (text != null)
             {
                 TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);

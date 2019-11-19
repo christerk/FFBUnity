@@ -1,6 +1,4 @@
-﻿using Fumbbl.Model;
-
-namespace Fumbbl.Dto
+﻿namespace Fumbbl.Dto
 {
     public interface IModelChange
     {

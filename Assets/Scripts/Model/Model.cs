@@ -5,12 +5,14 @@ namespace Fumbbl.Model
 {
     public class Model
     {
-        private ModelChangeFactory ModelChangeFactory { get; }
+        //private ModelChangeFactory ModelChangeFactory { get; }
+        private ReflectedFactory<IModelUpdater, Type> ModelChangeFactory { get; }
         public ActingPlayer ActingPlayer { get; }
 
         public Model()
         {
-            ModelChangeFactory = new ModelChangeFactory();
+            //ModelChangeFactory = new ModelChangeFactory();
+            ModelChangeFactory = new ReflectedFactory<IModelUpdater, Type>(typeof(ModelChangeAttribute));
             ActingPlayer = new ActingPlayer();
         }
 
@@ -21,7 +23,8 @@ namespace Fumbbl.Model
 
         internal void ApplyChange(IModelChange change)
         {
-            IModelUpdater updater = ModelChangeFactory.Create(change);
+            //IModelUpdater updater = ModelChangeFactory.Create(change);
+            IModelUpdater updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
             updater?.Apply(change);
         }
     }

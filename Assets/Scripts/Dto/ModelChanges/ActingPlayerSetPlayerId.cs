@@ -1,5 +1,4 @@
-﻿using Fumbbl.Dto;
-using Fumbbl.Dto.Reports;
+﻿using Fumbbl.Dto.Reports;
 
 namespace Fumbbl.Dto.ModelChanges
 {

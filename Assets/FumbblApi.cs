@@ -50,7 +50,7 @@ public class FumbblApi
                 client.Headers.Add("authorization", $"Bearer {accessToken}");
             }
 
-            string result = client.DownloadString($"http://dev.fumbbl.com/api/{component}/{endpoint}");
+            string result = client.DownloadString($"https://fumbbl.com/api/{component}/{endpoint}");
             return result;
         }
         catch (Exception e)
@@ -79,7 +79,7 @@ public class FumbblApi
                 }
             }
 
-            string url = $"http://dev.fumbbl.com/api/{component}/{endpoint}";
+            string url = $"https://fumbbl.com/api/{component}/{endpoint}";
 
             Debug.Log(url);
 

@@ -70,7 +70,6 @@
     <Compile Include="Assets\Scripts\Dto\ClientJoin.cs" />
     <Compile Include="Assets\Scripts\Dto\ClientRequestVersion.cs" />
     <Compile Include="Assets\Scripts\Dto\Commands\ServerModelSync.cs" />
-    <Compile Include="Assets\Scripts\Dto\DtoFactory.cs" />
     <Compile Include="Assets\Scripts\Dto\ICommand.cs" />
     <Compile Include="Assets\Scripts\Dto\IModelChange.cs" />
     <Compile Include="Assets\Scripts\Dto\IReport.cs" />
@@ -90,14 +89,13 @@
     <Compile Include="Assets\Scripts\Model\Model.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChangeAttribute.cs" />
-    <Compile Include="Assets\Scripts\Model\ModelChangeFactory.cs" />
     <Compile Include="Assets\Scripts\Networking.cs" />
     <Compile Include="Assets\Scripts\Protocol.cs" />
+    <Compile Include="Assets\Scripts\ReflectedFactory.cs" />
     <Compile Include="Assets\Scripts\UI\ILogTextGenerator.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Block.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
-    <Compile Include="Assets\Scripts\UI\LogTextFactory.cs" />
     <Compile Include="Assets\Scripts\UI\ReportTypeAttribute.cs" />
     <Compile Include="Assets\Scripts\Websocket.cs" />
     <Compile Include="Assets\SettingsHandler.cs" />
