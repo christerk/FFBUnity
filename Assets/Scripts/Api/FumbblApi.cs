@@ -9,8 +9,6 @@ using System.Text;
 using UnityEngine;
 
 
-
-
 public class FumbblApi
 {
     private string accessToken;
@@ -26,15 +24,15 @@ public class FumbblApi
             ["client_secret"] = clientSecret
         });
 
-        Fumbbl.Dto.OAuthResponse o_auth = JsonConvert.DeserializeObject<Fumbbl.Dto.OAuthResponse>(result);
+        Api.Dto.Auth.Token token = JsonConvert.DeserializeObject<Api.Dto.Auth.Token>(result);
        
-        accessToken = o_auth.access_token;
+        accessToken = token.access_token;
 
         result = Get("oauth", "identity");
         int coachId = int.Parse(result);
 
         result = Get("coach", $"get/{coachId}");
-        Fumbbl.Dto.CoachResponse coach = JsonConvert.DeserializeObject<Fumbbl.Dto.CoachResponse>(result);
+        Api.Dto.Coach.Get coach = JsonConvert.DeserializeObject<Api.Dto.Coach.Get>(result);
         FFB.Instance.SetCoachName(coach.name);
     }
 
@@ -42,6 +40,11 @@ public class FumbblApi
     {
         string token = JsonConvert.DeserializeObject<string>(Post("auth", "getToken"));
         return token;
+    }
+
+    public List<Api.Dto.Match.Current> GetCurrentMatches()
+    {
+        return JsonConvert.DeserializeObject<List<Api.Dto.Match.Current>>(Get("match", "current"));
     }
 
     private string Get(string component, string endpoint)

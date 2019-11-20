@@ -1,6 +1,6 @@
-namespace Fumbbl.Dto
+namespace Api.Dto.Auth
 {
-    public class OAuthResponse
+    public class Token
     {
         public string access_token;
         public string token_type;

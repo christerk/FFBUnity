@@ -1,6 +1,6 @@
-namespace Fumbbl.Dto
+namespace Api.Dto.Coach
 {
-    public class CoachResponse
+    public class Get
     {
         public int id;
         public string name;
