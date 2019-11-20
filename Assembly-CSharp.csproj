@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{E1668AE0-8598-5F24-5625-D926BFFB68C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -71,9 +72,9 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientRequestVersion.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerModelSync.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ICommand.cs" />
-    <Compile Include="Assets\Scripts\Ffb\Dto\IModelChange.cs" />
-    <Compile Include="Assets\Scripts\Ffb\Dto\IReport.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChange.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\ActingPlayerSetPlayerId.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Report.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ApothecaryChoice.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Block.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PlayerAction.cs" />
@@ -86,20 +87,21 @@
     <Compile Include="Assets\Scripts\Ffb\Protocol.cs" />
     <Compile Include="Assets\Scripts\Ffb\Websocket.cs" />
     <Compile Include="Assets\Scripts\Fumbbl\FumbblApi.cs" />
+    <Compile Include="Assets\Scripts\IReflectedObject.cs" />
     <Compile Include="Assets\Scripts\MainHandler.cs" />
     <Compile Include="Assets\Scripts\Model\ActingPlayer.cs" />
     <Compile Include="Assets\Scripts\Model\Core.cs" />
-    <Compile Include="Assets\Scripts\Model\IModelUpdater.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
-    <Compile Include="Assets\Scripts\Model\ModelChangeAttribute.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelUpdater.cs" />
     <Compile Include="Assets\Scripts\ReflectedFactory.cs" />
-    <Compile Include="Assets\Scripts\UI\ILogTextGenerator.cs" />
+    <Compile Include="Assets\Scripts\ReflectedGenerator.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Block.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
-    <Compile Include="Assets\Scripts\UI\ReportTypeAttribute.cs" />
+    <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
     <Compile Include="Assets\SettingsHandler.cs" />
     <Compile Include="Assets\TextPanelHandler.cs" />
+    <None Include=".editorconfig" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

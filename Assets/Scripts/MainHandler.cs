@@ -36,7 +36,7 @@ namespace Fumbbl
             FFB.Instance.RefreshState();
         }
 
-        public void AddReport(IReport text)
+        public void AddReport(Report text)
         {
             FFB.Instance.AddReport(text);
         }

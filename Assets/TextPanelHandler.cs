@@ -23,11 +23,11 @@ public class TextPanelHandler : MonoBehaviour
     private bool Dirty = false;
     private float contentHeight;
 
-    private ReflectedFactory<ILogTextGenerator, Type> LogTextFactory;
+    private ReflectedFactory<LogTextGenerator, Type> LogTextFactory;
 
     private void Awake()
     {
-        LogTextFactory = new ReflectedFactory<ILogTextGenerator, Type>(typeof(ReportTypeAttribute));
+        LogTextFactory = new ReflectedFactory<LogTextGenerator, Type>();
     }
 
     void Start()
@@ -69,7 +69,7 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void AddReport(IReport report)
+    void AddReport(Report report)
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {

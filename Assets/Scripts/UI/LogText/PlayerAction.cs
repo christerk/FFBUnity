@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
 {
-    [ReportType(typeof(Dto.Reports.PlayerAction))]
-    public class PlayerAction : ILogTextGenerator
+    public class PlayerAction : LogTextGenerator
     {
-        private static Dictionary<string, string> ActionStrings = new Dictionary<string, string>()
+        public PlayerAction() : base(typeof(Dto.Reports.PlayerAction)) { }
+
+        private static readonly Dictionary<string, string> ActionStrings = new Dictionary<string, string>()
         {
             ["move"] = "starts a Move Action",
             ["block"] = "starts a Block Action",
@@ -20,7 +21,7 @@ namespace Fumbbl.UI.LogText
             ["throwBomb"] = "starts a Bomb Action",
         };
 
-        public string Convert(IReport report)
+        public override string Convert(Report report)
         {
             Dto.Reports.PlayerAction action = (Dto.Reports.PlayerAction)report;
 

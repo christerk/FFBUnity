@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Fumbbl
+namespace Fumbbl.Ffb
 {
     public class Networking
     {
@@ -17,13 +17,13 @@ namespace Fumbbl
         private string apiToken;
         private Protocol Protocol;
 
-        private readonly ReflectedFactory<IReport, string> ReportFactory;
-        private readonly ReflectedFactory<IModelChange, string> ModelChangeFactory;
+        private readonly ReflectedFactory<Report, string> ReportFactory;
+        private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
 
         public Networking()
         {
-            ReportFactory = new ReflectedFactory<IReport, string>(typeof(ProtocolIdAttribute));
-            ModelChangeFactory = new ReflectedFactory<IModelChange, string>(typeof(ProtocolIdAttribute));
+            ReportFactory = new ReflectedFactory<Report, string>();
+            ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
         }
 
         // Start is called before the first frame update
@@ -32,7 +32,7 @@ namespace Fumbbl
             Protocol = new Protocol(true);
             Debug.Log("Starting Networking");
 
-            socket = new Fumbbl.Websocket(Receive);
+            socket = new Websocket(Receive);
 
             FumbblApi api = new FumbblApi();
             api.Auth();
@@ -79,7 +79,7 @@ namespace Fumbbl
             {
                 foreach (var x in obj.modelChangeList.modelChangeArray)
                 {
-                    IModelChange change = ModelChangeFactory.DeserializeJson(x, x?.modelChangeId?.ToString());
+                    ModelChange change = ModelChangeFactory.DeserializeJson(x, x?.modelChangeId?.ToString());
 
                     if (change != null)
                     {
@@ -91,7 +91,7 @@ namespace Fumbbl
             {
                 foreach (var x in obj.reportList.reports)
                 {
-                    IReport report = ReportFactory.DeserializeJson(x, x?.reportId?.ToString());
+                    Report report = ReportFactory.DeserializeJson(x, x?.reportId?.ToString());
                     if (report != null)
                     {
                         FFB.Instance.AddReport(report);

@@ -1,7 +1,8 @@
 ﻿namespace Fumbbl.Dto.Reports
 {
-    [ProtocolId("regenerationRoll")]
     public class RegenerationRoll : SkillRoll
     {
-    }
+        public RegenerationRoll() : base("regenerationRoll") { }
+
+}
 }

@@ -1,4 +1,5 @@
 ﻿using Fumbbl.Dto;
+using Fumbbl.Ffb;
 using Fumbbl.Model;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +11,14 @@ namespace Fumbbl
 
         private bool Initialized;
         public Networking Network;
-        private readonly List<IReport> LogText;
+        private readonly List<Report> LogText;
         private readonly List<string> ChatText;
 
         public Core Model { get; }
 
         public string CoachName { get; private set; }
 
-        public delegate void AddReportDelegate(IReport text);
+        public delegate void AddReportDelegate(Report text);
 
         public event AddReportDelegate OnReport;
 
@@ -33,7 +34,7 @@ namespace Fumbbl
 
         private FFB()
         {
-            LogText = new List<IReport>();
+            LogText = new List<Report>();
             ChatText = new List<string>();
             Network = new Networking();
             Model = new Core();
@@ -53,13 +54,13 @@ namespace Fumbbl
             Network.Disconnect();
         }
 
-        internal void AddReport(IReport report)
+        internal void AddReport(Report report)
         {
             LogText.Add(report);
             TriggerLogChanged(report);
         }
 
-        internal List<IReport> GetLog()
+        internal List<Report> GetLog()
         {
             return LogText;
         }
@@ -69,7 +70,7 @@ namespace Fumbbl
             return ChatText;
         }
 
-        private void TriggerLogChanged(IReport text)
+        private void TriggerLogChanged(Report text)
         {
             OnReport?.Invoke(text);
         }
@@ -78,7 +79,7 @@ namespace Fumbbl
         {
             if (OnReport != null)
             {
-                foreach (IReport entry in LogText)
+                foreach (Report entry in LogText)
                 {
                     OnReport(entry);
                 }
