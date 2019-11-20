@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fumbbl
+namespace Fumbbl.Ffb
 {
     public class Protocol
     {

@@ -7,29 +7,25 @@ using System.Reflection;
 namespace Fumbbl
 {
     public class ReflectedFactory<T, K>
-        where T : class
+        where T : class, IReflectedObject<K>
     {
         protected Dictionary<K, Type> GeneratorClasses { get; }
         protected Dictionary<K, T> GeneratorInstances { get; }
 
-        public ReflectedFactory(Type attributeType)
+        public ReflectedFactory()
         {
             GeneratorClasses = new Dictionary<K, Type>();
             GeneratorInstances = new Dictionary<K, T>();
 
             var generators = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.GetInterfaces().Contains(typeof(T)));
+                .Where(t => typeof(T).IsAssignableFrom(t) && !t.IsAbstract);
 
             foreach (var generator in generators)
             {
-                var attr = generator.CustomAttributes.Where(a => a.AttributeType == attributeType).SingleOrDefault();
-
-                if (attr != null)
-                {
-                    var key = (K)attr.ConstructorArguments[0].Value;
-                    GeneratorClasses.Add(key, generator);
-                    GeneratorInstances.Add(key, (T)generator.GetConstructor(new Type[] { }).Invoke(new object[] { }));
-                }
+                T instance = (T)generator.GetConstructor(new Type[] { }).Invoke(new object[] { });
+                K key = instance.GetReflectedKey();
+                GeneratorClasses.Add(key, generator);
+                GeneratorInstances.Add(key, instance);
             }
         }
 

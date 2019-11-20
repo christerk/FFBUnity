@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Fumbbl.Model.ModelChange
 {
-    [ModelChange(typeof(Dto.ModelChanges.ActingPlayerSetPlayerId))]
-    public class ActingPlayerSetPlayerId : IModelUpdater
+    public class ActingPlayerSetPlayerId : ModelUpdater
     {
-        public void Apply(IModelChange modelChange)
+        public ActingPlayerSetPlayerId() : base(typeof(Dto.ModelChanges.ActingPlayerSetPlayerId)) { }
+
+        public override void Apply(Dto.ModelChange modelChange)
         {
             var change = (Dto.ModelChanges.ActingPlayerSetPlayerId)modelChange;
 

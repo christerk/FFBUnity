@@ -3,10 +3,11 @@ using Fumbbl.Model;
 
 namespace Fumbbl.UI.LogText
 {
-    [ReportType(typeof(Dto.Reports.Block))]
-    public class Block : ILogTextGenerator
+    public class Block : LogTextGenerator
     {
-        public string Convert(IReport report)
+        public Block() : base(typeof(Dto.Reports.Block)) { }
+
+        public override string Convert(Report report)
         {
             Dto.Reports.Block block = (Dto.Reports.Block)report;
             string attacker = FFB.Instance.Model.GetPlayerName(FFB.Instance.Model.ActingPlayer?.PlayerId);

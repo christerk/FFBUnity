@@ -1,8 +1,9 @@
 ﻿namespace Fumbbl.Dto.Reports
 {
-    [ProtocolId("block")]
-    public class Block : IReport
+    public class Block : Report
     {
+        public Block() : base("block") { }
+
         public string reportId;
         public string defenderId;
     }

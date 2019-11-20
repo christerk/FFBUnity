@@ -6,13 +6,13 @@ namespace Fumbbl.Model
     public class Core
     {
         //private ModelChangeFactory ModelChangeFactory { get; }
-        private ReflectedFactory<IModelUpdater, Type> ModelChangeFactory { get; }
+        private ReflectedFactory<ModelUpdater, Type> ModelChangeFactory { get; }
         public ActingPlayer ActingPlayer { get; }
 
         public Core()
         {
             //ModelChangeFactory = new ModelChangeFactory();
-            ModelChangeFactory = new ReflectedFactory<IModelUpdater, Type>(typeof(ModelChangeAttribute));
+            ModelChangeFactory = new ReflectedFactory<ModelUpdater, Type>();
             ActingPlayer = new ActingPlayer();
         }
 
@@ -21,10 +21,10 @@ namespace Fumbbl.Model
             return playerId;
         }
 
-        internal void ApplyChange(IModelChange change)
+        internal void ApplyChange(Dto.ModelChange change)
         {
             //IModelUpdater updater = ModelChangeFactory.Create(change);
-            IModelUpdater updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
+            ModelUpdater updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
             updater?.Apply(change);
         }
     }

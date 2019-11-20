@@ -2,10 +2,11 @@
 
 namespace Fumbbl.UI.LogText
 {
-    [ReportType(typeof(Dto.Reports.RawString))]
-    public class RawString : ILogTextGenerator
+    public class RawString : LogTextGenerator
     {
-        public string Convert(IReport report)
+        public RawString() : base(typeof(Dto.Reports.RawString)) { }
+
+        public override string Convert(Report report)
         {
             return ((Dto.Reports.RawString)report).text;
         }
