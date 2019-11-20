@@ -8,6 +8,11 @@ public class GameBrowserHandler : MonoBehaviour
 
     private FumbblApi api;
     private List<Api.Dto.Match.Current> currentMatches;
+  
+    public GameObject pane;
+    public GameObject button;
+
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +33,8 @@ public class GameBrowserHandler : MonoBehaviour
        foreach(Api.Dto.Match.Current match in currentMatches)
        {
           Debug.Log(match.id); 
+          GameObject newButton = Instantiate(button) as GameObject;
+          newButton.transform.SetParent(pane.transform, false);
        }
     }
 }
