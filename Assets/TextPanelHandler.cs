@@ -1,5 +1,5 @@
 ﻿using Fumbbl;
-using Fumbbl.Dto;
+using Fumbbl.Ffb.Dto;
 using Fumbbl.UI;
 using System;
 using System.Collections.Generic;

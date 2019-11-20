@@ -1,5 +1,5 @@
-﻿using Fumbbl.Dto;
-using Fumbbl.Dto.Reports;
+﻿using Fumbbl.Ffb.Dto;
+using Fumbbl.Ffb.Dto.Reports;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

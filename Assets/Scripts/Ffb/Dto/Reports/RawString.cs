@@ -1,4 +1,4 @@
-﻿namespace Fumbbl.Dto.Reports
+﻿namespace Fumbbl.Ffb.Dto.Reports
 {
     public class RawString : Report
     {

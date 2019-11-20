@@ -1,6 +1,4 @@
-﻿using Fumbbl.Dto.Reports;
-
-namespace Fumbbl.Dto.ModelChanges
+﻿namespace Fumbbl.Ffb.Dto.ModelChanges
 {
     class ActingPlayerSetPlayerId : ModelChange
     {

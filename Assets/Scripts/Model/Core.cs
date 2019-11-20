@@ -1,5 +1,4 @@
-﻿using Fumbbl.Dto;
-using System;
+﻿using System;
 
 namespace Fumbbl.Model
 {
@@ -21,7 +20,7 @@ namespace Fumbbl.Model
             return playerId;
         }
 
-        internal void ApplyChange(Dto.ModelChange change)
+        internal void ApplyChange(Ffb.Dto.ModelChange change)
         {
             //IModelUpdater updater = ModelChangeFactory.Create(change);
             ModelUpdater updater = ModelChangeFactory.GetReflectedInstance(change.GetType());

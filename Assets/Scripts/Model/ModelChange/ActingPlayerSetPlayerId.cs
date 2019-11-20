@@ -1,15 +1,14 @@
-﻿using Fumbbl.Dto;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fumbbl.Model.ModelChange
 {
     public class ActingPlayerSetPlayerId : ModelUpdater
     {
-        public ActingPlayerSetPlayerId() : base(typeof(Dto.ModelChanges.ActingPlayerSetPlayerId)) { }
+        public ActingPlayerSetPlayerId() : base(typeof(Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId)) { }
 
-        public override void Apply(Dto.ModelChange modelChange)
+        public override void Apply(Ffb.Dto.ModelChange modelChange)
         {
-            var change = (Dto.ModelChanges.ActingPlayerSetPlayerId)modelChange;
+            var change = (Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId)modelChange;
 
             FFB.Instance.Model.ActingPlayer.PlayerId = change.modelChangeValue;
             Debug.Log($"Setting Acting Player to {change.modelChangeValue}");

@@ -1,6 +1,4 @@
-﻿using Fumbbl.UI;
-
-namespace Fumbbl.Dto
+﻿namespace Fumbbl.Ffb.Dto
 {
     public abstract class ModelChange : ReflectedGenerator<string>
     {

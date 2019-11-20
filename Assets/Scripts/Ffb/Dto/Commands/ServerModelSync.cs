@@ -1,4 +1,4 @@
-﻿namespace Fumbbl.Dto.Commands
+﻿namespace Fumbbl.Ffb.Dto.Commands
 {
     public class ServerModelSync : ICommand
     {

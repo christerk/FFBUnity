@@ -1,4 +1,4 @@
-﻿using Fumbbl.Dto;
+﻿using Fumbbl.Ffb.Dto;
 using System;
 
 namespace Fumbbl.UI

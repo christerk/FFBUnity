@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Fumbbl.Dto.Reports
+namespace Fumbbl.Ffb.Dto.Reports
 {
     public abstract class SkillRoll : Report
     {

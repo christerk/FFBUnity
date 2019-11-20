@@ -1,11 +1,11 @@
-﻿using Fumbbl.Dto;
+﻿using Fumbbl.Ffb.Dto;
 using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
 {
     public class PlayerAction : LogTextGenerator
     {
-        public PlayerAction() : base(typeof(Dto.Reports.PlayerAction)) { }
+        public PlayerAction() : base(typeof(Ffb.Dto.Reports.PlayerAction)) { }
 
         private static readonly Dictionary<string, string> ActionStrings = new Dictionary<string, string>()
         {
@@ -23,7 +23,7 @@ namespace Fumbbl.UI.LogText
 
         public override string Convert(Report report)
         {
-            Dto.Reports.PlayerAction action = (Dto.Reports.PlayerAction)report;
+            Ffb.Dto.Reports.PlayerAction action = (Ffb.Dto.Reports.PlayerAction)report;
 
             if (ActionStrings.ContainsKey(action.playerAction))
             {

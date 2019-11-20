@@ -1,6 +1,4 @@
-﻿using Fumbbl.Dto;
-using Fumbbl.UI;
-using System;
+﻿using System;
 
 namespace Fumbbl.Model
 {
@@ -8,6 +6,6 @@ namespace Fumbbl.Model
     {
         public ModelUpdater(Type t) : base(t) { }
 
-        public abstract void Apply(Dto.ModelChange modelChange);
+        public abstract void Apply(Ffb.Dto.ModelChange modelChange);
     }
 }

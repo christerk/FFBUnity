@@ -1,8 +1,7 @@
-﻿using Fumbbl.Dto;
-using Fumbbl.Ffb;
+﻿using Fumbbl.Ffb;
+using Fumbbl.Ffb.Dto;
 using Fumbbl.Model;
 using System.Collections.Generic;
-using UnityEngine;
 namespace Fumbbl
 {
     public class FFB

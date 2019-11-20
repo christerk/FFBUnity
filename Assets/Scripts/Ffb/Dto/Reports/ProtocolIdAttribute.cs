@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fumbbl.Dto.Reports
+namespace Fumbbl.Ffb.Dto.Reports
 {
     internal class ProtocolIdAttribute : Attribute
     {
