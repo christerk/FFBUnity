@@ -73,8 +73,11 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {
-            string text = LogTextFactory.GetReflectedInstance(report.GetType()).Convert(report);
-            AddText(text);
+            string text = LogTextFactory.GetReflectedInstance(report.GetType())?.Convert(report);
+            if (text != null)
+            {
+                AddText(text);
+            }
         }
     }
 

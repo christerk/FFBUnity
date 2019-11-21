@@ -90,11 +90,6 @@ namespace Fumbbl
             CoachName = coachName;
         }
 
-        internal object GetPlayerName(string actingPlayerId)
-        {
-            return actingPlayerId;
-        }
-
         internal void RefreshState()
         {
             TriggerLogRefresh();

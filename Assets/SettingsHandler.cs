@@ -11,7 +11,7 @@ public class SettingsHandler : MonoBehaviour
     public TMP_InputField clientId;
     public TMP_InputField clientSecret;
 
-    private Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
+    private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
 
     void Start()
     {
@@ -98,7 +98,6 @@ public class SettingsHandler : MonoBehaviour
 
             string selectedResolution = resolutions.options[resolutions.value].text;
             Debug.Log($"Current Resoltion {selectedResolution}");
-            int n = Screen.resolutions.Length - 1;
             Resolution r = RDict[selectedResolution][0];
             Screen.SetResolution(r.width, r.height, fullscreenToggle.isOn, r.refreshRate);
         }

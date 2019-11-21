@@ -10,8 +10,8 @@ namespace Fumbbl.UI.LogText
         public override string Convert(Report report)
         {
             Ffb.Dto.Reports.Block block = (Ffb.Dto.Reports.Block)report;
-            string attacker = FFB.Instance.Model.GetPlayerName(FFB.Instance.Model.ActingPlayer?.PlayerId);
-            string defender = FFB.Instance.Model.GetPlayerName(block.defenderId);
+            string attacker = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer?.PlayerId).FormattedName;
+            string defender = FFB.Instance.Model.GetPlayer(block.defenderId).FormattedName;
 
             ActingPlayer.ActionType action = FFB.Instance.Model.ActingPlayer.CurrentAction;
 

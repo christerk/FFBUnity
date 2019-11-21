@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Model;
 
 namespace Fumbbl.Model
 {
@@ -15,16 +16,21 @@ namespace Fumbbl.Model
             ActingPlayer = new ActingPlayer();
         }
 
-        internal string GetPlayerName(string playerId)
-        {
-            return playerId;
-        }
-
         internal void ApplyChange(Ffb.Dto.ModelChange change)
         {
             //IModelUpdater updater = ModelChangeFactory.Create(change);
             ModelUpdater updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
             updater?.Apply(change);
+        }
+
+        internal Player GetPlayer(string playerId)
+        {
+            return new Player()
+            {
+                Id = playerId,
+                Name = playerId,
+                Gender = Gender.Male
+            };
         }
     }
 }

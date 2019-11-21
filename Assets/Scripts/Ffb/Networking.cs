@@ -11,8 +11,6 @@ namespace Fumbbl.Ffb
 {
     public class Networking
     {
-        static readonly UTF8Encoding encoder = new UTF8Encoding();
-        private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(30000);
         private IWebsocket socket;
         private string apiToken;
         private Protocol Protocol;
@@ -66,20 +64,20 @@ namespace Fumbbl.Ffb
         {
             string message = Protocol.Decompress(data);
             Debug.Log($"Received {message}");
-            dynamic obj = JObject.Parse(message);
-            if (string.Equals(obj.netCommandId.ToString(), "serverVersion"))
+            JObject obj = JObject.Parse(message);
+            if (string.Equals(obj["netCommandId"].ToString(), "serverVersion"))
             {
-                Spectate(apiToken, 1199709);
+                Spectate(apiToken, 1200532);
             }
-            if (string.Equals(obj.netCommandId.ToString(), "serverTalk"))
+            if (string.Equals(obj["netCommandId"].ToString(), "serverTalk"))
             {
-                FFB.Instance.AddChatEntry(obj.coach.ToString(), obj.talks[0].ToString());
+                FFB.Instance.AddChatEntry(obj["coach"].ToString(), obj["talks"][0].ToString());
             }
-            if (obj?.modelChangeList?.modelChangeArray != null)
+            if (obj?["modelChangeList"]?["modelChangeArray"] != null)
             {
-                foreach (var x in obj.modelChangeList.modelChangeArray)
+                foreach (var x in obj["modelChangeList"]["modelChangeArray"])
                 {
-                    ModelChange change = ModelChangeFactory.DeserializeJson(x, x?.modelChangeId?.ToString());
+                    ModelChange change = ModelChangeFactory.DeserializeJson(x, x?["modelChangeId"]?.ToString());
 
                     if (change != null)
                     {
@@ -87,11 +85,11 @@ namespace Fumbbl.Ffb
                     }
                 }
             }
-            if (obj?.reportList?.reports != null)
+            if (obj?["reportList"]?["reports"] != null)
             {
-                foreach (var x in obj.reportList.reports)
+                foreach (var x in obj["reportList"]["reports"])
                 {
-                    Report report = ReportFactory.DeserializeJson(x, x?.reportId?.ToString());
+                    Report report = ReportFactory.DeserializeJson(x, x?["reportId"]?.ToString());
                     if (report != null)
                     {
                         FFB.Instance.AddReport(report);

@@ -27,7 +27,7 @@ namespace Fumbbl.UI.LogText
 
             if (ActionStrings.ContainsKey(action.playerAction))
             {
-                return $"{ FFB.Instance.GetPlayerName(action.actingPlayerId) } { ActionStrings[action.playerAction] }.";
+                return $"{ FFB.Instance.Model.GetPlayer(action.actingPlayerId).FormattedName } { ActionStrings[action.playerAction] }.";
             }
             return null;
 
