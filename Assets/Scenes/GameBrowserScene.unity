@@ -262,6 +262,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6473081964819358155, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9f4a263523291a4686711e9bf653c28, type: 3}
 --- !u!1 &526710620
@@ -386,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pane: {fileID: 976340118}
-  button: {fileID: 7600076447570973957, guid: d5b7e7c7256617c5ca54f12111f165c1, type: 3}
+  button: {fileID: 6321061094231735230, guid: 719c94683963159c18ec7e563c1b4bc4, type: 3}
 --- !u!4 &1205606447
 Transform:
   m_ObjectHideFlags: 0

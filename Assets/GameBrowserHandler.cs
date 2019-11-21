@@ -12,19 +12,11 @@ public class GameBrowserHandler : MonoBehaviour
     public GameObject pane;
     public GameObject button;
 
- 
-    // Start is called before the first frame update
     void Start()
     {
        Debug.Log("Initialise Game Browser");
        api = new FumbblApi();
        RefreshMatches();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void RefreshMatches()
@@ -35,6 +27,7 @@ public class GameBrowserHandler : MonoBehaviour
           Debug.Log(match.id); 
           GameObject newButton = Instantiate(button) as GameObject;
           newButton.transform.SetParent(pane.transform, false);
+          newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(match);
        }
     }
 }
