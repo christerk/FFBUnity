@@ -58,7 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Packages/
+Packages/*
+!Packages/manifest.json
 
 # Vim tags file
 tags
