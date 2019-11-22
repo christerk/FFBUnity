@@ -7,13 +7,6 @@ public class InputHandler : MonoBehaviour
     public float mouseSensitivity = 1.0f;
     private Vector3 lastPosition;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Home))

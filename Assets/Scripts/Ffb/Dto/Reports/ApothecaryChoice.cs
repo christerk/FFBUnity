@@ -1,8 +1,9 @@
-﻿namespace Fumbbl.Dto.Reports
+﻿namespace Fumbbl.Ffb.Dto.Reports
 {
-    [ProtocolId("apothecaryChoicex")]
-    public class ApothecaryChoice : IReport
+    public class ApothecaryChoice : Report
     {
+        public ApothecaryChoice() : base("apothecaryChoice") { }
+
         public string reportId;
         public string playerId;
         public string playerState;

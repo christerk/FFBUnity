@@ -1,11 +1,12 @@
-﻿using Fumbbl.Dto.Reports;
-
-namespace Fumbbl.Dto.ModelChanges
+﻿namespace Fumbbl.Ffb.Dto.ModelChanges
 {
-    [ProtocolId("actingPlayerSetPlayerId")]
-    class ActingPlayerSetPlayerId : IModelChange
+    class ActingPlayerSetPlayerId : ModelChange
     {
         public string modelChangeId;
         public string modelChangeValue;
+
+        public ActingPlayerSetPlayerId() : base("actingPlayerSetPlayerId")
+        {
+        }
     }
 }

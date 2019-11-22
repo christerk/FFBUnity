@@ -6,14 +6,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Fumbbl
+namespace Fumbbl.Ffb
 {
     class Websocket : IWebsocket
     {
         private const int receiveChunkSize = 100;
-        private Action<string> ReceiveAction;
-        private ClientWebSocket Socket;
-        private CancellationTokenSource CancellationSource;
+        private readonly Action<string> ReceiveAction;
+        private readonly ClientWebSocket Socket;
+        private readonly CancellationTokenSource CancellationSource;
         private CancellationToken CancellationToken;
 
         public Websocket(Action<string> receiveDelegate)
@@ -112,17 +112,9 @@ namespace Fumbbl
             Debug.Log("Websocket Receive terminated");
         }
 
-        private static string ByteArrayToString(byte[] ba, int offset, int length)
-        {
-            return BitConverter.ToString(ba, offset, length).Replace("-", "");
-        }
-
         private void ReceiveData(string data)
         {
-            if (this.ReceiveAction != null)
-            {
-                this.ReceiveAction(data);
-            }
+            ReceiveAction?.Invoke(data);
         }
 
         public async Task Start()

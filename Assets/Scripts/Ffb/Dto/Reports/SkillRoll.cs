@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Fumbbl.Dto.Reports
+namespace Fumbbl.Ffb.Dto.Reports
 {
-    public abstract class SkillRoll : IReport
+    public abstract class SkillRoll : Report
     {
+        public SkillRoll(string key) : base(key) { }
+
         public string reportId;
         public string playerId;
         public bool successful;

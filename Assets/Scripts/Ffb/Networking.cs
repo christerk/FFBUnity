@@ -1,5 +1,5 @@
-﻿using Fumbbl.Dto;
-using Fumbbl.Dto.Reports;
+﻿using Fumbbl.Ffb.Dto;
+using Fumbbl.Ffb.Dto.Reports;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,23 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Fumbbl
+namespace Fumbbl.Ffb
 {
     public class Networking
     {
-        static UTF8Encoding encoder = new UTF8Encoding();
-        private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(30000);
         private IWebsocket socket;
         private string apiToken;
         private Protocol Protocol;
 
-        private readonly ReflectedFactory<IReport, string> ReportFactory;
-        private readonly ReflectedFactory<IModelChange, string> ModelChangeFactory;
+        private readonly ReflectedFactory<Report, string> ReportFactory;
+        private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
 
         public Networking()
         {
-            ReportFactory = new ReflectedFactory<IReport, string>(typeof(ProtocolIdAttribute));
-            ModelChangeFactory = new ReflectedFactory<IModelChange, string>(typeof(ProtocolIdAttribute));
+            ReportFactory = new ReflectedFactory<Report, string>();
+            ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
         }
 
         // Start is called before the first frame update
@@ -32,7 +30,7 @@ namespace Fumbbl
             Protocol = new Protocol(true);
             Debug.Log("Starting Networking");
 
-            socket = new Fumbbl.Websocket(Receive);
+            socket = new Websocket(Receive);
 
             FumbblApi api = new FumbblApi();
             api.Auth();
@@ -66,20 +64,20 @@ namespace Fumbbl
         {
             string message = Protocol.Decompress(data);
             Debug.Log($"Received {message}");
-            dynamic obj = JObject.Parse(message);
-            if (string.Equals(obj.netCommandId.ToString(), "serverVersion"))
+            JObject obj = JObject.Parse(message);
+            if (string.Equals(obj["netCommandId"].ToString(), "serverVersion"))
             {
-                Spectate(apiToken, 1199709);
+                Spectate(apiToken, 1200532);
             }
-            if (string.Equals(obj.netCommandId.ToString(), "serverTalk"))
+            if (string.Equals(obj["netCommandId"].ToString(), "serverTalk"))
             {
-                FFB.Instance.AddChatEntry(obj.coach.ToString(), obj.talks[0].ToString());
+                FFB.Instance.AddChatEntry(obj["coach"].ToString(), obj["talks"][0].ToString());
             }
-            if (obj?.modelChangeList?.modelChangeArray != null)
+            if (obj?["modelChangeList"]?["modelChangeArray"] != null)
             {
-                foreach (var x in obj.modelChangeList.modelChangeArray)
+                foreach (var x in obj["modelChangeList"]["modelChangeArray"])
                 {
-                    IModelChange change = ModelChangeFactory.DeserializeJson(x, x?.modelChangeId?.ToString());
+                    ModelChange change = ModelChangeFactory.DeserializeJson(x, x?["modelChangeId"]?.ToString());
 
                     if (change != null)
                     {
@@ -87,11 +85,11 @@ namespace Fumbbl
                     }
                 }
             }
-            if (obj?.reportList?.reports != null)
+            if (obj?["reportList"]?["reports"] != null)
             {
-                foreach (var x in obj.reportList.reports)
+                foreach (var x in obj["reportList"]["reports"])
                 {
-                    IReport report = ReportFactory.DeserializeJson(x, x?.reportId?.ToString());
+                    Report report = ReportFactory.DeserializeJson(x, x?["reportId"]?.ToString());
                     if (report != null)
                     {
                         FFB.Instance.AddReport(report);

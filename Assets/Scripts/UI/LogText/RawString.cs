@@ -1,13 +1,14 @@
-﻿using Fumbbl.Dto;
+﻿using Fumbbl.Ffb.Dto;
 
 namespace Fumbbl.UI.LogText
 {
-    [ReportType(typeof(Dto.Reports.RawString))]
-    public class RawString : ILogTextGenerator
+    public class RawString : LogTextGenerator
     {
-        public string Convert(IReport report)
+        public RawString() : base(typeof(Ffb.Dto.Reports.RawString)) { }
+
+        public override string Convert(Report report)
         {
-            return ((Dto.Reports.RawString)report).text;
+            return ((Ffb.Dto.Reports.RawString)report).text;
         }
     }
 }

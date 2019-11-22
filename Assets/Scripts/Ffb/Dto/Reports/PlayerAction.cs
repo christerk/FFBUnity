@@ -1,8 +1,9 @@
-﻿namespace Fumbbl.Dto.Reports
+﻿namespace Fumbbl.Ffb.Dto.Reports
 {
-    [ProtocolId("playerAction")]
-    public class PlayerAction : IReport
+    public class PlayerAction : Report
     {
+        public PlayerAction() : base("playerAction") { }
+
         public string reportId;
         public string actingPlayerId;
         public string playerAction;

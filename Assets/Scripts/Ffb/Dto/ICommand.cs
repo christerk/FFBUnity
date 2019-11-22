@@ -1,4 +1,4 @@
-﻿namespace Fumbbl.Dto
+﻿namespace Fumbbl.Ffb.Dto
 {
     interface ICommand
     {
