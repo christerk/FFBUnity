@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Api.Dto;
+using ApiDto = Fumbbl.Api.Dto;
 
 public class GameBrowserHandler : MonoBehaviour
 {
 
     private FumbblApi api;
-    private List<Api.Dto.Match.Current> currentMatches;
+    private List<ApiDto.Match.Current> currentMatches;
   
     public GameObject pane;
     public GameObject button;
@@ -22,7 +22,7 @@ public class GameBrowserHandler : MonoBehaviour
     void RefreshMatches()
     {
        currentMatches = api.GetCurrentMatches();
-       foreach(Api.Dto.Match.Current match in currentMatches)
+       foreach(ApiDto.Match.Current match in currentMatches)
        {
           GameObject newButton = Instantiate(button) as GameObject;
           newButton.transform.SetParent(pane.transform, false);

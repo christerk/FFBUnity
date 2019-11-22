@@ -1,4 +1,4 @@
-namespace Api.Dto.Coach
+namespace Fumbbl.Api.Dto.Coach
 {
     public class Get
     {

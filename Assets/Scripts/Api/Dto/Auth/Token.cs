@@ -1,4 +1,4 @@
-namespace Api.Dto.Auth
+namespace Fumbbl.Api.Dto.Auth
 {
     public class Token
     {

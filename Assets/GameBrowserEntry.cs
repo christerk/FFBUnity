@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
+using ApiDto = Fumbbl.Api.Dto;
+
 
 public class GameBrowserEntry : MonoBehaviour
 {
@@ -16,14 +18,14 @@ public class GameBrowserEntry : MonoBehaviour
     public Text team2Score;
     public Image progressBar;
 
-    private Api.Dto.Match.Current matchDetails;
+    private ApiDto.Match.Current matchDetails;
 
-    public void SetMatchDetails(Api.Dto.Match.Current details)
+    public void SetMatchDetails(ApiDto.Match.Current details)
     {
         if(details.teams.Count == 2)
         {
-            Api.Dto.Match.Team t1 = details.teams[0];
-            Api.Dto.Match.Team t2 = details.teams[1];
+            ApiDto.Match.Team t1 = details.teams[0];
+            ApiDto.Match.Team t2 = details.teams[1];
             matchDetails = details;
             team1.text = t1.name;
             team2.text = t2.name;

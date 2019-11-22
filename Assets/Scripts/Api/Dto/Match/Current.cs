@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-namespace Api.Dto.Match
+namespace Fumbbl.Api.Dto.Match
 {
     public class Tournament
     {
