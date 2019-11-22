@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,12 +48,12 @@ namespace Fumbbl
             return null;
         }
 
-        internal T DeserializeJson(dynamic jsonObject, K key)
+        internal T DeserializeJson(JToken jsonObject, K key)
         {
             Type t = GetReflectedClass(key);
             if (t != null)
             {
-                T result = (T)JsonConvert.DeserializeObject(jsonObject.ToString(), t);
+                T result = (T) jsonObject.ToObject(t);
                 return result;
             }
             return null;
