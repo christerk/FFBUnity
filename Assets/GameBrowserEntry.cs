@@ -1,22 +1,66 @@
-﻿using System.Collections;
+﻿using Fumbbl;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
 
 public class GameBrowserEntry : MonoBehaviour
 {
-
-    public GameObject team1;
-    public GameObject team1Image;
-    public GameObject team2;
-    public GameObject team2Image;
+    public Text team1;
+    public Image team1Image;
+    public Text team1Score;
+    public Text team2;
+    public Image team2Image;
+    public Text team2Score;
+    public Image progressBar;
 
     private Api.Dto.Match.Current matchDetails;
 
     public void SetMatchDetails(Api.Dto.Match.Current details)
     {
-        matchDetails = details;
-        Text team1Name = team1.GetComponent<Text>();
-        team1Name.text = "test";
+        if(details.teams.Count == 2)
+        {
+            Api.Dto.Match.Team t1 = details.teams[0];
+            Api.Dto.Match.Team t2 = details.teams[1];
+            matchDetails = details;
+            team1.text = t1.name;
+            team2.text = t2.name;
+            team1Score.text = t1.score.ToString();
+            team2Score.text = t2.score.ToString();
+
+            float progress = (float)((((float)details.half -1) * 8) + (float)details.turn) / 16f;
+            progressBar.fillAmount = progress;
+            StartCoroutine(GetTexture(team1Image, t1.logo));
+            StartCoroutine(GetTexture(team2Image, t2.logo));
+        }
+        else
+        {
+            Debug.LogError("Invalid number of teams found when parsing match details");
+        }
+    }
+
+    public void OnClick()
+    {
+        Debug.Log("clicked game: " + matchDetails.id);
+        FFB.Instance.GameId = matchDetails.id;
+        MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
+
+    }
+
+     IEnumerator GetTexture(Image target, string url) {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture("https://www.fumbbl.com/" + url);
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else 
+        {
+            Texture2D img = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            target.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
+
+        }
     }
 }

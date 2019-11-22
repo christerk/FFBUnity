@@ -24,7 +24,6 @@ public class GameBrowserHandler : MonoBehaviour
        currentMatches = api.GetCurrentMatches();
        foreach(Api.Dto.Match.Current match in currentMatches)
        {
-          Debug.Log(match.id); 
           GameObject newButton = Instantiate(button) as GameObject;
           newButton.transform.SetParent(pane.transform, false);
           newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(match);

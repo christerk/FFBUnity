@@ -190,22 +190,22 @@ PrefabInstance:
     - target: {fileID: 5636266687713046130, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 42.6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5636266687713046130, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 8.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5636266687713046130, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 481.2
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 5636266687713046130, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 528
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 5636266687713046130, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
@@ -240,7 +240,7 @@ PrefabInstance:
     - target: {fileID: 5636266687713046129, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_VerticalScrollbarVisibility
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5636266687713046142, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
@@ -265,6 +265,11 @@ PrefabInstance:
     - target: {fileID: 6473081964819358155, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_Padding.m_Top
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636266687713046128, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
