@@ -2,6 +2,8 @@
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Model;
 using System.Collections.Generic;
+using UnityEngine;
+
 namespace Fumbbl
 {
     public class FFB
@@ -50,6 +52,7 @@ namespace Fumbbl
         {
             if (!Initialized)
             {
+                Debug.Log("FFB Initialized");
                 Initialized = true;
                 await Network.Connect();
             }

@@ -44,7 +44,7 @@ public class TextPanelHandler : MonoBehaviour
 
     public static string SanitizeText(string text)
     {
-        return text.Replace("<", "<noparse><</noparse>");
+        return text?.Replace("<", "<noparse><</noparse>");
     }
 
     public void OnScroll(Vector2 pos)

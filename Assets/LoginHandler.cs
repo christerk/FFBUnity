@@ -23,7 +23,6 @@ public class LoginHandler : MonoBehaviour
         {
             LoginPanel.SetActive(false);
             ConnectingLabel.SetActive(true);
-
             authenticated = FFB.Instance.Authenticate(clientId, clientSecret);
 
             SceneManager.LoadScene(NextScene);

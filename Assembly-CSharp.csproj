@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\FFB.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\AbstractCommand.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientJoin.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ClientPing.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientRequestVersion.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerModelSync.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ICommand.cs" />

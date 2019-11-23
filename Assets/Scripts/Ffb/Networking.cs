@@ -14,6 +14,7 @@ namespace Fumbbl.Ffb
         private IWebsocket socket;
         private string apiToken;
         private Protocol Protocol;
+        private bool Running;
 
         private readonly ReflectedFactory<Report, string> ReportFactory;
         private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
@@ -22,6 +23,7 @@ namespace Fumbbl.Ffb
         {
             ReportFactory = new ReflectedFactory<Report, string>();
             ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
+            Running = true;
         }
 
         // Start is called before the first frame update
@@ -53,9 +55,19 @@ namespace Fumbbl.Ffb
 
             RequestVersion();
 
+            Task.Run(async () =>
+            {
+                while (Running)
+                {
+                    await Task.Delay(2000);
+                    SendPing();
+                }
+            });
+
             await socket.Start();
 
             Debug.Log("Networking ended");
+            Running = false;
         }
 
         private void Receive(string data)
@@ -65,7 +77,7 @@ namespace Fumbbl.Ffb
             JObject obj = JObject.Parse(message);
             if (string.Equals(obj["netCommandId"].ToString(), "serverVersion"))
             {
-                Spectate(apiToken, 1200702);
+                Spectate(apiToken, 1200817);
             }
             if (string.Equals(obj["netCommandId"].ToString(), "serverTalk"))
             {
@@ -102,6 +114,7 @@ namespace Fumbbl.Ffb
 
         public void Disconnect()
         {
+            Running = false;
             Debug.Log("Destroying Networking");
             socket.Stop();
         }
@@ -123,6 +136,15 @@ namespace Fumbbl.Ffb
                 gameName = "",
                 teamId = "",
                 teamName = "",
+            };
+            await Send(command);
+        }
+
+        private async void SendPing()
+        {
+            var command = new ClientPing()
+            {
+                timestamp = DateTime.Now.Ticks / 1000
             };
             await Send(command);
         }
