@@ -48,54 +48,58 @@ public class FumbblApi
 
     private string Get(string component, string endpoint)
     {
-        WebClient client = new WebClient();
-        try
+        using (WebClient client = new WebClient())
         {
-            if (accessToken != null)
+            try
             {
-                client.Headers.Add("authorization", $"Bearer {accessToken}");
-            }
+                if (accessToken != null)
+                {
+                    client.Headers.Add("authorization", $"Bearer {accessToken}");
+                }
 
-            string result = client.DownloadString($"https://fumbbl.com/api/{component}/{endpoint}");
-            return result;
-        }
-        catch (Exception e)
-        {
-            Debug.Log($"Error during API access {e.Message}");
+                string result = client.DownloadString($"https://fumbbl.com/api/{component}/{endpoint}");
+                return result;
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Error during API access {e.Message}");
+            }
         }
         return null;
     }
 
     private string Post(string component, string endpoint, Dictionary<string, string> data = null)
     {
-        WebClient client = new WebClient();
-        try
+        using (WebClient client = new WebClient())
         {
-            if (accessToken != null)
+            try
             {
-                client.Headers.Add("authorization", $"Bearer {accessToken}");
-            }
-
-            NameValueCollection values = new NameValueCollection();
-            if (data != null)
-            {
-                foreach (var pair in data)
+                if (accessToken != null)
                 {
-                    values.Add(pair.Key, pair.Value);
+                    client.Headers.Add("authorization", $"Bearer {accessToken}");
                 }
+
+                NameValueCollection values = new NameValueCollection();
+                if (data != null)
+                {
+                    foreach (var pair in data)
+                    {
+                        values.Add(pair.Key, pair.Value);
+                    }
+                }
+
+                string url = $"https://fumbbl.com/api/{component}/{endpoint}";
+
+                Debug.Log(url);
+
+                byte[] result = client.UploadValues(url, "POST", values);
+
+                return UTF8Encoding.UTF8.GetString(result);
             }
-
-            string url = $"https://fumbbl.com/api/{component}/{endpoint}";
-
-            Debug.Log(url);
-
-            byte[] result = client.UploadValues(url, "POST", values);
-
-            return UTF8Encoding.UTF8.GetString(result);
-        }
-        catch (Exception e)
-        {
-            Debug.Log($"Error during API access {e.Message}");
+            catch (Exception e)
+            {
+                Debug.Log($"Error during API access {e.Message}");
+            }
         }
         return null;
     }
