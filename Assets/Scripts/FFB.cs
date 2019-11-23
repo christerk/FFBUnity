@@ -9,6 +9,7 @@ namespace Fumbbl
         public static FFB Instance = new FFB();
 
         private bool Initialized;
+        public FumbblApi Api;
         public Networking Network;
         private readonly List<Report> LogText;
         private readonly List<string> ChatText;
@@ -37,6 +38,12 @@ namespace Fumbbl
             ChatText = new List<string>();
             Network = new Networking();
             Model = new Core();
+            Api = new FumbblApi();
+        }
+
+        public bool Authenticate(string clientId, string clientSecret)
+        {
+            return Api.Auth(clientId, clientSecret);
         }
 
         public async void Initialize()

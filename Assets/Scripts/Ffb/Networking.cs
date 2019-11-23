@@ -32,9 +32,7 @@ namespace Fumbbl.Ffb
 
             socket = new Websocket(Receive);
 
-            FumbblApi api = new FumbblApi();
-            api.Auth();
-            apiToken = api.GetToken();
+            apiToken = FFB.Instance.Api.GetToken();
 
             try
             {
@@ -67,7 +65,7 @@ namespace Fumbbl.Ffb
             JObject obj = JObject.Parse(message);
             if (string.Equals(obj["netCommandId"].ToString(), "serverVersion"))
             {
-                Spectate(apiToken, 1200532);
+                Spectate(apiToken, 1200702);
             }
             if (string.Equals(obj["netCommandId"].ToString(), "serverTalk"))
             {

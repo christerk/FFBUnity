@@ -11,11 +11,8 @@ using UnityEngine;
 public class FumbblApi
 {
     private string accessToken;
-    public void Auth()
+    public bool Auth(string clientId, string clientSecret)
     {
-        string clientId = PlayerPrefs.GetString("OAuth.ClientId");
-        string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
-
         string result = Post("oauth", "token", new Dictionary<string, string>()
         {
             ["grant_type"] = "client_credentials",
@@ -23,16 +20,24 @@ public class FumbblApi
             ["client_secret"] = clientSecret
         });
 
-        dynamic obj = JObject.Parse(result);
-        accessToken = obj.access_token;
+        JObject obj = JObject.Parse(result);
+        accessToken = (string) obj["access_token"];
 
-        result = Get("oauth", "identity");
-        int coachId = int.Parse(result);
+        try
+        {
+            result = Get("oauth", "identity");
+            int coachId = int.Parse(result);
 
-        result = Get("coach", $"get/{coachId}");
-        obj = JObject.Parse(result);
-        string coachName = obj.name;
-        FFB.Instance.SetCoachName(coachName);
+            result = Get("coach", $"get/{coachId}");
+            obj = JObject.Parse(result);
+            string coachName = (string) obj["name"];
+            FFB.Instance.SetCoachName(coachName);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public string GetToken()
