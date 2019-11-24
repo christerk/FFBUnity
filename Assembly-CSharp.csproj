@@ -115,6 +115,14 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\RegenerationRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ReRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SkillRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TentaclesShadowingRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ThrowIn.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ThrowTeamMateRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TimeoutEnforced.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TurnEnd.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Weather.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\WinningsRole.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\WizardUse.cs" />
     <Compile Include="Assets\Scripts\Ffb\IWebsocket.cs" />
     <Compile Include="Assets\Scripts\Ffb\Networking.cs" />
     <Compile Include="Assets\Scripts\Ffb\Protocol.cs" />
