@@ -1,6 +1,7 @@
 ﻿using Fumbbl.Ffb;
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Model;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -104,6 +105,25 @@ namespace Fumbbl
         {
             TriggerLogRefresh();
             TriggerChatRefresh();
+        }
+
+        internal bool HandleNetCommand(NetCommand netCommand)
+        {
+            if (netCommand is Ffb.Dto.Commands.ServerVersion)
+            {
+                Network.Spectate(1201183);
+                return true;
+            }
+            if (netCommand is Ffb.Dto.Commands.ServerTalk)
+            {
+                var cmd = (Ffb.Dto.Commands.ServerTalk)netCommand;
+                foreach (var talk in cmd.talks)
+                {
+                    AddChatEntry(cmd.coach, talk);
+                }
+                return true;
+            }
+            return false;
         }
 
         internal void AddChatEntry(string coach, string text)

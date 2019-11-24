@@ -71,10 +71,15 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientJoin.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientPing.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientRequestVersion.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerGameTime.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerModelSync.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerPong.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerTalk.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerVersion.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ICommand.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChange.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\ActingPlayerSetPlayerId.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\NetCommand.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Report.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ApothecaryChoice.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Block.cs" />

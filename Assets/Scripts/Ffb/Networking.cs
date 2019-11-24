@@ -12,11 +12,12 @@ namespace Fumbbl.Ffb
     public class Networking
     {
         private IWebsocket socket;
-        private string apiToken;
+        private string ApiToken { get; set; }
         private Protocol Protocol;
 
         private readonly ReflectedFactory<Report, string> ReportFactory;
         private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
+        private readonly ReflectedFactory<NetCommand, string> NetCommandFactory;
 
         public bool IsConnected { get; private set; }
 
@@ -24,6 +25,7 @@ namespace Fumbbl.Ffb
         {
             ReportFactory = new ReflectedFactory<Report, string>();
             ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
+            NetCommandFactory = new ReflectedFactory<NetCommand, string>();
             IsConnected = true;
         }
 
@@ -35,7 +37,7 @@ namespace Fumbbl.Ffb
 
             socket = new Websocket(Receive);
 
-            apiToken = FFB.Instance.Api.GetToken();
+            ApiToken = FFB.Instance.Api.GetToken();
 
             try
             {
@@ -65,16 +67,18 @@ namespace Fumbbl.Ffb
         private void Receive(string data)
         {
             string message = Protocol.Decompress(data);
-            Debug.Log($"Received {message}");
             JObject obj = JObject.Parse(message);
-            if (string.Equals(obj["netCommandId"].ToString(), "serverVersion"))
+
+            NetCommand netCommand = NetCommandFactory.DeserializeJson(obj, obj?["netCommandId"]?.ToString());
+            if (netCommand != null)
             {
-                Spectate(apiToken, 1200817);
+                FFB.Instance.HandleNetCommand(netCommand);
             }
-            if (string.Equals(obj["netCommandId"].ToString(), "serverTalk"))
+            else
             {
-                FFB.Instance.AddChatEntry(obj["coach"].ToString(), obj["talks"][0].ToString());
+                Debug.Log($"Unhandled message: {message}");
             }
+
             if (obj?["modelChangeList"]?["modelChangeArray"] != null)
             {
                 foreach (var x in obj["modelChangeList"]["modelChangeArray"])
@@ -117,13 +121,13 @@ namespace Fumbbl.Ffb
             await Send(command);
         }
 
-        private async void Spectate(string token, int game)
+        public async void Spectate(int game)
         {
             var command = new ClientJoin()
             {
                 clientMode = "spectator",
                 coach = FFB.Instance.CoachName,
-                password = token,
+                password = ApiToken,
                 gameId = game,
                 gameName = "",
                 teamId = "",
@@ -136,7 +140,7 @@ namespace Fumbbl.Ffb
         {
             var command = new ClientPing()
             {
-                timestamp = DateTime.Now.Ticks / 1000
+                timestamp = DateTime.Now.Ticks
             };
             await Send(command);
         }
@@ -144,7 +148,6 @@ namespace Fumbbl.Ffb
         async Task Send(AbstractCommand command)
         {
             string serializedCommand = JsonConvert.SerializeObject(command);
-            Debug.Log($"Sending {serializedCommand}");
 
             string data = Protocol.Compress(serializedCommand);
 
