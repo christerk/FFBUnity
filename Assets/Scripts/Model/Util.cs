@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Model
+namespace Fumbbl.Model
 {
     public static class Util
     {

@@ -23,11 +23,11 @@ public class TextPanelHandler : MonoBehaviour
     private bool Dirty = false;
     private float contentHeight;
 
-    private ReflectedFactory<LogTextGenerator, Type> LogTextFactory;
+    private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
 
     private void Awake()
     {
-        LogTextFactory = new ReflectedFactory<LogTextGenerator, Type>();
+        LogTextFactory = new ReflectedFactory<LogTextGenerator<Report>, Type>();
     }
 
     void Start()
@@ -65,7 +65,7 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Chat)
         {
-            AddText(text);
+            AddText(text, 0);
         }
     }
 
@@ -73,21 +73,27 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {
-            string text = LogTextFactory.GetReflectedInstance(report.GetType())?.Convert(report);
-            if (text != null)
+            var logRecords = LogTextFactory.GetReflectedInstance(report.GetType())?.HandleReport(report);
+            if (logRecords != null)
             {
-                AddText(text);
+                foreach (var logRecord in logRecords)
+                {
+                    AddText(logRecord.Text, logRecord.Indent);
+                }
             }
         }
     }
 
-    private void AddText(string text)
+    private void AddText(string text, int indent)
     {
         float panelWidth = ContentRect.rect.width;
 
         if (text != null)
         {
             TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
+            var margin = obj.margin;
+            margin.x = indent * 10;
+            obj.margin = margin;
             obj.SetText(text);
             obj.transform.SetParent(Content.transform);
             float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;

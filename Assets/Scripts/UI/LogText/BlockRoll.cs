@@ -1,19 +1,15 @@
-﻿using Assets.Scripts.Model;
-using Fumbbl.Ffb.Dto;
+﻿using Fumbbl.Ffb.Dto;
 using Fumbbl.Model;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Fumbbl.UI.LogText
 {
-    public class BlockRoll : LogTextGenerator
+    public class BlockRoll : LogTextGenerator<Ffb.Dto.Reports.BlockRoll>
     {
-        public BlockRoll() : base(typeof(Fumbbl.Ffb.Dto.Reports.BlockRoll)) { }
-
-        public override string Convert(Report report)
+        public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.BlockRoll report)
         {
-            Ffb.Dto.Reports.BlockRoll blockRoll = (Ffb.Dto.Reports.BlockRoll)report;
-
-            return $"Block Roll [ { string.Join(" ] [ ", blockRoll.blockRoll.Select(r => Util.GetBlockDie(r).GetName())) } ]";
+            yield return new LogRecord($"Block Roll [ { string.Join(" ] [ ", report.blockRoll.Select(r => Util.GetBlockDie(r).GetName())) } ]");
         }
     }
 }
