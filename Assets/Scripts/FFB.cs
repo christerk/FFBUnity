@@ -111,7 +111,7 @@ namespace Fumbbl
         {
             if (netCommand is Ffb.Dto.Commands.ServerVersion)
             {
-                Network.Spectate(1201183);
+                Network.Spectate(1201202);
                 return true;
             }
             if (netCommand is Ffb.Dto.Commands.ServerTalk)
@@ -123,7 +123,16 @@ namespace Fumbbl
                 }
                 return true;
             }
+            if (netCommand is Ffb.Dto.Commands.ServerSound)
+            {
+                PlaySound(((Ffb.Dto.Commands.ServerSound)netCommand).sound);
+            }
             return false;
+        }
+
+        private void PlaySound(string sound)
+        {
+            Debug.Log($"Play Sound {sound}");
         }
 
         internal void AddChatEntry(string coach, string text)

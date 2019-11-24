@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerGameTime.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerModelSync.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerPong.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerSound.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerTalk.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerVersion.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ICommand.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Block.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\BlockChoice.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\BlockRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ConfusionRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ProtocolIdAttribute.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\RawString.cs" />
@@ -108,9 +110,11 @@
     <Compile Include="Assets\Scripts\Model\Util.cs" />
     <Compile Include="Assets\Scripts\ReflectedFactory.cs" />
     <Compile Include="Assets\Scripts\ReflectedGenerator.cs" />
+    <Compile Include="Assets\Scripts\UI\LogRecord.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Block.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\BlockChoice.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\BlockRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\ConfusionRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
@@ -131,6 +135,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\link.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
