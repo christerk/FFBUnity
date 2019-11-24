@@ -954,6 +954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoginPanel: {fileID: 590240403}
   ConnectingLabel: {fileID: 446264581}
+  NextScene: MainScene
 --- !u!4 &623190796
 Transform:
   m_ObjectHideFlags: 0
