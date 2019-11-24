@@ -4,7 +4,8 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public abstract class WizardUse : Report
   {
-    public WizardUse(string key) : base(key) { }
+    public WizardUse() : base("wizardUse") { }
+    public string reportId;
     public string teamId;
     public string specialEffect;
   }

@@ -5,12 +5,12 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public abstract class StandUpRoll : Report
   {
-    public StandUpRoll(string key) : base(key) { }
+    public StandUpRoll() : base("standUpRoll") { }
     public string reportId;
     public string playerId;
     public bool successful;
     public int roll;
     public int modifier;
-    public bool rerolled;
+    public bool reRolled;
   }
 }

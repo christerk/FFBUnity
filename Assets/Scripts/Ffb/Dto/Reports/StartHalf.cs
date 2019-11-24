@@ -5,7 +5,7 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public abstract class StartHalf : Report
   {
-    public StartHalf(string key) : base(key) { }
+    public StartHalf() : base("startHalf") { }
     public string reportId;
     public string half;
   }

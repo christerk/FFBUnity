@@ -5,7 +5,7 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public abstract class SwoopPlayer : Report
   {
-    public SwoopPlayer(string key) : base(key) { }
+    public SwoopPlayer() : base("swoopPlayer") { }
     public string reportId;
     public string startCoordinate;
     public string endCoordinate;

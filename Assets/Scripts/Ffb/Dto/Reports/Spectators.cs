@@ -5,7 +5,7 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public abstract class Spectators : Report
   {
-    public Spectators(string key) : base(key) { }
+    public Spectators() : base("spectators") { }
     public int[] spectatorRollHome;
     public int spectatorsHome;
     public int fameHome;

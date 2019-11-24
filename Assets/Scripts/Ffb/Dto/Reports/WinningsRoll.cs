@@ -4,7 +4,8 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public abstract class WinningsRoll : Report
   {
-    public WinningsRoll(string key) : base(key) { }
+    public WinningsRoll() : base("winningsRoll") { }
+    public string reportId;
     public int winningsRollHome;
     public int winningsHome;
     public int winningsRollAway;

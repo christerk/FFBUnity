@@ -5,7 +5,7 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public abstract class Weather : Report
   {
-    public Weather(string key) : base(key) { }
+    public Weather() : base("weather") { }
     public string reportId;
     public string weather;
     public int[] weatherRoll;
