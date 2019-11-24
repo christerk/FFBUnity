@@ -115,6 +115,12 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\RegenerationRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ReRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SkillRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SkillUse.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SpecialEffectRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Spectators.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\StandUpRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\StartHalf.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SwoopPlayer.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TentaclesShadowingRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ThrowIn.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ThrowTeamMateRoll.cs" />
