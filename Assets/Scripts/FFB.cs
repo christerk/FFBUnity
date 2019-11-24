@@ -111,7 +111,7 @@ namespace Fumbbl
         {
             if (netCommand is Ffb.Dto.Commands.ServerVersion)
             {
-                Network.Spectate(1201202);
+                Network.Spectate(1201387);
                 return true;
             }
             if (netCommand is Ffb.Dto.Commands.ServerTalk)

@@ -7,7 +7,7 @@
         public string reportId;
         public string playerId;
         public int[] casualtyRoll;
-        public string playerState;
+        public int? playerState;
         public string seriousInjury;
     }
 }

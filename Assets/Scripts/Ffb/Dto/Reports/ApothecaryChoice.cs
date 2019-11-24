@@ -6,7 +6,7 @@
 
         public string reportId;
         public string playerId;
-        public string playerState;
+        public int? playerState;
         public string seriousInjury;
     }
 }

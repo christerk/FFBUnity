@@ -126,6 +126,7 @@
     <Compile Include="Assets\Scripts\Model\Core.cs" />
     <Compile Include="Assets\Scripts\Model\DataTypes.cs" />
     <Compile Include="Assets\Scripts\Model\Gender.cs" />
+    <Compile Include="Assets\Scripts\Model\Injury.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Model\ModelUpdater.cs" />
     <Compile Include="Assets\Scripts\Model\Player.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Assets\Scripts\ReflectedFactory.cs" />
     <Compile Include="Assets\Scripts\ReflectedGenerator.cs" />
     <Compile Include="Assets\Scripts\UI\LogRecord.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\ApothecaryRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Block.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\BlockChoice.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\BlockRoll.cs" />

@@ -73,13 +73,16 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {
-            var logRecords = LogTextFactory.GetReflectedInstance(report.GetType())?.HandleReport(report);
-            if (logRecords != null)
+            var handler = LogTextFactory.GetReflectedInstance(report.GetType());
+            if (handler != null)
             {
-                foreach (var logRecord in logRecords)
+                foreach (var logRecord in handler.HandleReport(report))
                 {
                     AddText(logRecord.Text, logRecord.Indent);
                 }
+            } else
+            {
+                AddText($"Unhandled report {report.GetType().Name}", 0);
             }
         }
     }
