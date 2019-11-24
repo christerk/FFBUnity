@@ -115,6 +115,20 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\RegenerationRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ReRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SkillRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SkillUse.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SpecialEffectRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Spectators.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\StandUpRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\StartHalf.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\SwoopPlayer.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TentaclesShadowingRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ThrowIn.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ThrowTeamMateRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TimeoutEnforced.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TurnEnd.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Weather.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\WinningsRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\WizardUse.cs" />
     <Compile Include="Assets\Scripts\Ffb\IWebsocket.cs" />
     <Compile Include="Assets\Scripts\Ffb\Networking.cs" />
     <Compile Include="Assets\Scripts\Ffb\Protocol.cs" />
@@ -145,6 +159,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ReRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
+    <Compile Include="Assets\Scripts\UI\MenuButton.cs" />
     <Compile Include="Assets\SettingsHandler.cs" />
     <Compile Include="Assets\TextPanelHandler.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -157,6 +172,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\link.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
