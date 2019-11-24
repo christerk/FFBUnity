@@ -159,7 +159,6 @@
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ReRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
-    <Compile Include="Assets\Scripts\UI\MenuButton.cs" />
     <Compile Include="Assets\SettingsHandler.cs" />
     <Compile Include="Assets\TextPanelHandler.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -172,7 +171,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\link.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -406,12 +404,6 @@
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Assets/Plugins/System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="Websocket.Client">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Assets/Plugins/Websocket.Client.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/PackageCache/jillejr.newtonsoft.json-for-unity@12.0.1-patch-001/Plugins/Newtonsoft.Json Editor/Newtonsoft.Json.dll</HintPath>
