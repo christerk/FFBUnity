@@ -127,7 +127,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TimeoutEnforced.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\TurnEnd.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Weather.cs" />
-    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\WinningsRole.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\WinningsRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\WizardUse.cs" />
     <Compile Include="Assets\Scripts\Ffb\IWebsocket.cs" />
     <Compile Include="Assets\Scripts\Ffb\Networking.cs" />
