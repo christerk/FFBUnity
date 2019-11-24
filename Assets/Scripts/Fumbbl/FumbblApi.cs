@@ -68,6 +68,25 @@ public class FumbblApi
         return null;
     }
 
+    internal bool Login(string uid, string pwd)
+    {
+        string result = Post("oauth", "createApplication", new Dictionary<string, string>()
+        {
+            ["c"] = uid,
+            ["p"] = pwd
+        });
+
+        JObject obj = JObject.Parse(result);
+        if (obj["client_id"] != null && obj["client_secret"] != null)
+        {
+            PlayerPrefs.SetString("OAuth.ClientId", obj["client_id"].ToString());
+            PlayerPrefs.SetString("OAuth.ClientSecret", obj["client_secret"].ToString());
+            return true;
+        }
+
+        return false;
+    }
+
     private string Post(string component, string endpoint, Dictionary<string, string> data = null)
     {
         using (WebClient client = new WebClient())
@@ -88,7 +107,7 @@ public class FumbblApi
                     }
                 }
 
-                string url = $"https://fumbbl.com/api/{component}/{endpoint}";
+                string url = $"http://dev.fumbbl.com/api/{component}/{endpoint}";
 
                 Debug.Log(url);
 
