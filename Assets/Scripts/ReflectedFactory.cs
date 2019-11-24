@@ -39,16 +39,18 @@ namespace Fumbbl
             foreach (var generator in generators)
             {
                 object o = Activator.CreateInstance(generator);
-                MethodInfo method = o.GetType().GetMethod("GetReflectedKey");
-                object result = method.Invoke(o, new object[] { });
 
                 T instance;
                 K key;
 
-                method = o.GetType().GetMethod("AsGenericGenerator");
-                if (method != null)
+                MethodInfo generatorMethod = o.GetType().GetMethod("AsGenericGenerator");
+                if (generatorMethod != null)
                 {
-                    instance = (T) method.Invoke(o, new object[] { });
+                    instance = (T)generatorMethod.Invoke(o, new object[] { });
+
+                    MethodInfo rKey = o.GetType().GetMethod("GetReflectedKey");
+                    object result = rKey.Invoke(o, new object[] { });
+
                     key = (K)result;
                 }
                 else

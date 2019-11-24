@@ -93,6 +93,7 @@ public class TextPanelHandler : MonoBehaviour
             TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
             var margin = obj.margin;
             margin.x = indent * 10;
+            obj.margin = margin;
             obj.SetText(text);
             obj.transform.SetParent(Content.transform);
             float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;

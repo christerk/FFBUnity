@@ -1,5 +1,4 @@
 ﻿using System;
-using Assets.Scripts.Model;
 
 namespace Fumbbl.Model
 {

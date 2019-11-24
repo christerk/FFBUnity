@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Model;
-using Fumbbl.Ffb.Dto;
+﻿using Fumbbl.Ffb.Dto;
 using Fumbbl.Model;
 using System.Collections.Generic;
 using System.Linq;

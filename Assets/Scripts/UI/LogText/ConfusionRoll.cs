@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Model;
-using Fumbbl.Ffb.Dto;
+﻿using Fumbbl.Ffb.Dto;
 using Fumbbl.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,21 +15,21 @@ namespace Fumbbl.UI.LogText
 
             if (report.successful)
             {
-                yield return new LogRecord($"{player.FormattedName} is able to act normally.");
+                yield return new LogRecord($"{player.FormattedName} is able to act normally.", 1);
             }
             else
             {
                 if (report.confusionSkill == "Wild Animal")
                 {
-                    yield return new LogRecord($"{player.FormattedName} roars in rage.");
+                    yield return new LogRecord($"{player.FormattedName} roars in rage.", 1);
                 }
                 else if (report.confusionSkill == "Take Root")
                 {
-                    yield return new LogRecord($"{player.FormattedName} takes root.");
+                    yield return new LogRecord($"{player.FormattedName} takes root.", 1);
                 }
                 else
                 {
-                    yield return new LogRecord($"{player.FormattedName} is confused.");
+                    yield return new LogRecord($"{player.FormattedName} is confused.", 1);
                 }
             }
 

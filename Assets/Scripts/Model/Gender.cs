@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Model
+namespace Fumbbl.Model
 {
     public class Gender
     {
-        public string Genetive;
+        public string Genetive { get; private set; }
+        public string Dative { get; private set; }
 
         public static Gender Male = new Gender()
         {
-            Genetive = "his"
+            Genetive = "his",
+            Dative = "him",
         };
+
     }
 }
