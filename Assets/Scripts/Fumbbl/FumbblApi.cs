@@ -107,7 +107,7 @@ public class FumbblApi
                     }
                 }
 
-                string url = $"http://dev.fumbbl.com/api/{component}/{endpoint}";
+                string url = $"https://fumbbl.com/api/{component}/{endpoint}";
 
                 Debug.Log(url);
 
