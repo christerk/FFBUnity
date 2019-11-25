@@ -90,6 +90,7 @@ public class SettingsHandler : MonoBehaviour
 
     public void Quit()
     {
+        FFB.Instance.Stop();
         MainHandler.Instance.QuitGame();
     }
 
@@ -112,6 +113,7 @@ public class SettingsHandler : MonoBehaviour
 
     public void Logout()
     {
+        FFB.Instance.Stop();
         PlayerPrefs.DeleteKey("OAuth.ClientId");
         PlayerPrefs.DeleteKey("OAuth.ClientSecret");
         MainHandler.Instance.SetScene(MainHandler.SceneType.LoginScene);

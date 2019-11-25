@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\ConfusionRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\DauntlessRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\DefectingPlayers.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\DodgeRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\DoubleHiredStarPlayer.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\FanFactorRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Foul.cs" />
