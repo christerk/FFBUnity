@@ -29,6 +29,11 @@ public class InputHandler : MonoBehaviour
         {
             SwitchToSettingsScene();
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            MainHandler.Instance.SetScene(MainHandler.SceneType.GameBrowserScene);
+        }
     }
 
     public void SwitchToSettingsScene()
