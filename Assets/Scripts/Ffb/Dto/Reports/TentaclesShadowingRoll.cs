@@ -5,7 +5,7 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
   public class TentaclesShadowingRoll : Report
   {
-    public TentaclesShadowingRoll(string key) : base("tentaclesShadowingRoll") { }
+    public TentaclesShadowingRoll() : base("tentaclesShadowingRoll") { }
     public string reportId;
     public string skill;
     public string defenderId;
