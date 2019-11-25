@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{94DA02D0-D149-D651-8254-897F42718523}</ProjectGuid>
+    <ProjectGuid>{E1668AE0-8598-5F24-5625-D926BFFB68C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -64,8 +64,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ChatInputHandler.cs" />
+    <Compile Include="Assets\GameBrowserEntry.cs" />
+    <Compile Include="Assets\GameBrowserHandler.cs" />
     <Compile Include="Assets\InputHandler.cs" />
     <Compile Include="Assets\LoginHandler.cs" />
+    <Compile Include="Assets\Scripts\Api\Dto\Auth\Token.cs" />
+    <Compile Include="Assets\Scripts\Api\Dto\Coach\Get.cs" />
+    <Compile Include="Assets\Scripts\Api\Dto\Match\Current.cs" />
+    <Compile Include="Assets\Scripts\Api\FumbblApi.cs" />
     <Compile Include="Assets\Scripts\FFB.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\AbstractCommand.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientJoin.cs" />
@@ -155,7 +161,6 @@
     <Compile Include="Assets\Scripts\Ffb\Networking.cs" />
     <Compile Include="Assets\Scripts\Ffb\Protocol.cs" />
     <Compile Include="Assets\Scripts\Ffb\Websocket.cs" />
-    <Compile Include="Assets\Scripts\Fumbbl\FumbblApi.cs" />
     <Compile Include="Assets\Scripts\IReflectedObject.cs" />
     <Compile Include="Assets\Scripts\MainHandler.cs" />
     <Compile Include="Assets\Scripts\Model\ActingPlayer.cs" />
@@ -786,6 +791,7 @@
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

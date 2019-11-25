@@ -19,21 +19,18 @@ namespace Fumbbl.Ffb
         private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
         private readonly ReflectedFactory<NetCommand, string> NetCommandFactory;
 
-        public bool IsConnected { get; private set; }
+        public bool IsReceiving { get; private set; }
 
         public Networking()
         {
             ReportFactory = new ReflectedFactory<Report, string>();
             ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
             NetCommandFactory = new ReflectedFactory<NetCommand, string>();
-            IsConnected = true;
         }
 
-        // Start is called before the first frame update
         public async Task Connect()
         {
             Protocol = new Protocol(true);
-            Debug.Log("Starting Networking");
 
             socket = new Websocket(Receive);
 
@@ -45,23 +42,35 @@ namespace Fumbbl.Ffb
                 //string uri = "ws://localhost:22227/command";
 
                 await Task.Delay(100);
-                Debug.Log($"Connecting to {uri}");
+                Debug.Log($"Networking Connecting to {uri}");
                 MainHandler.Instance.AddReport(RawString.Create($"Connecting to {uri}"));
                 await socket.Connect(uri);
-                Debug.Log("Connected");
+                Debug.Log("Networking Connected");
+
+                RequestVersion();
             }
             catch (Exception e)
             {
                 Debug.Log($"<style=\"Error\">Error connecting: {e.Message}</style>");
                 MainHandler.Instance.AddReport(RawString.Create($"<style=\"Error\">Error connecting: {e.Message}</style>"));
             }
+        }
 
-            RequestVersion();
+        public async Task StartReceive()
+        {
+            IsReceiving = true;
+            Debug.Log("Networking Receive Loop Started");
 
-            await socket.Start();
+            Task socketLoop = socket.Start();
 
-            Debug.Log("Networking ended");
-            IsConnected = false;
+            while (socket.IsConnected)
+            {
+                FFB.Instance.Network.SendPing();
+                await Task.Delay(2000);
+            }
+
+            Debug.Log("Networking Receive Loop Ended");
+            IsReceiving = false;
         }
 
         private void Receive(string data)
@@ -110,8 +119,8 @@ namespace Fumbbl.Ffb
 
         public void Disconnect()
         {
-            IsConnected = false;
             Debug.Log("Destroying Networking");
+            IsReceiving = false;
             socket.Stop();
         }
 

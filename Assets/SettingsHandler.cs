@@ -77,6 +77,12 @@ public class SettingsHandler : MonoBehaviour
         PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
     }
 
+    public void SwitchToGameBrowser()
+    {
+        FFB.Instance.Stop();
+        MainHandler.Instance.SetScene(MainHandler.SceneType.GameBrowserScene);
+    }
+
     public void SwitchToMainScene()
     {
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);

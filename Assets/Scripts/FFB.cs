@@ -29,7 +29,7 @@ namespace Fumbbl
         public delegate void AddChatDelegate(string text);
         public event AddChatDelegate OnChat;
 
-        public int GameId { get; set; }
+        public int GameId { get; private set; }
 
         public enum LogPanelType
         {
@@ -52,18 +52,32 @@ namespace Fumbbl
             return Api.Auth(clientId, clientSecret);
         }
 
-        public async void Initialize()
+        public void Initialize()
         {
             if (!Initialized)
             {
                 Debug.Log("FFB Initialized");
                 Initialized = true;
-                await Network.Connect();
             }
+        }
+
+        public async void Connect(int gameId)
+        {
+            LogText.Clear();
+            ChatText.Clear();
+            RefreshState();
+
+            GameId = gameId;
+
+            await Network.Connect();
+            await Network.StartReceive();
+
+            GameId = 0;
         }
 
         public void Stop()
         {
+            GameId = 0;
             Network.Disconnect();
         }
 
@@ -116,7 +130,7 @@ namespace Fumbbl
             {
                 var cmd = (Ffb.Dto.Commands.ServerVersion)netCommand;
                 AddReport(RawString.Create($"Connected - Server version {cmd.serverVersion}"));
-                Network.Spectate(1201411);
+                Network.Spectate(GameId);
                 return true;
             }
             if (netCommand is Ffb.Dto.Commands.ServerTalk)

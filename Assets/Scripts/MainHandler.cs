@@ -15,7 +15,7 @@ namespace Fumbbl
             MainScene,
             SettingsScene,
             LoginScene,
-	    GameBrowserScene
+	        GameBrowserScene
         }
 
         private void Awake()
@@ -26,22 +26,8 @@ namespace Fumbbl
         void Start()
         {
             Debug.Log("MainHandler Initialized");
-            StartCoroutine(DeferredInit());
-        }
-
-        private IEnumerator DeferredInit()
-        {
-            yield return null;
-            yield return null;
             FFB.Instance.Initialize();
-            yield return null;
             FFB.Instance.RefreshState();
-
-            while (FFB.Instance.Network.IsConnected)
-            {
-                yield return new WaitForSeconds(2);
-                FFB.Instance.Network.SendPing();
-            }
         }
 
         public void AddReport(Report text)

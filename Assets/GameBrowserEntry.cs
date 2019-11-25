@@ -46,9 +46,8 @@ public class GameBrowserEntry : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("clicked game: " + matchDetails.id);
-        FFB.Instance.GameId = matchDetails.id;
+        FFB.Instance.Connect(matchDetails.id);
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
-
     }
 
      IEnumerator GetTexture(Image target, string url) {

@@ -89,22 +89,25 @@ public class TextPanelHandler : MonoBehaviour
 
     private void AddText(string text, int indent)
     {
-        float panelWidth = ContentRect.rect.width;
-
-        if (text != null)
+        if (ContentRect != null)
         {
-            TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
-            var margin = obj.margin;
-            margin.x = indent * 10;
-            obj.margin = margin;
-            obj.SetText(text);
-            obj.transform.SetParent(Content.transform);
-            float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;
-            obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
-            this.contentHeight += preferredHeight;
-            ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
-            Items.Add(obj);
-            Dirty = true;
+            float panelWidth = ContentRect.rect.width;
+
+            if (text != null)
+            {
+                TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
+                var margin = obj.margin;
+                margin.x = indent * 10;
+                obj.margin = margin;
+                obj.SetText(text);
+                obj.transform.SetParent(Content.transform);
+                float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;
+                obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
+                this.contentHeight += preferredHeight;
+                ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
+                Items.Add(obj);
+                Dirty = true;
+            }
         }
     }
 
