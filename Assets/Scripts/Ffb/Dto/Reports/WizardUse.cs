@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Fumbbl.Ffb.Dto.Reports
 {
-  public abstract class WizardUse : Report
+  public class WizardUse : Report
   {
     public WizardUse() : base("wizardUse") { }
     public string reportId;

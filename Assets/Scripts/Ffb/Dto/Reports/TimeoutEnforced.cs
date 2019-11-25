@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fumbbl.Ffb.Dto.Reports
 {
-  public abstract class TimeoutEnforced : Report
+  public class TimeoutEnforced : Report
   {
     public TimeoutEnforced() : base("timeoutEnforced") { }
     public string reportId;

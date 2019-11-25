@@ -102,8 +102,7 @@ namespace Fumbbl.Ffb
                     }
                     else
                     {
-                        FFB.Instance.AddReport(RawString.Create($"Missing DTO for {x?["reportId"]}"));
-                        //FFB.Instance.AddReport(RawString.Create(x.ToString()));
+                        FFB.Instance.AddReport(RawString.Create($"<b>* * * Missing DTO for {x?["reportId"]} * * *</b>"));
                     }
                 }
             }

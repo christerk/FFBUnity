@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Fumbbl.Ffb.Dto.Reports
 {
-  public abstract class WinningsRoll : Report
+  public class WinningsRoll : Report
   {
     public WinningsRoll() : base("winningsRoll") { }
     public string reportId;

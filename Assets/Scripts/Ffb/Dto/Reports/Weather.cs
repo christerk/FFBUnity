@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fumbbl.Ffb.Dto.Reports
 {
-  public abstract class Weather : Report
+  public class Weather : Report
   {
     public Weather() : base("weather") { }
     public string reportId;

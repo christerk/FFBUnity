@@ -1,5 +1,6 @@
 ﻿using Fumbbl.Ffb;
 using Fumbbl.Ffb.Dto;
+using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Model;
 using System;
 using System.Collections.Generic;
@@ -111,7 +112,9 @@ namespace Fumbbl
         {
             if (netCommand is Ffb.Dto.Commands.ServerVersion)
             {
-                Network.Spectate(1201387);
+                var cmd = (Ffb.Dto.Commands.ServerVersion)netCommand;
+                AddReport(RawString.Create($"Connected - Server version {cmd.serverVersion}"));
+                Network.Spectate(1201411);
                 return true;
             }
             if (netCommand is Ffb.Dto.Commands.ServerTalk)

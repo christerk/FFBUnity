@@ -9,7 +9,7 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.ApothecaryRoll report)
         {
-            if (report.casualtyRoll.Length > 0)
+            if (report.casualtyRoll != null && report.casualtyRoll.Length > 0)
             {
                 Player player = FFB.Instance.Model.GetPlayer(report.playerId);
                 string injuryDescription = Injury.GetDescription(report.playerState);

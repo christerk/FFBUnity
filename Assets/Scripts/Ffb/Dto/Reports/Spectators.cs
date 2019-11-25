@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fumbbl.Ffb.Dto.Reports
 {
-  public abstract class Spectators : Report
+  public class Spectators : Report
   {
     public Spectators() : base("spectators") { }
     public int[] spectatorRollHome;

@@ -82,7 +82,7 @@ public class TextPanelHandler : MonoBehaviour
                 }
             } else
             {
-                AddText($"Unhandled report {report.GetType().Name}", 0);
+                AddText($"<b>* * * Unhandled report {report.GetType().Name} * * *</b>", 0);
             }
         }
     }
