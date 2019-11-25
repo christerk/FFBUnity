@@ -15,6 +15,8 @@ namespace Fumbbl.Ffb
         private readonly ClientWebSocket Socket;
         private readonly CancellationTokenSource CancellationSource;
         private CancellationToken CancellationToken;
+        public bool IsConnected => Socket != null && Socket.State == WebSocketState.Open;
+
 
         public Websocket(Action<string> receiveDelegate)
         {

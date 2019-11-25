@@ -14,7 +14,8 @@ namespace Fumbbl
             None,
             MainScene,
             SettingsScene,
-            GameBrowserScene
+            LoginScene,
+	    GameBrowserScene
         }
 
         private void Awake()
@@ -35,6 +36,12 @@ namespace Fumbbl
             FFB.Instance.Initialize();
             yield return null;
             FFB.Instance.RefreshState();
+
+            while (FFB.Instance.Network.IsConnected)
+            {
+                yield return new WaitForSeconds(2);
+                FFB.Instance.Network.SendPing();
+            }
         }
 
         public void AddReport(Report text)

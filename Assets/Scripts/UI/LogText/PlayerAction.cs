@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
 {
-    public class PlayerAction : LogTextGenerator
+    public class PlayerAction : LogTextGenerator<Ffb.Dto.Reports.PlayerAction>
     {
-        public PlayerAction() : base(typeof(Ffb.Dto.Reports.PlayerAction)) { }
-
         private static readonly Dictionary<string, string> ActionStrings = new Dictionary<string, string>()
         {
             ["move"] = "starts a Move Action",
@@ -21,16 +19,12 @@ namespace Fumbbl.UI.LogText
             ["throwBomb"] = "starts a Bomb Action",
         };
 
-        public override string Convert(Report report)
+        public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.PlayerAction report)
         {
-            Ffb.Dto.Reports.PlayerAction action = (Ffb.Dto.Reports.PlayerAction)report;
-
-            if (ActionStrings.ContainsKey(action.playerAction))
+            if (ActionStrings.ContainsKey(report.playerAction))
             {
-                return $"{ FFB.Instance.Model.GetPlayer(action.actingPlayerId).FormattedName } { ActionStrings[action.playerAction] }.";
+                yield return new LogRecord($"{ FFB.Instance.Model.GetPlayer(report.actingPlayerId).FormattedName } { ActionStrings[report.playerAction] }.");
             }
-            return null;
-
         }
     }
 }

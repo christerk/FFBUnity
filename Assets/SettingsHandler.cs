@@ -103,4 +103,11 @@ public class SettingsHandler : MonoBehaviour
         }
         resolutions.gameObject.SetActive(!fullscreenToggle.isOn);
     }
+
+    public void Logout()
+    {
+        PlayerPrefs.DeleteKey("OAuth.ClientId");
+        PlayerPrefs.DeleteKey("OAuth.ClientSecret");
+        MainHandler.Instance.SetScene(MainHandler.SceneType.LoginScene);
+    }
 }

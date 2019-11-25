@@ -12,16 +12,21 @@ namespace Fumbbl.Ffb
     public class Networking
     {
         private IWebsocket socket;
-        private string apiToken;
+        private string ApiToken { get; set; }
         private Protocol Protocol;
 
         private readonly ReflectedFactory<Report, string> ReportFactory;
         private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
+        private readonly ReflectedFactory<NetCommand, string> NetCommandFactory;
+
+        public bool IsConnected { get; private set; }
 
         public Networking()
         {
             ReportFactory = new ReflectedFactory<Report, string>();
             ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
+            NetCommandFactory = new ReflectedFactory<NetCommand, string>();
+            IsConnected = true;
         }
 
         // Start is called before the first frame update
@@ -32,9 +37,7 @@ namespace Fumbbl.Ffb
 
             socket = new Websocket(Receive);
 
-            FumbblApi api = new FumbblApi();
-            api.Auth();
-            apiToken = api.GetToken();
+            ApiToken = FFB.Instance.Api.GetToken();
 
             try
             {
@@ -58,21 +61,24 @@ namespace Fumbbl.Ffb
             await socket.Start();
 
             Debug.Log("Networking ended");
+            IsConnected = false;
         }
 
         private void Receive(string data)
         {
             string message = Protocol.Decompress(data);
-            Debug.Log($"Received {message}");
             JObject obj = JObject.Parse(message);
-            if (string.Equals(obj["netCommandId"].ToString(), "serverVersion"))
+
+            NetCommand netCommand = NetCommandFactory.DeserializeJson(obj, obj?["netCommandId"]?.ToString());
+            if (netCommand != null)
             {
-                Spectate(apiToken, 1200532);
+                FFB.Instance.HandleNetCommand(netCommand);
             }
-            if (string.Equals(obj["netCommandId"].ToString(), "serverTalk"))
+            else
             {
-                FFB.Instance.AddChatEntry(obj["coach"].ToString(), obj["talks"][0].ToString());
+                Debug.Log($"Unhandled message: {message}");
             }
+
             if (obj?["modelChangeList"]?["modelChangeArray"] != null)
             {
                 foreach (var x in obj["modelChangeList"]["modelChangeArray"])
@@ -96,7 +102,7 @@ namespace Fumbbl.Ffb
                     }
                     else
                     {
-                        FFB.Instance.AddReport(RawString.Create(x.ToString()));
+                        FFB.Instance.AddReport(RawString.Create($"<b>* * * Missing DTO for {x?["reportId"]} * * *</b>"));
                     }
                 }
             }
@@ -104,6 +110,7 @@ namespace Fumbbl.Ffb
 
         public void Disconnect()
         {
+            IsConnected = false;
             Debug.Log("Destroying Networking");
             socket.Stop();
         }
@@ -114,13 +121,13 @@ namespace Fumbbl.Ffb
             await Send(command);
         }
 
-        private async void Spectate(string token, int game)
+        public async void Spectate(int game)
         {
             var command = new ClientJoin()
             {
                 clientMode = "spectator",
                 coach = FFB.Instance.CoachName,
-                password = token,
+                password = ApiToken,
                 gameId = game,
                 gameName = "",
                 teamId = "",
@@ -129,10 +136,18 @@ namespace Fumbbl.Ffb
             await Send(command);
         }
 
+        public async void SendPing()
+        {
+            var command = new ClientPing()
+            {
+                timestamp = DateTime.Now.Ticks
+            };
+            await Send(command);
+        }
+
         async Task Send(AbstractCommand command)
         {
             string serializedCommand = JsonConvert.SerializeObject(command);
-            Debug.Log($"Sending {serializedCommand}");
 
             string data = Protocol.Compress(serializedCommand);
 

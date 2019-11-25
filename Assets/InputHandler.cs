@@ -27,12 +27,17 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            MainHandler.Instance.SetScene(MainHandler.SceneType.SettingsScene);
+            SwitchToSettingsScene();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             MainHandler.Instance.SetScene(MainHandler.SceneType.GameBrowserScene);
         }
+    }
+
+    public void SwitchToSettingsScene()
+    {
+        MainHandler.Instance.SetScene(MainHandler.SceneType.SettingsScene);
     }
 }

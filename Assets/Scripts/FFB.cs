@@ -1,7 +1,11 @@
 ﻿using Fumbbl.Ffb;
 using Fumbbl.Ffb.Dto;
+using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Model;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
+
 namespace Fumbbl
 {
     public class FFB
@@ -9,6 +13,7 @@ namespace Fumbbl
         public static FFB Instance = new FFB();
 
         private bool Initialized;
+        public FumbblApi Api;
         public Networking Network;
         private readonly List<Report> LogText;
         private readonly List<string> ChatText;
@@ -39,12 +44,19 @@ namespace Fumbbl
             ChatText = new List<string>();
             Network = new Networking();
             Model = new Core();
+            Api = new FumbblApi();
+        }
+
+        public bool Authenticate(string clientId, string clientSecret)
+        {
+            return Api.Auth(clientId, clientSecret);
         }
 
         public async void Initialize()
         {
             if (!Initialized)
             {
+                Debug.Log("FFB Initialized");
                 Initialized = true;
                 await Network.Connect();
             }
@@ -96,6 +108,36 @@ namespace Fumbbl
         {
             TriggerLogRefresh();
             TriggerChatRefresh();
+        }
+
+        internal bool HandleNetCommand(NetCommand netCommand)
+        {
+            if (netCommand is Ffb.Dto.Commands.ServerVersion)
+            {
+                var cmd = (Ffb.Dto.Commands.ServerVersion)netCommand;
+                AddReport(RawString.Create($"Connected - Server version {cmd.serverVersion}"));
+                Network.Spectate(1201411);
+                return true;
+            }
+            if (netCommand is Ffb.Dto.Commands.ServerTalk)
+            {
+                var cmd = (Ffb.Dto.Commands.ServerTalk)netCommand;
+                foreach (var talk in cmd.talks)
+                {
+                    AddChatEntry(cmd.coach, talk);
+                }
+                return true;
+            }
+            if (netCommand is Ffb.Dto.Commands.ServerSound)
+            {
+                PlaySound(((Ffb.Dto.Commands.ServerSound)netCommand).sound);
+            }
+            return false;
+        }
+
+        private void PlaySound(string sound)
+        {
+            Debug.Log($"Play Sound {sound}");
         }
 
         internal void AddChatEntry(string coach, string text)

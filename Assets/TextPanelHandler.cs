@@ -23,11 +23,11 @@ public class TextPanelHandler : MonoBehaviour
     private bool Dirty = false;
     private float contentHeight;
 
-    private ReflectedFactory<LogTextGenerator, Type> LogTextFactory;
+    private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
 
     private void Awake()
     {
-        LogTextFactory = new ReflectedFactory<LogTextGenerator, Type>();
+        LogTextFactory = new ReflectedFactory<LogTextGenerator<Report>, Type>();
     }
 
     void Start()
@@ -44,7 +44,7 @@ public class TextPanelHandler : MonoBehaviour
 
     public static string SanitizeText(string text)
     {
-        return text.Replace("<", "<noparse><</noparse>");
+        return text?.Replace("<", "<noparse><</noparse>");
     }
 
     public void OnScroll(Vector2 pos)
@@ -65,7 +65,7 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Chat)
         {
-            AddText(text);
+            AddText(text, 0);
         }
     }
 
@@ -73,21 +73,30 @@ public class TextPanelHandler : MonoBehaviour
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {
-            string text = LogTextFactory.GetReflectedInstance(report.GetType())?.Convert(report);
-            if (text != null)
+            var handler = LogTextFactory.GetReflectedInstance(report.GetType());
+            if (handler != null)
             {
-                AddText(text);
+                foreach (var logRecord in handler.HandleReport(report))
+                {
+                    AddText(logRecord.Text, logRecord.Indent);
+                }
+            } else
+            {
+                AddText($"<b>* * * Unhandled report {report.GetType().Name} * * *</b>", 0);
             }
         }
     }
 
-    private void AddText(string text)
+    private void AddText(string text, int indent)
     {
         float panelWidth = ContentRect.rect.width;
 
         if (text != null)
         {
             TMPro.TextMeshProUGUI obj = Instantiate(LogTextPrefab);
+            var margin = obj.margin;
+            margin.x = indent * 10;
+            obj.margin = margin;
             obj.SetText(text);
             obj.transform.SetParent(Content.transform);
             float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;

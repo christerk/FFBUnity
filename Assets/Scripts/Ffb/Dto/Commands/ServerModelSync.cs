@@ -1,7 +1,8 @@
 ﻿namespace Fumbbl.Ffb.Dto.Commands
 {
-    public class ServerModelSync : ICommand
+    public class ServerModelSync : NetCommand
     {
+        public ServerModelSync() : base("serverModelSync") { }
 
     }
 }
