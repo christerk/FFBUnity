@@ -8,6 +8,9 @@ using System.Net;
 using System.Text;
 using UnityEngine;
 
+using ApiDto = Fumbbl.Api.Dto;
+
+
 public class FumbblApi
 {
     private string accessToken;
@@ -20,19 +23,19 @@ public class FumbblApi
             ["client_secret"] = clientSecret
         });
 
-        JObject obj = JObject.Parse(result);
-        accessToken = (string) obj["access_token"];
+        ApiDto.Auth.Token token = JsonConvert.DeserializeObject<ApiDto.Auth.Token>(result);
+       
+        accessToken = token.access_token;
 
         try
         {
             result = Get("oauth", "identity");
             int coachId = int.Parse(result);
 
-            result = Get("coach", $"get/{coachId}");
-            obj = JObject.Parse(result);
-            string coachName = (string) obj["name"];
-            FFB.Instance.SetCoachName(coachName);
-            return true;
+        	result = Get("coach", $"get/{coachId}");
+        	ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
+        	FFB.Instance.SetCoachName(coach.name);
+     		return true;
         }
         catch
         {
@@ -44,6 +47,11 @@ public class FumbblApi
     {
         string token = JsonConvert.DeserializeObject<string>(Post("auth", "getToken"));
         return token;
+    }
+
+    public List<ApiDto.Match.Current> GetCurrentMatches()
+    {
+        return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(Get("match", "current"));
     }
 
     private string Get(string component, string endpoint)

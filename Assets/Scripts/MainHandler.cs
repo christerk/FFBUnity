@@ -15,6 +15,7 @@ namespace Fumbbl
             MainScene,
             SettingsScene,
             LoginScene,
+	    GameBrowserScene
         }
 
         private void Awake()

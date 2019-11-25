@@ -29,6 +29,8 @@ namespace Fumbbl
         public delegate void AddChatDelegate(string text);
         public event AddChatDelegate OnChat;
 
+        public int GameId { get; set; }
+
         public enum LogPanelType
         {
             None,
