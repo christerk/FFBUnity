@@ -121,7 +121,10 @@ namespace Fumbbl.Ffb
         {
             Debug.Log("Destroying Networking");
             IsReceiving = false;
-            socket.Stop();
+            if (socket != null)
+            {
+                socket.Stop();
+            }
         }
 
         private async void RequestVersion()

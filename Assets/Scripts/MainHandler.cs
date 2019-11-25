@@ -1,4 +1,5 @@
 ﻿using Fumbbl.Ffb.Dto;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,6 +54,11 @@ namespace Fumbbl
         public void SetScene(SceneType scene)
         {
             SceneManager.LoadScene(scene.ToString());
+        }
+
+        internal void SetScene(string scene)
+        {
+            SceneManager.LoadScene(scene);
         }
     }
 }

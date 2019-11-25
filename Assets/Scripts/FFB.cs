@@ -30,6 +30,7 @@ namespace Fumbbl
         public event AddChatDelegate OnChat;
 
         public int GameId { get; private set; }
+        public string PreviousScene { get; internal set; }
 
         public enum LogPanelType
         {

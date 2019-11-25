@@ -88,6 +88,11 @@ public class SettingsHandler : MonoBehaviour
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
     }
 
+    public void SwitchToPreviousScene()
+    {
+        MainHandler.Instance.SetScene(FFB.Instance.PreviousScene);
+    }
+
     public void Quit()
     {
         FFB.Instance.Stop();
