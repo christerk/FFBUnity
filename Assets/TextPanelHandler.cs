@@ -80,7 +80,8 @@ public class TextPanelHandler : MonoBehaviour
                 {
                     AddText(logRecord.Text, logRecord.Indent);
                 }
-            } else
+            }
+            else
             {
                 AddText($"<b>* * * Unhandled report {report.GetType().Name} * * *</b>", 0);
             }

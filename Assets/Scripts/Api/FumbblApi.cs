@@ -24,7 +24,7 @@ public class FumbblApi
         });
 
         ApiDto.Auth.Token token = JsonConvert.DeserializeObject<ApiDto.Auth.Token>(result);
-       
+
         accessToken = token.access_token;
 
         try
@@ -32,10 +32,10 @@ public class FumbblApi
             result = Get("oauth", "identity");
             int coachId = int.Parse(result);
 
-        	result = Get("coach", $"get/{coachId}");
-        	ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
-        	FFB.Instance.SetCoachName(coach.name);
-     		return true;
+            result = Get("coach", $"get/{coachId}");
+            ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
+            FFB.Instance.SetCoachName(coach.name);
+            return true;
         }
         catch
         {

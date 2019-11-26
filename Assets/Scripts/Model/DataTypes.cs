@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fumbbl.Model
+﻿namespace Fumbbl.Model
 {
     public enum BlockDieType
     {
@@ -20,7 +14,7 @@ namespace Fumbbl.Model
     {
         public static string GetName(this BlockDieType die)
         {
-            switch(die)
+            switch (die)
             {
                 case BlockDieType.SKULL:
                     return "SKULL";

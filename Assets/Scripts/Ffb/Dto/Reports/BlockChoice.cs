@@ -1,6 +1,4 @@
-﻿using Fumbbl.Model;
-
-namespace Fumbbl.Ffb.Dto.Reports
+﻿namespace Fumbbl.Ffb.Dto.Reports
 {
     public class BlockChoice : Report
     {

@@ -1,6 +1,4 @@
 ﻿using Fumbbl.Ffb.Dto;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +14,7 @@ namespace Fumbbl
             MainScene,
             SettingsScene,
             LoginScene,
-	        GameBrowserScene
+            GameBrowserScene
         }
 
         private void Awake()

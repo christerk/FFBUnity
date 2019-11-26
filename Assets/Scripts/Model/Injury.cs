@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fumbbl.Model
+﻿namespace Fumbbl.Model
 {
     public class Injury
     {
@@ -31,7 +25,7 @@ namespace Fumbbl.Model
 
         internal static string GetDescription(int? playerState)
         {
-            switch(playerState & 0xff)
+            switch (playerState & 0xff)
             {
                 case UNKNOWN: return "is unknown";
                 case STANDING: return "is standing";

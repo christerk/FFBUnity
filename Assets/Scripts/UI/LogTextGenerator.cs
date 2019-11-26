@@ -23,8 +23,8 @@ namespace Fumbbl.UI
     }
 
     internal class CastedLogTextGenerator<TTo, TFrom> : LogTextGenerator<TTo>
-        where TTo:Report
-        where TFrom:Report
+        where TTo : Report
+        where TFrom : Report
     {
         private LogTextGenerator<TFrom> Generator;
         public CastedLogTextGenerator(LogTextGenerator<TFrom> generator)
@@ -41,8 +41,8 @@ namespace Fumbbl.UI
     public static class LogTextExtensions
     {
         public static LogTextGenerator<TTo> CastGenerator<TFrom, TTo>(this LogTextGenerator<TFrom> generator)
-            where TTo:Report
-            where TFrom:Report
+            where TTo : Report
+            where TFrom : Report
         {
             return new CastedLogTextGenerator<TTo, TFrom>(generator);
         }
