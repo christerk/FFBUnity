@@ -29,10 +29,10 @@ namespace Fumbbl.Lib
         {
             if(!cache.ContainsKey(key))
             {
-                T cacheItem;
-                create(cacheItem);
-                CacheObject item = new CacheObject(cacheItem);
-                cache[key] = item;
+              //  T cacheItem;
+                //create(cacheItem);
+               // CacheObject item = new CacheObject(cacheItem);
+              //  cache[key] = item;
             }
             return cache[key].Get();
         }

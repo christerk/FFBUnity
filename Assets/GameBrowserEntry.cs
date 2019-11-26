@@ -35,7 +35,7 @@ public class GameBrowserEntry : MonoBehaviour
             float progress = (float)((((float)details.half -1) * 8) + (float)details.turn) / 16f;
             progressBar.fillAmount = progress;
 
-            Fumbbl.FFB.ImageCache.GetOrCreate(t1.logo, () => team1Image);
+          //  Fumbbl.FFB.ImageCache.GetOrCreate(t1.logo, () => team1Image);
 
             StartCoroutine(GetTexture(team1Image, t1.logo));
             StartCoroutine(GetTexture(team2Image, t2.logo));
