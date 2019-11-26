@@ -185,6 +185,7 @@
     <Compile Include="Assets\Scripts\Model\DataTypes.cs" />
     <Compile Include="Assets\Scripts\Model\Gender.cs" />
     <Compile Include="Assets\Scripts\Model\Injury.cs" />
+    <Compile Include="Assets\Scripts\Model\InjuryAttribute.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Model\ModelUpdater.cs" />
     <Compile Include="Assets\Scripts\Model\Player.cs" />

@@ -7,6 +7,6 @@
         public string reportId;
         public string playerId;
         public int? playerState;
-        public string seriousInjury;
+        public FFBEnumeration seriousInjury;
     }
 }
