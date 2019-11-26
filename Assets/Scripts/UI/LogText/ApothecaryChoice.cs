@@ -1,0 +1,35 @@
+﻿using Fumbbl.Ffb.Dto;
+using Fumbbl.Model;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Fumbbl.UI.LogText
+{
+    public class ApothecaryChoice : LogTextGenerator<Ffb.Dto.Reports.ApothecaryChoice>
+    {
+        public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.ApothecaryChoice report)
+        {
+            Player player = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
+            Coach coach = player.Team.Coach;
+
+            if (PlayerState.Get(report.playerState).IsReserve)
+            {
+                yield return new LogRecord($"The apothecary patches {player.FormattedName} up so {player.Gender.Nominative} is able to play again.");
+            }
+            else
+            {
+                PlayerState oldState = player.PlayerState;
+                SeriousInjury oldInjury = player.SeriousInjury;
+
+                if (PlayerState.Get(report.playerState) != oldState || SeriousInjury.Get(report.seriousInjury) != oldInjury)
+                {
+                    yield return new LogRecord($"Coach {coach.FormattedName} chooses the new injury result.");
+                }
+                else
+                {
+                    yield return new LogRecord($"Coach {coach.FormattedName} keeps the old injury result.");
+                }
+            }
+        }
+    }
+}

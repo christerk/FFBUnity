@@ -13,7 +13,14 @@ namespace Fumbbl.Model
 
         public Gender Gender;
 
-        public bool IsHome { get { return true; } }
+        public Team Team { get; set; }
+
+        public bool IsHome => Team.IsHome;
+
+        public Player()
+        {
+            Team = new Team();
+        }
 
         public string FormattedName
         { 
@@ -23,6 +30,9 @@ namespace Fumbbl.Model
                 return $"<{color}>{TextPanelHandler.SanitizeText(Name)}</color>";
             }
         }
+
+        public PlayerState PlayerState { get; internal set; }
+        public SeriousInjury SeriousInjury { get; internal set; }
 
         internal bool HasSkill(SkillType skillType)
         {
