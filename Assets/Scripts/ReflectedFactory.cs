@@ -13,8 +13,14 @@ namespace Fumbbl
         protected Dictionary<K, Type> GeneratorClasses { get; }
         protected Dictionary<K, T> GeneratorInstances { get; }
 
+        private JsonSerializer Serializer;
+
         public ReflectedFactory()
         {
+            Serializer = new JsonSerializer();
+
+            Serializer.Converters.Add(new EnumerationConverter());
+
             GeneratorClasses = new Dictionary<K, Type>();
             GeneratorInstances = new Dictionary<K, T>();
 
@@ -27,11 +33,11 @@ namespace Fumbbl
                 var a = typeof(T).GenericTypeArguments[0];
 
                 generators = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => !t.IsAbstract 
-                    && t.BaseType != null 
-                    && t.BaseType.IsGenericType 
+                .Where(t => !t.IsAbstract
+                    && t.BaseType != null
+                    && t.BaseType.IsGenericType
                     && !t.ContainsGenericParameters
-                    && typeof(IReflectedObject<K>).IsAssignableFrom(t) 
+                    && typeof(IReflectedObject<K>).IsAssignableFrom(t)
                     && a.IsAssignableFrom(t.BaseType.GenericTypeArguments[0]))
                 .ToList();
             }
@@ -104,7 +110,7 @@ namespace Fumbbl
             Type t = GetReflectedClass(key);
             if (t != null)
             {
-                T result = (T) jsonObject.ToObject(t);
+                T result = (T)jsonObject.ToObject(t, Serializer);
                 return result;
             }
             return null;

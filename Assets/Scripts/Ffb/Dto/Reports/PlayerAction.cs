@@ -6,6 +6,6 @@
 
         public string reportId;
         public string actingPlayerId;
-        public string playerAction;
+        public FFBEnumeration playerAction;
     }
 }

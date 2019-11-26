@@ -1,4 +1,4 @@
-﻿using Fumbbl.Ffb.Dto;
+﻿using Fumbbl.Model;
 using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
@@ -21,9 +21,11 @@ namespace Fumbbl.UI.LogText
 
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.PlayerAction report)
         {
-            if (ActionStrings.ContainsKey(report.playerAction))
+            var action = report.playerAction.AsPlayerAction();
+            if (action != null && action.Description != null)
             {
-                yield return new LogRecord($"{ FFB.Instance.Model.GetPlayer(report.actingPlayerId).FormattedName } { ActionStrings[report.playerAction] }.");
+                yield return new LogRecord($"{ FFB.Instance.Model.GetPlayer(report.actingPlayerId).FormattedName } { action.Description }.");
+
             }
         }
     }

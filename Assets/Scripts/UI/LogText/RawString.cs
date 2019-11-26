@@ -1,5 +1,4 @@
-﻿using Fumbbl.Ffb.Dto;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
 {

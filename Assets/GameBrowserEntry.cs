@@ -1,12 +1,9 @@
 ﻿using Fumbbl;
+using Fumbbl.Api.Dto.Match;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Networking;
-
-using ApiDto = Fumbbl.Api.Dto;
-
+using UnityEngine.UI;
 
 public class GameBrowserEntry : MonoBehaviour
 {
@@ -18,14 +15,14 @@ public class GameBrowserEntry : MonoBehaviour
     public TMPro.TextMeshProUGUI team2Score;
     public Image progressBar;
 
-    private ApiDto.Match.Current matchDetails;
+    private Current matchDetails;
 
-    public void SetMatchDetails(ApiDto.Match.Current details)
+    public void SetMatchDetails(Current details)
     {
-        if(details.teams.Count == 2)
+        if (details.teams.Count == 2)
         {
-            ApiDto.Match.Team t1 = details.teams[0];
-            ApiDto.Match.Team t2 = details.teams[1];
+            Team t1 = details.teams[0];
+            Team t2 = details.teams[1];
             matchDetails = details;
             team1.text = t1.name;
             team2.text = t2.name;
