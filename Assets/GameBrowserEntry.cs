@@ -10,12 +10,12 @@ using ApiDto = Fumbbl.Api.Dto;
 
 public class GameBrowserEntry : MonoBehaviour
 {
-    public Text team1;
+    public TMPro.TextMeshProUGUI team1;
     public Image team1Image;
-    public Text team1Score;
-    public Text team2;
+    public TMPro.TextMeshProUGUI team1Score;
+    public TMPro.TextMeshProUGUI team2;
     public Image team2Image;
-    public Text team2Score;
+    public TMPro.TextMeshProUGUI team2Score;
     public Image progressBar;
 
     private ApiDto.Match.Current matchDetails;
