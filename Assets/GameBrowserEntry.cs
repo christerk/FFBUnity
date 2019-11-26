@@ -34,6 +34,9 @@ public class GameBrowserEntry : MonoBehaviour
 
             float progress = (float)((((float)details.half -1) * 8) + (float)details.turn) / 16f;
             progressBar.fillAmount = progress;
+
+           // Fumbbl.FFB.ImageCache.GetOrCreate(t1.logo, () => team1Image);
+
             StartCoroutine(GetTexture(team1Image, t1.logo));
             StartCoroutine(GetTexture(team2Image, t2.logo));
         }
@@ -51,6 +54,10 @@ public class GameBrowserEntry : MonoBehaviour
     }
 
      IEnumerator GetTexture(Image target, string url) {
+
+
+
+
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("https://www.fumbbl.com/" + url);
         yield return www.SendWebRequest();
 
@@ -61,6 +68,8 @@ public class GameBrowserEntry : MonoBehaviour
         {
             Texture2D img = ((DownloadHandlerTexture)www.downloadHandler).texture;
             target.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
+         
+          //  Fumbbl.FFB.ImageCache.GetOrCreate(t1.logo, () => target );
 
         }
     }
