@@ -33,7 +33,7 @@ namespace Fumbbl
         public int GameId { get; private set; }
         public string PreviousScene { get; internal set; }
 
-        public Lib.Cache<Image> ImageCache = new Lib.Cache<Image>();
+        public Lib.Cache<Image> ImageCache { get; set; }
 
         public enum LogPanelType
         {
