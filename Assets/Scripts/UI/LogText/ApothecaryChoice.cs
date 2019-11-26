@@ -19,7 +19,7 @@ namespace Fumbbl.UI.LogText
                 PlayerState oldState = player.PlayerState;
                 SeriousInjury oldInjury = player.SeriousInjury;
 
-                if (PlayerState.Get(report.playerState) != oldState || SeriousInjury.Get(report.seriousInjury) != oldInjury)
+                if (PlayerState.Get(report.playerState) != oldState || report.seriousInjury.AsSeriousInjury() != oldInjury)
                 {
                     yield return new LogRecord($"Coach {coach.FormattedName} chooses the new injury result.");
                 }
