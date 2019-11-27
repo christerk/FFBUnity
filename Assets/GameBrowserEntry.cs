@@ -10,10 +10,13 @@ public class GameBrowserEntry : MonoBehaviour
     public TMPro.TextMeshProUGUI team1;
     public Image team1Image;
     public TMPro.TextMeshProUGUI team1Score;
+    public TMPro.TextMeshProUGUI team1Info;
     public TMPro.TextMeshProUGUI team2;
     public Image team2Image;
     public TMPro.TextMeshProUGUI team2Score;
+    public TMPro.TextMeshProUGUI team2Info;
     public Image progressBar;
+    public TMPro.TextMeshProUGUI turnIndicator;
 
     private Current matchDetails;
 
@@ -28,6 +31,9 @@ public class GameBrowserEntry : MonoBehaviour
             team2.text = t2.name;
             team1Score.text = t1.score.ToString();
             team2Score.text = t2.score.ToString();
+            team1Info.text = $"({t1.rating}) {t1.coach} TV {t1.tv/1000}k {t1.race}";
+            team2Info.text = $"{t2.race} TV {t2.tv / 1000}k {t2.coach} ({t2.rating})";
+            turnIndicator.text = $"h{details.half}t{details.turn}";
 
             float progress = (float)((((float)details.half - 1) * 8) + (float)details.turn) / 16f;
             progressBar.fillAmount = progress;
