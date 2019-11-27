@@ -53,24 +53,35 @@ public class GameBrowserEntry : MonoBehaviour
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
     }
 
-     IEnumerator GetTexture(Image target, string url) {
-
-
-
-
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture("https://www.fumbbl.com/" + url);
-        yield return www.SendWebRequest();
-
-        if(www.isNetworkError || www.isHttpError) {
-            Debug.Log(www.error);
-        }
-        else 
+    IEnumerator GetTexture(Image target, string url)
+    {
+        var textureCache = Fumbbl.FFB.Instance.ImageCache;
+        Texture2D img = null;
+        if(!textureCache.Get(url, () => Debug.Log("Here from func pointer")  ))
         {
-            Texture2D img = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            target.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
-         
-          //  Fumbbl.FFB.ImageCache.GetOrCreate(t1.logo, () => target );
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture("https://www.fumbbl.com/" + url);
+            yield return www.SendWebRequest();
 
+            if(www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else 
+            {
+                img = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            }
+        }
+
+        //MIKE TODO::: https://www.tutorialsteacher.com/csharp/csharp-func-delegate
+
+        if(img != null)
+        {
+            textureCache.Set(url, img);
+            target.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
+        }
+        else
+        {
+            Debug.LogError("Failed to load image: " + url);
         }
     }
 }

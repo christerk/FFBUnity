@@ -25,16 +25,22 @@ namespace Fumbbl.Lib
 
         private ConcurrentDictionary<string, CacheObject> cache = new ConcurrentDictionary<string, CacheObject>();
 
-        public T GetOrCreate(string key, Func<T> create)
+
+        public void Set(string key, T item)
         {
+            cache[key] = new CacheObject(item);
+        }
+
+        public bool Get(string key, Func<T> func)
+        {
+            func();
             if(!cache.ContainsKey(key))
             {
-              //  T cacheItem;
-                //create(cacheItem);
-               // CacheObject item = new CacheObject(cacheItem);
-              //  cache[key] = item;
+               return false;
             }
-            return cache[key].Get();
+
+          //  target = cache[key].Get();
+            return true;  
         }
 
         public void ClearAll()
