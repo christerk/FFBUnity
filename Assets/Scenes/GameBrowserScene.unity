@@ -307,6 +307,11 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5636266687713046128, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5636266687733215463, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -335,7 +340,7 @@ PrefabInstance:
     - target: {fileID: 5636266687313869505, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.3647059
+      value: 0.08627451
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9f4a263523291a4686711e9bf653c28, type: 3}
@@ -645,7 +650,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 384
+  orthographic size: 1630
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -861,11 +866,11 @@ RectTransform:
   m_Father: {fileID: 1213054523}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 3840, y: 2160}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &2118733582
 SpriteRenderer:
   m_ObjectHideFlags: 0

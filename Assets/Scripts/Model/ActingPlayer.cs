@@ -1,4 +1,6 @@
-﻿namespace Fumbbl.Model
+﻿using System;
+
+namespace Fumbbl.Model
 {
     public class ActingPlayer
     {
@@ -9,6 +11,11 @@
         {
             Block,
             Blitz,
+        }
+
+        internal void Clear()
+        {
+            PlayerId = null;
         }
     }
 }

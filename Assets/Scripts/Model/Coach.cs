@@ -2,9 +2,9 @@
 {
     public class Coach
     {
-        public bool IsHome { get { return true; } }
+        public bool IsHome { get; set; }
 
-        public string Name => "Coach";
+        public string Name { get; set; }
 
         public object FormattedName
         {

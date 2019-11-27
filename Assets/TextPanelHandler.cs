@@ -106,6 +106,7 @@ public class TextPanelHandler : MonoBehaviour
                 obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
                 this.contentHeight += preferredHeight;
                 ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
+                obj.rectTransform.localScale = Vector3.one;
                 Items.Add(obj);
                 Dirty = true;
             }

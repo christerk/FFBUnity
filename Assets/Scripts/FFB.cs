@@ -150,6 +150,61 @@ namespace Fumbbl
             {
                 PlaySound(((Ffb.Dto.Commands.ServerSound)netCommand).sound);
             }
+            if (netCommand is Ffb.Dto.Commands.ServerGameState)
+            {
+                var cmd = (Ffb.Dto.Commands.ServerGameState)netCommand;
+
+                Coach homeCoach = new Coach()
+                {
+                    Name = cmd.game.teamHome.coach,
+                    IsHome = true
+                };
+
+                Coach awayCoach = new Coach()
+                {
+                    Name = cmd.game.teamAway.coach,
+                    IsHome = false
+                };
+
+                Team homeTeam = new Team()
+                {
+                    Coach = homeCoach
+                };
+
+                Team awayTeam = new Team()
+                {
+                    Coach = awayCoach
+                };
+
+                foreach (var p in cmd.game.teamHome.playerArray)
+                {
+                    FFB.Instance.Model.AddPlayer(new Player()
+                    {
+                        Id = p.playerId,
+                        Name = p.playerName,
+                        Team = homeTeam,
+                        Gender = Gender.Male,
+                    });
+                }
+
+                foreach (var p in cmd.game.teamAway.playerArray)
+                {
+                    FFB.Instance.Model.AddPlayer(new Player()
+                    {
+                        Id = p.playerId,
+                        Name = p.playerName,
+                        Team = awayTeam,
+                        Gender = Gender.Male,
+                    });
+                }
+
+                foreach(var p in cmd.game.fieldModel.playerDataArray)
+                {
+                    Player player = FFB.Instance.Model.GetPlayer(p.playerId);
+                    player.Coordinate = p.playerCoordinate;
+                    player.PlayerState = PlayerState.Get(p.playerState);
+                }
+            }
             return false;
         }
 

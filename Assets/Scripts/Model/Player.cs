@@ -4,6 +4,7 @@
     {
         public string Id;
         public string Name;
+        public int[] Coordinate;
 
         public Gender Gender;
 
