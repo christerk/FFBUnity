@@ -33,6 +33,11 @@ public class InputHandler : MonoBehaviour
                 Camera.transform.Translate(-delta.x * mouseSensitivity, -delta.y * mouseSensitivity, 0);
                 lastPosition = Input.mousePosition;
             }
+
+            if (Input.mouseScrollDelta.y != 0)
+            {
+                Camera.orthographicSize += Input.mouseScrollDelta.y * 45;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

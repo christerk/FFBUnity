@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Fumbbl.Model
 {
@@ -6,13 +7,26 @@ namespace Fumbbl.Model
     {
         //private ModelChangeFactory ModelChangeFactory { get; }
         private ReflectedFactory<ModelUpdater, Type> ModelChangeFactory { get; }
-        public ActingPlayer ActingPlayer { get; }
+        public ActingPlayer ActingPlayer { get; set; }
+        private Dictionary<string, Player> Players { get; set; }
 
         public Core()
         {
             //ModelChangeFactory = new ModelChangeFactory();
             ModelChangeFactory = new ReflectedFactory<ModelUpdater, Type>();
             ActingPlayer = new ActingPlayer();
+            Players = new Dictionary<string, Player>();
+        }
+
+        public void Clear()
+        {
+            Players.Clear();
+            ActingPlayer.Clear();
+        }
+
+        internal IEnumerable<Player> GetPlayers()
+        {
+            return Players.Values;
         }
 
         internal void ApplyChange(Ffb.Dto.ModelChange change)
@@ -24,12 +38,24 @@ namespace Fumbbl.Model
 
         internal Player GetPlayer(string playerId)
         {
-            return new Player()
+            if (playerId == null)
             {
-                Id = playerId,
-                Name = playerId,
-                Gender = Gender.Male
-            };
+                return null;
+            }
+            if (!Players.ContainsKey(playerId))
+            {
+                Players.Add(playerId, new Player() {
+                    Id = playerId,
+                    Name = playerId,
+                    Gender = Gender.Male
+                });
+            }
+            return Players[playerId];
+        }
+
+        internal void AddPlayer(Player player)
+        {
+            Players.Add(player.Id, player);
         }
     }
 }
