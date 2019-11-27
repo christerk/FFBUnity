@@ -1141,7 +1141,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 538028893}
         m_MethodName: SwitchToSettingsScene
         m_Mode: 1
         m_Arguments:
