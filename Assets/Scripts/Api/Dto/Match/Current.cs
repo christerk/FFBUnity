@@ -15,6 +15,7 @@ namespace Fumbbl.Api.Dto.Match
         public string coach;
         public string race;
         public string rating;
+        public int tv;
         public int score;
         public string logo;
     }
