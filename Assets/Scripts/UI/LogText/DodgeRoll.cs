@@ -13,11 +13,11 @@ namespace Fumbbl.UI.LogText
             Player player = FFB.Instance.Model.GetPlayer(report.playerId);
             string neededRoll = "";
 
-            IEnumerable<DodgeModifier> rollModifiers = report.rollModifiers.Select(r => r.AsDodgeModifier());
+            IEnumerable<DodgeModifier> rollModifiers = report.rollModifiers?.Select(r => r.AsDodgeModifier());
 
             yield return new LogRecord($"<b>Dodge Roll [ { report.roll } ]</b>");
 
-            if (!report.reRolled)
+            if (!report.reRolled && rollModifiers != null)
             {
                 if (rollModifiers.Contains(DodgeModifier.Stunty))
                 {

@@ -177,6 +177,12 @@ namespace Fumbbl
                     Coach = awayCoach
                 };
 
+                var positions = new Dictionary<string, Position>();
+                foreach (var pos in cmd.game.teamHome.roster.positionArray)
+                {
+                    positions[pos.positionId] = new Position() { abstractLabel = pos.shorthand };
+                }
+
                 foreach (var p in cmd.game.teamHome.playerArray)
                 {
                     FFB.Instance.Model.AddPlayer(new Player()
@@ -185,7 +191,14 @@ namespace Fumbbl
                         Name = p.playerName,
                         Team = homeTeam,
                         Gender = Gender.Male,
+                        Position = positions[p.positionId],
                     });
+                }
+
+                positions.Clear();
+                foreach (var pos in cmd.game.teamAway.roster.positionArray)
+                {
+                    positions[pos.positionId] = new Position() { abstractLabel = pos.shorthand };
                 }
 
                 foreach (var p in cmd.game.teamAway.playerArray)
@@ -196,6 +209,8 @@ namespace Fumbbl
                         Name = p.playerName,
                         Team = awayTeam,
                         Gender = Gender.Male,
+                        PositionId = p.positionId,
+                        Position = positions[p.positionId],
                     });
                 }
 

@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ActingPlayerHandler.cs" />
     <Compile Include="Assets\ChatInputHandler.cs" />
     <Compile Include="Assets\FieldHandler.cs" />
     <Compile Include="Assets\GameBrowserEntry.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\GameResult.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\Player.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Commands\Position.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\Roster.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerGameState.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ServerGameTime.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="Assets\Scripts\Model\Types\InjuryAttribute.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Player.cs" />
     <Compile Include="Assets\Scripts\Model\Types\PlayerState.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Position.cs" />
     <Compile Include="Assets\Scripts\Model\Types\SeriousInjury.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Skill.cs" />
     <Compile Include="Assets\Scripts\Model\Types\SkillCategory.cs" />
