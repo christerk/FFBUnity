@@ -58,9 +58,21 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Packages/*
-!Packages/manifest.json
+[pP]ackages/*
+![pP]ackages/manifest.json
+Assets/[pP]ackages
+Assets/[pP]ackages.*
+
 
 # Vim tags file
 tags
+# VS Code
+.vscode
+# Rider IDE
+.idea
+
+# NuGet
+Assets/NuGet
+Assets/NuGet.*
+
 Assets/Plugins/
