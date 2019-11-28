@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E1668AE0-8598-5F24-5625-D926BFFB68C3}</ProjectGuid>
+    <ProjectGuid>{94DA02D0-D149-D651-8254-897F42718523}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -184,23 +184,35 @@
     <Compile Include="Assets\Scripts\FFBEnumeration.cs" />
     <Compile Include="Assets\Scripts\IReflectedObject.cs" />
     <Compile Include="Assets\Scripts\MainHandler.cs" />
-    <Compile Include="Assets\Scripts\Model\ActingPlayer.cs" />
-    <Compile Include="Assets\Scripts\Model\Coach.cs" />
     <Compile Include="Assets\Scripts\Model\Core.cs" />
-    <Compile Include="Assets\Scripts\Model\DataTypes.cs" />
-    <Compile Include="Assets\Scripts\Model\Gender.cs" />
-    <Compile Include="Assets\Scripts\Model\Injury.cs" />
-    <Compile Include="Assets\Scripts\Model\InjuryAttribute.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetPlayerCoordinate.cs" />
     <Compile Include="Assets\Scripts\Model\ModelUpdater.cs" />
-    <Compile Include="Assets\Scripts\Model\Player.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerAction.cs" />
-    <Compile Include="Assets\Scripts\Model\PlayerState.cs" />
-    <Compile Include="Assets\Scripts\Model\SeriousInjury.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Armor.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Catch.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Dodge.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Gaze.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\GoForIt.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Injury.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Interception.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Leap.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Pass.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\Pickup.cs" />
+    <Compile Include="Assets\Scripts\Model\RollModifier\RightStuff.cs" />
     <Compile Include="Assets\Scripts\Model\SkillType.cs" />
-    <Compile Include="Assets\Scripts\Model\Team.cs" />
-    <Compile Include="Assets\Scripts\Model\Util.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\ActingPlayer.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\BlockDie.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Coach.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Gender.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Injury.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\InjuryAttribute.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Player.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\PlayerState.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\SeriousInjury.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Skill.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\SkillCategory.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Team.cs" />
     <Compile Include="Assets\Scripts\ReflectedFactory.cs" />
     <Compile Include="Assets\Scripts\ReflectedGenerator.cs" />
     <Compile Include="Assets\Scripts\UI\LogRecord.cs" />
@@ -214,6 +226,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\BlockChoice.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\BlockRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ConfusionRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\DodgeRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Foul.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Injury.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
@@ -242,52 +255,52 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VectorGraphics">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.VectorGraphics.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.VectorGraphics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.003">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.003.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.003.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VectorGraphics.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.VectorGraphics.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.VectorGraphics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.003">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.003.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.003.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -467,7 +480,7 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBClient/Library/PackageCache/jillejr.newtonsoft.json-for-unity@12.0.1-patch-001/Plugins/Newtonsoft.Json Editor/Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:/Users/Christer/Documents/Dev/Unity/FFBUnity/Library/PackageCache/jillejr.newtonsoft.json-for-unity@12.0.1-patch-001/Plugins/Newtonsoft.Json Editor/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.14f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

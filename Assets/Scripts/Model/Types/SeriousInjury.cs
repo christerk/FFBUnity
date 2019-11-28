@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Fumbbl.Model
+namespace Fumbbl.Model.Types
 {
     public class SeriousInjury
     {

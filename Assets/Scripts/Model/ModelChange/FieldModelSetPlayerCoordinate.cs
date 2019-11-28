@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fumbbl.Model.Types;
+using UnityEngine;
 
 namespace Fumbbl.Model.ModelChange
 {

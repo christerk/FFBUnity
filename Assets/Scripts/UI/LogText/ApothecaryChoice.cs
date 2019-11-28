@@ -1,4 +1,5 @@
 ﻿using Fumbbl.Model;
+using Fumbbl.Model.Types;
 using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
