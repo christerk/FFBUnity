@@ -12,22 +12,21 @@ namespace Fumbbl.UI.LogText
             Player player = FFB.Instance.Model.GetPlayer(report.playerId);
             string neededRoll = "";
 
+            IEnumerable<DodgeModifier> rollModifiers = report.rollModifiers.Select(r => r.AsDodgeModifier());
+
             yield return new LogRecord($"<b>Dodge Roll [ { report.roll } ]</b>");
 
-// TODO: rollmodifiers will be Enums
-//            if !(report.reRolled)
-//            {
-//
-//              if (report.rollModifiers.Contains("Stunty"))
-//              {
-//                  yield return new LogRecord($"{ player.FormattedName } is Stunty and ignores tacklezones.", 1);
-//              }
-//
-//              if (report.rollModifiers.Contains("Break Tackle"))
-//              {
-//                  yield return new LogRecord($"{ player.FormattedName } uses Break Tackle to break free.", 1);
-//              }
-//            }
+            if (!report.reRolled)
+            {
+                if (rollModifiers.Contains(DodgeModifier.Stunty))
+                {
+                    yield return new LogRecord($"{ player.FormattedName } is Stunty and ignores tacklezones.", 1);
+                }
+                if (rollModifiers.Contains(DodgeModifier.BreakTackle))
+                {
+                    yield return new LogRecord($"{ player.FormattedName } uses Break Tackle to break free.", 1);
+                }
+            }
 
             if (report.successful)
             {

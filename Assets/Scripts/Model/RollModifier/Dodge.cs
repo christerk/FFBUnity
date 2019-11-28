@@ -8,6 +8,10 @@ namespace Fumbbl.Model
         public int Modifier { get; set; }
         public bool TacklezoneModifier { get; set; }
         public bool PrehensileTailModifier { get; set; }
+
+        public static DodgeModifier Stunty = new DodgeModifier() { Name = "Stunty", Modifier = 0, TacklezoneModifier = false, PrehensileTailModifier = false };
+        public static DodgeModifier BreakTackle = new DodgeModifier() { Name = "Break Tackle", Modifier = 0, TacklezoneModifier = false, PrehensileTailModifier = false };
+
     }
 
     public static class DodgeModifierExtensions
@@ -18,8 +22,8 @@ namespace Fumbbl.Model
         {
             DodgeModifiers = new Dictionary<string, DodgeModifier>()
             {
-                ["Stunty"] = new DodgeModifier() { Name = "Stunty", Modifier = 0, TacklezoneModifier = false, PrehensileTailModifier = false},
-                ["Break Tackle"] = new DodgeModifier() { Name = "Break Tackle", Modifier = 0, TacklezoneModifier = false, PrehensileTailModifier = false},
+                ["Stunty"] = DodgeModifier.Stunty,
+                ["Break Tackle"] = DodgeModifier.BreakTackle,
                 ["Two Heads"] = new DodgeModifier() { Name = "Two Heads", Modifier = -1, TacklezoneModifier = false, PrehensileTailModifier = false},
                 ["Diving Tackle"] = new DodgeModifier() { Name = "Diving Tackle", Modifier = 2, TacklezoneModifier = false, PrehensileTailModifier = false},
                 ["Titchy"] = new DodgeModifier() { Name = "Titchy", Modifier = -1, TacklezoneModifier = false, PrehensileTailModifier = false},
