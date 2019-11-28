@@ -14,5 +14,6 @@ namespace Fumbbl.Ffb.Dto.Reports
         public bool reRolled;
 
         public List<string> rollModifiers;
+        // TODO: public List<FFBEnumeration> rollModifiers;
     }
 }
