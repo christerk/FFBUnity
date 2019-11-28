@@ -17,11 +17,12 @@ namespace Fumbbl.Model
             LeapModifiers = new Dictionary<string, LeapModifier>()
             {
                 ["Very Long Legs"] = new LeapModifier() { Name = "Very Long Legs", Modifier = -1}
-            }
+            };
         }
 
         public static LeapModifier AsLeapModifier(this FFBEnumeration ffbEnum)
         {
             return LeapModifiers.ContainsKey(ffbEnum.key) ? LeapModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

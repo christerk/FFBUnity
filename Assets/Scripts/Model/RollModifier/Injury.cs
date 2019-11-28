@@ -6,7 +6,7 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean NigglingInjuryModifier { get; set; }
+        public bool NigglingInjuryModifier { get; set; }
     }
 
     public static class InjuryModifierExtensions
@@ -26,11 +26,12 @@ namespace Fumbbl.Model
                 ["3 Niggling Injuries"] = new InjuryModifier() { Name = "3 Niggling Injuries", Modifier = 3, NigglingInjuryModifier = true},
                 ["4 Niggling Injuries"] = new InjuryModifier() { Name = "4 Niggling Injuries", Modifier = 4, NigglingInjuryModifier = true},
                 ["5 Niggling Injuries"] = new InjuryModifier() { Name = "5 Niggling Injuries", Modifier = 5, NigglingInjuryModifier = true}
-            }
+            };
         }
 
         public static InjuryModifier AsInjuryModifier(this FFBEnumeration ffbEnum)
         {
             return InjuryModifiers.ContainsKey(ffbEnum.key) ? InjuryModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

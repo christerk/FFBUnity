@@ -6,8 +6,8 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean TacklezoneModifier { get; set; }
-        public boolean DisturbingPresenceModifier { get; set; }
+        public bool TacklezoneModifier { get; set; }
+        public bool DisturbingPresenceModifier { get; set; }
     }
 
     public static class CatchModifierExtensions
@@ -43,11 +43,12 @@ namespace Fumbbl.Model
                 ["11 Disturbing Presences"] = new CatchModifier() { Name = "11 Disturbing Presences", Modifier = 11, TacklezoneModifier = false, DisturbingPresenceModifier = true},
                 ["Diving Catch"] = new CatchModifier() { Name = "Diving Catch", Modifier = -1, TacklezoneModifier = false, DisturbingPresenceModifier = false},
                 ["Hand Off"] = new CatchModifier() { Name = "Hand Off", Modifier = -1, TacklezoneModifier = false, DisturbingPresenceModifier = false}
-            }
+            };
         }
 
         public static CatchModifier AsCatchModifier(this FFBEnumeration ffbEnum)
         {
             return CatchModifiers.ContainsKey(ffbEnum.key) ? CatchModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

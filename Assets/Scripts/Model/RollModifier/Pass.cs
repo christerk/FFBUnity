@@ -6,8 +6,8 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean TacklezoneModifier { get; set; }
-        public boolean DisturbingPresenceModifier { get; set; }
+        public bool TacklezoneModifier { get; set; }
+        public bool DisturbingPresenceModifier { get; set; }
     }
 
     public static class PassModifierExtensions
@@ -44,11 +44,13 @@ namespace Fumbbl.Model
                 ["10 Disturbing Presences"] = new PassModifier() { Name = "10 Disturbing Presences", Modifier = 10, TacklezoneModifier = false, DisturbingPresenceModifier = true},
                 ["11 Disturbing Presences"] = new PassModifier() { Name = "11 Disturbing Presences", Modifier = 11, TacklezoneModifier = false, DisturbingPresenceModifier = true},
                 ["Throw Team-Mate"] = new PassModifier() { Name = "Throw Team-Mate", Modifier = 1, TacklezoneModifier = false, DisturbingPresenceModifier = false},
-                ["Gromskull's Exploding Runes"] = new PassModifier() { Name = "Gromskull's Exploding Runes", Modifier = 1, TacklezoneModifier = false, DisturbingPresenceModifier = false}            }
+                ["Gromskull's Exploding Runes"] = new PassModifier() { Name = "Gromskull's Exploding Runes", Modifier = 1, TacklezoneModifier = false, DisturbingPresenceModifier = false}
+            };
         }
 
         public static PassModifier AsPassModifier(this FFBEnumeration ffbEnum)
         {
             return PassModifiers.ContainsKey(ffbEnum.key) ? PassModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

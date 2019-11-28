@@ -6,8 +6,8 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean TacklezoneModifier { get; set; }
-        public boolean PrehensileTailModifier { get; set; }
+        public bool TacklezoneModifier { get; set; }
+        public bool PrehensileTailModifier { get; set; }
     }
 
     public static class DodgeModifierExtensions
@@ -39,11 +39,12 @@ namespace Fumbbl.Model
                 ["6 Prehensile Tails"] = new DodgeModifier() { Name = "6 Prehensile Tails", Modifier = 6, TacklezoneModifier = false, PrehensileTailModifier = true},
                 ["7 Prehensile Tails"] = new DodgeModifier() { Name = "7 Prehensile Tails", Modifier = 7, TacklezoneModifier = false, PrehensileTailModifier = true},
                 ["8 Prehensile Tails"] = new DodgeModifier() { Name = "8 Prehensile Tails", Modifier = 8, TacklezoneModifier = false, PrehensileTailModifier = true}
-            }
+            };
         }
 
         public static DodgeModifier AsDodgeModifier(this FFBEnumeration ffbEnum)
         {
             return DodgeModifiers.ContainsKey(ffbEnum.key) ? DodgeModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

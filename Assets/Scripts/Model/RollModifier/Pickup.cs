@@ -6,7 +6,7 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean TacklezoneModifier { get; set; }
+        public bool TacklezoneModifier { get; set; }
     }
 
     public static class PickupModifierExtensions
@@ -28,11 +28,12 @@ namespace Fumbbl.Model
                 ["6 Tacklezones"] = new PickupModifier() { Name = "6 Tacklezones", Modifier = 6, TacklezoneModifier = true},
                 ["7 Tacklezones"] = new PickupModifier() { Name = "7 Tacklezones", Modifier = 7, TacklezoneModifier = true},
                 ["8 Tacklezones"] = new PickupModifier() { Name = "8 Tacklezones", Modifier = 8, TacklezoneModifier = true}
-            }
+            };
         }
 
         public static PickupModifier AsPickupModifier(this FFBEnumeration ffbEnum)
         {
             return PickupModifiers.ContainsKey(ffbEnum.key) ? PickupModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

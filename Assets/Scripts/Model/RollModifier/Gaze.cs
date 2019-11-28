@@ -6,7 +6,7 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean TacklezoneModifier { get; set; }
+        public bool TacklezoneModifier { get; set; }
     }
 
     public static class GazeModifierExtensions
@@ -25,11 +25,12 @@ namespace Fumbbl.Model
                 ["6 Tacklezones"] = new GazeModifier() { Name = "6 Tacklezones", Modifier = 6, TacklezoneModifier = true},
                 ["7 Tacklezones"] = new GazeModifier() { Name = "7 Tacklezones", Modifier = 7, TacklezoneModifier = true},
                 ["8 Tacklezones"] = new GazeModifier() { Name = "8 Tacklezones", Modifier = 8, TacklezoneModifier = true}
-            }
+            };
         }
 
         public static GazeModifier AsGazeModifier(this FFBEnumeration ffbEnum)
         {
             return GazeModifiers.ContainsKey(ffbEnum.key) ? GazeModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}
