@@ -6,8 +6,8 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean TacklezoneModifier { get; set; }
-        public boolean DisturbingPresenceModifier { get; set; }
+        public bool TacklezoneModifier { get; set; }
+        public bool DisturbingPresenceModifier { get; set; }
     }
 
     public static class InterceptionModifierExtensions
@@ -43,11 +43,12 @@ namespace Fumbbl.Model
                 ["11 Disturbing Presences"] = new InterceptionModifier() { Name = "11 Disturbing Presences", Modifier = 11, TacklezoneModifier = false, DisturbingPresenceModifier = true},
                 ["Fawndough's Headband"] = new InterceptionModifier() { Name = "Fawndough's Headband", Modifier = -1, TacklezoneModifier = false, DisturbingPresenceModifier = false},
                 ["Magic Gloves of Jark Longarm"] = new InterceptionModifier() { Name = "Magic Gloves of Jark Longarm", Modifier = -1, TacklezoneModifier = false, DisturbingPresenceModifier = false}
-            }
+            };
         }
 
         public static InterceptionModifier AsInterceptionModifier(this FFBEnumeration ffbEnum)
         {
             return InterceptionModifiers.ContainsKey(ffbEnum.key) ? InterceptionModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

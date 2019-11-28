@@ -6,7 +6,7 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean TacklezoneModifier { get; set; }
+        public bool TacklezoneModifier { get; set; }
     }
 
     public static class RightStuffModifierExtensions
@@ -26,11 +26,12 @@ namespace Fumbbl.Model
                 ["6 Tacklezones"] = new RightStuffModifier() { Name = "6 Tacklezones", Modifier = 6, TacklezoneModifier = true},
                 ["7 Tacklezones"] = new RightStuffModifier() { Name = "7 Tacklezones", Modifier = 7, TacklezoneModifier = true},
                 ["8 Tacklezones"] = new RightStuffModifier() { Name = "8 Tacklezones", Modifier = 8, TacklezoneModifier = true}
-            }
+            };
         }
 
         public static RightStuffModifier AsRightStuffModifier(this FFBEnumeration ffbEnum)
         {
             return RightStuffModifiers.ContainsKey(ffbEnum.key) ? RightStuffModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}

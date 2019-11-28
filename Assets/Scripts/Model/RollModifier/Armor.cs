@@ -6,7 +6,7 @@ namespace Fumbbl.Model
     {
         public string Name { get; set; }
         public int Modifier { get; set; }
-        public boolean FoulAssistModifier { get; set; }
+        public bool FoulAssistModifier { get; set; }
     }
 
     public static class ArmorModifierExtensions
@@ -35,11 +35,12 @@ namespace Fumbbl.Model
                 ["Stakes"] = new ArmorModifier() { Name = "Stakes", Modifier = 1, FoulAssistModifier = false},
                 ["Chainsaw"] = new ArmorModifier() { Name = "Chainsaw", Modifier = 3, FoulAssistModifier = false},
                 ["Foul"] = new ArmorModifier() { Name = "Foul", Modifier = 1, FoulAssistModifier = false}
-            }
+            };
         }
 
         public static ArmorModifier AsArmorModifier(this FFBEnumeration ffbEnum)
         {
             return ArmorModifiers.ContainsKey(ffbEnum.key) ? ArmorModifiers[ffbEnum.key] : null;
         }
- }
+    }
+}
