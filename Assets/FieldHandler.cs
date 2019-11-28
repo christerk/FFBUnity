@@ -29,8 +29,15 @@ public class FieldHandler : MonoBehaviour
             if (!Players.ContainsKey(p.Id))
             {
                 GameObject obj = Instantiate(PlayerIconPrefab);
-                Renderer s = obj.GetComponent<Renderer>();
+                obj.name = p.Id;
+
+                var child = obj.transform.GetChild(0).gameObject;
+                Renderer s = child.GetComponent<Renderer>();
                 s.material.color = p.IsHome ? HomeColour : AwayColour;
+
+                TMPro.TextMeshProUGUI text = obj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                text.text = p.Position?.abstractLabel ?? "*";
+
                 Players.Add(p.Id, obj);
             }
 

@@ -3,6 +3,7 @@
     public class Player
     {
         public string Id;
+        public string PositionId;
         public string Name;
         public int[] Coordinate;
 
@@ -28,6 +29,7 @@
 
         public PlayerState PlayerState { get; internal set; }
         public SeriousInjury SeriousInjury { get; internal set; }
+        public Position Position { get; internal set; }
 
         internal bool HasSkill(SkillType skillType)
         {
