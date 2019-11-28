@@ -1,4 +1,4 @@
-﻿namespace Fumbbl.Model
+﻿namespace Fumbbl.Model.Types
 {
     public class Team
     {

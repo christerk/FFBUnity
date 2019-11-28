@@ -2,6 +2,7 @@
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Model;
+using Fumbbl.Model.Types;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
