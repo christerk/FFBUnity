@@ -13,6 +13,6 @@ namespace Fumbbl.Ffb.Dto.Reports
         public int minimumRoll;
         public bool reRolled;
 
-        public List<string> rollModifiers;
+        public List<FFBEnumeration> rollModifiers;
     }
 }
