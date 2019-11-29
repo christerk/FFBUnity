@@ -32,7 +32,7 @@ public class PlayerHandler : MonoBehaviour
         var state = Player.PlayerState;
 
         bool fade = false;
-        if (state != null)
+        if (state != null && !active)
         {
             fade = state.IsBeingDragged || (state.IsStanding && !state.IsActive) || (state.IsProne && !state.IsActive);
         }
