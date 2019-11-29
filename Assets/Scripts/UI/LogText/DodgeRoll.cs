@@ -1,5 +1,6 @@
 ﻿using Fumbbl.Model;
 using Fumbbl.Model.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,7 +15,14 @@ namespace Fumbbl.UI.LogText
 
             IEnumerable<DodgeModifier> rollModifiers = report.rollModifiers?.Select(r => r.AsDodgeModifier());
 
-            yield return new LogRecord($"<b>Dodge Roll [ { report.roll } ]</b>");
+            if (report.roll > 0)
+            {
+                yield return new LogRecord($"<b>Dodge Roll [ { report.roll } ]</b>");
+            }
+            else
+            {
+                yield return new LogRecord($"<b>New Dodge Result</b>");
+            }
 
             if (!report.reRolled && rollModifiers != null)
             {
@@ -31,28 +39,37 @@ namespace Fumbbl.UI.LogText
             if (report.successful)
             {
                 yield return new LogRecord($"{ player.FormattedName } dodges successfully.", 1);
-                neededRoll = $"Succeeded on a roll of { report.minimumRoll }+";
+                if (!report.reRolled)
+                {
+                    neededRoll = $"Succeeded on a roll of { report.minimumRoll }+";
+                }
             }
             else
             {
                 yield return new LogRecord($"{ player.FormattedName } trips while dodging.", 1);
-                neededRoll = $"Roll a { report.minimumRoll }+ to succeed";
+                if (!report.reRolled)
+                {
+                    neededRoll = $"Roll a { report.minimumRoll }+ to succeed";
+                }
             }
 
-            if (neededRoll != "")
+            if (!string.IsNullOrEmpty(neededRoll))
             {
+                if (rollModifiers != null && rollModifiers.Contains(DodgeModifier.BreakTackle))
                 {
-                    if (rollModifiers.Contains(DodgeModifier.BreakTackle))
-                    {
-                        neededRoll += $" using Break Tackle (ST { System.Math.Min(6, player.Strength) }";
-                    }
-                    else
-                    {
-                        neededRoll += $" (AG { System.Math.Min(6, player.Agility) }";
-                    }
+                    neededRoll += $" using Break Tackle (ST { Math.Min(6, player.Strength) }";
                 }
+                else
+                {
+                    neededRoll += $" (AG { System.Math.Min(6, player.Agility) }";
+                }
+
                 neededRoll += " + 1 Dodge";
-                // neededRoll += concatenated formatted rollmodifiers
+                if (rollModifiers != null)
+                {
+                    neededRoll += string.Join("", rollModifiers.Select(m => m.GetModifierString()));
+                }
+
                 neededRoll += " + Roll > 6).";
                 yield return new LogRecord(neededRoll , 1);
             }
