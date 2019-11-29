@@ -13,7 +13,7 @@ namespace Fumbbl.UI.LogText
                 Player player = FFB.Instance.Model.GetPlayer(report.playerId);
                 string injuryDescription = Model.Types.Injury.GetDescription(report.playerState);
                 yield return new LogRecord("Apothecary used.");
-                yield return new LogRecord($"Casualty Roll [ {report.casualtyRoll[0]} ][ {report.casualtyRoll[1]} ]");
+                yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRoll[0]} ][ {report.casualtyRoll[1]} ]</b>");
                 yield return new LogRecord($"{player.FormattedName} {injuryDescription}.", 1);
                 if (report.seriousInjury != null)
                 {

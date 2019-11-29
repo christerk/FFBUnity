@@ -10,7 +10,7 @@ namespace Fumbbl.UI.LogText
         {
             Player thrower = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
 
-            yield return new LogRecord($"Always Hungry Roll [ {report.roll} ]");
+            yield return new LogRecord($"<b>Always Hungry Roll [ {report.roll} ]</b>");
 
             if (report.successful)
             {

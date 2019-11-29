@@ -31,6 +31,11 @@
         public SeriousInjury SeriousInjury { get; internal set; }
         public Position Position { get; internal set; }
 
+        public int Movement { get; set; }
+        public int Strength { get; set; }
+        public int Agility { get; set; }
+        public int Armour { get; set; }
+
         internal bool HasSkill(SkillType skillType)
         {
             return false;

@@ -10,7 +10,7 @@ namespace Fumbbl.UI.LogText
             var action = report.playerAction.AsPlayerAction();
             if (action != null && action.Description != null)
             {
-                yield return new LogRecord($"{ FFB.Instance.Model.GetPlayer(report.actingPlayerId).FormattedName } { action.Description }.");
+                yield return new LogRecord($"<b>{ FFB.Instance.Model.GetPlayer(report.actingPlayerId).FormattedName } { action.Description }.</b>");
 
             }
         }

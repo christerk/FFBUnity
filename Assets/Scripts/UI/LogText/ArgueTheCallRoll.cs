@@ -9,7 +9,7 @@ namespace Fumbbl.UI.LogText
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.ArgueTheCallRoll report)
         {
             Player player = FFB.Instance.Model.GetPlayer(report.playerId);
-            yield return new LogRecord($"Argue the Call Roll [ {report.roll} ]");
+            yield return new LogRecord($"<b>Argue the Call Roll [ {report.roll} ]</b>");
             if (report.successful)
             {
                 yield return new LogRecord($"The ref refrains from banning {player.FormattedName} and {player.Gender.Nominative} is sent to the reserve instead.", 1);

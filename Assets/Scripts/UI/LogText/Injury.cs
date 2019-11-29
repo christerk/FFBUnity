@@ -36,7 +36,7 @@ namespace Fumbbl.UI.LogText
 
             if (report.armorRoll?.Length > 0)
             {
-                yield return new LogRecord($"Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]");
+                yield return new LogRecord($"<b>Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]</b>");
 
                 //
                 // TODO: Incomplete
@@ -45,7 +45,7 @@ namespace Fumbbl.UI.LogText
 
             if (report.armorBroken && report.injuryRoll?.Length > 0)
             {
-                yield return new LogRecord($"Injury Roll [ {report.injuryRoll[0]} ][ {report.injuryRoll[1]} ]");
+                yield return new LogRecord($"<b>Injury Roll [ {report.injuryRoll[0]} ][ {report.injuryRoll[1]} ]</b>");
 
                 //
                 // TODO: Incomplete
