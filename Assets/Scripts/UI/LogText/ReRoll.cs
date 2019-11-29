@@ -12,14 +12,14 @@ namespace Fumbbl.UI.LogText
 
             if (report.reRollSource == "Loner")
             {
-                yield return new LogRecord($"Loner Roll [ {report.roll} ]", 1);
+                yield return new LogRecord($"<b>Loner Roll [ {report.roll} ]</b>", 1);
 
                 string success = report.successful ? "may use" : "wastes";
                 yield return new LogRecord($"{player.FormattedName} {success} a Team Re-Roll.", 2);
             }
             else if (report.reRollSource == "Pro")
             {
-                yield return new LogRecord($"Pro Roll [ {report.roll} ]", 1);
+                yield return new LogRecord($"<b>Pro Roll [ {report.roll} ]</b>", 1);
 
                 if (report.successful)
                 {

@@ -1,6 +1,5 @@
 ﻿using Fumbbl.Model;
 using Fumbbl.Model.Types;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,16 +41,18 @@ namespace Fumbbl.UI.LogText
 
             if (neededRoll != "")
             {
-//                if (report.rollModifiers.Contains("Break Tackle"))
-//                {
-//                    neededRoll += $" using Break Tackle (ST { Min(6, player.ST) }"
-//                }
-//                else
-//                {
-//                    neededRoll += $" (AG { Min(6, player.AG) }"
-//                }
+                {
+                    if (rollModifiers.Contains(DodgeModifier.BreakTackle))
+                    {
+                        neededRoll += $" using Break Tackle (ST { System.Math.Min(6, player.Strength) }";
+                    }
+                    else
+                    {
+                        neededRoll += $" (AG { System.Math.Min(6, player.Agility) }";
+                    }
+                }
                 neededRoll += " + 1 Dodge";
-                // neededRoll += rollmodifiers ...
+                // neededRoll += concatenated formatted rollmodifiers
                 neededRoll += " + Roll > 6).";
                 yield return new LogRecord(neededRoll , 1);
             }

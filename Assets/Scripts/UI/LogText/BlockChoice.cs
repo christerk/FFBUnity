@@ -10,7 +10,7 @@ namespace Fumbbl.UI.LogText
         {
             BlockDie blockResult = report.blockResult.AsBlockDie();
 
-            yield return new LogRecord($"Block Result [ { blockResult.Name } ]");
+            yield return new LogRecord($"<b>Block Result [ { blockResult.Name } ]</b>");
 
             Player attacker = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
             Player defender = FFB.Instance.Model.GetPlayer(report.defenderId);

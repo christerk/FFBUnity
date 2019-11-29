@@ -211,6 +211,10 @@ namespace Fumbbl
                         Gender = Gender.Male,
                         PositionId = p.positionId,
                         Position = positions[p.positionId],
+                        Movement = p.movement,
+                        Strength = p.strength,
+                        Agility = p.agility,
+                        Armour = p.armour,
                     });
                 }
 

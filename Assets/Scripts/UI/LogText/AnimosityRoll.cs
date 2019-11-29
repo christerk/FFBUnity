@@ -10,7 +10,7 @@ namespace Fumbbl.UI.LogText
         {
             Player player = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
 
-            yield return new LogRecord($"Animosity Roll [ {report.roll} ]");
+            yield return new LogRecord($"<b>Animosity Roll [ {report.roll} ]</b>");
 
             if (report.successful)
             {
