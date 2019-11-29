@@ -33,7 +33,7 @@ namespace Fumbbl
         public int GameId { get; private set; }
         public string PreviousScene { get; internal set; }
 
-        public Lib.Cache<Texture2D> ImageCache { get; set; }
+        public Lib.Cache<Texture2D> TextureCache { get; set; }
 
         public enum LogPanelType
         {
@@ -44,6 +44,7 @@ namespace Fumbbl
 
         private FFB()
         {
+            TextureCache = new Lib.Cache<Texture2D>();
             LogText = new List<Report>();
             ChatText = new List<string>();
             Network = new Networking();

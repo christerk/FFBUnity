@@ -35,10 +35,8 @@ public class GameBrowserEntry : MonoBehaviour
             float progress = (float)((((float)details.half -1) * 8) + (float)details.turn) / 16f;
             progressBar.fillAmount = progress;
 
-          //  Fumbbl.FFB.ImageCache.GetOrCreate(t1.logo, () => team1Image);
-
-            StartCoroutine(GetTexture(team1Image, t1.logo));
-            StartCoroutine(GetTexture(team2Image, t2.logo));
+            StartCoroutine(Fumbbl.FFB.Instance.TextureCache.GetAsync(t1.logo, team1Image, GetSprite));
+            StartCoroutine(Fumbbl.FFB.Instance.TextureCache.GetAsync(t2.logo, team2Image, GetSprite));
         }
         else
         {
@@ -53,35 +51,22 @@ public class GameBrowserEntry : MonoBehaviour
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
     }
 
-    IEnumerator GetTexture(Image target, string url)
+    public IEnumerator GetSprite(string url, object target, Fumbbl.Lib.CacheObject<Texture2D> cacheObject)
     {
-        var textureCache = Fumbbl.FFB.Instance.ImageCache;
-        Texture2D img = null;
-        if(!textureCache.Get(url, () => Debug.Log("Here from func pointer")  ))
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture("https://www.fumbbl.com/" + url);
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError)
         {
-            UnityWebRequest www = UnityWebRequestTexture.GetTexture("https://www.fumbbl.com/" + url);
-            yield return www.SendWebRequest();
-
-            if(www.isNetworkError || www.isHttpError)
-            {
-                Debug.Log(www.error);
-            }
-            else 
-            {
-                img = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            }
-        }
-
-        //MIKE TODO::: https://www.tutorialsteacher.com/csharp/csharp-func-delegate
-
-        if(img != null)
-        {
-            textureCache.Set(url, img);
-            target.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
+            Debug.Log(www.error);
         }
         else
         {
-            Debug.LogError("Failed to load image: " + url);
+            cacheObject._item = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            Texture2D img = cacheObject._item;
+            Image image = (Image)target;
+            image.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
         }
     }
+
 }

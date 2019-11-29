@@ -6,41 +6,57 @@ using UnityEngine;
 
 namespace Fumbbl.Lib
 {
+    public class CacheObject<T>
+    {
+        public CacheObject()
+        {
+            _created = DateTime.Now;
+        }
+
+        public CacheObject(T item)
+        {
+            _item = item;
+            _created = DateTime.Now;
+        }
+
+        public T           _item {get; set;}
+
+        private DateTime    _created;
+    }
+
 
     public class Cache<T>
     {
-        private class CacheObject
-        {
-            public CacheObject(T item)
-            {
-                _item = item;
-                _created = DateTime.Now;
-            }
-
-            public T Get() { return _item;}
-
-            private T           _item;
-            private DateTime    _created;
-        }
-
-        private ConcurrentDictionary<string, CacheObject> cache = new ConcurrentDictionary<string, CacheObject>();
+       
+        private ConcurrentDictionary<string, CacheObject<T>> cache = new ConcurrentDictionary<string, CacheObject<T>>();
 
 
         public void Set(string key, T item)
         {
-            cache[key] = new CacheObject(item);
+            cache[key] = new CacheObject<T>(item);
         }
+    
+        public delegate IEnumerator testingdel(string key, object target, CacheObject<T> t );
 
-        public bool Get(string key, Func<T> func)
+        public IEnumerator GetAsync(string key, object target, testingdel func)
         {
-            func();
             if(!cache.ContainsKey(key))
             {
-               return false;
+                CacheObject<T> cacheObject = new CacheObject<T>();
+                yield return func(key, target, cacheObject);
+                 
+                Debug.Log("Cache Miss for: " + key);
+                if(cacheObject._item != null)
+                {
+                    Debug.Log("Cache stored for: " + key);
+                    cache[key] = cacheObject;
+                }
             }
-
-          //  target = cache[key].Get();
-            return true;  
+            else
+            {
+                Debug.Log("Cache Hit for: " + key);
+                target = cache[key]._item;
+            }
         }
 
         public void ClearAll()
