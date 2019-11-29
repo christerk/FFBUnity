@@ -29,6 +29,8 @@ public class FieldHandler : MonoBehaviour
             if (!Players.ContainsKey(p.Id))
             {
                 GameObject obj = Instantiate(PlayerIconPrefab);
+                var handler = obj.GetComponent<PlayerHandler>();
+                handler.Player = p;
                 obj.name = p.Id;
 
                 var child = obj.transform.GetChild(0).gameObject;
