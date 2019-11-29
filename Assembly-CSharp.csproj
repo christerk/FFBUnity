@@ -63,13 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ActingPlayerHandler.cs" />
     <Compile Include="Assets\ChatInputHandler.cs" />
     <Compile Include="Assets\FieldHandler.cs" />
     <Compile Include="Assets\GameBrowserEntry.cs" />
     <Compile Include="Assets\GameBrowserHandler.cs" />
     <Compile Include="Assets\InputHandler.cs" />
     <Compile Include="Assets\LoginHandler.cs" />
+    <Compile Include="Assets\PlayerHandler.cs" />
     <Compile Include="Assets\Scripts\Api\Dto\Auth\Token.cs" />
     <Compile Include="Assets\Scripts\Api\Dto\Coach\Get.cs" />
     <Compile Include="Assets\Scripts\Api\Dto\Match\Current.cs" />
