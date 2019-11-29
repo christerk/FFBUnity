@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChange.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetPlayerCoordinate.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetPlayerState.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\NetCommand.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Report.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\AlwaysHungryRoll.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\FanFactorRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Foul.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\FumbblResultUpload.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\GoForItRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\HandOver.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Inducement.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\InducementsBought.cs" />
@@ -189,6 +191,7 @@
     <Compile Include="Assets\Scripts\Model\Core.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetPlayerCoordinate.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetPlayerState.cs" />
     <Compile Include="Assets\Scripts\Model\ModelUpdater.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Model\RollModifier\Armor.cs" />
@@ -231,6 +234,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\ConfusionRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\DodgeRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Foul.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\GoForItRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Injury.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
