@@ -188,6 +188,10 @@ namespace Fumbbl
                         Team = homeTeam,
                         Gender = Gender.Male,
                         Position = positions[p.positionId],
+                        Movement = p.movement,
+                        Strength = p.strength,
+                        Agility = p.agility,
+                        Armour = p.armour,
                     });
                 }
 

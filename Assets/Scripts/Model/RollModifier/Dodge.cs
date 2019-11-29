@@ -9,9 +9,28 @@ namespace Fumbbl.Model
         public bool TacklezoneModifier { get; set; }
         public bool PrehensileTailModifier { get; set; }
 
+        public bool IsModifierIncluded => TacklezoneModifier || PrehensileTailModifier;
+
         public static DodgeModifier Stunty = new DodgeModifier() { Name = "Stunty", Modifier = 0, TacklezoneModifier = false, PrehensileTailModifier = false };
         public static DodgeModifier BreakTackle = new DodgeModifier() { Name = "Break Tackle", Modifier = 0, TacklezoneModifier = false, PrehensileTailModifier = false };
 
+        public string GetModifierString()
+        {
+            if (Modifier == 0)
+            {
+                return string.Empty;
+            }
+
+            string sign = Modifier > 0 ? "+" : "-";
+            if (IsModifierIncluded)
+            {
+                return $" {sign} {Name}";
+            }
+            else
+            {
+                return $" {sign} {Modifier} {Name}";
+            }
+        }
     }
 
     public static class DodgeModifierExtensions
