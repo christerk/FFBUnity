@@ -56,7 +56,14 @@ namespace Fumbbl.Model
 
         internal void AddPlayer(Player player)
         {
-            Players.Add(player.Id, player);
+            if (Players.ContainsKey(player.Id))
+            {
+                Players[player.Id] = player;
+            }
+            else
+            {
+                Players.Add(player.Id, player);
+            }
         }
     }
 }
