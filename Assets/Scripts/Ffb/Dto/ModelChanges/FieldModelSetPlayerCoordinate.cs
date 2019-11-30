@@ -1,6 +1,6 @@
 ﻿namespace Fumbbl.Ffb.Dto.ModelChanges
 {
-    class FieldModelSetPlayerCoordinate : ModelChange
+    public class FieldModelSetPlayerCoordinate : ModelChange
     {
         public string modelChangeId;
         public string modelChangeKey;

@@ -7,14 +7,14 @@ namespace Fumbbl.Model
     public class Core
     {
         //private ModelChangeFactory ModelChangeFactory { get; }
-        private ReflectedFactory<ModelUpdater, Type> ModelChangeFactory { get; }
+        private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
         public ActingPlayer ActingPlayer { get; set; }
         private Dictionary<string, Player> Players { get; set; }
 
         public Core()
         {
             //ModelChangeFactory = new ModelChangeFactory();
-            ModelChangeFactory = new ReflectedFactory<ModelUpdater, Type>();
+            ModelChangeFactory = new ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type>();
             ActingPlayer = new ActingPlayer();
             Players = new Dictionary<string, Player>();
         }
@@ -33,7 +33,7 @@ namespace Fumbbl.Model
         internal void ApplyChange(Ffb.Dto.ModelChange change)
         {
             //IModelUpdater updater = ModelChangeFactory.Create(change);
-            ModelUpdater updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
+            ModelUpdater<Ffb.Dto.ModelChange> updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
             updater?.Apply(change);
         }
 
