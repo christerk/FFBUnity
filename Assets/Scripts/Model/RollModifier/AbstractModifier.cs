@@ -20,7 +20,7 @@ namespace Fumbbl.Model.RollModifier
             RegisterModifier(name, this);
         }
 
-        public abstract bool ModifierIncludedInName { get; }
+        public virtual bool ModifierIncludedInName => false;
 
         private void RegisterModifier(string key, AbstractModifier modifier)
         {
