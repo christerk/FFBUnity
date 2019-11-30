@@ -2,5 +2,7 @@
 {
     public class GameResult
     {
+        public TeamResult teamResultHome;
+        public TeamResult teamResultAway;
     }
 }

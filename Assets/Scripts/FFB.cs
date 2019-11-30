@@ -241,6 +241,12 @@ namespace Fumbbl
                     player.Coordinate = p.playerCoordinate;
                     player.PlayerState = PlayerState.Get(p.playerState);
                 }
+
+                FFB.Instance.Model.TurnHome = cmd.game.turnDataHome.turnNr;
+                FFB.Instance.Model.TurnAway = cmd.game.turnDataAway.turnNr;
+
+                FFB.Instance.Model.ScoreHome = cmd.game.gameResult.teamResultHome.score;
+                FFB.Instance.Model.ScoreAway = cmd.game.gameResult.teamResultAway.score;
             }
             return false;
         }
