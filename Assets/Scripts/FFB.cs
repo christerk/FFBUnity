@@ -176,7 +176,7 @@ namespace Fumbbl
                 var positions = new Dictionary<string, Position>();
                 foreach (var pos in cmd.game.teamHome.roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position() { abstractLabel = pos.shorthand };
+                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand };
                 }
 
                 foreach (var p in cmd.game.teamHome.playerArray)
@@ -198,7 +198,7 @@ namespace Fumbbl
                 positions.Clear();
                 foreach (var pos in cmd.game.teamAway.roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position() { abstractLabel = pos.shorthand };
+                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand };
                 }
 
                 foreach (var p in cmd.game.teamAway.playerArray)

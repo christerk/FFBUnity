@@ -38,7 +38,7 @@ public class FieldHandler : MonoBehaviour
                 s.material.color = p.IsHome ? HomeColour : AwayColour;
 
                 TMPro.TextMeshProUGUI text = obj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                text.text = p.Position?.abstractLabel ?? "*";
+                text.text = p.Position?.AbstractLabel ?? "*";
 
                 Players.Add(p.Id, obj);
             }

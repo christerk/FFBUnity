@@ -8,6 +8,6 @@ namespace Fumbbl.Model.Types
 {
     public class Position
     {
-        public string abstractLabel { get; set; }
+        public string AbstractLabel { get; set; }
     }
 }

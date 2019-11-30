@@ -4,8 +4,8 @@ namespace Fumbbl.Model.Types
 {
     public class PlayerState
     {
-        private static Dictionary<int, PlayerState> PlayerStates = new Dictionary<int, PlayerState>();
-        private int State;
+        private static readonly Dictionary<int, PlayerState> PlayerStates = new Dictionary<int, PlayerState>();
+        private readonly int State;
 
         public bool IsUnknown => (State & 0xff) == 0x0000;
         public bool IsStanding => (State & 0xff) == 0x0001;

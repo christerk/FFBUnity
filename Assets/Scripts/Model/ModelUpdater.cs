@@ -20,7 +20,7 @@ namespace Fumbbl.Model
         where TTo : Ffb.Dto.ModelChange
         where TFrom : Ffb.Dto.ModelChange
     {
-        private ModelUpdater<TFrom> Generator;
+        private readonly ModelUpdater<TFrom> Generator;
         public CastedModelUpdater(ModelUpdater<TFrom> generator)
             : base(typeof(TFrom))
         {
