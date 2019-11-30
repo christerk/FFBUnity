@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Api\Dto\Coach\Get.cs" />
     <Compile Include="Assets\Scripts\Api\Dto\Match\Current.cs" />
     <Compile Include="Assets\Scripts\Api\FumbblApi.cs" />
+    <Compile Include="Assets\Scripts\ChatEntry.cs" />
     <Compile Include="Assets\Scripts\EnumerationConverter.cs" />
     <Compile Include="Assets\Scripts\FFB.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\AbstractCommand.cs" />
@@ -103,6 +104,9 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\ICommand.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChange.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\ActingPlayerSetPlayerId.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetBallCoordinate.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetBallInPlay.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetBallMoving.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetPlayerCoordinate.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetPlayerState.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\NetCommand.cs" />
@@ -188,8 +192,12 @@
     <Compile Include="Assets\Scripts\FFBEnumeration.cs" />
     <Compile Include="Assets\Scripts\IReflectedObject.cs" />
     <Compile Include="Assets\Scripts\MainHandler.cs" />
+    <Compile Include="Assets\Scripts\Model\Ball.cs" />
     <Compile Include="Assets\Scripts\Model\Core.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetBallCoordinate.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetBallInPlay.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetBallMoving.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetPlayerCoordinate.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetPlayerState.cs" />
     <Compile Include="Assets\Scripts\Model\ModelUpdater.cs" />

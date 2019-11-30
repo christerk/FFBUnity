@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Fumbbl.FFB;
 
 public class TextPanelHandler : MonoBehaviour
 {
@@ -61,11 +62,19 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void AddChat(string text)
+    void AddChat(string coach, ChatSource source, string text)
     {
         if (this.panelType == FFB.LogPanelType.Chat)
         {
-            AddText(text, 0);
+            string colour;
+            switch (source)
+            {
+                case ChatSource.Home: colour = "#ff0000"; break;
+                case ChatSource.Away: colour = "#0000ff"; break;
+                default: colour = "#336633"; break;
+            }
+            string line = $"<<{colour}>{TextPanelHandler.SanitizeText(coach)}</color>> {TextPanelHandler.SanitizeText(text)}";
+            AddText(line, 0);
         }
     }
 

@@ -16,7 +16,7 @@ namespace Fumbbl
         public FumbblApi Api;
         public Networking Network;
         private readonly List<Report> LogText;
-        private readonly List<string> ChatText;
+        private readonly List<ChatEntry> ChatText;
 
         public Core Model { get; }
 
@@ -26,11 +26,19 @@ namespace Fumbbl
 
         public event AddReportDelegate OnReport;
 
-        public delegate void AddChatDelegate(string text);
+        public delegate void AddChatDelegate(string coach, ChatSource source, string text);
         public event AddChatDelegate OnChat;
 
         public int GameId { get; private set; }
         public string PreviousScene { get; internal set; }
+
+        public enum ChatSource
+        {
+            Unknown,
+            Home,
+            Away,
+            Spectator
+        }
 
         public enum LogPanelType
         {
@@ -42,7 +50,7 @@ namespace Fumbbl
         private FFB()
         {
             LogText = new List<Report>();
-            ChatText = new List<string>();
+            ChatText = new List<ChatEntry>();
             Network = new Networking();
             Model = new Core();
             Api = new FumbblApi();
@@ -93,7 +101,7 @@ namespace Fumbbl
             return LogText;
         }
 
-        internal List<string> GetChat()
+        internal List<ChatEntry> GetChat()
         {
             return ChatText;
         }
@@ -149,6 +157,8 @@ namespace Fumbbl
             }
             if (netCommand is Ffb.Dto.Commands.ServerGameState)
             {
+                FFB.Instance.Model.Clear();
+
                 var cmd = (Ffb.Dto.Commands.ServerGameState)netCommand;
 
                 Coach homeCoach = new Coach()
@@ -172,6 +182,13 @@ namespace Fumbbl
                 {
                     Coach = awayCoach
                 };
+
+                FFB.Instance.Model.HomeCoach = homeCoach;
+                FFB.Instance.Model.AwayCoach = awayCoach;
+
+                FFB.Instance.Model.Ball.Coordinate = cmd.game.fieldModel.ballCoordinate;
+                FFB.Instance.Model.Ball.InPlay = cmd.game.fieldModel.ballInPlay;
+                FFB.Instance.Model.Ball.Moving = cmd.game.fieldModel.ballMoving;
 
                 var positions = new Dictionary<string, Position>();
                 foreach (var pos in cmd.game.teamHome.roster.positionArray)
@@ -235,23 +252,32 @@ namespace Fumbbl
 
         internal void AddChatEntry(string coach, string text)
         {
-            string line = $"<noparse><</noparse>{TextPanelHandler.SanitizeText(coach)}> {TextPanelHandler.SanitizeText(text)}";
+            ChatSource source = ChatSource.Spectator;
+            if (string.Equals(FFB.Instance.Model.HomeCoach.Name, coach))
+            {
+                source = ChatSource.Home;
+            }
+            if (string.Equals(FFB.Instance.Model.AwayCoach.Name, coach))
+            {
+                source = ChatSource.Away;
+            }
 
-            ChatText.Add(line);
-            TriggerChatChanged(line);
+            ChatEntry entry = new ChatEntry(coach, source, text);
+            ChatText.Add(entry);
+            TriggerChatChanged(entry);
         }
 
-        private void TriggerChatChanged(string text)
+        private void TriggerChatChanged(ChatEntry entry)
         {
-            OnChat?.Invoke(text);
+            OnChat?.Invoke(entry.Coach, entry.Source, entry.Text);
         }
         private void TriggerChatRefresh()
         {
             if (OnChat != null)
             {
-                foreach (string entry in ChatText)
+                foreach (ChatEntry entry in ChatText)
                 {
-                    OnChat(entry);
+                    OnChat(entry.Coach, entry.Source, entry.Text);
                 }
             }
         }

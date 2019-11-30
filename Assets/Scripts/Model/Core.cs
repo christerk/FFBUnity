@@ -10,6 +10,10 @@ namespace Fumbbl.Model
         private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
         public ActingPlayer ActingPlayer { get; set; }
         private Dictionary<string, Player> Players { get; set; }
+        public Coach HomeCoach { get; internal set; }
+        public Coach AwayCoach { get; internal set; }
+
+        public Ball Ball;
 
         public Core()
         {
@@ -17,6 +21,7 @@ namespace Fumbbl.Model
             ModelChangeFactory = new ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type>();
             ActingPlayer = new ActingPlayer();
             Players = new Dictionary<string, Player>();
+            Ball = new Ball();
         }
 
         public void Clear()
@@ -42,14 +47,6 @@ namespace Fumbbl.Model
             if (playerId == null)
             {
                 return null;
-            }
-            if (!Players.ContainsKey(playerId))
-            {
-                Players.Add(playerId, new Player() {
-                    Id = playerId,
-                    Name = playerId,
-                    Gender = Gender.Male
-                });
             }
             return Players[playerId];
         }
