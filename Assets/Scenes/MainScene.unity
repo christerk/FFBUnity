@@ -755,6 +755,8 @@ MonoBehaviour:
   Field: {fileID: 202713960}
   BallPrefab: {fileID: 8311493331242230174, guid: 74b2a600bd2a2ac479731b4e20d5632b,
     type: 3}
+  ArrowPrefab: {fileID: 1226340108051352965, guid: a12e373005ad13a4180098fd40efe513,
+    type: 3}
 --- !u!1 &715215460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5636266687313869508, guid: d9f4a263523291a4686711e9bf653c28,
