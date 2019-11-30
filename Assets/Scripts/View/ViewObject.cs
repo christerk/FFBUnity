@@ -6,7 +6,6 @@ namespace Fumbbl.View
     {
         public bool Removed;
         public GameObject GameObject;
-        public T Data;
 
         public abstract object Key { get; }
         public abstract void Refresh(T data);

@@ -11,6 +11,7 @@ public class FieldHandler : MonoBehaviour
     public GameObject Field;
     public GameObject BallPrefab;
     public GameObject ArrowPrefab;
+    public GameObject TrackNumberPrefab;
 
     private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f);
     private static Color AwayColour = new Color(0f, 0f, 1f);
@@ -18,6 +19,7 @@ public class FieldHandler : MonoBehaviour
     private Dictionary<string, GameObject> Players;
     private GameObject Ball;
     private ViewObjectList<PushbackSquare> PushbackSquares;
+    private ViewObjectList<TrackNumber> TrackNumbers;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,16 @@ public class FieldHandler : MonoBehaviour
         s =>
         {
             Destroy(s.GameObject);
+        });
+
+        TrackNumbers = new ViewObjectList<TrackNumber>(t =>
+        {
+            t.GameObject = Instantiate(TrackNumberPrefab);
+            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        },
+        t =>
+        {
+            Destroy(t.GameObject);
         });
     }
 
@@ -91,6 +103,17 @@ public class FieldHandler : MonoBehaviour
             if (s != null && s.Coordinate != null && s.GameObject != null)
             {
                 s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate[0], s.Coordinate[1], 10);
+            }
+        }
+
+        var trackNumbers = FFB.Instance.Model.TrackNumbers.Values.ToList();
+        TrackNumbers.Refresh(trackNumbers);
+        foreach (var s in trackNumbers)
+        {
+            if (s != null && s.Coordinate != null && s.GameObject != null)
+            {
+                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate[0], s.Coordinate[1], 10);
+                s.LabelObject.SetText(s.Number.ToString());
             }
         }
     }

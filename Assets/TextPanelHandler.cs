@@ -75,6 +75,7 @@ public class TextPanelHandler : MonoBehaviour
             }
             string line = $"<<{colour}>{TextPanelHandler.SanitizeText(coach)}</color>> {TextPanelHandler.SanitizeText(text)}";
             AddText(line, 0);
+            OnScroll(Vector2.zero);
         }
     }
 
@@ -94,6 +95,7 @@ public class TextPanelHandler : MonoBehaviour
             {
                 AddText($"<b>* * * Unhandled report {report.GetType().Name} * * *</b>", 0);
             }
+            OnScroll(Vector2.zero);
         }
     }
 
@@ -118,6 +120,7 @@ public class TextPanelHandler : MonoBehaviour
                 obj.rectTransform.localScale = Vector3.one;
                 Items.Add(obj);
                 Dirty = true;
+                OnScroll(Vector2.zero);
             }
         }
     }

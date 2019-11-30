@@ -105,13 +105,16 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChange.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelAddPushbackSquare.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelAddTrackNumber.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelRemovePushbackSquare.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelRemoveTrackNumber.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetBallCoordinate.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetBallInPlay.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetBallMoving.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetPlayerCoordinate.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\FieldModelSetPlayerState.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\PushbackSquare.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ModelChanges\TrackNumber.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\NetCommand.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Report.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\AlwaysHungryRoll.cs" />
@@ -199,7 +202,9 @@
     <Compile Include="Assets\Scripts\Model\Core.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelAddPushbackSquare.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelAddTrackNumber.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelRemovePushbackSquare.cs" />
+    <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelRemoveTrackNumber.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetBallCoordinate.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetBallInPlay.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelSetBallMoving.cs" />
@@ -255,6 +260,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\ReRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
     <Compile Include="Assets\Scripts\View\PushbackSquare.cs" />
+    <Compile Include="Assets\Scripts\View\TrackNumber.cs" />
     <Compile Include="Assets\Scripts\View\ViewObject.cs" />
     <Compile Include="Assets\Scripts\View\ViewObjectList.cs" />
     <Compile Include="Assets\SettingsHandler.cs" />
