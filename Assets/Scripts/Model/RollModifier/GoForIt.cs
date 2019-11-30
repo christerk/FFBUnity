@@ -1,29 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace Fumbbl.Model
+namespace Fumbbl.Model.RollModifier
 {
-    public class GoForItModifier
+    public class GoForItModifier : AbstractModifier
     {
-        public string Name { get; set; }
-        public int Modifier { get; set; }
-    }
+        public GoForItModifier(string name, int modifier) : base(name, modifier) { }
 
-    public static class GoForItModifierExtensions
-    {
-        private static readonly Dictionary<string, GoForItModifier> GoForItModifiers = new Dictionary<string, GoForItModifier>();
+        public override bool ModifierIncludedInName => true;
 
-        static GoForItModifierExtensions()
-        {
-            GoForItModifiers = new Dictionary<string, GoForItModifier>()
-            {
-                ["Blizzard"] = new GoForItModifier() { Name = "Blizzard", Modifier = 1},
-                ["Greased Shoes"] = new GoForItModifier() { Name = "Greased Shoes", Modifier = 3}
-            };
-        }
-
-        public static GoForItModifier AsGoForItModifier(this FFBEnumeration ffbEnum)
-        {
-            return GoForItModifiers.ContainsKey(ffbEnum.key) ? GoForItModifiers[ffbEnum.key] : null;
-        }
+        public static GoForItModifier Blizzard = new GoForItModifier("Blizzard", 1);
+        public static GoForItModifier GreasedShoes = new GoForItModifier("Greased Shoes", 3);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Fumbbl.Model;
+using Fumbbl.Model.RollModifier;
 using Fumbbl.Model.Types;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace Fumbbl.UI.LogText
 
             yield return new LogRecord($"<b>Go For It Roll [ {report.roll} ]");
 
-            IEnumerable<DodgeModifier> rollModifiers = report.rollModifiers?.Select(r => r.AsDodgeModifier());
+            IEnumerable<GoForItModifier> rollModifiers = report.rollModifiers?.Select(r => r.As<GoForItModifier>());
 
-            string modifiers = rollModifiers != null ? string.Join("", rollModifiers.Select(m => m.GetModifierString())) : "";
+            string modifiers = rollModifiers != null ? string.Join("", rollModifiers.Select(m => m.ModifierString)) : "";
             if (report.successful)
             {
                 yield return new LogRecord($"{player.FormattedName} goes for it!", 1);
