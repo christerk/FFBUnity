@@ -1,4 +1,5 @@
 ﻿using Fumbbl.Model;
+using Fumbbl.Model.RollModifier;
 using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Fumbbl.UI.LogText
             Player player = FFB.Instance.Model.GetPlayer(report.playerId);
             string neededRoll = "";
 
-            IEnumerable<DodgeModifier> rollModifiers = report.rollModifiers?.Select(r => r.AsDodgeModifier());
+            IEnumerable<DodgeModifier> rollModifiers = report.rollModifiers?.Select(r => r.As<DodgeModifier>());
 
             if (report.roll > 0)
             {
@@ -67,7 +68,7 @@ namespace Fumbbl.UI.LogText
                 neededRoll += " + 1 Dodge";
                 if (rollModifiers != null)
                 {
-                    neededRoll += string.Join("", rollModifiers.Select(m => m.GetModifierString()));
+                    neededRoll += string.Join("", rollModifiers.Select(m => m.ModifierString));
                 }
 
                 neededRoll += " + Roll > 6).";
