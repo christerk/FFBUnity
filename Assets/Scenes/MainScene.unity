@@ -753,6 +753,8 @@ MonoBehaviour:
   PlayerIconPrefab: {fileID: 4686798834518279698, guid: 5107ba57c8f18d149b5650d5419bd7aa,
     type: 3}
   Field: {fileID: 202713960}
+  BallPrefab: {fileID: 8311493331242230174, guid: 74b2a600bd2a2ac479731b4e20d5632b,
+    type: 3}
 --- !u!1 &715215460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5636266687313869508, guid: d9f4a263523291a4686711e9bf653c28,

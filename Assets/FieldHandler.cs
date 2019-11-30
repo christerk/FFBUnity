@@ -7,16 +7,19 @@ public class FieldHandler : MonoBehaviour
 {
     public GameObject PlayerIconPrefab;
     public GameObject Field;
+    public GameObject BallPrefab;
 
     private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f);
     private static Color AwayColour = new Color(0f, 0f, 1f);
 
     private Dictionary<string, GameObject> Players;
+    private GameObject Ball;
 
     // Start is called before the first frame update
     void Start()
     {
         Players = new Dictionary<string, GameObject>();
+        Ball = Instantiate(BallPrefab);
     }
 
     // Update is called once per frame
@@ -45,10 +48,7 @@ public class FieldHandler : MonoBehaviour
 
             if (p.Coordinate != null)
             {
-                var pos = Players[p.Id].transform.localPosition;
-
-                pos.x = p.Coordinate[0] * 144 - 13 * 144 + 72;
-                pos.y = -p.Coordinate[1] * 144 + 7 * 144 + Field.transform.localPosition.y;
+                var pos = FieldToWorldCoordinates(p.Coordinate[0], p.Coordinate[1], 1);
 
                 Players[p.Id].transform.localPosition = pos;
                 Players[p.Id].SetActive(true);
@@ -58,5 +58,27 @@ public class FieldHandler : MonoBehaviour
                 Players[p.Id].SetActive(false);
             }
         }
+
+        var ball = FFB.Instance.Model.Ball;
+        if (ball != null && ball.Coordinate != null)
+        {
+            Ball.SetActive(true);
+            var ballPos = FieldToWorldCoordinates(ball.Coordinate[0], ball.Coordinate[1], 4);
+            Ball.transform.localPosition = ballPos;
+        }
+        else
+        {
+            Ball.SetActive(false);
+        }
     }
+
+    internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
+    {
+        x = x * 144 - 13 * 144 + 72;
+        y = -y * 144 + 7 * 144 + Field.transform.localPosition.y;
+
+        return new Vector3(x, y, z);
+    }
+
+
 }
