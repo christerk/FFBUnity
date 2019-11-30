@@ -6,8 +6,6 @@ namespace Fumbbl.Model.RollModifier
     {
         public GoForItModifier(string name, int modifier) : base(name, modifier) { }
 
-        public override bool ModifierIncludedInName => true;
-
         public static GoForItModifier Blizzard = new GoForItModifier("Blizzard", 1);
         public static GoForItModifier GreasedShoes = new GoForItModifier("Greased Shoes", 3);
     }
