@@ -1,4 +1,5 @@
-﻿using Fumbbl.Model.Types;
+﻿using Fumbbl.Ffb.Dto.ModelChanges;
+using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +12,26 @@ namespace Fumbbl.Model
         public ActingPlayer ActingPlayer { get; set; }
         private Dictionary<string, Player> Players { get; set; }
         public Coach HomeCoach { get; internal set; }
+        public Dictionary<int, View.PushbackSquare> PushbackSquares;
+
+        internal void AddPushbackSquare(PushbackSquare square)
+        {
+            int key = square.coordinate[0] * 100 + square.coordinate[1];
+            if (!PushbackSquares.ContainsKey(key))
+            {
+                PushbackSquares.Add(key, new View.PushbackSquare(square));
+            } else
+            {
+                PushbackSquares[key].Refresh(new View.PushbackSquare(square));
+            }
+        }
+
+        internal void RemovePushbackSquare(PushbackSquare square)
+        {
+            int key = square.coordinate[0] * 100 + square.coordinate[1];
+            PushbackSquares.Remove(key);
+        }
+
         public Coach AwayCoach { get; internal set; }
 
         public Ball Ball;
@@ -22,12 +43,14 @@ namespace Fumbbl.Model
             ActingPlayer = new ActingPlayer();
             Players = new Dictionary<string, Player>();
             Ball = new Ball();
+            PushbackSquares = new Dictionary<int, View.PushbackSquare>();
         }
 
         public void Clear()
         {
             Players.Clear();
             ActingPlayer.Clear();
+            PushbackSquares.Clear();
         }
 
         internal IEnumerable<Player> GetPlayers()
