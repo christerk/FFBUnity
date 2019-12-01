@@ -272,6 +272,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\KickoffRiot.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\KickoffScatter.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\KickoffThrowARock.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\Leader.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PassBlock.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />

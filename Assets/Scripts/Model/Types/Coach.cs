@@ -6,7 +6,7 @@
 
         public string Name { get; set; }
 
-        public object FormattedName
+        public string FormattedName
         {
             get
             {

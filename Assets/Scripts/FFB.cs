@@ -188,12 +188,14 @@ namespace Fumbbl
                 Team homeTeam = new Team()
                 {
                     Coach = homeCoach,
+                    Name = cmd.game.teamHome.teamName,
                     Fame = cmd.game.gameResult.teamResultHome.fame
                 };
 
                 Team awayTeam = new Team()
                 {
                     Coach = awayCoach,
+                    Name = cmd.game.teamAway.teamName,
                     Fame = cmd.game.gameResult.teamResultAway.fame
                 };
 

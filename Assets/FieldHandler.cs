@@ -20,6 +20,9 @@ public class FieldHandler : MonoBehaviour
     public GameObject TrackNumberPrefab;
     public GameObject ScrollTextPrefab;
 
+    public TMPro.TextMeshProUGUI HomeTeamText;
+    public TMPro.TextMeshProUGUI AwayTeamText;
+
     private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f);
     private static Color AwayColour = new Color(0f, 0f, 1f);
 
@@ -81,6 +84,15 @@ public class FieldHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FFB.Instance.Model.TeamHome != null)
+        {
+            HomeTeamText.text = FFB.Instance.Model.TeamHome.Name.ToUpper();
+        }
+        if (FFB.Instance.Model.TeamAway != null)
+        {
+            AwayTeamText.text = FFB.Instance.Model.TeamAway.Name.ToUpper();
+        }
+
         var players = FFB.Instance.Model.GetPlayers();
 
         foreach (var p in players)
