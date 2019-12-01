@@ -37,8 +37,9 @@ public class GameBrowserEntry : MonoBehaviour
 
             float progress = (float)((((float)details.half - 1) * 8) + (float)details.turn) / 16f;
             progressBar.fillAmount = progress;
-            StartCoroutine(GetTexture(team1Image, t1.logo));
-            StartCoroutine(GetTexture(team2Image, t2.logo));
+
+            GetImage(t1.logo, team1Image);
+            GetImage(t2.logo, team2Image);
         }
         else
         {
@@ -53,20 +54,8 @@ public class GameBrowserEntry : MonoBehaviour
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
     }
 
-    IEnumerator GetTexture(Image target, string url)
+    public async void GetImage(string url, Image target)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture("https://www.fumbbl.com/" + url);
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Texture2D img = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            target.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
-
-        }
+        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, FFB.Instance.Api.GetSpriteAsync);
     }
 }

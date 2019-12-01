@@ -6,6 +6,7 @@ using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fumbbl
 {
@@ -33,6 +34,8 @@ namespace Fumbbl
         public int GameId { get; private set; }
         public string PreviousScene { get; internal set; }
 
+	public Lib.Cache<Sprite> SpriteCache { get; set; }
+
         public enum ChatSource
         {
             Unknown,
@@ -40,7 +43,6 @@ namespace Fumbbl
             Away,
             Spectator
         }
-
         public enum LogPanelType
         {
             None,
@@ -50,6 +52,7 @@ namespace Fumbbl
 
         private FFB()
         {
+            SpriteCache = new Lib.Cache<Sprite>();
             LogText = new List<Report>();
             ChatText = new List<ChatEntry>();
             Network = new Networking();
