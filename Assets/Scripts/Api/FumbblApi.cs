@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Threading.Tasks;
 using System.Net;
 using System.Text;
 using UnityEngine;
@@ -131,4 +132,19 @@ public class FumbblApi
         return null;
     }
 
+    public async Task<Sprite> GetSpriteAsync(string url)
+    {
+        Texture2D img = new Texture2D(1,1);
+        try
+        {
+            var client = new WebClient();
+            var data = await client.DownloadDataTaskAsync("https://www.fumbbl.com/" + url);
+            img.LoadImage(data);
+        }
+        catch (WebException ex)
+        {
+            Debug.LogError("Failed to download: " + url + " Due to exception: " + ex);
+        }
+        return Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
+    }
 }

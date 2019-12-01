@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Fumbbl.Lib
 {
@@ -36,27 +37,18 @@ namespace Fumbbl.Lib
             cache[key] = new CacheObject<T>(item);
         }
     
-        public delegate IEnumerator testingdel(string key, object target, CacheObject<T> t );
+        public delegate Task<T> GetCacheObjectAsync(string key);
 
-        public IEnumerator GetAsync(string key, object target, testingdel func)
+        public async Task<T> GetAsync(string key, GetCacheObjectAsync func)
         {
+            CacheObject<T> cacheObject = new CacheObject<T>();
             if(!cache.ContainsKey(key))
             {
-                CacheObject<T> cacheObject = new CacheObject<T>();
-                yield return func(key, target, cacheObject);
-                 
-                Debug.Log("Cache Miss for: " + key);
-                if(cacheObject._item != null)
-                {
-                    Debug.Log("Cache stored for: " + key);
-                    cache[key] = cacheObject;
-                }
+                cacheObject._item = await func(key); 
+                cache.TryAdd(key, cacheObject);
             }
-            else
-            {
-                Debug.Log("Cache Hit for: " + key);
-                target = cache[key]._item;
-            }
+            cache.TryGetValue(key, out cacheObject);
+            return cacheObject._item;       
         }
 
         public void ClearAll()
