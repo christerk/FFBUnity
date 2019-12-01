@@ -133,12 +133,12 @@ public class FumbblApi
         return null;
     }
 
-    public async void GetImage(string url, Image target)
+    public static async void GetImage(string url, Image target)
     {
-        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, FFB.Instance.Api.GetSpriteAsync);
+        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, GetSpriteAsync);
     }
 
-    public async Task<Sprite> GetSpriteAsync(string url)
+    public static async Task<Sprite> GetSpriteAsync(string url)
     {
         Texture2D img = new Texture2D(1,1);
         try
