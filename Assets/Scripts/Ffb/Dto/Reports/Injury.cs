@@ -1,4 +1,5 @@
-﻿namespace Fumbbl.Ffb.Dto.Reports
+﻿using System.Collections.Generic;
+namespace Fumbbl.Ffb.Dto.Reports
 {
     public class Injury : Report
     {
@@ -17,7 +18,7 @@
         public int injury;
         public int? injuryDecay;
         public string attackerId;
-        public string[] armorModifiers;
+        public List<FFBEnumeration> armorModifiers;
         public string[] injuryModifiers;
     }
 }

@@ -13,11 +13,13 @@ namespace Fumbbl.Model
     {
         private static readonly Dictionary<string, ArmorModifier> ArmorModifiers = new Dictionary<string, ArmorModifier>();
 
+        public static ArmorModifier Claws = new ArmorModifier() { Name = "Claws", Modifier = 0, FoulAssistModifier = false };
+
         static ArmorModifierExtensions()
         {
             ArmorModifiers = new Dictionary<string, ArmorModifier>()
             {
-                ["Claws"] = new ArmorModifier() { Name = "Claws", Modifier = 0, FoulAssistModifier = false},
+                ["Claws"] = Claws,
                 ["Mighty Blow"] = new ArmorModifier() { Name = "Mighty Blow", Modifier = 1, FoulAssistModifier = false},
                 ["1 Offensive Assist"] = new ArmorModifier() { Name = "1 Offensive Assist", Modifier = 1, FoulAssistModifier = true},
                 ["2 Offensive Assists"] = new ArmorModifier() { Name = "2 Offensive Assists", Modifier = 2, FoulAssistModifier = true},

@@ -1,5 +1,6 @@
 ﻿using Fumbbl.Model;
 using System.Collections.Generic;
+using System;
 
 namespace Fumbbl.UI.LogText
 {
@@ -36,11 +37,54 @@ namespace Fumbbl.UI.LogText
             if (report.armorRoll?.Length > 0)
             {
                 yield return new LogRecord($"Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]");
+                yield return new LogRecord($"Rolled Total of {report.armorRoll[0] + report.armorRoll[1]} ");
 
-                //
-                // TODO: Incomplete
-                //
-            }
+                int armorModifierTotal = 0;
+                int i = 0;
+
+                var status = "";
+                int rolledTotal = report.armorRoll[0] + report.armorRoll[1];
+
+                foreach (FFBEnumeration entry in report.armorModifiers)
+                {
+                    var armourModifier = entry.AsArmorModifier();
+                    i = i | ((armourModifier == ArmorModifierExtensions.Claws) ? 1 : 0);
+                    if (armourModifier.Modifier != 0)
+                    {
+                        armorModifierTotal += armourModifier.Modifier;
+
+                        status += armourModifier.Modifier > 0 ? " + " : " - ";
+
+                        if (!armourModifier.FoulAssistModifier)
+                        {
+                            status += Math.Abs(armourModifier.Modifier).ToString() + " ";
+                        }
+                    
+                        status += armourModifier.Name;
+                    }
+                }
+
+                if (armorModifierTotal != 0)
+                {
+                    var sumTotal = rolledTotal + armorModifierTotal;
+                    status += " = " + sumTotal;
+                }
+                
+                yield return new LogRecord(status);
+                
+                if (attacker != null && i != 0) {
+                    yield return new LogRecord(attacker.FormattedName + " uses Claws to reduce opponents armour to 7.");
+                }
+
+                if (report.armorBroken)
+                {
+                    yield return new LogRecord($"The armour of {defender.FormattedName} has been broken.");
+                } 
+                else 
+                {
+                    yield return new LogRecord($"{defender.FormattedName} has been saved by {defender.Gender.Genetive} armour.");
+                }
+            }   
 
             if (report.armorBroken && report.injuryRoll?.Length > 0)
             {
