@@ -1239,6 +1239,8 @@ MonoBehaviour:
     type: 3}
   TrackNumberPrefab: {fileID: 4696924523373969304, guid: 4d973e2670169004bb56c5d9d016200e,
     type: 3}
+  ScrollTextPrefab: {fileID: 8961689332144685034, guid: 7edb87ab6e1ea4f42b7e6418a0e4a479,
+    type: 3}
 --- !u!1 &561360920
 GameObject:
   m_ObjectHideFlags: 0

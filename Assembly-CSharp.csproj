@@ -279,6 +279,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\ReRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
     <Compile Include="Assets\Scripts\View\PushbackSquare.cs" />
+    <Compile Include="Assets\Scripts\View\ScrollText.cs" />
     <Compile Include="Assets\Scripts\View\TrackNumber.cs" />
     <Compile Include="Assets\Scripts\View\ViewObject.cs" />
     <Compile Include="Assets\Scripts\View\ViewObjectList.cs" />

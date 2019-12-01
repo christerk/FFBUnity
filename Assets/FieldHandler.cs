@@ -2,6 +2,7 @@
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Model;
+using Fumbbl.Model.Types;
 using Fumbbl.View;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ public class FieldHandler : MonoBehaviour
     public GameObject BallPrefab;
     public GameObject ArrowPrefab;
     public GameObject TrackNumberPrefab;
+    public GameObject ScrollTextPrefab;
 
     private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f);
     private static Color AwayColour = new Color(0f, 0f, 1f);
@@ -59,12 +61,19 @@ public class FieldHandler : MonoBehaviour
 
     private void AddReport(Report report)
     {
-        if (report is PlayerAction r)
+        if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
         {
             var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
             if (action.ShowActivity)
             {
-                Debug.Log(action.ShortDescription);
+                Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
+                var scrollText = Instantiate(ScrollTextPrefab);
+                scrollText.gameObject.transform.SetParent(Field.transform);
+                var text = scrollText.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                text.text = action.ShortDescription;
+                Vector3 coords = FieldToWorldCoordinates(player.Coordinate[0], player.Coordinate[1], 5);
+                coords.y += 100;
+                scrollText.gameObject.transform.localPosition = coords;
             }
         }
     }

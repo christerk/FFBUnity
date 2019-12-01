@@ -9,7 +9,6 @@ namespace Fumbbl.Model.ModelChange
         public override void Apply(Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId change)
         {
             FFB.Instance.Model.ActingPlayer.PlayerId = change.modelChangeValue;
-            Debug.Log($"Setting Acting Player to {change.modelChangeValue}");
         }
     }
 }
