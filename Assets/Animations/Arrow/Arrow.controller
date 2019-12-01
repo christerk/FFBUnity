@@ -62,7 +62,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: NorthWest
+    m_ConditionEvent: Northwest
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4986672116907731057}
@@ -698,7 +698,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: NorthEast
+  - m_Name: Northeast
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -710,7 +710,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: SouthEast
+  - m_Name: Southeast
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -722,7 +722,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: SouthWest
+  - m_Name: Southwest
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -734,7 +734,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: NorthWest
+  - m_Name: Northwest
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -825,7 +825,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SouthWest
+    m_ConditionEvent: Southwest
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4940551023647725063}
@@ -927,7 +927,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SouthEast
+    m_ConditionEvent: Southeast
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8836710899058742275}
@@ -1054,7 +1054,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: NorthEast
+    m_ConditionEvent: Northeast
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8543764159597415067}
