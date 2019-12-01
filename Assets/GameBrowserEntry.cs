@@ -58,5 +58,4 @@ public class GameBrowserEntry : MonoBehaviour
     {
         target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, FFB.Instance.Api.GetSpriteAsync);
     }
-
 }
