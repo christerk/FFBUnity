@@ -1,7 +1,5 @@
 ﻿using Fumbbl;
 using Fumbbl.Model.Types;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour

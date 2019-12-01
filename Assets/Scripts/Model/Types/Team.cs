@@ -6,6 +6,9 @@
 
         public bool IsHome => Coach.IsHome;
 
+        public string Id { get; internal set; }
+        public int Fame { get; internal set; }
+
         public Team()
         {
             Coach = new Coach();

@@ -72,7 +72,7 @@ namespace Fumbbl.UI.LogText
                 }
 
                 neededRoll += " + Roll > 6).";
-                yield return new LogRecord(neededRoll , 1);
+                yield return new LogRecord(neededRoll, 1);
             }
         }
     }

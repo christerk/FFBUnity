@@ -1,7 +1,4 @@
-﻿using Fumbbl.Model.Types;
-using UnityEngine;
-
-namespace Fumbbl.Model.ModelChange
+﻿namespace Fumbbl.Model.ModelChange
 {
     public class TeamResultSetScore : ModelUpdater<Ffb.Dto.ModelChanges.TeamResultSetScore>
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Fumbbl.Model.Types
+﻿namespace Fumbbl.Model.Types
 {
     public class ActingPlayer
     {

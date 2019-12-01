@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fumbbl.Model.RollModifier
+﻿namespace Fumbbl.Model.RollModifier
 {
     public class InterceptionModifier : AbstractModifier
     {
@@ -33,6 +31,6 @@ namespace Fumbbl.Model.RollModifier
         public static InterceptionModifier DisturbingPresence10 = new InterceptionModifier("10 Disturbing Presences", 10) { TacklezoneModifier = false, DisturbingPresenceModifier = true };
         public static InterceptionModifier DisturbingPresence11 = new InterceptionModifier("11 Disturbing Presences", 11) { TacklezoneModifier = false, DisturbingPresenceModifier = true };
         public static InterceptionModifier FawndoughsHeadband = new InterceptionModifier("Fawndough's Headband", -1) { TacklezoneModifier = false, DisturbingPresenceModifier = false };
-        public static InterceptionModifier MagicGlovesOfJarkLongarm = new InterceptionModifier("Magic Gloves of Jark Longarm", -1) { TacklezoneModifier = false, DisturbingPresenceModifier = false};
+        public static InterceptionModifier MagicGlovesOfJarkLongarm = new InterceptionModifier("Magic Gloves of Jark Longarm", -1) { TacklezoneModifier = false, DisturbingPresenceModifier = false };
     }
 }

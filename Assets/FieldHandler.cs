@@ -1,6 +1,5 @@
 ﻿using Fumbbl;
 using Fumbbl.View;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +8,8 @@ public class FieldHandler : MonoBehaviour
 {
     public GameObject PlayerIconPrefab;
     public GameObject Field;
+    public GameObject DugoutHome;
+    public GameObject DugoutAway;
     public GameObject BallPrefab;
     public GameObject ArrowPrefab;
     public GameObject TrackNumberPrefab;
@@ -26,6 +27,7 @@ public class FieldHandler : MonoBehaviour
     {
         Players = new Dictionary<string, GameObject>();
         Ball = Instantiate(BallPrefab);
+        Ball.transform.SetParent(Field.transform);
         PushbackSquares = new ViewObjectList<PushbackSquare>(s =>
         {
             s.GameObject = Instantiate(ArrowPrefab);
@@ -57,6 +59,7 @@ public class FieldHandler : MonoBehaviour
             {
                 GameObject obj = Instantiate(PlayerIconPrefab);
                 var handler = obj.GetComponent<PlayerHandler>();
+                obj.transform.SetParent(Field.transform);
                 handler.Player = p;
                 obj.name = p.Id;
 
@@ -72,9 +75,41 @@ public class FieldHandler : MonoBehaviour
 
             if (p.Coordinate != null)
             {
-                var pos = FieldToWorldCoordinates(p.Coordinate[0], p.Coordinate[1], 1);
+                var state = p.PlayerState;
+                int moveToDugout = -1;
+                if (state.IsReserve || state.IsExhausted || state.IsMissing)
+                {
+                    // Reserves box
+                    moveToDugout = 0;
+                }
+                else if (state.IsKnockedOut)
+                {
+                    // KO Box
+                    moveToDugout = 1;
+                }
+                else if (state.IsBadlyHurt || state.IsSeriousInjury || state.IsRip || state.IsBanned)
+                {
+                    // Cas Box
+                    moveToDugout = 2;
+                }
 
-                Players[p.Id].transform.localPosition = pos;
+                if (moveToDugout >= 0)
+                {
+                    GameObject dugout = p.IsHome ? DugoutHome : DugoutAway;
+
+                    Transform box = dugout.transform.GetChild(moveToDugout);
+                    int index = box.childCount;
+                    Players[p.Id].transform.SetParent(box);
+
+                    Players[p.Id].transform.localPosition = ToDugoutCoordinates(p.Coordinate[1]);
+                }
+                else
+                {
+                    var pos = FieldToWorldCoordinates(p.Coordinate[0], p.Coordinate[1], 1);
+
+                    Players[p.Id].transform.localPosition = pos;
+                    Players[p.Id].transform.SetParent(Field.transform);
+                }
                 Players[p.Id].SetActive(true);
             }
             else
@@ -102,6 +137,7 @@ public class FieldHandler : MonoBehaviour
         {
             if (s != null && s.Coordinate != null && s.GameObject != null)
             {
+                s.GameObject.transform.SetParent(Field.transform);
                 s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate[0], s.Coordinate[1], 10);
             }
         }
@@ -112,6 +148,7 @@ public class FieldHandler : MonoBehaviour
         {
             if (s != null && s.Coordinate != null && s.GameObject != null)
             {
+                s.GameObject.transform.SetParent(Field.transform);
                 s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate[0], s.Coordinate[1], 10);
                 s.LabelObject.SetText(s.Number.ToString());
             }
@@ -121,10 +158,16 @@ public class FieldHandler : MonoBehaviour
     internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
     {
         x = x * 144 - 13 * 144 + 72;
-        y = -y * 144 + 7 * 144 + Field.transform.localPosition.y;
+        y = 2160 / 2 - 72 - y * 144;
 
         return new Vector3(x, y, z);
     }
 
+    internal Vector3 ToDugoutCoordinates(int index)
+    {
+        int x = index % 5;
+        int y = index / 5;
 
+        return new Vector3(x * 144 - 280, 160 - y * 144, 0);
+    }
 }

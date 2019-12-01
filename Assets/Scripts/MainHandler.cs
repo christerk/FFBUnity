@@ -1,5 +1,4 @@
-﻿using System;
-using Fumbbl.Ffb.Dto;
+﻿using Fumbbl.Ffb.Dto;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

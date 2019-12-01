@@ -1,7 +1,4 @@
-﻿using Fumbbl.Model.Types;
-using UnityEngine;
-
-namespace Fumbbl.Model.ModelChange
+﻿namespace Fumbbl.Model.ModelChange
 {
     public class FieldModelSetBallMoving : ModelUpdater<Ffb.Dto.ModelChanges.FieldModelSetBallMoving>
     {

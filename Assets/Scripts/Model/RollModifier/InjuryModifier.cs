@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fumbbl.Model.RollModifier
+﻿namespace Fumbbl.Model.RollModifier
 {
     public class InjuryModifier : AbstractModifier
     {

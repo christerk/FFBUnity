@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Fumbbl.View
 {
@@ -44,7 +41,7 @@ namespace Fumbbl.View
                     Objects.Add(o.Key, o);
                 }
             }
-   
+
             foreach (var o in Objects.Values)
             {
                 if (o.Removed && o.GameObject != null)

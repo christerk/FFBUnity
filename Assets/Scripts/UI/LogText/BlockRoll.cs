@@ -1,5 +1,4 @@
-﻿using Fumbbl.Model;
-using Fumbbl.Model.Types;
+﻿using Fumbbl.Model.Types;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -3,6 +3,7 @@ using Fumbbl.Ffb.Dto;
 using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -108,7 +109,15 @@ namespace Fumbbl
 
         private void TriggerLogChanged(Report text)
         {
-            OnReport?.Invoke(text);
+            try
+            {
+                OnReport?.Invoke(text);
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Exception during Report Handling: {e.Message}");
+                Debug.Log(e.StackTrace);
+            }
         }
 
         private void TriggerLogRefresh()
@@ -175,13 +184,20 @@ namespace Fumbbl
 
                 Team homeTeam = new Team()
                 {
-                    Coach = homeCoach
+                    Coach = homeCoach,
+                    Fame = cmd.game.gameResult.teamResultHome.fame
                 };
 
                 Team awayTeam = new Team()
                 {
-                    Coach = awayCoach
+                    Coach = awayCoach,
+                    Fame = cmd.game.gameResult.teamResultAway.fame
                 };
+
+                FFB.Instance.Model.TeamHome = homeTeam;
+                FFB.Instance.Model.TeamAway = awayTeam;
+
+                FFB.Instance.Model.HomePlaying = cmd.game.homePlaying;
 
                 FFB.Instance.Model.HomeCoach = homeCoach;
                 FFB.Instance.Model.AwayCoach = awayCoach;
@@ -235,7 +251,7 @@ namespace Fumbbl
                     });
                 }
 
-                foreach(var p in cmd.game.fieldModel.playerDataArray)
+                foreach (var p in cmd.game.fieldModel.playerDataArray)
                 {
                     Player player = FFB.Instance.Model.GetPlayer(p.playerId);
                     player.Coordinate = p.playerCoordinate;

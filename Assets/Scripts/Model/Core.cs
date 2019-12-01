@@ -22,7 +22,8 @@ namespace Fumbbl.Model
             if (!PushbackSquares.ContainsKey(key))
             {
                 PushbackSquares.Add(key, new View.PushbackSquare(square));
-            } else
+            }
+            else
             {
                 PushbackSquares[key].Refresh(new View.PushbackSquare(square));
             }
@@ -59,6 +60,9 @@ namespace Fumbbl.Model
         public int TurnAway { get; internal set; }
         public int ScoreHome { get; internal set; }
         public int ScoreAway { get; internal set; }
+        public Team TeamHome { get; internal set; }
+        public Team TeamAway { get; internal set; }
+        public bool HomePlaying { get; internal set; }
 
         public Ball Ball;
 
