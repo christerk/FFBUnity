@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 7581937068459950111}
   - component: {fileID: 7839665295512556882}
   - component: {fileID: 4918960779161810011}
-  - component: {fileID: 2100639100198321750}
+  - component: {fileID: 6255620814914557062}
   m_Layer: 5
   m_Name: GameBrowserEntry
   m_TagString: Untagged
@@ -861,7 +861,7 @@ MonoBehaviour:
   team2Info: {fileID: 1998088078934644043}
   progressBar: {fileID: 5287452180409552731}
   turnIndicator: {fileID: 372862971710086032}
---- !u!114 &2100639100198321750
+--- !u!114 &6255620814914557062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -900,7 +900,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7693795455390891418}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

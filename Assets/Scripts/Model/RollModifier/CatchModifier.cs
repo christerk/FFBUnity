@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fumbbl.Model.RollModifier
+﻿namespace Fumbbl.Model.RollModifier
 {
     public class CatchModifier : AbstractModifier
     {
@@ -9,8 +7,8 @@ namespace Fumbbl.Model.RollModifier
         public bool TacklezoneModifier { get; set; }
         public bool DisturbingPresenceModifier { get; set; }
 
-        public static CatchModifier AccuratePass = new CatchModifier("Accurate Pass", -1) { TacklezoneModifier = false, DisturbingPresenceModifier = false};
-        public static CatchModifier NervesOfSteel = new CatchModifier("Nerves of Steel", 0) { TacklezoneModifier = false, DisturbingPresenceModifier = false};
+        public static CatchModifier AccuratePass = new CatchModifier("Accurate Pass", -1) { TacklezoneModifier = false, DisturbingPresenceModifier = false };
+        public static CatchModifier NervesOfSteel = new CatchModifier("Nerves of Steel", 0) { TacklezoneModifier = false, DisturbingPresenceModifier = false };
         public static CatchModifier ExtraArms = new CatchModifier("Extra Arms", -1) { TacklezoneModifier = false, DisturbingPresenceModifier = false };
         public static CatchModifier PouringRain = new CatchModifier("Pouring Rain", 1) { TacklezoneModifier = false, DisturbingPresenceModifier = false };
         public static CatchModifier Tacklezone1 = new CatchModifier("1 Tacklezone", 1) { TacklezoneModifier = true, DisturbingPresenceModifier = false };

@@ -9,7 +9,7 @@ namespace Fumbbl.Model
 
         public ModelUpdater<Ffb.Dto.ModelChange> AsGenericGenerator()
         {
-            return this.CastGenerator<T, Ffb.Dto.ModelChange> ();
+            return this.CastGenerator<T, Ffb.Dto.ModelChange>();
         }
 
         public abstract void Apply(T modelChange);

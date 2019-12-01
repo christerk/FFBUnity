@@ -23,12 +23,12 @@ namespace Fumbbl.UI.LogText
 
                 if (report.reRolled)
                 {
-                    yield return new LogRecord($"Succeeded on a roll of {report.minimumRoll}+ (Roll{modifiers} > {report.minimumRoll-1}).");
+                    yield return new LogRecord($"Succeeded on a roll of {report.minimumRoll}+ (Roll{modifiers} > {report.minimumRoll - 1}).");
                 }
             }
             else
             {
-                yield return new LogRecord($"{player.FormattedName} trips while going for it. (Roll{modifiers} > {report.minimumRoll-1}).", 1);
+                yield return new LogRecord($"{player.FormattedName} trips while going for it. (Roll{modifiers} > {report.minimumRoll - 1}).", 1);
 
             }
         }

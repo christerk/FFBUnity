@@ -206,6 +206,7 @@
     <Compile Include="Assets\Scripts\MainHandler.cs" />
     <Compile Include="Assets\Scripts\Model\Ball.cs" />
     <Compile Include="Assets\Scripts\Model\Core.cs" />
+    <Compile Include="Assets\Scripts\Model\FfbEnumerationFactory.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelAddPushbackSquare.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\FieldModelAddTrackNumber.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Assets\Scripts\Model\Types\Gender.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Injury.cs" />
     <Compile Include="Assets\Scripts\Model\Types\InjuryAttribute.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\KickoffResult.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Player.cs" />
     <Compile Include="Assets\Scripts\Model\Types\PlayerState.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Position.cs" />
@@ -262,9 +264,16 @@
     <Compile Include="Assets\Scripts\UI\LogText\DodgeRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Foul.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\GoForItRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\HandOver.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Injury.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\KickoffResult.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\KickoffRiot.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\KickoffScatter.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\KickoffThrowARock.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\PassBlock.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\RegenerationRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ReRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
     <Compile Include="Assets\Scripts\View\PushbackSquare.cs" />

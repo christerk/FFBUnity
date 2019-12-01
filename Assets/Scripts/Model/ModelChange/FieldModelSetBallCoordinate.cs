@@ -1,7 +1,4 @@
-﻿using Fumbbl.Model.Types;
-using UnityEngine;
-
-namespace Fumbbl.Model.ModelChange
+﻿namespace Fumbbl.Model.ModelChange
 {
     public class FieldModelSetBallCoordinate : ModelUpdater<Ffb.Dto.ModelChanges.FieldModelSetBallCoordinate>
     {

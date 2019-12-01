@@ -31,7 +31,7 @@ public class GameBrowserEntry : MonoBehaviour
             team2.text = t2.name;
             team1Score.text = t1.score.ToString();
             team2Score.text = t2.score.ToString();
-            team1Info.text = $"({t1.rating}) {t1.coach} TV {t1.tv/1000}k {t1.race}";
+            team1Info.text = $"({t1.rating}) {t1.coach} TV {t1.tv / 1000}k {t1.race}";
             team2Info.text = $"{t2.race} TV {t2.tv / 1000}k {t2.coach} ({t2.rating})";
             turnIndicator.text = $"h{details.half}t{details.turn}";
 

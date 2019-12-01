@@ -10,7 +10,7 @@ namespace Fumbbl.Model.Types
         public static Skill Accurate = new Skill() { Name = "Accurate", Category = SkillCategory.Passing };
         public static Skill AlwaysHungry = new Skill() { Name = "Always Hungry", Category = SkillCategory.Extraordinary };
         public static Skill Animosity = new Skill() { Name = "Animosity", Category = SkillCategory.Extraordinary };
-        public static Skill BallAndChain= new Skill() { Name = "Ball and Chain", Category = SkillCategory.Extraordinary };
+        public static Skill BallAndChain = new Skill() { Name = "Ball and Chain", Category = SkillCategory.Extraordinary };
         public static Skill BigHand = new Skill() { Name = "Big Hand", Category = SkillCategory.Mutation };
         public static Skill Block = new Skill() { Name = "Block", Category = SkillCategory.General };
         public static Skill BloodLust = new Skill() { Name = "Blood Lust", Category = SkillCategory.Extraordinary };

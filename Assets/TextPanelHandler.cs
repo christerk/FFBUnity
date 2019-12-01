@@ -113,7 +113,7 @@ public class TextPanelHandler : MonoBehaviour
                 obj.margin = margin;
                 obj.SetText(text);
                 obj.transform.SetParent(Content.transform);
-                float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;
+                float preferredHeight = obj.GetPreferredValues(panelWidth - margin.x, 0f).y;
                 obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
                 this.contentHeight += preferredHeight;
                 ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
