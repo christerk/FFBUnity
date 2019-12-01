@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fumbbl.Ffb.Dto.Commands
 {
@@ -30,7 +26,7 @@ namespace Fumbbl.Ffb.Dto.Commands
         public int[] passCoordinate;
         public string throwerId;
         public string throwerAction;
-        
+
         public Team teamAway;
         public TurnData turnDataAway;
         public Team teamHome;

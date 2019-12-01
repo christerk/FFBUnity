@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Fumbbl.FFB;
 
 public class TextPanelHandler : MonoBehaviour
 {
@@ -61,11 +62,20 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void AddChat(string text)
+    void AddChat(string coach, ChatSource source, string text)
     {
         if (this.panelType == FFB.LogPanelType.Chat)
         {
-            AddText(text, 0);
+            string colour;
+            switch (source)
+            {
+                case ChatSource.Home: colour = "#ff0000"; break;
+                case ChatSource.Away: colour = "#0000ff"; break;
+                default: colour = "#336633"; break;
+            }
+            string line = $"<<{colour}>{TextPanelHandler.SanitizeText(coach)}</color>> {TextPanelHandler.SanitizeText(text)}";
+            AddText(line, 0);
+            OnScroll(Vector2.zero);
         }
     }
 
@@ -85,6 +95,7 @@ public class TextPanelHandler : MonoBehaviour
             {
                 AddText($"<b>* * * Unhandled report {report.GetType().Name} * * *</b>", 0);
             }
+            OnScroll(Vector2.zero);
         }
     }
 
@@ -102,13 +113,14 @@ public class TextPanelHandler : MonoBehaviour
                 obj.margin = margin;
                 obj.SetText(text);
                 obj.transform.SetParent(Content.transform);
-                float preferredHeight = obj.GetPreferredValues(panelWidth, 0f).y;
+                float preferredHeight = obj.GetPreferredValues(panelWidth - margin.x, 0f).y;
                 obj.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, preferredHeight);
                 this.contentHeight += preferredHeight;
                 ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
                 obj.rectTransform.localScale = Vector3.one;
                 Items.Add(obj);
                 Dirty = true;
+                OnScroll(Vector2.zero);
             }
         }
     }

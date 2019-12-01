@@ -8,7 +8,7 @@
         public int nrOfDice;
         public int[] blockRoll;
         public int diceIndex;
-        public string blockResult;
+        public FFBEnumeration blockResult;
         public string defenderId;
     }
 }

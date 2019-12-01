@@ -2,6 +2,6 @@
 {
     public class PickupRoll : SkillRoll
     {
-        public PickupRoll() : base("pickupRoll") { }
+        public PickupRoll() : base("pickUpRoll") { }
     }
 }

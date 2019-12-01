@@ -14,7 +14,7 @@
         public string seriousInjury;
         public int[] casualtyRollDecay;
         public string seriousInjuryDecay;
-        public int injury;
+        public int? injury;
         public int? injuryDecay;
         public string attackerId;
         public string[] armorModifiers;

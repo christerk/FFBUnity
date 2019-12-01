@@ -26,7 +26,7 @@ namespace Fumbbl.UI
         where TTo : Report
         where TFrom : Report
     {
-        private LogTextGenerator<TFrom> Generator;
+        private readonly LogTextGenerator<TFrom> Generator;
         public CastedLogTextGenerator(LogTextGenerator<TFrom> generator)
         {
             Generator = generator;
