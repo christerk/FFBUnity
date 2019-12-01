@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{94DA02D0-D149-D651-8254-897F42718523}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -169,7 +168,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PassRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PenaltyShootout.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PettyCash.cs" />
-    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PickUpRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PickupRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PilingOn.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PlayCard.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\PlayerAction.cs" />
@@ -222,7 +221,6 @@
     <Compile Include="Assets\Scripts\Model\ModelChange\TeamResultSetScore.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\TurnDataSetTurnNr.cs" />
     <Compile Include="Assets\Scripts\Model\ModelUpdater.cs" />
-    <Compile Include="Assets\Scripts\Model\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Model\RollModifier\AbstractModifier.cs" />
     <Compile Include="Assets\Scripts\Model\RollModifier\ArmorModifier.cs" />
     <Compile Include="Assets\Scripts\Model\RollModifier\CatchModifier.cs" />
@@ -244,6 +242,7 @@
     <Compile Include="Assets\Scripts\Model\Types\InjuryAttribute.cs" />
     <Compile Include="Assets\Scripts\Model\Types\KickoffResult.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Player.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Model\Types\PlayerState.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Position.cs" />
     <Compile Include="Assets\Scripts\Model\Types\SeriousInjury.cs" />

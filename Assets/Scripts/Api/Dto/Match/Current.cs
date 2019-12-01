@@ -18,6 +18,7 @@ namespace Fumbbl.Api.Dto.Match
         public int tv;
         public int score;
         public string logo;
+        public string logolarge;
     }
 
     public class Current

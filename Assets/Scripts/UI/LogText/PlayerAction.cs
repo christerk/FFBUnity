@@ -7,11 +7,10 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.PlayerAction report)
         {
-            var action = report.playerAction.AsPlayerAction();
-            if (action != null && action.Description != null)
+            var action = report.playerAction.As<Model.Types.PlayerAction>();
+            if (action != null && action.ShowActivity)
             {
                 yield return new LogRecord($"<b>{ FFB.Instance.Model.GetPlayer(report.actingPlayerId).FormattedName } { action.Description }.</b>");
-
             }
         }
     }

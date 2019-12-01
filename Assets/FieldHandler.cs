@@ -1,5 +1,9 @@
 ﻿using Fumbbl;
+using Fumbbl.Ffb.Dto;
+using Fumbbl.Ffb.Dto.Reports;
+using Fumbbl.Model;
 using Fumbbl.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -25,6 +29,8 @@ public class FieldHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FFB.Instance.OnReport += AddReport;
+
         Players = new Dictionary<string, GameObject>();
         Ball = Instantiate(BallPrefab);
         Ball.transform.SetParent(Field.transform);
@@ -49,6 +55,18 @@ public class FieldHandler : MonoBehaviour
         {
             Destroy(t.GameObject);
         });
+    }
+
+    private void AddReport(Report report)
+    {
+        if (report is PlayerAction r)
+        {
+            var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
+            if (action.ShowActivity)
+            {
+                Debug.Log(action.ShortDescription);
+            }
+        }
     }
 
     // Update is called once per frame
