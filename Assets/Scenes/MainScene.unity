@@ -1235,7 +1235,7 @@ MonoBehaviour:
   DugoutAway: {fileID: 1798272684}
   BallPrefab: {fileID: 8311493331242230174, guid: 74b2a600bd2a2ac479731b4e20d5632b,
     type: 3}
-  ArrowPrefab: {fileID: 1226340108051352965, guid: a12e373005ad13a4180098fd40efe513,
+  ArrowPrefab: {fileID: 3582683640805112984, guid: fb0dc55674910b544b3acaf330b25c11,
     type: 3}
   TrackNumberPrefab: {fileID: 4696924523373969304, guid: 4d973e2670169004bb56c5d9d016200e,
     type: 3}

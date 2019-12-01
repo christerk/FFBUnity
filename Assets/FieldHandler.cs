@@ -31,10 +31,13 @@ public class FieldHandler : MonoBehaviour
         PushbackSquares = new ViewObjectList<PushbackSquare>(s =>
         {
             s.GameObject = Instantiate(ArrowPrefab);
+            var animator = s.GameObject.GetComponent<Animator>();
+            animator.SetTrigger(s.Direction);
         },
         s =>
         {
-            Destroy(s.GameObject);
+            var animator = s.GameObject.GetComponent<Animator>();
+            animator.SetTrigger("FadeOut");
         });
 
         TrackNumbers = new ViewObjectList<TrackNumber>(t =>

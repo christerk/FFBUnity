@@ -71,6 +71,7 @@
     <Compile Include="Assets\LoginHandler.cs" />
     <Compile Include="Assets\PlayerHandler.cs" />
     <Compile Include="Assets\ScoreBoardHandler.cs" />
+    <Compile Include="Assets\Scripts\AnimationHandler.cs" />
     <Compile Include="Assets\Scripts\Api\Dto\Auth\Token.cs" />
     <Compile Include="Assets\Scripts\Api\Dto\Coach\Get.cs" />
     <Compile Include="Assets\Scripts\Api\Dto\Match\Current.cs" />
