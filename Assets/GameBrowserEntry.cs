@@ -38,8 +38,8 @@ public class GameBrowserEntry : MonoBehaviour
             float progress = (float)((((float)details.half - 1) * 8) + (float)details.turn) / 16f;
             progressBar.fillAmount = progress;
 
-            GetImage(t1.logo, team1Image);
-            GetImage(t2.logo, team2Image);
+            FFB.Instance.Api.GetImage(t1.logo, team1Image);
+            FFB.Instance.Api.GetImage(t2.logo, team2Image);
         }
         else
         {
@@ -52,10 +52,5 @@ public class GameBrowserEntry : MonoBehaviour
         Debug.Log("clicked game: " + matchDetails.id);
         FFB.Instance.Connect(matchDetails.id);
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
-    }
-
-    public async void GetImage(string url, Image target)
-    {
-        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, FFB.Instance.Api.GetSpriteAsync);
     }
 }

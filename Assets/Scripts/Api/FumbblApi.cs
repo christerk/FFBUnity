@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 using ApiDto = Fumbbl.Api.Dto;
 
@@ -130,6 +131,11 @@ public class FumbblApi
             }
         }
         return null;
+    }
+
+    public async void GetImage(string url, Image target)
+    {
+        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, FFB.Instance.Api.GetSpriteAsync);
     }
 
     public async Task<Sprite> GetSpriteAsync(string url)
