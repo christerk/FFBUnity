@@ -13,7 +13,7 @@ namespace Fumbbl
         protected Dictionary<K, Type> GeneratorClasses { get; }
         protected Dictionary<K, T> GeneratorInstances { get; }
 
-        private JsonSerializer Serializer;
+        private readonly JsonSerializer Serializer;
 
         public ReflectedFactory()
         {

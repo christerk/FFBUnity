@@ -2,16 +2,13 @@
 
 namespace Fumbbl.Model.ModelChange
 {
-    public class ActingPlayerSetPlayerId : ModelUpdater
+    public class ActingPlayerSetPlayerId : ModelUpdater<Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId>
     {
         public ActingPlayerSetPlayerId() : base(typeof(Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId)) { }
 
-        public override void Apply(Ffb.Dto.ModelChange modelChange)
+        public override void Apply(Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId change)
         {
-            var change = (Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId)modelChange;
-
             FFB.Instance.Model.ActingPlayer.PlayerId = change.modelChangeValue;
-            Debug.Log($"Setting Acting Player to {change.modelChangeValue}");
         }
     }
 }

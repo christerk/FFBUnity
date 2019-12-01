@@ -1,4 +1,4 @@
-﻿using Fumbbl.Model;
+﻿using Fumbbl.Model.Types;
 using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
@@ -8,24 +8,27 @@ namespace Fumbbl.UI.LogText
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.ApothecaryChoice report)
         {
             Player player = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
-            Coach coach = player.Team.Coach;
+            Coach coach = player?.Team?.Coach;
 
-            if (PlayerState.Get(report.playerState).IsReserve)
+            if (coach != null && player != null)
             {
-                yield return new LogRecord($"The apothecary patches {player.FormattedName} up so {player.Gender.Nominative} is able to play again.");
-            }
-            else
-            {
-                PlayerState oldState = player.PlayerState;
-                SeriousInjury oldInjury = player.SeriousInjury;
-
-                if (PlayerState.Get(report.playerState) != oldState || report.seriousInjury.AsSeriousInjury() != oldInjury)
+                if (PlayerState.Get(report.playerState).IsReserve)
                 {
-                    yield return new LogRecord($"Coach {coach.FormattedName} chooses the new injury result.");
+                    yield return new LogRecord($"The apothecary patches {player.FormattedName} up so {player.Gender.Nominative} is able to play again.");
                 }
                 else
                 {
-                    yield return new LogRecord($"Coach {coach.FormattedName} keeps the old injury result.");
+                    PlayerState oldState = player.PlayerState;
+                    SeriousInjury oldInjury = player.SeriousInjury;
+
+                    if (PlayerState.Get(report.playerState) != oldState || report.seriousInjury.AsSeriousInjury() != oldInjury)
+                    {
+                        yield return new LogRecord($"Coach {coach.FormattedName} chooses the new injury result.");
+                    }
+                    else
+                    {
+                        yield return new LogRecord($"Coach {coach.FormattedName} keeps the old injury result.");
+                    }
                 }
             }
         }

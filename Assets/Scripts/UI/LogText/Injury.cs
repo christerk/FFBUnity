@@ -1,6 +1,7 @@
-﻿using Fumbbl.Model;
+﻿using Fumbbl.Model.Types;
 using System.Collections.Generic;
 using System;
+using Fumbbl.Model.RollModifier;
 
 namespace Fumbbl.UI.LogText
 {
@@ -36,8 +37,8 @@ namespace Fumbbl.UI.LogText
 
             if (report.armorRoll?.Length > 0)
             {
-                yield return new LogRecord($"Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]");
-                yield return new LogRecord($"Rolled Total of {report.armorRoll[0] + report.armorRoll[1]} ");
+                yield return new LogRecord($"<b>Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]</b>");
+                yield return new LogRecord($"<b>Rolled Total of {report.armorRoll[0] + report.armorRoll[1]}</b>");
 
                 int armorModifierTotal = 0;
                 int i = 0;
@@ -47,8 +48,8 @@ namespace Fumbbl.UI.LogText
 
                 foreach (FFBEnumeration entry in report.armorModifiers)
                 {
-                    var armourModifier = entry.AsArmorModifier();
-                    i = i | ((armourModifier == ArmorModifierExtensions.Claws) ? 1 : 0);
+                   var armourModifier = entry.AsArmorModifier();
+                    i = i | ((armourModifier == ArmorModifier.Claws ? 1 : 0));
                     if (armourModifier.Modifier != 0)
                     {
                         armorModifierTotal += armourModifier.Modifier;
@@ -88,7 +89,7 @@ namespace Fumbbl.UI.LogText
 
             if (report.armorBroken && report.injuryRoll?.Length > 0)
             {
-                yield return new LogRecord($"Injury Roll [ {report.injuryRoll[0]} ][ {report.injuryRoll[1]} ]");
+                yield return new LogRecord($"<b>Injury Roll [ {report.injuryRoll[0]} ][ {report.injuryRoll[1]} ]</b>");
 
                 //
                 // TODO: Incomplete
