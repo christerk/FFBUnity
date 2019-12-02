@@ -46,8 +46,8 @@ namespace Fumbbl.UI.LogText
                 if (modifiers.Count() > 0)
                 {
                     var modifierString = string.Join("", modifiers.Select(m => m.ModifierString));
-                    var modifierTotalValue = modifiers.Sum(m => m.Modifier) + totalArmourRoll;
-                    yield return new LogRecord($"{modifierString} = {modifierTotalValue}");
+                    var totalArmourRollPlusModifiers = totalArmourRoll + modifiers.Sum(m => m.Modifier);
+                    yield return new LogRecord($"{modifierString} = {totalArmourRollPlusModifiers}");
                 } 
 
                 bool usesClaws = modifiers.Contains(ArmorModifier.Claws);
