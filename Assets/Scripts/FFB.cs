@@ -5,6 +5,7 @@ using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -212,9 +213,10 @@ namespace Fumbbl
                 FFB.Instance.Model.Ball.Moving = cmd.game.fieldModel.ballMoving;
 
                 var positions = new Dictionary<string, Position>();
-                foreach (var pos in cmd.game.teamHome.roster.positionArray)
+                var roster = cmd.game.teamHome.roster;
+                foreach (var pos in roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand };
+                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand, IconURL = pos.urlIconSet };
                 }
 
                 foreach (var p in cmd.game.teamHome.playerArray)
@@ -234,9 +236,10 @@ namespace Fumbbl
                 }
 
                 positions.Clear();
-                foreach (var pos in cmd.game.teamAway.roster.positionArray)
+                roster = cmd.game.teamAway.roster;
+                foreach (var pos in roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand };
+                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand, IconURL = pos.urlIconSet };
                 }
 
                 foreach (var p in cmd.game.teamAway.playerArray)

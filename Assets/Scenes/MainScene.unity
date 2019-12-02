@@ -1230,7 +1230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c2a414215c4a741b0951a0ef2b3560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerIconPrefab: {fileID: 4686798834518279698, guid: 5107ba57c8f18d149b5650d5419bd7aa,
+  PlayerIconPrefab: {fileID: 8773054651039033962, guid: be1737fab3f717d44a98311ce95f5014,
+    type: 3}
+  AbstractIconPrefab: {fileID: 4686798834518279698, guid: 5107ba57c8f18d149b5650d5419bd7aa,
     type: 3}
   Field: {fileID: 202713960}
   DugoutHome: {fileID: 416015686}
