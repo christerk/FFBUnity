@@ -247,7 +247,6 @@ public class FieldHandler : MonoBehaviour
         Texture2D dest = new Texture2D(160, 40 * numIcons, s.texture.format, srcMipLevels, true);
 
         Color transparent = new Color(0f, 0f, 0f, 0f);
-        dest.alphaIsTransparency = true;
 
         for (int mip = 0; mip < srcMipLevels; mip++)
         {
