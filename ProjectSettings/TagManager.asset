@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MainHandler
+  - FieldedPlayer
   layers:
   - Default
   - TransparentFX
@@ -42,8 +43,20 @@ TagManager:
   - name: Background
     uniqueID: 3604475633
     locked: 0
+  - name: TrackNumbers
+    uniqueID: 542144625
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player Overlay
+    uniqueID: 2656338923
+    locked: 0
+  - name: Pushback Arrows
+    uniqueID: 98025079
+    locked: 0
+  - name: Ball
+    uniqueID: 3651512681
     locked: 0
   - name: Foreground
     uniqueID: 3835938471

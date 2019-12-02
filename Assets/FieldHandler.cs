@@ -56,7 +56,7 @@ public class FieldHandler : MonoBehaviour
         TrackNumbers = new ViewObjectList<TrackNumber>(t =>
         {
             t.GameObject = Instantiate(TrackNumberPrefab);
-            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshPro>();
         },
         t =>
         {
@@ -74,7 +74,7 @@ public class FieldHandler : MonoBehaviour
                 Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
                 var scrollText = Instantiate(ScrollTextPrefab);
                 scrollText.gameObject.transform.SetParent(Field.transform);
-                var text = scrollText.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
                 text.text = action.ShortDescription;
                 Vector3 coords = FieldToWorldCoordinates(player.Coordinate[0], player.Coordinate[1], 5);
                 coords.y += 100;
