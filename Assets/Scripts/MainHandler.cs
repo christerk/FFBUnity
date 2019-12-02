@@ -36,7 +36,7 @@ namespace Fumbbl
 
         public void AddChatEntry(string text)
         {
-            FFB.Instance.AddChatEntry(FFB.Instance.CoachName, text);
+            _ = FFB.Instance.Network.Send(new ClientTalk() { talk = text });
         }
 
         public void QuitGame()

@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientJoin.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientPing.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientRequestVersion.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ClientTalk.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ActingPlayer.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\DialogParameter.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\FieldModel.cs" />
