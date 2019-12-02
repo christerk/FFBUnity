@@ -8,10 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FieldHandler : MonoBehaviour
 {
     public GameObject PlayerIconPrefab;
+    public GameObject AbstractIconPrefab;
     public GameObject Field;
     public GameObject DugoutHome;
     public GameObject DugoutAway;
@@ -20,8 +22,11 @@ public class FieldHandler : MonoBehaviour
     public GameObject TrackNumberPrefab;
     public GameObject ScrollTextPrefab;
 
-    private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f);
-    private static Color AwayColour = new Color(0f, 0f, 1f);
+    public TMPro.TextMeshProUGUI HomeTeamText;
+    public TMPro.TextMeshProUGUI AwayTeamText;
+
+    private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f, 1f);
+    private static Color AwayColour = new Color(0f, 0f, 0.99f, 1f);
 
     private Dictionary<string, GameObject> Players;
     private GameObject Ball;
@@ -51,7 +56,7 @@ public class FieldHandler : MonoBehaviour
         TrackNumbers = new ViewObjectList<TrackNumber>(t =>
         {
             t.GameObject = Instantiate(TrackNumberPrefab);
-            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshPro>();
         },
         t =>
         {
@@ -69,7 +74,7 @@ public class FieldHandler : MonoBehaviour
                 Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
                 var scrollText = Instantiate(ScrollTextPrefab);
                 scrollText.gameObject.transform.SetParent(Field.transform);
-                var text = scrollText.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
                 text.text = action.ShortDescription;
                 Vector3 coords = FieldToWorldCoordinates(player.Coordinate[0], player.Coordinate[1], 5);
                 coords.y += 100;
@@ -81,24 +86,25 @@ public class FieldHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FFB.Instance.Model.TeamHome != null)
+        {
+            HomeTeamText.text = FFB.Instance.Model.TeamHome.Name.ToUpper();
+        }
+        if (FFB.Instance.Model.TeamAway != null)
+        {
+            AwayTeamText.text = FFB.Instance.Model.TeamAway.Name.ToUpper();
+        }
+
         var players = FFB.Instance.Model.GetPlayers();
 
+        int playerNum = 0;
         foreach (var p in players)
         {
+            playerNum++;
             if (!Players.ContainsKey(p.Id))
             {
-                GameObject obj = Instantiate(PlayerIconPrefab);
-                var handler = obj.GetComponent<PlayerHandler>();
-                obj.transform.SetParent(Field.transform);
-                handler.Player = p;
-                obj.name = p.Id;
-
-                var child = obj.transform.GetChild(0).gameObject;
-                Renderer s = child.GetComponent<Renderer>();
-                s.material.color = p.IsHome ? HomeColour : AwayColour;
-
-                TMPro.TextMeshProUGUI text = obj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                text.text = p.Position?.AbstractLabel ?? "*";
+                //GameObject obj = GenerateAbstractIcon(p);
+                GameObject obj = GeneratePlayerIcon(p, playerNum);
 
                 Players.Add(p.Id, obj);
             }
@@ -183,6 +189,110 @@ public class FieldHandler : MonoBehaviour
                 s.LabelObject.SetText(s.Number.ToString());
             }
         }
+    }
+
+    private GameObject GeneratePlayerIcon(Player p, int playerNum)
+    {
+        GameObject obj = Instantiate(PlayerIconPrefab);
+        var handler = obj.GetComponent<PlayerHandler>();
+        obj.transform.SetParent(Field.transform);
+        handler.Player = p;
+        obj.name = p.Id;
+
+        SpriteMask mask = obj.GetComponent<SpriteMask>();
+        mask.frontSortingOrder = playerNum;
+        mask.backSortingOrder = playerNum - 1;
+        mask.isCustomRangeActive = true;
+
+        var target = obj.transform.GetChild(0).gameObject;
+
+        float x = p.IsHome ? 192 * 1.5f : 192 * -0.5f;
+        target.transform.localPosition = new Vector3(x, 0, 0);
+
+        LoadSprite(p.Position.IconURL, target, playerNum);
+
+        return obj;
+    }
+
+    private async void LoadSprite(string iconURL, GameObject target, int orderInLayer)
+    {
+        var renderer = target.GetComponent<SpriteRenderer>();
+        renderer.sortingOrder = orderInLayer;
+
+        Sprite s = await FumbblApi.GetSpriteAsync(iconURL);
+        var iconSize = s.texture.width / 4;
+        int numTextures = s.texture.height / iconSize;
+
+        Sprite resized = ResizeSprite(s);
+        resized.name = s.name;
+        renderer.sprite = resized;
+
+        float maskSize = 192; // 144 * 40/30, 40 pixel equivalent squares.
+
+        float y = 192*numTextures/2 - maskSize * 0.5f;
+
+        target.transform.localPosition = new Vector3(target.transform.localPosition.x, y, 0);
+        RectTransform rect = target.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(maskSize, maskSize);
+    }
+
+    private Sprite ResizeSprite(Sprite s)
+    {
+        s.texture.filterMode = FilterMode.Point;
+        var srcIconSize = s.texture.width / 4;
+        var numIcons = s.texture.height / srcIconSize;
+
+        var srcMipLevels = s.texture.mipmapCount;
+
+        Texture2D dest = new Texture2D(160, 40 * numIcons, s.texture.format, srcMipLevels, true);
+
+        Color transparent = new Color(0f, 0f, 0f, 0f);
+
+        for (int mip = 0; mip < srcMipLevels; mip++)
+        {
+            Color[] data = dest.GetPixels(mip);
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = Color.clear;
+            }
+            dest.SetPixels(data, mip);
+        }
+
+        var destMip = 0;
+        for (int y = 0; y < numIcons; y++)
+        {
+            for (int x = 0; x < 4; x++)
+            {
+                Graphics.CopyTexture(
+                    s.texture, 0, destMip, x * srcIconSize, y * srcIconSize, srcIconSize, srcIconSize,
+                    dest, 0, destMip, x * 40 + (40 - srcIconSize) / 2, y * 40 + (40 - srcIconSize) / 2
+                );
+            }
+        }
+
+        // TODO: This should be a "Icon Scaling Mode" setting
+        //dest.filterMode = FilterMode.Point;
+        dest.Apply();
+        return Sprite.Create(dest, new Rect(0, 0, dest.width, dest.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
+    }
+
+    private GameObject GenerateAbstractIcon(Player p)
+    {
+        GameObject obj = Instantiate(AbstractIconPrefab);
+        var handler = obj.GetComponent<PlayerHandler>();
+        obj.transform.SetParent(Field.transform);
+        handler.Player = p;
+        obj.name = p.Id;
+
+        // Set Background colour
+        var child = obj.transform.GetChild(0).gameObject;
+        Renderer s = child.GetComponent<Renderer>();
+        s.material.color = p.IsHome ? HomeColour : AwayColour;
+
+        // Set text
+        TMPro.TextMeshProUGUI text = obj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        text.text = p.Position?.AbstractLabel ?? "*";
+        return obj;
     }
 
     internal Vector3 FieldToWorldCoordinates(float x, float y, float z)

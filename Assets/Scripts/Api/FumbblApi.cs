@@ -143,14 +143,18 @@ public class FumbblApi
         Texture2D img = new Texture2D(1,1);
         try
         {
-            var client = new WebClient();
-            var data = await client.DownloadDataTaskAsync("https://www.fumbbl.com/" + url);
-            img.LoadImage(data);
+            using (var client = new WebClient())
+            {
+                var data = await client.DownloadDataTaskAsync("https://www.fumbbl.com/" + url);
+                img.LoadImage(data);
+            }
         }
         catch (WebException ex)
         {
             Debug.LogError("Failed to download: " + url + " Due to exception: " + ex);
         }
-        return Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0));
+        Sprite s = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
+        s.name = url;
+        return s;
     }
 }

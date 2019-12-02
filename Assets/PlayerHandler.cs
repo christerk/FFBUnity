@@ -10,6 +10,8 @@ public class PlayerHandler : MonoBehaviour
     private GameObject Stunned;
     private Renderer BackgroundRenderer;
 
+    public bool HasIcon;
+
     public Player Player;
 
     void Start()

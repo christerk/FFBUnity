@@ -10,6 +10,7 @@ namespace Fumbbl.Model
         //private ModelChangeFactory ModelChangeFactory { get; }
         private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
         public ActingPlayer ActingPlayer { get; set; }
+
         private Dictionary<string, Player> Players { get; set; }
 
         public Coach HomeCoach { get; internal set; }
@@ -95,6 +96,19 @@ namespace Fumbbl.Model
             ModelUpdater<Ffb.Dto.ModelChange> updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
             updater?.Apply(change);
         }
+
+        internal Team GetTeam(string teamId)
+        {
+            if (string.Equals(teamId, TeamHome.Id))
+            {
+                return TeamHome;
+            }
+            else
+            {
+                return TeamAway;
+            }
+        }
+
 
         internal Player GetPlayer(string playerId)
         {
