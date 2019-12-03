@@ -98,16 +98,54 @@ namespace Fumbbl.Lib
             {
                 for (int x = 0; x < 4; x++)
                 {
-                    Graphics.CopyTexture(
-                        s.texture, 0, destMip, x * srcIconSize, y * srcIconSize, srcIconSize, srcIconSize,
-                        dest, 0, destMip, x * 40 + (40 - srcIconSize) / 2, y * 40 + (40 - srcIconSize) / 2
-                    );
+                    CopyTexture(s, srcIconSize, dest, destMip, y, x);
                 }
             }
 
             // TODO: This should be a "Icon Scaling Mode" setting
             //dest.filterMode = FilterMode.Point;
             return Sprite.Create(dest, new Rect(0, 0, dest.width, dest.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
+        }
+
+        private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int destMip, int y, int x)
+        {
+            if (SystemInfo.copyTextureSupport != UnityEngine.Rendering.CopyTextureSupport.None)
+            {
+                Graphics.CopyTexture(
+                    s.texture, 0, destMip, x * srcIconSize, y * srcIconSize, srcIconSize, srcIconSize,
+                    dest, 0, destMip, x * 40 + (40 - srcIconSize) / 2, y * 40 + (40 - srcIconSize) / 2
+                );
+            }
+            else
+            {
+                var srcPixels = s.texture.GetPixels32();
+                var destPixels = dest.GetPixels32();
+
+                int srcOriginX = x * srcIconSize;
+                int srcOriginY = y * srcIconSize;
+                int srcWidth = 4 * srcIconSize;
+
+                int dstOriginX = x * 40 + (40 - srcIconSize) / 2;
+                int dstOriginY = y * 40 + (40 - srcIconSize) / 2;
+                int dstWidth = 4 * 40;
+
+                for (int yy=0; yy<srcIconSize; yy++)
+                {
+                    for (int xx=0; xx<srcIconSize; xx++)
+                    {
+                        var srcX = srcOriginX + xx;
+                        var srcY = srcOriginY + yy;
+
+                        var dstX = dstOriginX + xx;
+                        var dstY = dstOriginY + yy;
+
+                        var pixel = srcPixels[srcX + srcWidth * srcY];
+                        destPixels[dstX + dstWidth * dstY] = pixel;
+                    }
+                }
+                dest.SetPixels32(destPixels);
+                dest.Apply();
+            }
         }
     }
 }
