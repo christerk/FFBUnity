@@ -2,6 +2,7 @@
 using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fumbbl.Model
 {
@@ -80,9 +81,11 @@ namespace Fumbbl.Model
 
         public void Clear()
         {
+            Debug.Log("Clearing Model");
             Players.Clear();
             ActingPlayer.Clear();
             PushbackSquares.Clear();
+            TrackNumbers.Clear();
         }
 
         internal IEnumerable<Player> GetPlayers()

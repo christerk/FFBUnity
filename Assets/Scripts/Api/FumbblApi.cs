@@ -135,7 +135,7 @@ public class FumbblApi
 
     public static async void GetImage(string url, Image target)
     {
-        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, GetSpriteAsync);
+        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url);
     }
 
     public static async Task<Sprite> GetSpriteAsync(string url)

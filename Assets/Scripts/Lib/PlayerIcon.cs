@@ -60,7 +60,7 @@ namespace Fumbbl.Lib
 
         public static async System.Threading.Tasks.Task<Sprite> LoadIconSpriteSheet(string iconURL, GameObject target)
         {
-            Sprite s = await FumbblApi.GetSpriteAsync(iconURL);
+            Sprite s = await FFB.Instance.SpriteCache.GetAsync(iconURL);
             var iconSize = s.texture.width / 4;
             int numTextures = s.texture.height / iconSize;
 

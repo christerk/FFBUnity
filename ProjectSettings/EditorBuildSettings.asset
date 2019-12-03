@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameBrowserScene.unity
     guid: f8792bb1f35abf35198bf5901f793f27
+  - enabled: 1
+    path: Assets/Scenes/ConnectScene.unity
+    guid: e13490c4af6b5254f84dd0974d528065
   m_configObjects: {}

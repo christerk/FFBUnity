@@ -53,7 +53,7 @@ namespace Fumbbl
 
         private FFB()
         {
-            SpriteCache = new Lib.Cache<Sprite>();
+            SpriteCache = new Lib.Cache<Sprite>(url => FumbblApi.GetSpriteAsync(url));
             LogText = new List<Report>();
             ChatText = new List<ChatEntry>();
             Network = new Networking();
@@ -92,6 +92,7 @@ namespace Fumbbl
         public void Stop()
         {
             GameId = 0;
+            Model.Clear();
             Network.Disconnect();
         }
 

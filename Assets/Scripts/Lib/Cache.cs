@@ -28,9 +28,13 @@ namespace Fumbbl.Lib
 
     public class Cache<T>
     {
-       
         private ConcurrentDictionary<string, CacheObject<T>> cache = new ConcurrentDictionary<string, CacheObject<T>>();
+        public Func<string, Task<T>> Generator { get; }
 
+        public Cache(Func<string, Task<T>> generator)
+        {
+            Generator = generator;
+        }
 
         public void Set(string key, T item)
         {
@@ -39,12 +43,12 @@ namespace Fumbbl.Lib
     
         public delegate Task<T> GetCacheObjectAsync(string key);
 
-        public async Task<T> GetAsync(string key, GetCacheObjectAsync func)
+        public async Task<T> GetAsync(string key)
         {
             CacheObject<T> cacheObject = new CacheObject<T>();
             if(!cache.ContainsKey(key))
             {
-                cacheObject._item = await func(key); 
+                cacheObject._item = await Generator(key); 
                 cache.TryAdd(key, cacheObject);
             }
             cache.TryGetValue(key, out cacheObject);
