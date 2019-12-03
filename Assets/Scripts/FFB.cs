@@ -21,6 +21,8 @@ namespace Fumbbl
         private readonly List<Report> LogText;
         private readonly List<ChatEntry> ChatText;
 
+      // private SoundManager Sound;
+
         public Core Model { get; }
 
         public string CoachName { get; private set; }
@@ -59,6 +61,7 @@ namespace Fumbbl
             Network = new Networking();
             Model = new Core();
             Api = new FumbblApi();
+
         }
 
         public bool Authenticate(string clientId, string clientSecret)
@@ -278,6 +281,7 @@ namespace Fumbbl
         private void PlaySound(string sound)
         {
             Debug.Log($"Play Sound {sound}");
+         //   Sound.Play(sound);
         }
 
         internal void AddChatEntry(string coach, string text)
