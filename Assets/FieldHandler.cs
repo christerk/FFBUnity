@@ -94,7 +94,7 @@ public class FieldHandler : MonoBehaviour
                 scrollText.gameObject.transform.SetParent(Field.transform);
                 var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
                 text.text = action.ShortDescription;
-                Vector3 coords = FieldToWorldCoordinates(player.Coordinate[0], player.Coordinate[1], 5);
+                Vector3 coords = FieldToWorldCoordinates(player.Coordinate.X, player.Coordinate.Y, 5);
                 coords.y += 100;
                 scrollText.gameObject.transform.localPosition = coords;
                 scrollText.GetComponent<Animator>().SetTrigger("Scroll");
@@ -145,11 +145,11 @@ public class FieldHandler : MonoBehaviour
                     int index = box.childCount;
                     p.GameObject.transform.SetParent(box);
 
-                    p.GameObject.transform.localPosition = ToDugoutCoordinates(p.Coordinate[1]);
+                    p.GameObject.transform.localPosition = ToDugoutCoordinates(p.Coordinate.Y);
                 }
                 else
                 {
-                    var pos = FieldToWorldCoordinates(p.Coordinate[0], p.Coordinate[1], 1);
+                    var pos = FieldToWorldCoordinates(p.Coordinate.X, p.Coordinate.Y, 1);
 
                     p.GameObject.transform.localPosition = pos;
                     p.GameObject.transform.SetParent(Field.transform);
@@ -166,7 +166,7 @@ public class FieldHandler : MonoBehaviour
         if (ball != null && ball.Coordinate != null)
         {
             Ball.SetActive(true);
-            var ballPos = FieldToWorldCoordinates(ball.Coordinate[0], ball.Coordinate[1], 4);
+            var ballPos = FieldToWorldCoordinates(ball.Coordinate.X, ball.Coordinate.Y, 4);
             Ball.transform.localPosition = ballPos;
         }
         else
@@ -182,7 +182,7 @@ public class FieldHandler : MonoBehaviour
             if (s != null && s.Coordinate != null && s.GameObject != null)
             {
                 s.GameObject.transform.SetParent(Field.transform);
-                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate[0], s.Coordinate[1], 10);
+                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate.X, s.Coordinate.Y, 10);
             }
         }
 
@@ -193,7 +193,7 @@ public class FieldHandler : MonoBehaviour
             if (s != null && s.Coordinate != null && s.GameObject != null)
             {
                 s.GameObject.transform.SetParent(Field.transform);
-                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate[0], s.Coordinate[1], 10);
+                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate.X, s.Coordinate.Y, 10);
                 s.LabelObject.SetText(s.Number.ToString());
             }
         }

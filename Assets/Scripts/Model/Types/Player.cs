@@ -7,7 +7,8 @@ namespace Fumbbl.Model.Types
         public string Id;
         public string PositionId;
         public string Name;
-        public int[] Coordinate;
+        public Types.Coordinate Coordinate { get; set; }
+
         public Gender Gender;
         public Team Team { get; set; }
         public PlayerState PlayerState { get; internal set; }
