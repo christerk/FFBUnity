@@ -20,53 +20,53 @@ namespace Fumbbl.UI.LogText
             {
                 if (report.bomb)
                 {
-                    yield return new LogRecord($"<b>{ player.FormattedName } tries to catch the bomb:</b>");
+                    yield return new LogRecord($"<b>{player.FormattedName} tries to catch the bomb:</b>");
                 }
                 else
                 {
-                    yield return new LogRecord($"<b>{ player.FormattedName } tries to catch the ball:</b>");
+                    yield return new LogRecord($"<b>{player.FormattedName} tries to catch the ball:</b>");
                 }
                 // TODO: NOS
             }
 
-            yield return new LogRecord($"<b>Catch Roll [ { report.roll } ]</b>", 1);
+            yield return new LogRecord($"<b>Catch Roll [ {report.roll} ]</b>", 1);
 
             if (report.successful)
             {
                 if (report.bomb)
                 {
-                    yield return new LogRecord($"{ player.FormattedName } catches the bomb.", 2);
+                    yield return new LogRecord($"{player.FormattedName} catches the bomb.", 2);
                 }
                 else
                 {
-                    yield return new LogRecord($"{ player.FormattedName } catches the ball.", 2);
+                    yield return new LogRecord($"{player.FormattedName} catches the ball.", 2);
                 }
 
                 if (!report.reRolled)
                 {
-                    neededRoll = $"Succeeded on a roll of { report.minimumRoll }+";
+                    neededRoll = $"Succeeded on a roll of {report.minimumRoll}+";
                 }
             }
             else
             {
                 if (report.bomb)
                 {
-                    yield return new LogRecord($"{ player.FormattedName } drops the bomb.", 2);
+                    yield return new LogRecord($"{player.FormattedName} drops the bomb.", 2);
                 }
                 else
                 {
-                    yield return new LogRecord($"{ player.FormattedName } drops the ball.", 2);
+                    yield return new LogRecord($"{player.FormattedName} drops the ball.", 2);
                 }
 
                 if (!report.reRolled)
                 {
-                    neededRoll = $"Roll a { report.minimumRoll }+ to succeed";
+                    neededRoll = $"Roll a {report.minimumRoll}+ to succeed";
                 }
             }
 
             if (!string.IsNullOrEmpty(neededRoll))
             {
-                neededRoll += $" (AG { Math.Min(6, player.Agility) }";
+                neededRoll += $" (AG {Math.Min(6, player.Agility)}";
                 if (rollModifiers != null)
                 {
                     neededRoll += string.Join("", rollModifiers.Select(m => m.ModifierString));
