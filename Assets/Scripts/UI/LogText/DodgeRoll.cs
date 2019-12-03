@@ -66,12 +66,14 @@ namespace Fumbbl.UI.LogText
                 }
 
                 neededRoll += " + 1 Dodge";
+
                 if (rollModifiers != null)
                 {
                     neededRoll += string.Join("", rollModifiers.Select(m => m.ModifierString));
                 }
 
                 neededRoll += " + Roll > 6).";
+
                 yield return new LogRecord(neededRoll, 1);
             }
         }
