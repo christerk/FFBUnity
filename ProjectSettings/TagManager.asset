@@ -46,6 +46,9 @@ TagManager:
   - name: TrackNumbers
     uniqueID: 542144625
     locked: 0
+  - name: Player Underlay
+    uniqueID: 1280561439
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

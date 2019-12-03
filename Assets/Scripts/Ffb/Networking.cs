@@ -156,7 +156,7 @@ namespace Fumbbl.Ffb
             await Send(command);
         }
 
-        async Task Send(AbstractCommand command)
+        public async Task Send(AbstractCommand command)
         {
             string serializedCommand = JsonConvert.SerializeObject(command);
 

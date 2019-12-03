@@ -19,7 +19,7 @@ namespace Fumbbl.Ffb.Dto.Reports
         public int? injury;
         public int? injuryDecay;
         public string attackerId;
-        public List<FFBEnumeration> armorModifiers;
-        public List<FFBEnumeration> injuryModifiers;
+        public FFBEnumeration[] armorModifiers;
+        public FFBEnumeration[] injuryModifiers;
     }
 }

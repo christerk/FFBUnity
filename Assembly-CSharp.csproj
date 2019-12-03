@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientJoin.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientPing.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\ClientRequestVersion.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\ClientTalk.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\ActingPlayer.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\DialogParameter.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Commands\FieldModel.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Assets\Scripts\FFBEnumeration.cs" />
     <Compile Include="Assets\Scripts\IReflectedObject.cs" />
     <Compile Include="Assets\Scripts\Lib\Cache.cs" />
+    <Compile Include="Assets\Scripts\Lib\PlayerIcon.cs" />
     <Compile Include="Assets\Scripts\MainHandler.cs" />
     <Compile Include="Assets\Scripts\Model\Ball.cs" />
     <Compile Include="Assets\Scripts\Model\Core.cs" />
