@@ -145,7 +145,7 @@ public class FumbblApi
         {
             using (var client = new WebClient())
             {
-                var data = await client.DownloadDataTaskAsync("https://www.fumbbl.com/" + url);
+                var data = await client.DownloadDataTaskAsync("https://fumbbl.com/" + url);
                 img.LoadImage(data);
             }
         }
