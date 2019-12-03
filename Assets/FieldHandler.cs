@@ -145,7 +145,7 @@ public class FieldHandler : MonoBehaviour
                     int index = box.childCount;
                     p.GameObject.transform.SetParent(box);
 
-                    Players[p.Id].transform.localPosition = ToDugoutCoordinates(p.Coordinate.Y);
+                    p.GameObject.transform.localPosition = ToDugoutCoordinates(p.Coordinate.Y);
                 }
                 else
                 {
