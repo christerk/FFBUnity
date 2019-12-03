@@ -1,4 +1,6 @@
-﻿namespace Fumbbl.Model.RollModifier
+﻿using System;
+
+namespace Fumbbl.Model.RollModifier
 {
     public abstract class AbstractModifier : FfbEnumerationFactory
     {
@@ -28,7 +30,7 @@
                 }
                 else
                 {
-                    return $" {sign} {Modifier} {Name}";
+                    return $" {sign} {Math.Abs(Modifier)} {Name}";
                 }
             }
         }

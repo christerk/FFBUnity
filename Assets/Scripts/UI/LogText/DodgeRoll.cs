@@ -18,7 +18,7 @@ namespace Fumbbl.UI.LogText
 
             if (report.roll > 0)
             {
-                yield return new LogRecord($"<b>Dodge Roll [ { report.roll } ]</b>");
+                yield return new LogRecord($"<b>Dodge Roll [ {report.roll} ]</b>");
             }
             else
             {
@@ -29,28 +29,28 @@ namespace Fumbbl.UI.LogText
             {
                 if (rollModifiers.Contains(DodgeModifier.Stunty))
                 {
-                    yield return new LogRecord($"{ player.FormattedName } is Stunty and ignores tacklezones.", 1);
+                    yield return new LogRecord($"{player.FormattedName} is Stunty and ignores tacklezones.", 1);
                 }
                 if (rollModifiers.Contains(DodgeModifier.BreakTackle))
                 {
-                    yield return new LogRecord($"{ player.FormattedName } uses Break Tackle to break free.", 1);
+                    yield return new LogRecord($"{player.FormattedName} uses Break Tackle to break free.", 1);
                 }
             }
 
             if (report.successful)
             {
-                yield return new LogRecord($"{ player.FormattedName } dodges successfully.", 1);
+                yield return new LogRecord($"{player.FormattedName} dodges successfully.", 1);
                 if (!report.reRolled)
                 {
-                    neededRoll = $"Succeeded on a roll of { report.minimumRoll }+";
+                    neededRoll = $"Succeeded on a roll of {report.minimumRoll}+";
                 }
             }
             else
             {
-                yield return new LogRecord($"{ player.FormattedName } trips while dodging.", 1);
+                yield return new LogRecord($"{player.FormattedName} trips while dodging.", 1);
                 if (!report.reRolled)
                 {
-                    neededRoll = $"Roll a { report.minimumRoll }+ to succeed";
+                    neededRoll = $"Roll a {report.minimumRoll}+ to succeed";
                 }
             }
 
@@ -58,11 +58,11 @@ namespace Fumbbl.UI.LogText
             {
                 if (rollModifiers != null && rollModifiers.Contains(DodgeModifier.BreakTackle))
                 {
-                    neededRoll += $" using Break Tackle (ST { Math.Min(6, player.Strength) }";
+                    neededRoll += $" using Break Tackle (ST {Math.Min(6, player.Strength)}";
                 }
                 else
                 {
-                    neededRoll += $" (AG { System.Math.Min(6, player.Agility) }";
+                    neededRoll += $" (AG {Math.Min(6, player.Agility)}";
                 }
 
                 neededRoll += " + 1 Dodge";
