@@ -1,4 +1,6 @@
-﻿namespace Fumbbl.Ffb.Dto.Reports
+﻿using System.Collections.Generic;
+
+namespace Fumbbl.Ffb.Dto.Reports
 {
     public class Injury : Report
     {

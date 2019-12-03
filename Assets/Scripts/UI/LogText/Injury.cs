@@ -1,5 +1,8 @@
-﻿using Fumbbl.Model.Types;
+﻿using Fumbbl.Model;
+using Fumbbl.Model.RollModifier;
+using Fumbbl.Model.Types;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fumbbl.UI.LogText
 {
@@ -36,10 +39,31 @@ namespace Fumbbl.UI.LogText
             if (report.armorRoll?.Length > 0)
             {
                 yield return new LogRecord($"<b>Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]</b>");
+                var totalArmourRoll = report.armorRoll[0] + report.armorRoll[1];
+                yield return new LogRecord($"Rolled Total of {totalArmourRoll} ");
 
-                //
-                // TODO: Incomplete
-                //
+                var modifiers = report.armorModifiers.Select(m => m.As<ArmorModifier>());
+                if (modifiers.Count() > 0)
+                {
+                    var modifierString = string.Join("", modifiers.Select(m => m.ModifierString));
+                    var totalArmourRollPlusModifiers = totalArmourRoll + modifiers.Sum(m => m.Modifier);
+                    yield return new LogRecord($"{modifierString} = {totalArmourRollPlusModifiers}");
+                } 
+
+                bool usesClaws = modifiers.Contains(ArmorModifier.Claws);
+                if (attacker != null && usesClaws)
+                {
+                    yield return new LogRecord($"{attacker.FormattedName} uses Claws to reduce opponents armour to 7.");
+                }
+
+                if (report.armorBroken)
+                {
+                    yield return new LogRecord($"The armour of {defender.FormattedName} has been broken.");
+                }
+                else
+                {
+                    yield return new LogRecord($"{defender.FormattedName} has been saved by {defender.Gender.Genetive} armour.");
+                }
             }
 
             if (report.armorBroken && report.injuryRoll?.Length > 0)
