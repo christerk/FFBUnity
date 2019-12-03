@@ -19,7 +19,7 @@ namespace Fumbbl.UI.LogText
             else
             {
                 yield return new LogRecord($"{player.FormattedName} gives in to {player.Gender.Genetive} Animosity.", 1);
-                yield return new LogRecord($"Roll a {report.minimumRoll}+ to succeed");
+                yield return new LogRecord($"Roll a {report.minimumRoll}+ to succeed", 1);
             }
         }
     }
