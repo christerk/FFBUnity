@@ -38,8 +38,8 @@ public class GameBrowserEntry : MonoBehaviour
             float progress = (float)((((float)details.half - 1) * 8) + (float)details.turn) / 16f;
             progressBar.fillAmount = progress;
 
-            FumbblApi.GetImage(t1.logo, team1Image);
-            FumbblApi.GetImage(t2.logo, team2Image);
+            FumbblApi.GetImage(t1.logolarge, team1Image);
+            FumbblApi.GetImage(t2.logolarge, team2Image);
         }
         else
         {

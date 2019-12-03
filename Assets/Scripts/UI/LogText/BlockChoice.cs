@@ -10,7 +10,7 @@ namespace Fumbbl.UI.LogText
         {
             BlockDie blockResult = report.blockResult.AsBlockDie();
 
-            yield return new LogRecord($"<b>Block Result [ { blockResult.Name } ]</b>");
+            yield return new LogRecord($"<b>Block Result [ {blockResult.Name} ]</b>");
 
             Player attacker = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
             Player defender = FFB.Instance.Model.GetPlayer(report.defenderId);
@@ -19,18 +19,18 @@ namespace Fumbbl.UI.LogText
             {
                 if (attacker.HasSkill(SkillType.Block))
                 {
-                    yield return new LogRecord($"{ attacker.FormattedName } has been saved by { attacker.Gender.Genetive } Block skill.");
+                    yield return new LogRecord($"{attacker.FormattedName} has been saved by {attacker.Gender.Genetive} Block skill.");
                 }
                 if (defender.HasSkill(SkillType.Block))
                 {
-                    yield return new LogRecord($"\n{ defender.FormattedName } has been saved by { defender.Gender.Genetive } Block skill.");
+                    yield return new LogRecord($"\n{defender.FormattedName} has been saved by {defender.Gender.Genetive} Block skill.");
                 }
             }
             else if (blockResult == BlockDie.PowPushback)
             {
                 if (defender.HasSkill(SkillType.Dodge) && attacker.HasSkill(SkillType.Tackle))
                 {
-                    yield return new LogRecord($"\n{ attacker.FormattedName } uses Tackle to bring opponent down.");
+                    yield return new LogRecord($"\n{attacker.FormattedName} uses Tackle to bring opponent down.");
                 }
             }
         }

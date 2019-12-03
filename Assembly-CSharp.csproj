@@ -135,6 +135,7 @@
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\Block.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\BlockChoice.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\BlockRoll.cs" />
+    <Compile Include="Assets\Scripts\Ffb\Dto\Reports\BloodLustRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\BombOutOfBounds.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\BribesRoll.cs" />
     <Compile Include="Assets\Scripts\Ffb\Dto\Reports\CardDeactivated.cs" />
@@ -265,12 +266,17 @@
     <Compile Include="Assets\Scripts\UI\LogText\Block.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\BlockChoice.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\BlockRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\BloodLustRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\BombOutOfBounds.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\BribesRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\CatchRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ConfusionRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\DodgeRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Foul.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\GoForItRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\HandOver.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\Injury.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\InterceptionRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\KickoffResult.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\KickoffRiot.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\KickoffScatter.cs" />
@@ -281,6 +287,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RegenerationRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ReRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\ThrowTeamMateRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
     <Compile Include="Assets\Scripts\View\PushbackSquare.cs" />
     <Compile Include="Assets\Scripts\View\ScrollText.cs" />
