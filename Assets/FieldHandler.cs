@@ -117,6 +117,7 @@ public class FieldHandler : MonoBehaviour
         var players = FFB.Instance.Model.GetPlayers().ToList();
         foreach (var p in players)
         {
+            bool active = false;
             if (p.Coordinate != null && p.GameObject != null)
             {
                 var state = p.PlayerState;
@@ -154,11 +155,12 @@ public class FieldHandler : MonoBehaviour
                     p.GameObject.transform.localPosition = pos;
                     p.GameObject.transform.SetParent(Field.transform);
                 }
-                p.GameObject?.SetActive(true);
+                active = true;
             }
-            else
+
+            if (p.GameObject != null)
             {
-                p.GameObject?.SetActive(false);
+                p.GameObject.SetActive(active);
             }
         }
 

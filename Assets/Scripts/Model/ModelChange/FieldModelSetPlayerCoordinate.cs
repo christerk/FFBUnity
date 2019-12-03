@@ -10,7 +10,7 @@ namespace Fumbbl.Model.ModelChange
         {
             Player p = FFB.Instance.Model.GetPlayer(change.modelChangeKey);
 
-            p.Coordinate = new Fumbbl.Model.Types.Coordinate(change.modelChangeValue);
+            p.Coordinate = Coordinate.Create(change.modelChangeValue);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Fumbbl.View
 
         public TrackNumber(Ffb.Dto.ModelChanges.TrackNumber square)
         {
-            Coordinate = new Fumbbl.Model.Types.Coordinate(square.coordinate);
+            Coordinate = Model.Types.Coordinate.Create(square.coordinate);
             Number = square.number;
         }
 

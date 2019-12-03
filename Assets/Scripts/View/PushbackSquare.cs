@@ -12,7 +12,7 @@
 
         public PushbackSquare(Ffb.Dto.ModelChanges.PushbackSquare square)
         {
-            Coordinate = new Fumbbl.Model.Types.Coordinate(square.coordinate);
+            Coordinate = Model.Types.Coordinate.Create(square.coordinate);
             Direction = square.direction.key;
             HomeChoice = square.homeChoice;
             Locked = square.locked;

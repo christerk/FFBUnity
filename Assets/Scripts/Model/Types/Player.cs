@@ -42,7 +42,6 @@ namespace Fumbbl.Model.Types
         public Player()
         {
             Team = new Team();
-            Coordinate = new Coordinate(0, 0);
         }
 
         public string FormattedName
