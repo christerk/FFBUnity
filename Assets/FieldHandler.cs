@@ -26,8 +26,8 @@ public class FieldHandler : MonoBehaviour
     public TMPro.TextMeshProUGUI HomeTeamText;
     public TMPro.TextMeshProUGUI AwayTeamText;
 
-    private Dictionary<string, GameObject> Players;
     private GameObject Ball;
+    private ViewObjectList<Player> Players;
     private ViewObjectList<PushbackSquare> PushbackSquares;
     private ViewObjectList<TrackNumber> TrackNumbers;
 
@@ -36,9 +36,26 @@ public class FieldHandler : MonoBehaviour
     {
         FFB.Instance.OnReport += AddReport;
 
-        Players = new Dictionary<string, GameObject>();
+        foreach (var o in GameObject.FindGameObjectsWithTag("Clone"))
+        {
+            Destroy(o);
+        }
+
         Ball = Instantiate(BallPrefab);
         Ball.transform.SetParent(Field.transform);
+
+        Players = new ViewObjectList<Player>(p =>
+        {
+            //GameObject obj = PlayerIcon.GenerateAbstractIcon(p);
+            GameObject obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab);
+            obj.transform.SetParent(Field.transform);
+            p.GameObject = obj;
+        },
+        p =>
+        {
+            Destroy(p.GameObject);
+        });
+
         PushbackSquares = new ViewObjectList<PushbackSquare>(s =>
         {
             s.GameObject = Instantiate(ArrowPrefab);
@@ -60,6 +77,9 @@ public class FieldHandler : MonoBehaviour
         {
             Destroy(t.GameObject);
         });
+
+        var players = FFB.Instance.Model.GetPlayers();
+        Players.Refresh(players);
     }
 
     private void AddReport(Report report)
@@ -77,6 +97,7 @@ public class FieldHandler : MonoBehaviour
                 Vector3 coords = FieldToWorldCoordinates(player.Coordinate[0], player.Coordinate[1], 5);
                 coords.y += 100;
                 scrollText.gameObject.transform.localPosition = coords;
+                scrollText.GetComponent<Animator>().SetTrigger("Scroll");
             }
         }
     }
@@ -93,21 +114,10 @@ public class FieldHandler : MonoBehaviour
             AwayTeamText.text = FFB.Instance.Model.TeamAway.Name.ToUpper();
         }
 
-        var players = FFB.Instance.Model.GetPlayers();
-
+        var players = FFB.Instance.Model.GetPlayers().ToList();
         foreach (var p in players)
         {
-            if (!Players.ContainsKey(p.Id))
-            {
-                //GameObject obj = PlayerIcon.GenerateAbstractIcon(p);
-                GameObject obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab);
-                obj.transform.SetParent(Field.transform);
-
-
-                Players.Add(p.Id, obj);
-            }
-
-            if (p.Coordinate != null)
+            if (p.Coordinate != null && p.GameObject != null)
             {
                 var state = p.PlayerState;
                 int moveToDugout = -1;
@@ -133,22 +143,22 @@ public class FieldHandler : MonoBehaviour
 
                     Transform box = dugout.transform.GetChild(moveToDugout);
                     int index = box.childCount;
-                    Players[p.Id].transform.SetParent(box);
+                    p.GameObject.transform.SetParent(box);
 
-                    Players[p.Id].transform.localPosition = ToDugoutCoordinates(p.Coordinate[1]);
+                    p.GameObject.transform.localPosition = ToDugoutCoordinates(p.Coordinate[1]);
                 }
                 else
                 {
                     var pos = FieldToWorldCoordinates(p.Coordinate[0], p.Coordinate[1], 1);
 
-                    Players[p.Id].transform.localPosition = pos;
-                    Players[p.Id].transform.SetParent(Field.transform);
+                    p.GameObject.transform.localPosition = pos;
+                    p.GameObject.transform.SetParent(Field.transform);
                 }
-                Players[p.Id].SetActive(true);
+                p.GameObject?.SetActive(true);
             }
             else
             {
-                Players[p.Id].SetActive(false);
+                p.GameObject?.SetActive(false);
             }
         }
 
@@ -203,5 +213,11 @@ public class FieldHandler : MonoBehaviour
         int y = index / 5;
 
         return new Vector3(x * 144 - 280, 160 - y * 144, 0);
+    }
+
+    void OnDestroy()
+    {
+        FFB.Instance.Stop();
+        FFB.Instance.OnReport -= AddReport;
     }
 }

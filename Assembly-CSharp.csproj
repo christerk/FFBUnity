@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ChatInputHandler.cs" />
+    <Compile Include="Assets\ConnectionHandler.cs" />
     <Compile Include="Assets\FieldHandler.cs" />
     <Compile Include="Assets\GameBrowserEntry.cs" />
     <Compile Include="Assets\GameBrowserHandler.cs" />

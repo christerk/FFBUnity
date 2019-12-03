@@ -50,7 +50,8 @@ public class GameBrowserEntry : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("clicked game: " + matchDetails.id);
+        FFB.Instance.Stop();
         FFB.Instance.Connect(matchDetails.id);
-        MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
+        MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
     }
 }

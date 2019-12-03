@@ -11,6 +11,7 @@ namespace Fumbbl
         public enum SceneType
         {
             None,
+            ConnectScene,
             MainScene,
             SettingsScene,
             LoginScene,
