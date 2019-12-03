@@ -153,7 +153,7 @@ public class FumbblApi
         {
             Debug.LogError("Failed to download: " + url + " Due to exception: " + ex);
         }
-        Sprite s = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0, 0), 1f);
+        Sprite s = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
         s.name = url;
         return s;
     }

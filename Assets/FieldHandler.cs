@@ -1,6 +1,7 @@
 ﻿using Fumbbl;
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Ffb.Dto.Reports;
+using Fumbbl.Lib;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using Fumbbl.View;
@@ -8,10 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FieldHandler : MonoBehaviour
 {
     public GameObject PlayerIconPrefab;
+    public GameObject AbstractIconPrefab;
     public GameObject Field;
     public GameObject DugoutHome;
     public GameObject DugoutAway;
@@ -22,9 +25,6 @@ public class FieldHandler : MonoBehaviour
 
     public TMPro.TextMeshProUGUI HomeTeamText;
     public TMPro.TextMeshProUGUI AwayTeamText;
-
-    private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f);
-    private static Color AwayColour = new Color(0f, 0f, 1f);
 
     private Dictionary<string, GameObject> Players;
     private GameObject Ball;
@@ -54,7 +54,7 @@ public class FieldHandler : MonoBehaviour
         TrackNumbers = new ViewObjectList<TrackNumber>(t =>
         {
             t.GameObject = Instantiate(TrackNumberPrefab);
-            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshPro>();
         },
         t =>
         {
@@ -72,7 +72,7 @@ public class FieldHandler : MonoBehaviour
                 Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
                 var scrollText = Instantiate(ScrollTextPrefab);
                 scrollText.gameObject.transform.SetParent(Field.transform);
-                var text = scrollText.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
                 text.text = action.ShortDescription;
                 Vector3 coords = FieldToWorldCoordinates(player.Coordinate[0], player.Coordinate[1], 5);
                 coords.y += 100;
@@ -99,18 +99,10 @@ public class FieldHandler : MonoBehaviour
         {
             if (!Players.ContainsKey(p.Id))
             {
-                GameObject obj = Instantiate(PlayerIconPrefab);
-                var handler = obj.GetComponent<PlayerHandler>();
+                //GameObject obj = PlayerIcon.GenerateAbstractIcon(p);
+                GameObject obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab);
                 obj.transform.SetParent(Field.transform);
-                handler.Player = p;
-                obj.name = p.Id;
 
-                var child = obj.transform.GetChild(0).gameObject;
-                Renderer s = child.GetComponent<Renderer>();
-                s.material.color = p.IsHome ? HomeColour : AwayColour;
-
-                TMPro.TextMeshProUGUI text = obj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                text.text = p.Position?.AbstractLabel ?? "*";
 
                 Players.Add(p.Id, obj);
             }

@@ -9,6 +9,9 @@ public class PlayerHandler : MonoBehaviour
     private GameObject Prone;
     private GameObject Stunned;
     private Renderer BackgroundRenderer;
+    SpriteMask Mask;
+
+    public bool HasIcon;
 
     public Player Player;
 
@@ -20,12 +23,31 @@ public class PlayerHandler : MonoBehaviour
         Stunned = this.transform.GetChild(3).gameObject;
 
         BackgroundRenderer = Background.GetComponent<Renderer>();
+        Mask = GetComponent<SpriteMask>();
     }
 
     void Update()
     {
         bool active = string.Equals(FFB.Instance.Model.ActingPlayer.PlayerId, Player.Id);
         Outline.SetActive(active);
+
+        if (HasIcon && Mask != null && Background != null)
+        {
+            // Set up sprite mask and render sort order. Top/right of the field is the topmost sprite
+            int order = (Player.Coordinate[1]) * 100 + Player.Coordinate[0];
+            Mask.frontSortingOrder = order;
+            Mask.backSortingOrder = order - 1;
+            Mask.isCustomRangeActive = true;
+            BackgroundRenderer.sortingOrder = order;
+
+            // Move background image to show the correct sprite from the sheet
+            var tex = Background.GetComponent<SpriteRenderer>().sprite.texture;
+            int numTextures = 4 * tex.height / tex.width;
+            float x = (Player.IsHome ? 192 * 1.5f : 192 * -0.5f) - (active ? 192f : 0f);
+            float y = 192f * (((float)numTextures) / 2f - 0.5f);
+            Background.transform.localPosition = new Vector3(x, y, 0);
+
+        }
 
         var state = Player.PlayerState;
 

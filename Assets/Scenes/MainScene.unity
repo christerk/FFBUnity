@@ -257,7 +257,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2052491645
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -497,7 +497,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -690491663
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 4446304ccba8a304d8036d61d782b857, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -969,7 +969,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -690491663
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 65a24f6d2f4223d49b4578e8e1cc45ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1230,7 +1230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c2a414215c4a741b0951a0ef2b3560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerIconPrefab: {fileID: 4686798834518279698, guid: 5107ba57c8f18d149b5650d5419bd7aa,
+  PlayerIconPrefab: {fileID: 8773054651039033962, guid: be1737fab3f717d44a98311ce95f5014,
+    type: 3}
+  AbstractIconPrefab: {fileID: 4686798834518279698, guid: 5107ba57c8f18d149b5650d5419bd7aa,
     type: 3}
   Field: {fileID: 202713960}
   DugoutHome: {fileID: 416015686}
@@ -3984,7 +3986,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -690491663
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 65a24f6d2f4223d49b4578e8e1cc45ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

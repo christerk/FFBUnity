@@ -17,7 +17,7 @@
         public int? injury;
         public int? injuryDecay;
         public string attackerId;
-        public string[] armorModifiers;
-        public string[] injuryModifiers;
+        public FFBEnumeration[] armorModifiers;
+        public FFBEnumeration[] injuryModifiers;
     }
 }
