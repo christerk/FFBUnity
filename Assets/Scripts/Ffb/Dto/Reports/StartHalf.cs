@@ -4,6 +4,6 @@ namespace Fumbbl.Ffb.Dto.Reports
     {
         public StartHalf() : base("startHalf") { }
         public string reportId;
-        public string half;
+        public int half;
     }
 }

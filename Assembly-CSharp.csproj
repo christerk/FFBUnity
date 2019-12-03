@@ -288,6 +288,7 @@
     <Compile Include="Assets\Scripts\UI\LogText\RawString.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\RegenerationRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ReRoll.cs" />
+    <Compile Include="Assets\Scripts\UI\LogText\StartHalf.cs" />
     <Compile Include="Assets\Scripts\UI\LogText\ThrowTeamMateRoll.cs" />
     <Compile Include="Assets\Scripts\UI\LogTextGenerator.cs" />
     <Compile Include="Assets\Scripts\View\PushbackSquare.cs" />

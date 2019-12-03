@@ -58,6 +58,7 @@ namespace Fumbbl.Model
 
 
         public Coach AwayCoach { get; internal set; }
+        public int Half { get; internal set; }
         public int TurnHome { get; internal set; }
         public int TurnAway { get; internal set; }
         public int ScoreHome { get; internal set; }
