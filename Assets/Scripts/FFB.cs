@@ -35,7 +35,7 @@ namespace Fumbbl
         public int GameId { get; private set; }
         public string PreviousScene { get; internal set; }
 
-	public Lib.Cache<Sprite> SpriteCache { get; set; }
+	    public Lib.Cache<Sprite> SpriteCache { get; set; }
 
         public enum ChatSource
         {

@@ -11,24 +11,24 @@ namespace Fumbbl.Lib
     {
         public CacheObject()
         {
-            _created = DateTime.Now;
+            Created = DateTime.Now;
         }
 
         public CacheObject(T item)
         {
-            _item = item;
-            _created = DateTime.Now;
+            Item = item;
+            Created = DateTime.Now;
         }
 
-        public T           _item {get; set;}
+        public T Item {get; set;}
 
-        private DateTime    _created;
+        private readonly DateTime Created;
     }
 
 
     public class Cache<T>
     {
-        private ConcurrentDictionary<string, CacheObject<T>> cache = new ConcurrentDictionary<string, CacheObject<T>>();
+        private readonly ConcurrentDictionary<string, CacheObject<T>> cache = new ConcurrentDictionary<string, CacheObject<T>>();
         public Func<string, Task<T>> Generator { get; }
 
         public Cache(Func<string, Task<T>> generator)
@@ -43,16 +43,19 @@ namespace Fumbbl.Lib
     
         public delegate Task<T> GetCacheObjectAsync(string key);
 
-        public async Task<T> GetAsync(string key)
+        public async Task<T> GetAsync(string key, Action<T> completed = null)
         {
             CacheObject<T> cacheObject = new CacheObject<T>();
             if(!cache.ContainsKey(key))
             {
-                cacheObject._item = await Generator(key); 
+                cacheObject.Item = await Generator(key);
                 cache.TryAdd(key, cacheObject);
             }
             cache.TryGetValue(key, out cacheObject);
-            return cacheObject._item;       
+
+            completed?.Invoke(cacheObject.Item);
+
+            return cacheObject.Item;       
         }
 
         public void ClearAll()
