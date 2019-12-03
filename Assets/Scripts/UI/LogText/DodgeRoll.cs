@@ -62,7 +62,7 @@ namespace Fumbbl.UI.LogText
                 }
                 else
                 {
-                    neededRoll += $" (AG { System.Math.Min(6, player.Agility) }";
+                    neededRoll += $" (AG { Math.Min(6, player.Agility) }";
                 }
 
                 neededRoll += " + 1 Dodge";
