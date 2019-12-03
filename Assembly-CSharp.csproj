@@ -210,7 +210,6 @@
     <Compile Include="Assets\Scripts\Lib\Cache.cs" />
     <Compile Include="Assets\Scripts\Lib\PlayerIcon.cs" />
     <Compile Include="Assets\Scripts\MainHandler.cs" />
-    <Compile Include="Assets\Scripts\Model\Ball.cs" />
     <Compile Include="Assets\Scripts\Model\Core.cs" />
     <Compile Include="Assets\Scripts\Model\FfbEnumerationFactory.cs" />
     <Compile Include="Assets\Scripts\Model\ModelChange\ActingPlayerSetPlayerId.cs" />
@@ -240,8 +239,10 @@
     <Compile Include="Assets\Scripts\Model\RollModifier\RightStuffModifier.cs" />
     <Compile Include="Assets\Scripts\Model\SkillType.cs" />
     <Compile Include="Assets\Scripts\Model\Types\ActingPlayer.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Ball.cs" />
     <Compile Include="Assets\Scripts\Model\Types\BlockDie.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Coach.cs" />
+    <Compile Include="Assets\Scripts\Model\Types\Coordinate.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Gender.cs" />
     <Compile Include="Assets\Scripts\Model\Types\Injury.cs" />
     <Compile Include="Assets\Scripts\Model\Types\InjuryAttribute.cs" />
