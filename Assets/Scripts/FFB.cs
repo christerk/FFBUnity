@@ -208,7 +208,7 @@ namespace Fumbbl
                 FFB.Instance.Model.HomeCoach = homeCoach;
                 FFB.Instance.Model.AwayCoach = awayCoach;
 
-                FFB.Instance.Model.Ball.Coordinate = cmd.game.fieldModel.ballCoordinate;
+                FFB.Instance.Model.Ball.Coordinate = new Fumbbl.Model.Types.Coordinate(cmd.game.fieldModel.ballCoordinate);
                 FFB.Instance.Model.Ball.InPlay = cmd.game.fieldModel.ballInPlay;
                 FFB.Instance.Model.Ball.Moving = cmd.game.fieldModel.ballMoving;
 
@@ -262,7 +262,7 @@ namespace Fumbbl
                 foreach (var p in cmd.game.fieldModel.playerDataArray)
                 {
                     Player player = FFB.Instance.Model.GetPlayer(p.playerId);
-                    player.Coordinate = p.playerCoordinate;
+                    player.Coordinate = new Fumbbl.Model.Types.Coordinate(p.playerCoordinate);
                     player.PlayerState = PlayerState.Get(p.playerState);
                 }
 

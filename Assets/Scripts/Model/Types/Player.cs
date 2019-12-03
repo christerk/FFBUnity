@@ -5,7 +5,7 @@
         public string Id;
         public string PositionId;
         public string Name;
-        public int[] Coordinate;
+        public Types.Coordinate Coordinate { get; set; }
 
         public Gender Gender;
 
