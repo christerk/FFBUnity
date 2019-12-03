@@ -23,7 +23,7 @@ namespace Fumbbl.Model.RollModifier
                     return string.Empty;
                 }
 
-                string sign = Modifier > 0 ? "+" : "-";
+                string sign = Modifier <= 0 ? "+" : "-";
                 if (ModifierIncludedInName)
                 {
                     return $" {sign} {Name}";

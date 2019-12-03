@@ -4,16 +4,16 @@ namespace Fumbbl.View
 {
     public class TrackNumber : ViewObject<TrackNumber>
     {
-        public int[] Coordinate;
+        public Fumbbl.Model.Types.Coordinate Coordinate { get; set; }
         public int Number;
 
-        public override object Key => Coordinate[0] * 100 + Coordinate[1];
+        public override object Key => Coordinate.X * 100 + Coordinate.Y;
 
         public TextMeshPro LabelObject { get; internal set; }
 
         public TrackNumber(Ffb.Dto.ModelChanges.TrackNumber square)
         {
-            Coordinate = square.coordinate;
+            Coordinate = new Fumbbl.Model.Types.Coordinate(square.coordinate);
             Number = square.number;
         }
 

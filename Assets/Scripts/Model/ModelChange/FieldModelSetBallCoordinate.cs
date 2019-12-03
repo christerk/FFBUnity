@@ -6,7 +6,7 @@
 
         public override void Apply(Ffb.Dto.ModelChanges.FieldModelSetBallCoordinate change)
         {
-            FFB.Instance.Model.Ball.Coordinate = change.modelChangeValue;
+            FFB.Instance.Model.Ball.Coordinate = new Fumbbl.Model.Types.Coordinate(change.modelChangeValue);
         }
     }
 }

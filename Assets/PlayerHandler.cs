@@ -34,7 +34,7 @@ public class PlayerHandler : MonoBehaviour
         if (HasIcon && Mask != null && Background != null)
         {
             // Set up sprite mask and render sort order. Top/right of the field is the topmost sprite
-            int order = (Player.Coordinate[1]) * 100 + Player.Coordinate[0];
+            int order = (Player.Coordinate.Y) * 100 + Player.Coordinate.X;
             Mask.frontSortingOrder = order;
             Mask.backSortingOrder = order - 1;
             Mask.isCustomRangeActive = true;
