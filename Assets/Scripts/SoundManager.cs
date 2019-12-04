@@ -4,6 +4,11 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
+using Fumbbl;
+using Fumbbl.Ffb.Dto;
+
+
+
 public class SoundManager : MonoBehaviour
 {
 
@@ -12,6 +17,7 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
+        FFB.Instance.Sound = this;
         Object[] AudioFiles;
         AudioFiles = Resources.LoadAll("Audio", typeof(AudioClip));
 
@@ -25,6 +31,7 @@ public class SoundManager : MonoBehaviour
 
     public void Play(string sound)
     {
+        Debug.Log("Play sound: " + sound);
         AudioClip clip = SoundEffectClips[sound];
         if(clip != null)
         {
@@ -39,5 +46,10 @@ public class SoundManager : MonoBehaviour
        {
            Play("whistle");
        }
+    }
+
+    void OnDisable()
+    {
+        FFB.Instance.Sound = null;
     }
 }
