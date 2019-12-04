@@ -29,6 +29,8 @@ namespace Fumbbl
 
         public event AddReportDelegate OnReport;
 
+        public SoundManager Sound;
+
         public delegate void AddChatDelegate(string coach, ChatSource source, string text);
         public event AddChatDelegate OnChat;
 
@@ -59,6 +61,9 @@ namespace Fumbbl
             Network = new Networking();
             Model = new Core();
             Api = new FumbblApi();
+
+            Sound = null;
+
         }
 
         public bool Authenticate(string clientId, string clientSecret)
@@ -278,6 +283,10 @@ namespace Fumbbl
         private void PlaySound(string sound)
         {
             Debug.Log($"Play Sound {sound}");
+            if(Sound != null)
+            {
+                Sound.Play(sound);
+            }
         }
 
         internal void AddChatEntry(string coach, string text)
