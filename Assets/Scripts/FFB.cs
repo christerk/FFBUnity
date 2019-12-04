@@ -26,8 +26,11 @@ namespace Fumbbl
         public string CoachName { get; private set; }
 
         public delegate void AddReportDelegate(Report text);
-
         public event AddReportDelegate OnReport;
+
+        public delegate void AddSoundDelegate(string sound);
+        public event AddSoundDelegate OnSound;
+
 
         public delegate void AddChatDelegate(string coach, ChatSource source, string text);
         public event AddChatDelegate OnChat;
@@ -276,9 +279,14 @@ namespace Fumbbl
             return false;
         }
 
-        private void PlaySound(string sound)
+        public void PlaySound(string sound)
         {
-            Debug.Log($"Play Sound {sound}");
+            TriggerSoundChanged(sound);
+        }
+
+        private void TriggerSoundChanged(string sound)
+        {
+            OnSound?.Invoke(sound);
         }
 
         internal void AddChatEntry(string coach, string text)
