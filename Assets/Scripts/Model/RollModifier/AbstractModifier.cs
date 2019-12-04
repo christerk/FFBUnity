@@ -5,6 +5,7 @@ namespace Fumbbl.Model.RollModifier
     public abstract class AbstractModifier : FfbEnumerationFactory
     {
         public int Modifier { get; set; }
+        public bool ForcedModifiedString { get; set; } = false;
 
         public AbstractModifier(string name, int modifier) : base(name)
         {
@@ -12,7 +13,9 @@ namespace Fumbbl.Model.RollModifier
             Modifier = modifier;
         }
 
+
         public virtual bool ModifierIncludedInName => false;
+        public virtual bool ReversedModifier => false;
 
         public string ModifierString
         {
@@ -20,10 +23,26 @@ namespace Fumbbl.Model.RollModifier
             {
                 if (Modifier == 0)
                 {
-                    return string.Empty;
+                    if (!ForcedModifiedString)
+                    {
+                        return string.Empty;
+                    }
+                    else
+                    {
+                        return $" {Name}";
+                    }
+
                 }
 
-                string sign = Modifier <= 0 ? "+" : "-";
+                string sign = string.Empty;
+                if (!ReversedModifier)
+                {
+                    sign += (Modifier <= 0 ? "+" : "-");
+                }
+                else
+                {
+                    sign += (0 <= Modifier ? "+" : "-");
+                }
                 if (ModifierIncludedInName)
                 {
                     return $" {sign} {Name}";

@@ -13,6 +13,15 @@ namespace Fumbbl.UI.LogText
             Player attacker = FFB.Instance.Model.GetPlayer(report.attackerId);
             Player defender = FFB.Instance.Model.GetPlayer(report.defenderId);
 
+            IEnumerable<ArmorModifier> armorModifiers = report.armorModifiers?.Select(r => r.As<ArmorModifier>());
+            IEnumerable<InjuryModifier> injuryModifiers = report.injuryModifiers?.Select(r => r.As<InjuryModifier>());
+
+            SeriousInjury seriousInjury = report.seriousInjury.As<SeriousInjury>();
+            SeriousInjury seriousInjuryDecay = report.seriousInjuryDecay.As<SeriousInjury>();
+
+            string totalArmorText = "";
+            string totalInjuryText = "";
+
             switch (report.injuryType)
             {
                 case "crowdpush":
@@ -38,45 +47,72 @@ namespace Fumbbl.UI.LogText
 
             if (report.armorRoll?.Length > 0)
             {
+                int totalArmorRoll = report.armorRoll.Sum();
                 yield return new LogRecord($"<b>Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]</b>");
-                var totalArmourRoll = report.armorRoll[0] + report.armorRoll[1];
-                yield return new LogRecord($"Rolled Total of {totalArmourRoll} ");
-
-                var modifiers = report.armorModifiers.Select(m => m.As<ArmorModifier>());
-                if (modifiers.Count() > 0)
+                totalArmorText += $"Rolled Total of {totalArmorRoll}";
+                totalArmorText += string.Join("", armorModifiers.Select(m => m.ModifierString));
+                int armorModifiersSum = armorModifiers.Sum(m => m.Modifier);
+                if (armorModifiersSum != 0)
                 {
-                    var modifierString = string.Join("", modifiers.Select(m => m.ModifierString));
-                    var totalArmourRollPlusModifiers = totalArmourRoll + modifiers.Sum(m => m.Modifier);
-                    yield return new LogRecord($"{modifierString} = {totalArmourRollPlusModifiers}");
-                } 
+                    totalArmorText += $" = {totalArmorRoll + armorModifiersSum}";
+                }
+                yield return new LogRecord(totalArmorText, 1);
 
-                bool usesClaws = modifiers.Contains(ArmorModifier.Claws);
-                if (attacker != null && usesClaws)
+                if (attacker != null && armorModifiers.Contains(ArmorModifier.Claws))
                 {
-                    yield return new LogRecord($"{attacker.FormattedName} uses Claws to reduce opponents armour to 7.");
+                    yield return new LogRecord($"{attacker.FormattedName} uses Claws to reduce opponents armour to 7.", 1);
                 }
 
                 if (report.armorBroken)
                 {
-                    yield return new LogRecord($"The armour of {defender.FormattedName} has been broken.");
+                    yield return new LogRecord($"The armour of {defender.FormattedName} has been broken.", 1);
                 }
                 else
                 {
-                    yield return new LogRecord($"{defender.FormattedName} has been saved by {defender.Gender.Genetive} armour.");
+                    yield return new LogRecord($"{defender.FormattedName} has been saved by {defender.Gender.Genetive} armour.", 1);
                 }
             }
 
             if (report.armorBroken && report.injuryRoll?.Length > 0)
             {
+                int totalInjuryRoll = report.injuryRoll.Sum();
                 yield return new LogRecord($"<b>Injury Roll [ {report.injuryRoll[0]} ][ {report.injuryRoll[1]} ]</b>");
+                totalInjuryText += $"Rolled Total of {totalInjuryRoll}";
+                totalInjuryText += string.Join("", injuryModifiers.Select(m => m.ModifierString));
+                int injuryModifiersSum = injuryModifiers.Sum(m => m.Modifier);
+                if (injuryModifiersSum != 0)
+                {
+                    totalInjuryText += $" = {totalInjuryRoll + injuryModifiersSum}";
+                }
+                yield return new LogRecord(totalInjuryText, 1);
 
-                //
-                // TODO: Incomplete
-                //
+                if (injuryModifiers.Contains(InjuryModifier.Stunty))
+                {
+                    yield return new LogRecord($"{defender.FormattedName} is Stunty and more easily hurt because of that.", 1);
+                }
+
+                if (injuryModifiers.Contains(InjuryModifier.ThickSkull))
+                {
+                    yield return new LogRecord($"{defender.FormattedName}'s Thick Skull helps {defender.Gender.Dative} to stay on the pitch.", 1);
+                }
             }
 
-            yield return new LogRecord($"* * * Incomplete Report Handler (injury) * * *");
-
+            if (report.casualtyRoll?.Length > 0)
+            {
+                yield return new LogRecord($"{defender.FormattedName} suffers a casualty.", 1);
+                yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRoll[0]} ][ {report.casualtyRoll[1]} ]</b>");
+                yield return new LogRecord($"* * * Missing Injury Report * * *", 1);
+                if (report.casualtyRollDecay?.Length > 0)
+                {
+                    yield return new LogRecord($"{defender.FormattedName}'s body is decaying and {defender.Gender.Nominative} suffers a 2nd casualty.", 1);
+                    yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRollDecay[0]} ][ {report.casualtyRollDecay[1]} ]</b>");
+                    yield return new LogRecord($"* * * Missing Decay Injury Report * * *", 1);
+                }
+            }
+            else
+            {
+                yield return new LogRecord($"* * * Missing Injury Report * * *", 1);
+            }
         }
     }
 }

@@ -6,6 +6,10 @@
 
         public bool FoulAssistModifier { get; set; }
 
+
+        public override bool ModifierIncludedInName => FoulAssistModifier;
+        public override bool ReversedModifier => true;
+
         public static ArmorModifier Claws = new ArmorModifier("Claws", 0) { FoulAssistModifier = false };
         public static ArmorModifier MightyBlow = new ArmorModifier("Mighty Blow", 1) { FoulAssistModifier = false };
         public static ArmorModifier OffensiveAssist1 = new ArmorModifier("1 Offensive Assist", 1) { FoulAssistModifier = true };

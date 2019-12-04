@@ -13,9 +13,9 @@ namespace Fumbbl.Ffb.Dto.Reports
         public int[] armorRoll;
         public int[] injuryRoll;
         public int[] casualtyRoll;
-        public string seriousInjury;
+        public FFBEnumeration seriousInjury;
         public int[] casualtyRollDecay;
-        public string seriousInjuryDecay;
+        public FFBEnumeration seriousInjuryDecay;
         public int? injury;
         public int? injuryDecay;
         public string attackerId;

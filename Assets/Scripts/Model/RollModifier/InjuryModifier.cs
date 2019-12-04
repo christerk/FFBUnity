@@ -6,10 +6,13 @@
 
         public bool NigglingInjuryModifier { get; set; }
 
+        public override bool ModifierIncludedInName => NigglingInjuryModifier;
+        public override bool ReversedModifier => true;
+
         public static InjuryModifier MightyBlow = new InjuryModifier("Mighty Blow", 1) { NigglingInjuryModifier = false };
         public static InjuryModifier DirtyPlayer = new InjuryModifier("Dirty Player", 1) { NigglingInjuryModifier = false };
-        public static InjuryModifier Stunty = new InjuryModifier("Stunty", 0) { NigglingInjuryModifier = false };
-        public static InjuryModifier ThickSkull = new InjuryModifier("Thick Skull", 0) { NigglingInjuryModifier = false };
+        public static InjuryModifier Stunty = new InjuryModifier("Stunty", 0) { NigglingInjuryModifier = false, ForcedModifiedString = true };
+        public static InjuryModifier ThickSkull = new InjuryModifier("Thick Skull", 0) { NigglingInjuryModifier = false, ForcedModifiedString = true };
         public static InjuryModifier NigglingInjury1 = new InjuryModifier("1 Niggling Injury", 1) { NigglingInjuryModifier = true };
         public static InjuryModifier NigglingInjury2 = new InjuryModifier("2 Niggling Injuries", 2) { NigglingInjuryModifier = true };
         public static InjuryModifier NigglingInjury3 = new InjuryModifier("3 Niggling Injuries", 3) { NigglingInjuryModifier = true };
