@@ -16,9 +16,6 @@ namespace Fumbbl.UI.LogText
             IEnumerable<ArmorModifier> armorModifiers = report.armorModifiers?.Select(r => r.As<ArmorModifier>());
             IEnumerable<InjuryModifier> injuryModifiers = report.injuryModifiers?.Select(r => r.As<InjuryModifier>());
 
-            SeriousInjury seriousInjury =  Fumbbl.Model.Types.SeriousInjuryExtensions.AsSeriousInjury(report.seriousInjury);
-            SeriousInjury seriousInjuryDecay =  Fumbbl.Model.Types.SeriousInjuryExtensions.AsSeriousInjury(report.seriousInjuryDecay);
-
             string totalArmorText = "";
             string totalInjuryText = "";
 
