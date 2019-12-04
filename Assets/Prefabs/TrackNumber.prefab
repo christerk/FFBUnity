@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6963585619332339673}
   m_Layer: 0
   m_Name: TrackNumber
-  m_TagString: Untagged
+  m_TagString: Clone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,7 +218,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 542144625
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
 --- !u!33 &617638593011447308
 MeshFilter:

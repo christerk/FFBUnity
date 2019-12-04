@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MainHandler
+  - Clone
   - FieldedPlayer
   layers:
   - Default
@@ -54,6 +55,9 @@ TagManager:
     locked: 0
   - name: Player Overlay
     uniqueID: 2656338923
+    locked: 0
+  - name: ScrollText
+    uniqueID: 2401752605
     locked: 0
   - name: Pushback Arrows
     uniqueID: 98025079

@@ -2,6 +2,7 @@
 using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fumbbl.Model
 {
@@ -57,6 +58,7 @@ namespace Fumbbl.Model
 
 
         public Coach AwayCoach { get; internal set; }
+        public int Half { get; internal set; }
         public int TurnHome { get; internal set; }
         public int TurnAway { get; internal set; }
         public int ScoreHome { get; internal set; }
@@ -80,9 +82,11 @@ namespace Fumbbl.Model
 
         public void Clear()
         {
+            Debug.Log("Clearing Model");
             Players.Clear();
             ActingPlayer.Clear();
             PushbackSquares.Clear();
+            TrackNumbers.Clear();
         }
 
         internal IEnumerable<Player> GetPlayers()

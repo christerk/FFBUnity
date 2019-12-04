@@ -37,7 +37,7 @@ namespace Fumbbl
         public int GameId { get; private set; }
         public string PreviousScene { get; internal set; }
 
-	public Lib.Cache<Sprite> SpriteCache { get; set; }
+	    public Lib.Cache<Sprite> SpriteCache { get; set; }
 
         public enum ChatSource
         {
@@ -55,7 +55,7 @@ namespace Fumbbl
 
         private FFB()
         {
-            SpriteCache = new Lib.Cache<Sprite>();
+            SpriteCache = new Lib.Cache<Sprite>(url => FumbblApi.GetSpriteAsync(url));
             LogText = new List<Report>();
             ChatText = new List<ChatEntry>();
             Network = new Networking();
@@ -97,6 +97,7 @@ namespace Fumbbl
         public void Stop()
         {
             GameId = 0;
+            Model.Clear();
             Network.Disconnect();
         }
 
@@ -213,7 +214,7 @@ namespace Fumbbl
                 FFB.Instance.Model.HomeCoach = homeCoach;
                 FFB.Instance.Model.AwayCoach = awayCoach;
 
-                FFB.Instance.Model.Ball.Coordinate = cmd.game.fieldModel.ballCoordinate;
+                FFB.Instance.Model.Ball.Coordinate = Coordinate.Create(cmd.game.fieldModel.ballCoordinate);
                 FFB.Instance.Model.Ball.InPlay = cmd.game.fieldModel.ballInPlay;
                 FFB.Instance.Model.Ball.Moving = cmd.game.fieldModel.ballMoving;
 
@@ -267,7 +268,7 @@ namespace Fumbbl
                 foreach (var p in cmd.game.fieldModel.playerDataArray)
                 {
                     Player player = FFB.Instance.Model.GetPlayer(p.playerId);
-                    player.Coordinate = p.playerCoordinate;
+                    player.Coordinate = Coordinate.Create(p.playerCoordinate);
                     player.PlayerState = PlayerState.Get(p.playerState);
                 }
 

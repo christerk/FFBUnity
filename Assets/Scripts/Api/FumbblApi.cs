@@ -135,7 +135,11 @@ public class FumbblApi
 
     public static async void GetImage(string url, Image target)
     {
-        target.sprite = await FFB.Instance.SpriteCache.GetAsync(url, GetSpriteAsync);
+        Sprite s = await FFB.Instance.SpriteCache.GetAsync(url);
+        if (!target.IsDestroyed())
+        {
+            target.sprite = s;
+        }
     }
 
     public static async Task<Sprite> GetSpriteAsync(string url)
@@ -145,7 +149,7 @@ public class FumbblApi
         {
             using (var client = new WebClient())
             {
-                var data = await client.DownloadDataTaskAsync("https://www.fumbbl.com/" + url);
+                var data = await client.DownloadDataTaskAsync("https://fumbbl.com/" + url);
                 img.LoadImage(data);
             }
         }

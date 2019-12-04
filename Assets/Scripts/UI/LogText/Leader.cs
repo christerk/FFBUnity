@@ -14,7 +14,7 @@ namespace Fumbbl.UI.LogText
 
             if (string.Equals(report.leaderState, "available"))
             {
-                yield return new LogRecord($"{team.FormattedName} fain a Leader re-roll.", 1);
+                yield return new LogRecord($"{team.FormattedName} gain a Leader re-roll.", 1);
             }
             else
             {
