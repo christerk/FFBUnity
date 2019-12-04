@@ -114,6 +114,14 @@ namespace Fumbbl.Ffb
                     }
                 }
             }
+            if (obj?["sound"] != null) 
+            {
+                string sound = obj?["sound"]?.ToString();
+                if(sound.Length > 0)
+                {
+                    FFB.Instance.PlaySound(sound);
+                }
+            }
         }
 
         public void Disconnect()

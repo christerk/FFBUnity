@@ -5,8 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 using Fumbbl;
-using Fumbbl.Ffb.Dto;
-
 
 
 public class SoundManager : MonoBehaviour
@@ -17,7 +15,7 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
-        FFB.Instance.Sound = this;
+        FFB.Instance.OnSound += Play;
         Object[] AudioFiles;
         AudioFiles = Resources.LoadAll("Audio", typeof(AudioClip));
 
@@ -31,7 +29,7 @@ public class SoundManager : MonoBehaviour
 
     public void Play(string sound)
     {
-        Debug.Log("Play sound: " + sound);
+        Debug.Log("Play Sound: " + sound);
         AudioClip clip = SoundEffectClips[sound];
         if(clip != null)
         {
@@ -39,17 +37,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       if(Input.GetKeyDown(KeyCode.Space))
-       {
-           Play("whistle");
-       }
-    }
-
     void OnDisable()
     {
-        FFB.Instance.Sound = null;
+        FFB.Instance.OnSound -= Play;
     }
 }
