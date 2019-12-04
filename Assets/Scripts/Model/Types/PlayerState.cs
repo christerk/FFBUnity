@@ -45,5 +45,30 @@ namespace Fumbbl.Model.Types
 
             return PlayerStates[key];
         }
+
+        public string getDescription()
+        {
+            switch (State & 0xff)
+            {
+                case 0: return "is unknown";
+                case 1: return "is standing";
+                case 2: return "is moving";
+                case 3: return "is prone";
+                case 4: return "has been stunned";
+                case 5: return "has been knocked out";
+                case 6: return "has been badly hurt";
+                case 7: return "has been seriously injured";
+                case 8: return "has been killed";
+                case 9: return "is in reserve";
+                case 10: return "is missing the game";
+                case 11: return "is about to fall down";
+                case 12: return "is being blocked";
+                case 13: return "is banned from the game";
+                case 14: return "is exhausted";
+                case 15: return "is being dragged";
+                case 16: return "has been picked up";
+                default: return null;
+            }
+        }
     }
 }

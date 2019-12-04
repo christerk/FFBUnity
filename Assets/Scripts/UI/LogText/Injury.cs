@@ -16,6 +16,9 @@ namespace Fumbbl.UI.LogText
             IEnumerable<ArmorModifier> armorModifiers = report.armorModifiers?.Select(r => r.As<ArmorModifier>());
             IEnumerable<InjuryModifier> injuryModifiers = report.injuryModifiers?.Select(r => r.As<InjuryModifier>());
 
+            PlayerState playerState = PlayerState.Get(report.injury);
+            Fumbbl.Model.Types.SeriousInjury seriousInjury = null; // TODO: convert report.seriousInjury to Fumbbl.Model.Types.SeriousInjury
+
             string totalArmorText = "";
             string totalInjuryText = "";
 
@@ -98,17 +101,29 @@ namespace Fumbbl.UI.LogText
             {
                 yield return new LogRecord($"{defender.FormattedName} suffers a casualty.", 1);
                 yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRoll[0]} ][ {report.casualtyRoll[1]} ]</b>");
-                yield return new LogRecord($"* * * Missing Injury Report * * *", 1);
+                yield return new LogRecord($"{defender.FormattedName} {playerState.getDescription()}.", 1);
+                if (seriousInjury != null)
+                {
+                    yield return new LogRecord($"{defender.FormattedName} {seriousInjury.Description}.", 1);
+                }
                 if (report.casualtyRollDecay?.Length > 0)
                 {
                     yield return new LogRecord($"{defender.FormattedName}'s body is decaying and {defender.Gender.Nominative} suffers a 2nd casualty.", 1);
                     yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRollDecay[0]} ][ {report.casualtyRollDecay[1]} ]</b>");
-                    yield return new LogRecord($"* * * Missing Decay Injury Report * * *", 1);
+                    yield return new LogRecord($"{defender.FormattedName} {playerState.getDescription()}.", 1);
+                    if (seriousInjury != null)
+                    {
+                        yield return new LogRecord($"{defender.FormattedName} {seriousInjury.Description}.", 1);
+                    }
                 }
             }
             else
             {
-                yield return new LogRecord($"* * * Missing Injury Report * * *", 1);
+                yield return new LogRecord($"{defender.FormattedName} {playerState.getDescription()}.", 1);
+                if (seriousInjury != null)
+                {
+                    yield return new LogRecord($"{defender.FormattedName} {seriousInjury.Description}.", 1);
+                }
             }
         }
     }
