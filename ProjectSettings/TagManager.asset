@@ -7,6 +7,7 @@ TagManager:
   - MainHandler
   - Clone
   - FieldedPlayer
+  - ActionInjector
   layers:
   - Default
   - TransparentFX
