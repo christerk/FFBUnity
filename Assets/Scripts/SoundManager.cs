@@ -1,0 +1,44 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEngine;
+
+using Fumbbl;
+
+
+public class SoundManager : MonoBehaviour
+{
+
+    private Dictionary<string, AudioClip> SoundEffectClips;
+    public AudioSource SoundEffectSource;
+
+    void Start()
+    {
+        FFB.Instance.OnSound += Play;
+        Object[] AudioFiles;
+        AudioFiles = Resources.LoadAll("Audio", typeof(AudioClip));
+
+        SoundEffectClips = new Dictionary<string, AudioClip>();
+
+        foreach(AudioClip file in AudioFiles)
+        {
+            SoundEffectClips.Add(file.name, file);
+        }
+    }
+
+    public void Play(string sound)
+    {
+        Debug.Log("Play Sound: " + sound);
+        AudioClip clip = SoundEffectClips[sound];
+        if(clip != null)
+        {
+            SoundEffectSource.PlayOneShot(clip);
+        }
+    }
+
+    void OnDisable()
+    {
+        FFB.Instance.OnSound -= Play;
+    }
+}
