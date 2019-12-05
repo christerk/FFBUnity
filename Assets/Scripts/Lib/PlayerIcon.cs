@@ -50,15 +50,17 @@ namespace Fumbbl.Lib
 
         public static async void LoadSprite(string iconURL, GameObject target)
         {
-            var renderer = target.GetComponent<SpriteRenderer>();
-
-            RectTransform rect = target.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(192, 192);
-            Sprite resized = await LoadIconSpriteSheet(iconURL, target);
-            renderer.sprite = resized;
+            Sprite resized = await LoadIconSpriteSheet(iconURL);
+            FFB.Instance.ExecuteOnMainThread(() =>
+            {
+                var renderer = target.GetComponent<SpriteRenderer>();
+                RectTransform rect = target.GetComponent<RectTransform>();
+                rect.sizeDelta = new Vector2(192, 192);
+                renderer.sprite = resized;
+            });
         }
 
-        public static async System.Threading.Tasks.Task<Sprite> LoadIconSpriteSheet(string iconURL, GameObject target)
+        public static async Task<Sprite> LoadIconSpriteSheet(string iconURL)
         {
             Sprite s = await FFB.Instance.SpriteCache.GetAsync(iconURL);
             var iconSize = s.texture.width / 4;
