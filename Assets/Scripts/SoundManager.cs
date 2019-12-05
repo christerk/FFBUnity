@@ -29,7 +29,6 @@ public class SoundManager : MonoBehaviour
 
     public void Play(string sound)
     {
-        Debug.Log("Play Sound: " + sound);
         AudioClip clip = SoundEffectClips[sound];
         if(clip != null)
         {
