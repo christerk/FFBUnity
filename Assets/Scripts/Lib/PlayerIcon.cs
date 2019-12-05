@@ -55,7 +55,10 @@ namespace Fumbbl.Lib
             RectTransform rect = target.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(192, 192);
             Sprite resized = await LoadIconSpriteSheet(iconURL, target);
-            renderer.sprite = resized;
+            FFB.Instance.ExecuteOnMainThread(() =>
+            {
+                renderer.sprite = resized;
+            });
         }
 
         public static async System.Threading.Tasks.Task<Sprite> LoadIconSpriteSheet(string iconURL, GameObject target)

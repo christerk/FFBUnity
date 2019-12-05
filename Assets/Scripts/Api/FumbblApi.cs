@@ -138,7 +138,10 @@ public class FumbblApi
         Sprite s = await FFB.Instance.SpriteCache.GetAsync(url);
         if (!target.IsDestroyed())
         {
-            target.sprite = s;
+            FFB.Instance.ExecuteOnMainThread(() =>
+            {
+                target.sprite = s;
+            });
         }
     }
 

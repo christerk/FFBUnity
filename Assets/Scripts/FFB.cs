@@ -1,6 +1,7 @@
 ﻿using Fumbbl.Ffb;
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Ffb.Dto.Reports;
+using Fumbbl.Lib;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using System;
@@ -20,9 +21,9 @@ namespace Fumbbl
         public Networking Network;
         private readonly List<Report> LogText;
         private readonly List<ChatEntry> ChatText;
+        public ActionInjectorHandler ActionInjector;
 
         public Core Model { get; }
-
         public string CoachName { get; private set; }
 
         public delegate void AddReportDelegate(Report text);
@@ -274,6 +275,11 @@ namespace Fumbbl
                 FFB.Instance.Model.ScoreAway = cmd.game.gameResult.teamResultAway.score;
             }
             return false;
+        }
+
+        internal void ExecuteOnMainThread(Action action)
+        {
+            ActionInjector.Enqueue(action);
         }
 
         private void PlaySound(string sound)

@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ActionInjectorHandler.cs" />
     <Compile Include="Assets\ChatInputHandler.cs" />
     <Compile Include="Assets\ConnectionHandler.cs" />
     <Compile Include="Assets\FieldHandler.cs" />
