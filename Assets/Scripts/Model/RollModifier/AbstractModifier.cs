@@ -34,14 +34,14 @@ namespace Fumbbl.Model.RollModifier
 
                 }
 
-                string sign = string.Empty;
+                string sign;
                 if (!ReversedModifier)
                 {
-                    sign += (Modifier <= 0 ? "+" : "-");
+                    sign = (Modifier <= 0 ? "+" : "-");
                 }
                 else
                 {
-                    sign += (0 <= Modifier ? "+" : "-");
+                    sign = (0 <= Modifier ? "+" : "-");
                 }
                 if (ModifierIncludedInName)
                 {
