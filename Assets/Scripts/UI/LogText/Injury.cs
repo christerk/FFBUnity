@@ -101,7 +101,7 @@ namespace Fumbbl.UI.LogText
             {
                 yield return new LogRecord($"{defender.FormattedName} suffers a casualty.", 1);
                 yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRoll[0]} ][ {report.casualtyRoll[1]} ]</b>");
-                yield return new LogRecord($"{defender.FormattedName} {playerState.getDescription()}.", 1);
+                yield return new LogRecord($"{defender.FormattedName} {playerState.Description}.", 1);
                 if (seriousInjury != null)
                 {
                     yield return new LogRecord($"{defender.FormattedName} {seriousInjury.Description}.", 1);
@@ -110,7 +110,7 @@ namespace Fumbbl.UI.LogText
                 {
                     yield return new LogRecord($"{defender.FormattedName}'s body is decaying and {defender.Gender.Nominative} suffers a 2nd casualty.", 1);
                     yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRollDecay[0]} ][ {report.casualtyRollDecay[1]} ]</b>");
-                    yield return new LogRecord($"{defender.FormattedName} {playerState.getDescription()}.", 1);
+                    yield return new LogRecord($"{defender.FormattedName} {playerState.Description}.", 1);
                     if (seriousInjury != null)
                     {
                         yield return new LogRecord($"{defender.FormattedName} {seriousInjury.Description}.", 1);
@@ -119,7 +119,7 @@ namespace Fumbbl.UI.LogText
             }
             else
             {
-                yield return new LogRecord($"{defender.FormattedName} {playerState.getDescription()}.", 1);
+                yield return new LogRecord($"{defender.FormattedName} {playerState.Description}.", 1);
                 if (seriousInjury != null)
                 {
                     yield return new LogRecord($"{defender.FormattedName} {seriousInjury.Description}.", 1);
