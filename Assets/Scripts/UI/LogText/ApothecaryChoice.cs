@@ -1,4 +1,4 @@
-﻿using Fumbbl.Model.Types;
+﻿using Fumbbl.Model;
 using System.Collections.Generic;
 
 namespace Fumbbl.UI.LogText
@@ -7,21 +7,22 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.ApothecaryChoice report)
         {
-            Player player = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
-            Coach coach = player?.Team?.Coach;
+            Model.Types.Player player = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
+            Model.Types.Coach coach = player?.Team?.Coach;
 
             if (coach != null && player != null)
             {
-                if (PlayerState.Get(report.playerState).IsReserve)
+                if (Model.Types.PlayerState.Get(report.playerState).IsReserve)
                 {
                     yield return new LogRecord($"The apothecary patches {player.FormattedName} up so {player.Gender.Nominative} is able to play again.");
                 }
                 else
                 {
-                    PlayerState oldState = player.PlayerState;
-                    SeriousInjury oldInjury = player.SeriousInjury;
+                    Model.Types.PlayerState oldState = player.PlayerState;
+                    Model.Types.SeriousInjury oldInjury = player.SeriousInjury;
+                    var newInjury = report.seriousInjury.As<Model.Types.SeriousInjury>();
 
-                    if (PlayerState.Get(report.playerState) != oldState || report.seriousInjury.AsSeriousInjury() != oldInjury)
+                    if (Model.Types.PlayerState.Get(report.playerState) != oldState || newInjury != oldInjury)
                     {
                         yield return new LogRecord($"Coach {coach.FormattedName} chooses the new injury result.");
                     }

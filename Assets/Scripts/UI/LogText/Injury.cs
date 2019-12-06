@@ -1,6 +1,5 @@
 ﻿using Fumbbl.Model;
 using Fumbbl.Model.RollModifier;
-using Fumbbl.Model.Types;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,14 +9,14 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.Injury report)
         {
-            Player attacker = FFB.Instance.Model.GetPlayer(report.attackerId);
-            Player defender = FFB.Instance.Model.GetPlayer(report.defenderId);
+            Model.Types.Player attacker = FFB.Instance.Model.GetPlayer(report.attackerId);
+            Model.Types.Player defender = FFB.Instance.Model.GetPlayer(report.defenderId);
 
             IEnumerable<ArmorModifier> armorModifiers = report.armorModifiers?.Select(r => r.As<ArmorModifier>());
             IEnumerable<InjuryModifier> injuryModifiers = report.injuryModifiers?.Select(r => r.As<InjuryModifier>());
 
-            PlayerState playerState = PlayerState.Get(report.injury);
-            Fumbbl.Model.Types.SeriousInjury seriousInjury = null; // TODO: convert report.seriousInjury to Fumbbl.Model.Types.SeriousInjury
+            Model.Types.PlayerState playerState = Model.Types.PlayerState.Get(report.injury);
+            var seriousInjury = report.seriousInjury.As<Model.Types.SeriousInjury>();
 
             string totalArmorText = "";
             string totalInjuryText = "";

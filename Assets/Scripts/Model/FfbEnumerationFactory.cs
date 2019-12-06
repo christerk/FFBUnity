@@ -43,6 +43,9 @@ namespace Fumbbl.Model
         public static T As<T>(this FFBEnumeration ffbEnum)
             where T : FfbEnumerationFactory
         {
+            if ((ffbEnum is null) || (ffbEnum.key is null)){
+                return null;
+            }
             if (!Enumerations.ContainsKey(typeof(T)))
             {
                 // The static initializers of the class may not have run, so let's force them to do so.
