@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using UnityEngine;
+
 namespace Fumbbl.UI.LogText
 {
     public class ThrowTeamMateRoll : LogTextGenerator<Ffb.Dto.Reports.ThrowTeamMateRoll>
@@ -17,6 +19,8 @@ namespace Fumbbl.UI.LogText
 
             IEnumerable<PassModifier> rollModifiers = report.passingDistance.Cast<PassModifier>();
             rollModifiers.Concat(report.rollModifiers?.Select(r => r.As<PassModifier>()));
+
+            Debug.Log(rollModifiers);
 
             if (!report.reRolled)
             {

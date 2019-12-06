@@ -20,7 +20,7 @@ namespace Fumbbl.Lib
             Created = DateTime.Now;
         }
 
-        public T Item {get; set;}
+        public T Item { get; set; }
 
         private readonly DateTime Created;
     }

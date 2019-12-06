@@ -3,17 +3,17 @@
 namespace Fumbbl.Model.RollModifier
 {
 
-    public enum ShowModifierSignMode
+    public enum SignMode
     {
-        ShowReversed = -1,
+        Negative = -1,
         Hidden = 0,
-        ShowNormal = 1
+        Positive = 1
     }
 
     public abstract class AbstractModifier : FfbEnumerationFactory
     {
         public int Modifier { get; set; }
-        public virtual ShowModifierSignMode ShowModifierSign { get; set; } = ShowModifierSignMode.ShowNormal;
+        public SignMode SignMode { get; set; } = SignMode.Positive;
         public bool ShowModifier { get; set; } = true;
         public bool ShowName { get; set; } = true;
 
@@ -30,11 +30,11 @@ namespace Fumbbl.Model.RollModifier
                 string modifier = ShowModifier? $" {Math.Abs(Modifier)}":string.Empty;
                 string name = ShowName? $" {Name}":string.Empty;
 
-                if (ShowModifierSign == ShowModifierSignMode.ShowNormal)
+                if (SignMode == SignMode.Positive)
                 {
                     sign = (Modifier <= 0 ? " +" : " -");
                 }
-                else if (ShowModifierSign == ShowModifierSignMode.ShowReversed)
+                else if (SignMode == SignMode.Negative)
                 {
                     sign = (0 <= Modifier ? " +" : " -");
                 }
