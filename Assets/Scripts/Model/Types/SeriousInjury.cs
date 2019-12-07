@@ -1,60 +1,32 @@
-﻿using System.Collections.Generic;
-
-namespace Fumbbl.Model.Types
+﻿namespace Fumbbl.Model.Types
 {
-    public class SeriousInjury
+    public class SeriousInjury : FfbEnumerationFactory
     {
-        public string Name { get; set; }
-        public string ButtonText { get; set; }
-        public string Description { get; set; }
-        public string Recovery { get; set; }
-        public bool Lasting { get; set; }
-        public InjuryAttribute InjuryAttribute { get; set; }
+        public string ButtonText;
+        public string Description;
+        public string Recovery;
+        public bool Lasting;
+        public InjuryAttribute InjuryAttribute;
 
-        public SeriousInjury(string name, string buttonText, string description, string recovery, bool lasting, InjuryAttribute injuryAttribute)
-        {
-            Name = name;
-            ButtonText = buttonText;
-            Description = description;
-            Recovery = recovery;
-            Lasting = lasting;
-            InjuryAttribute = injuryAttribute;
-        }
-    }
+        public SeriousInjury(string name) : base(name) { }
 
-    public static class SeriousInjuryExtensions
-    {
-        private static readonly Dictionary<string, SeriousInjury> SeriousInjuries = new Dictionary<string, SeriousInjury>();
-
-        static SeriousInjuryExtensions()
-        {
-            SeriousInjuries = new Dictionary<string, SeriousInjury>()
-            {
-                ["Broken Ribs (MNG)"] = new SeriousInjury("Broken Ribs (MNG)", "Broken Ribs (Miss next game)", "has broken some ribs (Miss next game)", "is recovering from broken ribs", false, null),
-                ["Groin Strain (MNG)"] = new SeriousInjury("Groin Strain (MNG)", "Groin Strain (Miss next game)", "has got a groin strain (Miss next game)", "is recovering from a groin strain", false, null),
-                ["Gouged Eye (MNG)"] = new SeriousInjury("Gouged Eye (MNG)", "Gouged Eye (Miss next game)", "has got a gouged eye (Miss next game)", "is recovering from a gouged eye", false, null),
-                ["Broken Jaw (MNG)"] = new SeriousInjury("Broken Jaw (MNG)", "Broken Jaw (Miss next game)", "has got a broken jaw (Miss next game)", "is recovering from a broken jaw", false, null),
-                ["Fractured Arm (MNG)"] = new SeriousInjury("Fractured Arm (MNG)", "Fractured Arm (Miss next game)", "has got a fractured arm (Miss next game)", "is recovering from a fractured arm", false, null),
-                ["Fractured Leg (MNG)"] = new SeriousInjury("Fractured Leg (MNG)", "Fractured Leg (Miss next game)", "has got a fractured leg (Miss next game)", "is recovering from a fractured leg", false, null),
-                ["Smashed Hand (MNG)"] = new SeriousInjury("Smashed Hand (MNG)", "Smashed Hand (Miss next game)", "has got a smashed hand (Miss next game)", "is recovering from a smashed hand", false, null),
-                ["Pinched Nerve (MNG)"] = new SeriousInjury("Pinched Nerve (MNG)", "Pinched Nerve (Miss next game)", "has got a pinched nerve (Miss next game)", "is recovering from a pinched nerve", false, null),
-                ["Damaged Back (NI)"] = new SeriousInjury("Damaged Back (NI)", "Damaged Back (Niggling Injury)", "has got a damaged back (Niggling Injury)", "is recovering from a damaged back (Niggling Injury)", true, InjuryAttribute.NI),
-                ["Smashed Knee (NI)"] = new SeriousInjury("Smashed Knee (NI)", "Smashed Knee (Niggling Injury)", "has got a smashed knee (Niggling Injury)", "is recovering from a smashed knee (Niggling Injury)", true, InjuryAttribute.NI),
-                ["Smashed Hip (-MA)"] = new SeriousInjury("Smashed Hip (-MA)", "Smashed Hip (-1 MA)", "has got a smashed hip (-1 MA)", "is recovering from a smashed hip (-1 MA)", true, InjuryAttribute.MA),
-                ["Smashed Ankle (-MA)"] = new SeriousInjury("Smashed Ankle (-MA)", "Smashed Ankle (-1 MA)", "has got a smashed ankle (-1 MA)", "is recovering from a smashed ankle (-1 MA)", true, InjuryAttribute.MA),
-                ["Serious Concussion (-AV)"] = new SeriousInjury("Serious Concussion (-AV)", "Serious Concussion (-1 AV)", "has got a serious concussion (-1 AV)", "is recovering from a serious concussion (-1 AV)", true, InjuryAttribute.AV),
-                ["Fractured Skull (-AV)"] = new SeriousInjury("Fractured Skull (-AV)", "Fractured Skull (-1 AV)", "has got a fractured skull (-1 AV)", "is recovering from a fractured skull (-1 AV)", true, InjuryAttribute.AV),
-                ["Broken Neck (-AG)"] = new SeriousInjury("Broken Neck (-AG)", "Broken Neck (-1 AG)", "has got a broken neck (-1 AG)", "is recovering from a broken neck (-1 AG)", true, InjuryAttribute.AG),
-                ["Smashed Collar Bone (-ST)"] = new SeriousInjury("Smashed Collar Bone(-ST)", "Smashed Collar Bone(-1 ST)", "has got a smashed collar bone(-1 ST)", " is recovering from a smashed collar bone(-1 ST)", true, InjuryAttribute.ST),
-                ["Dead (RIP)"] = new SeriousInjury("Dead (RIP)", "Dead (RIP)", "is dead", "is dead", true, null),
-                ["Poisoned (MNG)"] = new SeriousInjury("Poisoned (MNG)", "Poisoned (Miss next game)", "has been poisoned (Miss next game)", "is recovering from being poisoned", false, null),
-
-            };
-        }
-
-        public static SeriousInjury AsSeriousInjury(this FFBEnumeration ffbEnum)
-        {
-            return SeriousInjuries.ContainsKey(ffbEnum.key) ? SeriousInjuries[ffbEnum.key] : null;
-        }
+        public static SeriousInjury BrokenRibsMNG = new SeriousInjury("Broken Ribs (MNG)") { ButtonText = "Broken Ribs (Miss next game)", Description = "has broken some ribs (Miss next game)", Recovery = "is recovering from broken ribs", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury GroinStrainMNG = new SeriousInjury("Groin Strain (MNG)") { ButtonText = "Groin Strain (Miss next game)", Description = "has got a groin strain (Miss next game)", Recovery = "is recovering from a groin strain", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury GougedEyeMNG = new SeriousInjury("Gouged Eye (MNG)") { ButtonText = "Gouged Eye (Miss next game)", Description = "has got a gouged eye (Miss next game)", Recovery = "is recovering from a gouged eye", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury BrokenJawMNG = new SeriousInjury("Broken Jaw (MNG)") { ButtonText = "Broken Jaw (Miss next game)", Description = "has got a broken jaw (Miss next game)", Recovery = "is recovering from a broken jaw", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury FracturedArmMNG = new SeriousInjury("Fractured Arm (MNG)") { ButtonText = "Fractured Arm (Miss next game)", Description = "has got a fractured arm (Miss next game)", Recovery = "is recovering from a fractured arm", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury FracturedLegMNG = new SeriousInjury("Fractured Leg (MNG)") { ButtonText = "Fractured Leg (Miss next game)", Description = "has got a fractured leg (Miss next game)", Recovery = "is recovering from a fractured leg", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury SmashedHandMNG = new SeriousInjury("Smashed Hand (MNG)") { ButtonText = "Smashed Hand (Miss next game)", Description = "has got a smashed hand (Miss next game)", Recovery = "is recovering from a smashed hand", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury PinchedNerveMNG = new SeriousInjury("Pinched Nerve (MNG)") { ButtonText = "Pinched Nerve (Miss next game)", Description = "has got a pinched nerve (Miss next game)", Recovery = "is recovering from a pinched nerve", Lasting = false, InjuryAttribute = null };
+        public static SeriousInjury DamagedBackNI = new SeriousInjury("Damaged Back (NI)") { ButtonText = "Damaged Back (Niggling Injury)", Description = "has got a damaged back (Niggling Injury)", Recovery = "is recovering from a damaged back (Niggling Injury)", Lasting = true, InjuryAttribute = InjuryAttribute.NI };
+        public static SeriousInjury SmashedKneeNI = new SeriousInjury("Smashed Knee (NI)") { ButtonText = "Smashed Knee (Niggling Injury)", Description = "has got a smashed knee (Niggling Injury)", Recovery = "is recovering from a smashed knee (Niggling Injury)", Lasting = true, InjuryAttribute = InjuryAttribute.NI };
+        public static SeriousInjury SmashedHipMA = new SeriousInjury("Smashed Hip (-MA)") { ButtonText = "Smashed Hip (-1 MA)", Description = "has got a smashed hip (-1 MA)", Recovery = "is recovering from a smashed hip (-1 MA)", Lasting = true, InjuryAttribute = InjuryAttribute.MA };
+        public static SeriousInjury SmashedAnkleMA = new SeriousInjury("Smashed Ankle (-MA)") { ButtonText = "Smashed Ankle (-1 MA)", Description = "has got a smashed ankle (-1 MA)", Recovery = "is recovering from a smashed ankle (-1 MA)", Lasting = true, InjuryAttribute = InjuryAttribute.MA };
+        public static SeriousInjury SeriousConcussionAV = new SeriousInjury("Serious Concussion (-AV)") { ButtonText = "Serious Concussion (-1 AV)", Description = "has got a serious concussion (-1 AV)", Recovery = "is recovering from a serious concussion (-1 AV)", Lasting = true, InjuryAttribute = InjuryAttribute.AV };
+        public static SeriousInjury FracturedSkullAV = new SeriousInjury("Fractured Skull (-AV)") { ButtonText = "Fractured Skull (-1 AV)", Description = "has got a fractured skull (-1 AV)", Recovery = "is recovering from a fractured skull (-1 AV)", Lasting = true, InjuryAttribute = InjuryAttribute.AV };
+        public static SeriousInjury BrokenNeckAG = new SeriousInjury("Broken Neck (-AG)") { ButtonText = "Broken Neck (-1 AG)", Description = "has got a broken neck (-1 AG)", Recovery = "is recovering from a broken neck (-1 AG)", Lasting = true, InjuryAttribute = InjuryAttribute.AG };
+        public static SeriousInjury SmashedCollarBoneST = new SeriousInjury("Smashed Collar Bone(-ST)") { ButtonText = "Smashed Collar Bone(-1 ST)", Description = "has got a smashed collar bone(-1 ST)", Recovery = " is recovering from a smashed collar bone(-1 ST)", Lasting = true, InjuryAttribute = InjuryAttribute.ST };
+        public static SeriousInjury DeadRIP = new SeriousInjury("Dead (RIP)") { ButtonText = "Dead (RIP)", Description = "is dead", Recovery = "is dead", Lasting = true, InjuryAttribute = null };
+        public static SeriousInjury PoisonedMNG = new SeriousInjury("Poisoned (MNG)") { ButtonText = "Poisoned (Miss next game)", Description = "has been poisoned (Miss next game)", Recovery = "is recovering from being poisoned", Lasting = false, InjuryAttribute = null };
     }
 }
