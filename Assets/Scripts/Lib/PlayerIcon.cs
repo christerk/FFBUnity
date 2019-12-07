@@ -105,7 +105,7 @@ namespace Fumbbl.Lib
             }
 
             // TODO: This should be a "Icon Scaling Mode" setting
-            //dest.filterMode = FilterMode.Point;
+            dest.filterMode = FilterMode.Point;
             return Sprite.Create(dest, new Rect(0, 0, dest.width, dest.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
         }
 

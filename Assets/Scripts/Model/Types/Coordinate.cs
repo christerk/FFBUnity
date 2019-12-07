@@ -31,5 +31,10 @@ namespace Fumbbl.Model.Types
         {
             return new Coordinate(x, y);
         }
+
+        public bool Equals(Coordinate other)
+        {
+            return other != null && other.X == this.X && other.Y == this.Y;
+        }
     }
 }

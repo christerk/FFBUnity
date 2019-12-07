@@ -17,18 +17,18 @@ namespace Fumbbl.UI.LogText
 
             if (blockResult == BlockDie.BothDown)
             {
-                if (attacker.HasSkill(SkillType.Block))
+                if (attacker != null && attacker.HasSkill(SkillType.Block))
                 {
                     yield return new LogRecord($"{attacker.FormattedName} has been saved by {attacker.Gender.Genetive} Block skill.");
                 }
-                if (defender.HasSkill(SkillType.Block))
+                if (defender != null && defender.HasSkill(SkillType.Block))
                 {
                     yield return new LogRecord($"\n{defender.FormattedName} has been saved by {defender.Gender.Genetive} Block skill.");
                 }
             }
             else if (blockResult == BlockDie.PowPushback)
             {
-                if (defender.HasSkill(SkillType.Dodge) && attacker.HasSkill(SkillType.Tackle))
+                if (defender != null && attacker != null && defender.HasSkill(SkillType.Dodge) && attacker.HasSkill(SkillType.Tackle))
                 {
                     yield return new LogRecord($"\n{attacker.FormattedName} uses Tackle to bring opponent down.");
                 }

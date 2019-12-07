@@ -105,6 +105,9 @@ public class FieldHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var ball = FFB.Instance.Model.Ball;
+        var players = FFB.Instance.Model.GetPlayers().ToList();
+
         if (FFB.Instance.Model.TeamHome != null)
         {
             HomeTeamText.text = FFB.Instance.Model.TeamHome.Name.ToUpper();
@@ -114,12 +117,13 @@ public class FieldHandler : MonoBehaviour
             AwayTeamText.text = FFB.Instance.Model.TeamAway.Name.ToUpper();
         }
 
-        var players = FFB.Instance.Model.GetPlayers().ToList();
+        bool ballOnPlayer = false;
         foreach (var p in players)
         {
             bool active = false;
             if (p.Coordinate != null && p.GameObject != null)
             {
+                ballOnPlayer |= p.Coordinate.Equals(ball.Coordinate);
                 var state = p.PlayerState;
                 int moveToDugout = -1;
                 if (state.IsReserve || state.IsExhausted || state.IsMissing)
@@ -164,12 +168,24 @@ public class FieldHandler : MonoBehaviour
             }
         }
 
-        var ball = FFB.Instance.Model.Ball;
         if (ball != null && ball.Coordinate != null)
         {
+            bool isInPlayerHands = !ball.Moving && ballOnPlayer;
             Ball.SetActive(true);
+
+            Ball.transform.localScale = Vector3.one * (isInPlayerHands ? 0.5f : 1f);
+
+            float translate = isInPlayerHands ? 36f : 0f;
+
             var ballPos = FieldToWorldCoordinates(ball.Coordinate.X, ball.Coordinate.Y, 4);
+            ballPos.x += translate;
+            ballPos.y -= translate;
             Ball.transform.localPosition = ballPos;
+
+            var ballRenderer = Ball.GetComponentInChildren<SpriteRenderer>();
+            Color c = ballRenderer.color;
+            c.a = ball.InPlay ? 1f : 0.7f;
+            ballRenderer.color = c;
         }
         else
         {
