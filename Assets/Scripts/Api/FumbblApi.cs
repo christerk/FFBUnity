@@ -136,14 +136,15 @@ public class FumbblApi
     public static async void GetImage(string url, Image target)
     {
         Sprite s = await FFB.Instance.SpriteCache.GetAsync(url);
-        if (!target.IsDestroyed())
+        FFB.Instance.ExecuteOnMainThread(() =>
         {
-            FFB.Instance.ExecuteOnMainThread(() =>
-            {
-                target.sprite = s;
-            });
+          if(!target.IsDestroyed())
+          {
+            target.sprite = s;
+          }
+         });
         }
-    }
+    
 
     public static async Task<Sprite> GetSpriteAsync(string url)
     {

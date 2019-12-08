@@ -41,7 +41,18 @@ namespace Fumbbl.Lib
             cache[key] = new CacheObject<T>(item);
         }
     
-        public delegate Task<T> GetCacheObjectAsync(string key);
+        public T Get(string key)
+        {
+            CacheObject<T> cacheObject = new CacheObject<T>();
+            if(cache.TryGetValue(key, out cacheObject))
+            {
+                return cacheObject.Item;
+            }
+            else
+            {
+                return default(T);
+            }
+        }
 
         public async Task<T> GetAsync(string key, Action<T> completed = null)
         {
