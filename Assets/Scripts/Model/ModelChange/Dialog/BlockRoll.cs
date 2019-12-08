@@ -14,9 +14,16 @@ namespace Fumbbl.Model.ModelChange.Dialog
         {
             if (dialog != null)
             {
-                foreach (var roll in dialog.blockRoll)
+                bool home = string.Equals(dialog.choosingTeamId, FFB.Instance.Model.TeamHome.Id);
+
+                IEnumerable<int> rolls = dialog.blockRoll;
+                if (!home)
                 {
-                    FFB.Instance.Model.AddBlockDie(roll);
+                    rolls = rolls.Reverse();
+                }
+                foreach (var roll in rolls)
+                {
+                    FFB.Instance.Model.AddBlockDie(home, roll);
                 }
             }
         }

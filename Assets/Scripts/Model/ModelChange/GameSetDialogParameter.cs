@@ -4,7 +4,7 @@ namespace Fumbbl.Model.ModelChange
 {
     public class GameSetDialogParameter : ModelUpdater<Ffb.Dto.ModelChanges.GameSetDialogParameter>
     {
-        private ReflectedFactory<DialogHandler<Ffb.Dto.FfbDialog>, Type> HandlerFactory;
+        private readonly ReflectedFactory<DialogHandler<Ffb.Dto.FfbDialog>, Type> HandlerFactory;
 
         public GameSetDialogParameter() : base(typeof(Ffb.Dto.ModelChanges.GameSetDialogParameter))
         {
@@ -23,7 +23,8 @@ namespace Fumbbl.Model.ModelChange
                 else
                 {
                     // Clear dialogs.
-                    FFB.Instance.Model.AddBlockDie(0);
+                    FFB.Instance.Model.AddBlockDie(true, 0);
+                    FFB.Instance.Model.AddBlockDie(false, 0);
                 }
             }
             else

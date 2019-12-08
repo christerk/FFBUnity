@@ -46,7 +46,6 @@ public class FieldHandler : MonoBehaviour
 
         Players = new ViewObjectList<Player>(p =>
         {
-            //GameObject obj = PlayerIcon.GeneratePlayerIconAbstract(p, AbstractIconPrefab);
             GameObject obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab, AbstractIconPrefab);
             obj.transform.SetParent(Field.transform);
             p.GameObject = obj;
