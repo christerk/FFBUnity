@@ -20,6 +20,7 @@ namespace Fumbbl
             Serializer = new JsonSerializer();
 
             Serializer.Converters.Add(new EnumerationConverter());
+            Serializer.Converters.Add(new FfbDialogConverter());
 
             GeneratorClasses = new Dictionary<K, Type>();
             GeneratorInstances = new Dictionary<K, T>();

@@ -20,6 +20,7 @@ namespace Fumbbl
         public FumbblApi Api;
         public Networking Network;
         private readonly List<Report> LogText;
+
         private readonly List<ChatEntry> ChatText;
         public ActionInjectorHandler ActionInjector;
 

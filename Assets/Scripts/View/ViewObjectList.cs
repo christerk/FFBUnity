@@ -22,7 +22,7 @@ namespace Fumbbl.View
             Destructor = destructor;
         }
 
-        public List<ViewObject<T>> Refresh(IEnumerable<T> newObjects)
+        public List<ViewObject<T>> Refresh(IEnumerable<T> newObjects, Action<T> action = null)
         {
             foreach (var o in Objects.Values)
             {
@@ -48,6 +48,9 @@ namespace Fumbbl.View
                 {
                     Destructor(o);
                     RemovedObjects.Add(o);
+                } else
+                {
+                    action?.Invoke((T)o);
                 }
             }
 

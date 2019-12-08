@@ -26,7 +26,7 @@ namespace Fumbbl.UI.LogText
                 {
                     yield return new LogRecord($"<b>{player.FormattedName} tries to catch the ball:</b>");
                 }
-                if (rollModifiers.Contains(CatchModifier.NervesOfSteel))
+                if (rollModifiers != null && rollModifiers.Contains(CatchModifier.NervesOfSteel))
                 {
                     yield return new LogRecord($"{player.FormattedName} is using Nerves of Steel to catch the ball.");
                 }

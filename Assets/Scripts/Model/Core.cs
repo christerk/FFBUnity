@@ -17,6 +17,9 @@ namespace Fumbbl.Model
         public Coach HomeCoach { get; internal set; }
         public Dictionary<int, View.PushbackSquare> PushbackSquares;
         public Dictionary<int, View.TrackNumber> TrackNumbers;
+        public List<View.BlockDie> BlockDice;
+
+
 
         internal void AddPushbackSquare(PushbackSquare square)
         {
@@ -56,6 +59,29 @@ namespace Fumbbl.Model
             TrackNumbers.Remove(key);
         }
 
+        public void AddBlockDie(int roll)
+        {
+            if (roll > 0)
+            {
+                int index = BlockDice.Count;
+                BlockDice.Add(new View.BlockDie(index, BlockDie.Get(roll)));
+            } else
+            {
+                if (BlockDice.Count > 0 && BlockDice[BlockDice.Count - 1].Roll.Type != BlockDie.DieType.None)
+                {
+                    BlockDice.Add(new View.BlockDie(-BlockDice.Count, BlockDie.None));
+                }
+
+                for (int i = BlockDice.Count - 1; i >= 0; i--)
+                {
+                    if (!BlockDice[i].Active)
+                    {
+                        break;
+                    }
+                    BlockDice[i].Active = false;
+                }
+            }
+        }
 
         public Coach AwayCoach { get; internal set; }
         public int Half { get; internal set; }
@@ -78,6 +104,7 @@ namespace Fumbbl.Model
             Ball = new Ball();
             PushbackSquares = new Dictionary<int, View.PushbackSquare>();
             TrackNumbers = new Dictionary<int, View.TrackNumber>();
+            BlockDice = new List<View.BlockDie>();
         }
 
         public void Clear()
@@ -87,6 +114,7 @@ namespace Fumbbl.Model
             ActingPlayer.Clear();
             PushbackSquares.Clear();
             TrackNumbers.Clear();
+            BlockDice.Clear();
         }
 
         internal IEnumerable<Player> GetPlayers()
