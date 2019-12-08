@@ -13,18 +13,24 @@ namespace Fumbbl.Lib
         private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f, 1f);
         private static Color AwayColour = new Color(0f, 0f, 0.99f, 1f);
 
-        public static GameObject GeneratePlayerIcon(Player p, GameObject prefab)
+        public static GameObject GeneratePlayerIcon(Player p, GameObject iconPrefab, GameObject fallbackPrefab)
         {
-            GameObject obj = PlayerIcon.CreatePlayerIcon(p, prefab);
-
-            // Load the sprite
-            var target = obj.transform.GetChild(0).gameObject;
-            PlayerIcon.LoadSprite(p.Position.IconURL, target);
-
-            return obj;
+            GameObject obj = PlayerIcon.CreatePlayerIcon(p, iconPrefab);
+            try
+            {
+                var target = obj.transform.GetChild(0).gameObject;
+                PlayerIcon.LoadSprite(p.Position.IconURL, target);
+                return obj;
+            }
+            catch(Exception ex)
+            {
+                GameObject.Destroy(obj);
+                Debug.LogError("Exception loading player sprite, falling back to abstract icons: " + ex);
+                return GeneratePlayerIconAbstract(p, fallbackPrefab);
+            }
         }
 
-        public static GameObject GenerateAbstractIcon(Player p, GameObject prefab)
+        public static GameObject GeneratePlayerIconAbstract(Player p, GameObject prefab)
         {
             GameObject obj = PlayerIcon.CreatePlayerIcon(p, prefab);
 
@@ -39,7 +45,7 @@ namespace Fumbbl.Lib
             return obj;
         }
 
-        public static GameObject CreatePlayerIcon(Player p, GameObject prefab)
+        private static GameObject CreatePlayerIcon(Player p, GameObject prefab)
         {
             GameObject obj = GameObject.Instantiate(prefab);
             var handler = obj.GetComponent<PlayerHandler>();
@@ -48,9 +54,9 @@ namespace Fumbbl.Lib
             return obj;
         }
 
-        public static async void LoadSprite(string iconURL, GameObject target)
+        public static void LoadSprite(string iconURL, GameObject target)
         {
-            Sprite resized = await LoadIconSpriteSheet(iconURL);
+            Sprite resized = LoadIconSpriteSheet(iconURL);
             FFB.Instance.ExecuteOnMainThread(() =>
             {
                 var renderer = target.GetComponent<SpriteRenderer>();
@@ -60,9 +66,9 @@ namespace Fumbbl.Lib
             });
         }
 
-        public static async Task<Sprite> LoadIconSpriteSheet(string iconURL)
+        private static Sprite LoadIconSpriteSheet(string iconURL)
         {
-            Sprite s = await FFB.Instance.SpriteCache.GetAsync(iconURL);
+            Sprite s = FFB.Instance.SpriteCache.Get(iconURL);
             var iconSize = s.texture.width / 4;
             int numTextures = s.texture.height / iconSize;
 
@@ -72,7 +78,7 @@ namespace Fumbbl.Lib
             return resized;
         }
 
-        public static Sprite ResizeSprite(Sprite s)
+        private static Sprite ResizeSprite(Sprite s)
         {
             s.texture.filterMode = FilterMode.Point;
             var srcIconSize = s.texture.width / 4;

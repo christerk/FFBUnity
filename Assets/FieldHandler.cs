@@ -46,8 +46,8 @@ public class FieldHandler : MonoBehaviour
 
         Players = new ViewObjectList<Player>(p =>
         {
-            //GameObject obj = PlayerIcon.GenerateAbstractIcon(p);
-            GameObject obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab);
+            //GameObject obj = PlayerIcon.GeneratePlayerIconAbstract(p, AbstractIconPrefab);
+            GameObject obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab, AbstractIconPrefab);
             obj.transform.SetParent(Field.transform);
             p.GameObject = obj;
         },
@@ -80,6 +80,15 @@ public class FieldHandler : MonoBehaviour
 
         var players = FFB.Instance.Model.GetPlayers();
         Players.Refresh(players);
+
+        if (FFB.Instance.Model.TeamHome != null)
+        {
+            HomeTeamText.text = FFB.Instance.Model.TeamHome.Name.ToUpper();
+        }
+        if (FFB.Instance.Model.TeamAway != null)
+        {
+            AwayTeamText.text = FFB.Instance.Model.TeamAway.Name.ToUpper();
+        }
     }
 
     private void AddReport(Report report)
@@ -106,16 +115,8 @@ public class FieldHandler : MonoBehaviour
     void Update()
     {
         var ball = FFB.Instance.Model.Ball;
+	//TODO: converting player dictionary to list is less than optimal!
         var players = FFB.Instance.Model.GetPlayers().ToList();
-
-        if (FFB.Instance.Model.TeamHome != null)
-        {
-            HomeTeamText.text = FFB.Instance.Model.TeamHome.Name.ToUpper();
-        }
-        if (FFB.Instance.Model.TeamAway != null)
-        {
-            AwayTeamText.text = FFB.Instance.Model.TeamAway.Name.ToUpper();
-        }
 
         bool ballOnPlayer = false;
         foreach (var p in players)
