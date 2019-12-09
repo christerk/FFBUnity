@@ -11,8 +11,8 @@ public class GameBrowserHandler : MonoBehaviour
     private List<ApiDto.Match.Current> currentMatches;
     private enum Mode
     {
-        GameList = 1,
-        GameIdInput = 2
+        GameList,
+        GameIdInput
     }
     private Mode mode = Mode.GameList;
 
@@ -72,6 +72,17 @@ public class GameBrowserHandler : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyUp(KeyCode.Minus))
+        {
+            if (mode is Mode.GameIdInput)
+            {
+                if (gameIdInputField.text.Length == 1)
+                {
+                    gameIdInputField.text = "";
+                }
+            }
+        }
+
         if (Input.GetKeyUp(KeyCode.Return))
         {
             if (mode is Mode.GameIdInput)
@@ -82,5 +93,6 @@ public class GameBrowserHandler : MonoBehaviour
                 ShowGameList();
             }
         }
+
     }
 }
