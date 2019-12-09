@@ -8,14 +8,13 @@ public class GameBrowserHandler : MonoBehaviour
 {
 
     private FumbblApi api;
-    private KeyCode? control = null;
     private List<ApiDto.Match.Current> currentMatches;
     private enum Mode
     {
         GameList = 1,
         GameIdInput = 2
     }
-    private Mode mode;
+    private Mode mode = Mode.GameList;
 
     public GameObject pane;
     public GameObject button;
@@ -40,53 +39,47 @@ public class GameBrowserHandler : MonoBehaviour
         }
     }
 
+    private void ShowGameIdInput()
+    {
+        mode = Mode.GameIdInput;
+        gameListPanel.SetActive(false);
+        gameIdInputField.gameObject.SetActive(true);
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(gameIdInputField.gameObject);
+        gameIdInputField.ActivateInputField();
+    }
+
+    private void ShowGameList()
+    {
+        mode = Mode.GameList;
+        gameListPanel.SetActive(true);
+        gameIdInputField.gameObject.SetActive(false);
+        gameIdInputField.text = "";
+        mode = Mode.GameList;
+    }
+
+
     void Update() {
 
-        if (control is null)
+        if (Input.GetKeyUp(KeyCode.G))
         {
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (mode is Mode.GameList)
             {
-                control = KeyCode.LeftControl;
+                ShowGameIdInput();
             }
-            else if (Input.GetKeyDown(KeyCode.RightControl))
+            else if (mode is Mode.GameIdInput)
             {
-                control = KeyCode.RightControl;
-            }
-        }
-        else
-        {
-            if (Input.GetKeyUp((KeyCode)control))
-            {
-                control = null;
+                ShowGameList();
             }
         }
 
-        if ((control != null) && (Input.GetKeyUp(KeyCode.G)))
+        if (Input.GetKeyUp(KeyCode.Return))
         {
-            bool showgameIdInputField = gameListPanel.active;
-            gameListPanel.SetActive(!showgameIdInputField);
-            gameIdInputField.gameObject.SetActive(showgameIdInputField);
-            Debug.Log(showgameIdInputField);
-            if (showgameIdInputField)
-            {
-                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(gameIdInputField.gameObject);
-                gameIdInputField.ActivateInputField();
-                mode = Mode.GameIdInput;
-            }
-            else
-            {
-                gameIdInputField.text = "";
-                mode = Mode.GameList;
-            }
-        }
-
-        if (mode is Mode.GameIdInput)
-        {
-            if (Input.GetKeyUp(KeyCode.Return))
+            if (mode is Mode.GameIdInput)
             {
                 FFB.Instance.Stop();
                 FFB.Instance.Connect(int.Parse(gameIdInputField.text));
                 MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
+                ShowGameList();
             }
         }
     }
