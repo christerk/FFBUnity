@@ -58,7 +58,7 @@ public class PlayerHandler : MonoBehaviour
         }
 
         Color color = BackgroundRenderer.material.color;
-        color.a = fade ? 0.6f : 1f;
+        color.a = fade ? 0.7f : 1f;
         BackgroundRenderer.material.color = color;
 
         Prone.SetActive(state.IsProne);

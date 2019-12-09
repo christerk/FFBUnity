@@ -10,6 +10,9 @@ public class SettingsHandler : MonoBehaviour
     public TMP_Dropdown resolutions;
     public TMP_InputField clientId;
     public TMP_InputField clientSecret;
+    public GameObject initialPanel;
+
+    public GameObject currentPanel;
 
     private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
 
@@ -55,6 +58,21 @@ public class SettingsHandler : MonoBehaviour
 
         clientId.text = PlayerPrefs.GetString("OAuth.ClientId");
         clientSecret.text = PlayerPrefs.GetString("OAuth.ClientSecret");
+        initialPanel.SetActive(true);
+    }
+
+    public void ShowPanel(GameObject panel)
+    {
+        Debug.Log(GetHashCode());
+        if (panel != currentPanel)
+        {
+            if (currentPanel != null)
+            {
+                currentPanel.GetComponent<Animator>().SetTrigger("Hide");
+            }
+            panel.GetComponent<Animator>().SetTrigger("Show");
+            currentPanel = panel;
+        }
     }
 
     private bool AllowResolution(Resolution r)
