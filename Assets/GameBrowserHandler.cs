@@ -26,6 +26,14 @@ public class GameBrowserHandler : MonoBehaviour
         Debug.Log("Initialise Game Browser");
         api = new FumbblApi();
         RefreshMatches();
+        gameIdInputField.onValidateInput += (text, charIndex, addedChar) =>
+        {
+            if (addedChar < '0' || addedChar > '9')
+            {
+                return '\0';
+            }
+            return addedChar;
+        };
     }
 
     void RefreshMatches()
@@ -69,17 +77,6 @@ public class GameBrowserHandler : MonoBehaviour
             else if (mode is Mode.GameIdInput)
             {
                 ShowGameList();
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Minus))
-        {
-            if (mode is Mode.GameIdInput)
-            {
-                if (gameIdInputField.text.Length == 1)
-                {
-                    gameIdInputField.text = "";
-                }
             }
         }
 
