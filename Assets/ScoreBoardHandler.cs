@@ -18,7 +18,13 @@ public class ScoreBoardHandler : MonoBehaviour
         HomeScore.text = FFB.Instance.Model.ScoreHome.ToString();
         AwayScore.text = FFB.Instance.Model.ScoreAway.ToString();
 
-        if (FFB.Instance.Model.Half < 2)
+        int half = FFB.Instance.Model.Half;
+
+        if (half <= 0)
+        {
+            HalfText.text = "Starting";
+        }
+        else if (half < 3)
         {
             HalfText.text = $"Half {FFB.Instance.Model.Half}";
         }
