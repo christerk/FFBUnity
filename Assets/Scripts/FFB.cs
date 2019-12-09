@@ -274,6 +274,7 @@ namespace Fumbbl
                     player.PlayerState = PlayerState.Get(p.playerState);
                 }
 
+                FFB.Instance.Model.Half = cmd.game.half;
                 FFB.Instance.Model.TurnHome = cmd.game.turnDataHome.turnNr;
                 FFB.Instance.Model.TurnAway = cmd.game.turnDataAway.turnNr;
 
