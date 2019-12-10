@@ -18,7 +18,7 @@ namespace Fumbbl.UI.LogText
             string neededRoll = "";
 
             // Make the passingDistance the first modifier and the reported ones follow it.
-            IEnumerable<PassModifier> rollModifiers = IEnumerableExt.Yield<PassModifier>(report.passingDistance.As<PassModifier>());
+            IEnumerable<PassModifier> rollModifiers = report.passingDistance.As<PassModifier>().Yield();
             rollModifiers.Concat(report.rollModifiers?.Select(r => r.As<PassModifier>()));
 
             if (!report.reRolled)
