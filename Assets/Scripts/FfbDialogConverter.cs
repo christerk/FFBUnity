@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using UnityEngine;
 
 namespace Fumbbl
 {
@@ -42,7 +43,7 @@ namespace Fumbbl
                 }
             } catch (Exception e)
             {
-
+                Debug.Log("Error reading JSON: " + e);
             }
             return null;
         }

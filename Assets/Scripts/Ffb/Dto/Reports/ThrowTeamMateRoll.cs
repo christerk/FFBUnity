@@ -4,6 +4,6 @@ namespace Fumbbl.Ffb.Dto.Reports
     {
         public ThrowTeamMateRoll() : base("throwTeamMateRoll") { }
         public string thrownPlayerId;
-        public string passingDistance;
+        public FFBEnumeration passingDistance;
     }
 }
