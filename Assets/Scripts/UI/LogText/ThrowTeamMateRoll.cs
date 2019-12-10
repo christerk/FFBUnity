@@ -17,10 +17,9 @@ namespace Fumbbl.UI.LogText
             Player thrownPlayer = FFB.Instance.Model.GetPlayer(report.thrownPlayerId);
             string neededRoll = "";
 
-            IEnumerable<PassModifier> rollModifiers = report.passingDistance.Cast<PassModifier>();
+            // Make the passingDistance the first modifier and the reported ones follow it.
+            IEnumerable<PassModifier> rollModifiers = report.passingDistance.As<PassModifier>().Yield();
             rollModifiers.Concat(report.rollModifiers?.Select(r => r.As<PassModifier>()));
-
-            Debug.Log(rollModifiers);
 
             if (!report.reRolled)
             {
