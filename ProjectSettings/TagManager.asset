@@ -17,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - PlayerCard
   - 
   - 
   - 
@@ -71,4 +71,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2052491645
+    locked: 0
+  - name: Player Card
+    uniqueID: 1283835931
     locked: 0

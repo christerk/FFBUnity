@@ -1,4 +1,5 @@
 ﻿using Fumbbl.View;
+using System.Collections.Generic;
 
 namespace Fumbbl.Model.Types
 {
@@ -18,6 +19,9 @@ namespace Fumbbl.Model.Types
         public int Strength { get; set; }
         public int Agility { get; set; }
         public int Armour { get; set; }
+        public int Spp { get; internal set; }
+        public List<string> Skills { get; set; }
+
 
         public override object Key => Id;
         public bool IsHome => Team.IsHome;
@@ -42,6 +46,7 @@ namespace Fumbbl.Model.Types
         public Player()
         {
             Team = new Team();
+            Skills = new List<string>();
         }
 
         public string FormattedName
