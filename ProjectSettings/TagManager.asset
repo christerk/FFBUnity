@@ -17,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - PlayerCard
   - 
   - 
   - 
@@ -57,18 +57,21 @@ TagManager:
   - name: Player Overlay
     uniqueID: 2656338923
     locked: 0
+  - name: Ball
+    uniqueID: 3651512681
+    locked: 0
   - name: ScrollText
     uniqueID: 2401752605
     locked: 0
   - name: Pushback Arrows
     uniqueID: 98025079
     locked: 0
-  - name: Ball
-    uniqueID: 3651512681
-    locked: 0
   - name: Foreground
     uniqueID: 3835938471
     locked: 0
   - name: UI
     uniqueID: 2052491645
+    locked: 0
+  - name: Player Card
+    uniqueID: 1283835931
     locked: 0

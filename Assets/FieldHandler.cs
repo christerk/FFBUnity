@@ -23,6 +23,9 @@ public class FieldHandler : MonoBehaviour
     public GameObject TrackNumberPrefab;
     public GameObject ScrollTextPrefab;
 
+    public GameObject PlayerCardHome;
+    public GameObject PlayerCardAway;
+
     public TMPro.TextMeshProUGUI HomeTeamText;
     public TMPro.TextMeshProUGUI AwayTeamText;
 
@@ -214,6 +217,23 @@ public class FieldHandler : MonoBehaviour
                 s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate.X, s.Coordinate.Y, 10);
                 s.LabelObject.SetText(s.Number.ToString());
             }
+        }
+
+        var actingPlayer = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
+        if (actingPlayer != null)
+        {
+            if (actingPlayer.IsHome)
+            {
+                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
+            }
+            else
+            {
+                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
+            }
+        } else
+        {
+            PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(null);
+            PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(null);
         }
     }
 

@@ -7,6 +7,7 @@ using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -224,12 +225,20 @@ namespace Fumbbl
                 var roster = cmd.game.teamHome.roster;
                 foreach (var pos in roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand, IconURL = pos.urlIconSet };
+                    positions[pos.positionId] = new Position() {
+                        AbstractLabel = pos.shorthand,
+                        Name = pos.positionName,
+                        IconURL = pos.urlIconSet
+                    };
+                    if (pos.skillArray != null)
+                    {
+                        positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
+                    }
                 }
 
                 foreach (var p in cmd.game.teamHome.playerArray)
                 {
-                    FFB.Instance.Model.AddPlayer(new Player()
+                    Player player = new Player()
                     {
                         Id = p.playerId,
                         Name = p.playerName,
@@ -240,19 +249,39 @@ namespace Fumbbl
                         Strength = p.strength,
                         Agility = p.agility,
                         Armour = p.armour,
-                    });
+                    };
+                    if (p.skillArray != null)
+                    {
+                        player.Skills.AddRange(p.skillArray.Select(s => s.key));
+                    }
+                    FFB.Instance.Model.AddPlayer(player);
+                }
+
+                foreach (var p in cmd.game.gameResult.teamResultHome.playerResults)
+                {
+                    var player = FFB.Instance.Model.GetPlayer(p.playerId);
+                    player.Spp = p.currentSpps;
                 }
 
                 positions.Clear();
                 roster = cmd.game.teamAway.roster;
                 foreach (var pos in roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position() { AbstractLabel = pos.shorthand, IconURL = pos.urlIconSet };
+                    positions[pos.positionId] = new Position()
+                    {
+                        AbstractLabel = pos.shorthand,
+                        Name = pos.positionName,
+                        IconURL = pos.urlIconSet
+                    };
+                    if (pos.skillArray != null)
+                    {
+                        positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
+                    }
                 }
 
                 foreach (var p in cmd.game.teamAway.playerArray)
                 {
-                    FFB.Instance.Model.AddPlayer(new Player()
+                    Player player = new Player()
                     {
                         Id = p.playerId,
                         Name = p.playerName,
@@ -264,8 +293,19 @@ namespace Fumbbl
                         Strength = p.strength,
                         Agility = p.agility,
                         Armour = p.armour,
-                    });
+                    };
+                    if (p.skillArray != null) {
+                        player.Skills.AddRange(p.skillArray.Select(s => s.key));
+                    }
+                    FFB.Instance.Model.AddPlayer(player);
                 }
+
+                foreach (var p in cmd.game.gameResult.teamResultAway.playerResults)
+                {
+                    var player = FFB.Instance.Model.GetPlayer(p.playerId);
+                    player.Spp = p.currentSpps;
+                }
+
 
                 foreach (var p in cmd.game.fieldModel.playerDataArray)
                 {
