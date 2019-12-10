@@ -227,6 +227,7 @@ namespace Fumbbl
                 {
                     positions[pos.positionId] = new Position() {
                         AbstractLabel = pos.shorthand,
+                        Name = pos.positionName,
                         IconURL = pos.urlIconSet
                     };
                     if (pos.skillArray != null)
@@ -269,6 +270,7 @@ namespace Fumbbl
                     positions[pos.positionId] = new Position()
                     {
                         AbstractLabel = pos.shorthand,
+                        Name = pos.positionName,
                         IconURL = pos.urlIconSet
                     };
                     if (pos.skillArray != null)

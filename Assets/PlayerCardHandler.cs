@@ -40,7 +40,8 @@ public class PlayerCardHandler : MonoBehaviour
             AG.text = player.Agility.ToString();
             AV.text = player.Armour.ToString();
             SPP.text = player.Spp.ToString();
-            Skills.text = string.Join("\n", player.Position.Skills.Concat(player.Skills));
+            Skills.text = string.Join("\n", player.Skills);
+            Level.text = player.Level;
             this.gameObject.SetActive(true);
         }
         else

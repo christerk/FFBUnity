@@ -26,6 +26,19 @@ namespace Fumbbl.Model.Types
         public override object Key => Id;
         public bool IsHome => Team.IsHome;
 
+        public string Level
+        {
+            get
+            {
+                if (Spp > 175) { return "Legend"; }
+                if (Spp > 75) { return "Super Star"; }
+                if (Spp > 50) { return "Star"; }
+                if (Spp > 30) { return "Emerging Star"; }
+                if (Spp > 15) { return "Veteran"; }
+                return "Rookie";
+            }
+        }
+
         public override void Refresh(Player data)
         {
             Id = data.Id;
