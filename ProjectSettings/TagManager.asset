@@ -60,11 +60,14 @@ TagManager:
   - name: Ball
     uniqueID: 3651512681
     locked: 0
-  - name: ScrollText
-    uniqueID: 2401752605
-    locked: 0
   - name: Pushback Arrows
     uniqueID: 98025079
+    locked: 0
+  - name: Square Overlay
+    uniqueID: 4234161421
+    locked: 0
+  - name: ScrollText
+    uniqueID: 2401752605
     locked: 0
   - name: Foreground
     uniqueID: 3835938471

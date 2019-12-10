@@ -42,6 +42,7 @@ public class PlayerCardHandler : MonoBehaviour
             SPP.text = player.Spp.ToString();
             Skills.text = string.Join("\n", player.Skills);
             Level.text = player.Level;
+            background.sprite = player.IsHome ? HomeBG : AwayBG;
             this.gameObject.SetActive(true);
         }
         else

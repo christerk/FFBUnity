@@ -13,6 +13,7 @@ using UnityEngine.UI;
 
 public class FieldHandler : MonoBehaviour
 {
+    public Camera MainCamera;
     public GameObject PlayerIconPrefab;
     public GameObject AbstractIconPrefab;
     public GameObject Field;
@@ -26,6 +27,8 @@ public class FieldHandler : MonoBehaviour
     public GameObject PlayerCardHome;
     public GameObject PlayerCardAway;
 
+    public GameObject SquareOverlay;
+
     public TMPro.TextMeshProUGUI HomeTeamText;
     public TMPro.TextMeshProUGUI AwayTeamText;
 
@@ -34,10 +37,16 @@ public class FieldHandler : MonoBehaviour
     private ViewObjectList<PushbackSquare> PushbackSquares;
     private ViewObjectList<TrackNumber> TrackNumbers;
 
+    private RectTransform FieldRect;
+
+    private Player HoverPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
         FFB.Instance.OnReport += AddReport;
+
+        FieldRect = Field.GetComponent<RectTransform>();
 
         foreach (var o in GameObject.FindGameObjectsWithTag("Clone"))
         {
@@ -225,16 +234,44 @@ public class FieldHandler : MonoBehaviour
             if (actingPlayer.IsHome)
             {
                 PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
+                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer);
             }
             else
             {
+                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer);
                 PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
             }
         } else
         {
-            PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(null);
-            PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(null);
+            PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer != null && HoverPlayer.IsHome ? HoverPlayer : null);
+            PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer != null && !HoverPlayer.IsHome ? HoverPlayer : null);
         }
+    }
+
+    void OnMouseOver()
+    {
+        var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
+        var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
+        var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
+        // x,y is the zero-based field square coordinate.
+
+        Highlight(x, y);
+    }
+
+    private void Highlight(int x, int y)
+    {
+        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(x, y, 1);
+        HoverPlayer = FFB.Instance.Model.GetPlayer(x, y);
+    }
+
+    void OnMouseEnter()
+    {
+        SquareOverlay.SetActive(true);
+    }
+
+    void OnMouseExit()
+    {
+        SquareOverlay.SetActive(false);
     }
 
     internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
