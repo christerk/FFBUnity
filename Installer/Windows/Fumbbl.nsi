@@ -2,10 +2,9 @@
 OutFile "FFBUnityInstaller.exe"
 
 Name "FUMBBL"
-
 Icon "..\..\Fumbbl.ico"
 
-InstallDir "$PROGRAMFILES\FUMBBL"
+InstallDir "$PROGRAMFILES\$(^Name)"
 
 Page directory
 Page instfiles
