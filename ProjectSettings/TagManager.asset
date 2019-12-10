@@ -57,14 +57,14 @@ TagManager:
   - name: Player Overlay
     uniqueID: 2656338923
     locked: 0
+  - name: Ball
+    uniqueID: 3651512681
+    locked: 0
   - name: ScrollText
     uniqueID: 2401752605
     locked: 0
   - name: Pushback Arrows
     uniqueID: 98025079
-    locked: 0
-  - name: Ball
-    uniqueID: 3651512681
     locked: 0
   - name: Foreground
     uniqueID: 3835938471
