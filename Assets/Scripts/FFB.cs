@@ -102,12 +102,6 @@ namespace Fumbbl
             Network.Disconnect();
         }
 
-        public void AddStringReport(string str)
-        {
-            Debug.Log(str);
-            AddReport(RawString.Create(str));
-        }
-
         internal void AddReport(Report report)
         {
             LogText.Add(report);
