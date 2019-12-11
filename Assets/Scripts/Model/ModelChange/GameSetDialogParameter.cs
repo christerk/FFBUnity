@@ -23,8 +23,7 @@ namespace Fumbbl.Model.ModelChange
                 else
                 {
                     // Clear dialogs.
-                    FFB.Instance.Model.AddBlockDie(true, 0);
-                    FFB.Instance.Model.AddBlockDie(false, 0);
+                    FFB.Instance.Model.AddBlockDie(0);
                 }
             }
             else

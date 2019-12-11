@@ -9,7 +9,6 @@ using static Fumbbl.Model.Types.BlockDie;
 
 public class BlockDiceHandler : MonoBehaviour
 {
-    public bool Home;
     public Sprite SkullSprite;
     public Sprite BothDownSprite;
     public Sprite PushSprite;
@@ -36,10 +35,6 @@ public class BlockDiceHandler : MonoBehaviour
                 var image = obj.GetComponent<Image>();
                 image.sprite = GetSpriteForRoll(die.Roll);
                 obj.transform.SetParent(ContentObject);
-                if (!Home)
-                {
-                    obj.transform.SetAsFirstSibling();
-                }
                 obj.transform.localScale = Vector3.one;
                 obj.name = die.Roll.Type.ToString();
                 die.GameObject = obj;
@@ -54,11 +49,11 @@ public class BlockDiceHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var dice = Home ? FFB.Instance.Model.HomeBlockDice : FFB.Instance.Model.AwayBlockDice;
+        var dice = FFB.Instance.Model.BlockDice;
         BlockDice.Refresh(dice, RefreshBlockDie);
     }
 
-    private System.Action<BlockDie> RefreshBlockDie = die =>
+    private readonly System.Action<BlockDie> RefreshBlockDie = die =>
     {
         var image = die.GameObject.GetComponentInChildren<Image>();
         var color = image.color;
