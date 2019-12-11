@@ -22,6 +22,8 @@ public class PlayerCardHandler : MonoBehaviour
     
     public SpriteRenderer background;
 
+    private string ShownPlayerId;
+
     void Start()
     {
         Color homeColor = new Color(0.4434f, 0.0376f, 0.0376f, 0.8745f);
@@ -31,22 +33,30 @@ public class PlayerCardHandler : MonoBehaviour
 
     public void SetPlayer(Player player)
     {
-        if (player != null)
+        string id = player?.Id;
+
+        if (!string.Equals(id, ShownPlayerId))
         {
-            Name.text = player.Name;
-            Position.text = player.Position?.Name;
-            MA.text = player.Movement.ToString();
-            ST.text = player.Strength.ToString();
-            AG.text = player.Agility.ToString();
-            AV.text = player.Armour.ToString();
-            SPP.text = player.Spp.ToString();
-            Skills.text = string.Join("\n", player.Skills);
-            Level.text = player.Level;
-            this.gameObject.SetActive(true);
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
+            if (player != null)
+            {
+                ShownPlayerId = player.Id;
+                Name.text = player.Name;
+                Position.text = player.Position?.Name;
+                MA.text = player.Movement.ToString();
+                ST.text = player.Strength.ToString();
+                AG.text = player.Agility.ToString();
+                AV.text = player.Armour.ToString();
+                SPP.text = player.Spp.ToString();
+                Skills.text = string.Join("\n", player.Skills);
+                Level.text = player.Level;
+                background.sprite = player.IsHome ? HomeBG : AwayBG;
+                this.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+                ShownPlayerId = null;
+            }
         }
     }
 }

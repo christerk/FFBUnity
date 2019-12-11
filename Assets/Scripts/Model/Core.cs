@@ -164,5 +164,17 @@ namespace Fumbbl.Model
                 Players.Add(player.Id, player);
             }
         }
+
+        internal Player GetPlayer(int x, int y)
+        {
+            foreach (Player p in Players.Values)
+            {
+                if (p.Coordinate.X == x && p.Coordinate.Y == y)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
     }
 }
