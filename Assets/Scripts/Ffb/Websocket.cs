@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using Fumbbl.Ffb.Dto.Reports;
 
 namespace Fumbbl.Ffb
 {
@@ -111,7 +112,9 @@ namespace Fumbbl.Ffb
                 Debug.Log(e.StackTrace);
                 Debug.Log($"Unhandled Exception in Receive: {e.Message}");
             }
+
             Debug.Log("Websocket Receive terminated");
+            FFB.Instance.AddReport(RawString.Create("Websocket Receive terminated"));
         }
 
         private void ReceiveData(string data)
