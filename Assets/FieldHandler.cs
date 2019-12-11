@@ -292,7 +292,6 @@ public class FieldHandler : MonoBehaviour
 
     void OnDestroy()
     {
-        FFB.Instance.Stop();
         FFB.Instance.OnReport -= AddReport;
     }
 }
