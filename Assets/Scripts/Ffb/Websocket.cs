@@ -111,7 +111,7 @@ namespace Fumbbl.Ffb
                 Debug.Log(e.StackTrace);
                 Debug.Log($"Unhandled Exception in Receive: {e.Message}");
             }
-            Debug.Log("Websocket Receive terminated");
+            FFB.Instance.AddStringReport("Websocket Receive terminated");
         }
 
         private void ReceiveData(string data)
