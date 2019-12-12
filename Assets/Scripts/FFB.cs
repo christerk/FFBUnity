@@ -231,7 +231,8 @@ namespace Fumbbl
                     positions[pos.positionId] = new Position() {
                         AbstractLabel = pos.shorthand,
                         Name = pos.positionName,
-                        IconURL = pos.urlIconSet
+                        IconURL = pos.urlIconSet,
+                        PortraitURL = pos.urlPortrait,
                     };
                     if (pos.skillArray != null)
                     {
@@ -252,6 +253,8 @@ namespace Fumbbl
                         Strength = p.strength,
                         Agility = p.agility,
                         Armour = p.armour,
+                        PortraitURL = p.urlPortrait,
+
                     };
                     if (p.skillArray != null)
                     {
@@ -274,7 +277,8 @@ namespace Fumbbl
                     {
                         AbstractLabel = pos.shorthand,
                         Name = pos.positionName,
-                        IconURL = pos.urlIconSet
+                        IconURL = pos.urlIconSet,
+                        PortraitURL = pos.urlPortrait,
                     };
                     if (pos.skillArray != null)
                     {
@@ -296,6 +300,7 @@ namespace Fumbbl
                         Strength = p.strength,
                         Agility = p.agility,
                         Armour = p.armour,
+                        PortraitURL = p.urlPortrait,
                     };
                     if (p.skillArray != null) {
                         player.Skills.AddRange(p.skillArray.Select(s => s.key));

@@ -8,6 +8,7 @@ namespace Fumbbl.Model.Types
         public string Id;
         public string PositionId;
         public string Name;
+        public string PortraitURL;
         public Types.Coordinate Coordinate { get; set; }
 
         public Gender Gender;

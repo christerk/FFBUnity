@@ -60,6 +60,7 @@ public class SettingsHandler : MonoBehaviour
         clientId.text = PlayerPrefs.GetString("OAuth.ClientId");
         clientSecret.text = PlayerPrefs.GetString("OAuth.ClientSecret");
         initialPanel.SetActive(true);
+        AbstractIconsToggle.isOn = FFB.Instance.Settings.Graphics.AbstractIcons;
     }
 
     public void ShowPanel(GameObject panel)

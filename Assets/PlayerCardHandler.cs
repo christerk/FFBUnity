@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Fumbbl;
 
 public class PlayerCardHandler : MonoBehaviour
 {
     public Sprite HomeBG;
     public Sprite AwayBG;
+    public Sprite EmptyPortrait;
     public bool Home;
     public TMPro.TextMeshPro Name;
     public TMPro.TextMeshPro Position;
@@ -21,6 +23,7 @@ public class PlayerCardHandler : MonoBehaviour
     public TMPro.TextMeshPro Skills;
     
     public SpriteRenderer background;
+    public SpriteRenderer portrait;
 
     private string ShownPlayerId;
 
@@ -50,6 +53,15 @@ public class PlayerCardHandler : MonoBehaviour
                 Skills.text = string.Join("\n", player.Skills);
                 Level.text = player.Level;
                 background.sprite = player.IsHome ? HomeBG : AwayBG;
+                var portraitUrl = player.PortraitURL ?? player.Position.PortraitURL;
+                if (portraitUrl != null)
+                {
+                    portrait.sprite = FFB.Instance.SpriteCache.Get(portraitUrl);
+                }
+                else
+                {
+                    portrait.sprite = EmptyPortrait;
+                }
                 this.gameObject.SetActive(true);
             }
             else
