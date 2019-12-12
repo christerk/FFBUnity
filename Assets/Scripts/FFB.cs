@@ -25,6 +25,7 @@ namespace Fumbbl
         private readonly List<ChatEntry> ChatText;
         public ActionInjectorHandler ActionInjector;
 
+        public Settings Settings;
         public Core Model { get; }
         public string CoachName { get; private set; }
 
@@ -59,6 +60,8 @@ namespace Fumbbl
 
         private FFB()
         {
+            Settings = new Settings();
+            Settings.Load();
             SpriteCache = new Lib.Cache<Sprite>(url => FumbblApi.GetSpriteAsync(url));
             LogText = new List<Report>();
             ChatText = new List<ChatEntry>();
