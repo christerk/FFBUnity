@@ -2,7 +2,6 @@
 
 namespace Fumbbl.Model.RollModifier
 {
-
     public enum SignMode
     {
         Negative = -1,

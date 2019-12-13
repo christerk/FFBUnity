@@ -88,6 +88,7 @@ namespace Fumbbl
 
             return IsAssignableToGenericType(baseType, genericType);
         }
+
         internal Type GetReflectedClass(K key)
         {
             if (GeneratorClasses.ContainsKey(key))

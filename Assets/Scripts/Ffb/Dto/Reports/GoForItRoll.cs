@@ -3,6 +3,5 @@
     public class GoForItRoll : SkillRoll
     {
         public GoForItRoll() : base("goForItRoll") { }
-
     }
 }
