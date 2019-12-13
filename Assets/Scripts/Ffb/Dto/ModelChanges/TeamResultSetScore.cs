@@ -3,6 +3,7 @@
     public class TeamResultSetScore : ModelChange
     {
         public int modelChangeValue;
+
         public TeamResultSetScore() : base("teamResultSetScore")
         {
         }
