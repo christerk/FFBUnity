@@ -1,10 +1,7 @@
 ﻿using Fumbbl;
 using Fumbbl.View;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Fumbbl.Model;
 using static Fumbbl.Model.Types.BlockDie;
 
 public class BlockDiceHandler : MonoBehaviour

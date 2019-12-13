@@ -1,15 +1,11 @@
 ﻿using Fumbbl;
 using Fumbbl.Ffb.Dto;
-using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Lib;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using Fumbbl.View;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FieldHandler : MonoBehaviour
 {
