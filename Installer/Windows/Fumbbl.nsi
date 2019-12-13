@@ -1,5 +1,5 @@
 # name the installer
-OutFile "FFBUnityInstaller.exe"
+OutFile "FUMBBL FFB Installer.exe"
 
 Name "FUMBBL"
 Icon "..\..\Fumbbl.ico"
@@ -19,7 +19,7 @@ File /r "..\..\Builds\Windows\*.*"
 WriteUninstaller $INSTDIR\uninstaller.exe
 
 CreateDirectory "$SMPROGRAMS\$(^Name)"
-CreateShortCut "$SMPROGRAMS\$(^Name)\FFBClient.lnk" "$INSTDIR\FFBClient.exe"
+CreateShortCut "$SMPROGRAMS\$(^Name)\FFBClient.lnk" "$INSTDIR\FUMBBL FFB.exe"
 CreateShortCut "$SMPROGRAMS\$(^Name)\uninstaller.lnk" "$INSTDIR\uninstaller.exe"
 
 # default section end

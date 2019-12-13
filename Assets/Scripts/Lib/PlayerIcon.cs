@@ -114,43 +114,33 @@ namespace Fumbbl.Lib
 
         private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int destMip, int y, int x)
         {
-            if (SystemInfo.copyTextureSupport != UnityEngine.Rendering.CopyTextureSupport.None)
+            var srcPixels = s.texture.GetPixels32(0);
+            var destPixels = dest.GetPixels32();
+
+            int srcOriginX = x * srcIconSize;
+            int srcOriginY = y * srcIconSize;
+            int srcWidth = 4 * srcIconSize;
+
+            int dstOriginX = x * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
+            int dstOriginY = y * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
+            int dstWidth = 4 * NormalizedIconSize;
+
+            for (int yy=0; yy<srcIconSize; yy++)
             {
-                Graphics.CopyTexture(
-                    s.texture, 0, destMip, x * srcIconSize, y * srcIconSize, srcIconSize, srcIconSize,
-                    dest, 0, destMip, x * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2, y * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2
-                );
-            }
-            else
-            {
-                var srcPixels = s.texture.GetPixels32(0);
-                var destPixels = dest.GetPixels32();
-
-                int srcOriginX = x * srcIconSize;
-                int srcOriginY = y * srcIconSize;
-                int srcWidth = 4 * srcIconSize;
-
-                int dstOriginX = x * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
-                int dstOriginY = y * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
-                int dstWidth = 4 * NormalizedIconSize;
-
-                for (int yy=0; yy<srcIconSize; yy++)
+                for (int xx=0; xx<srcIconSize; xx++)
                 {
-                    for (int xx=0; xx<srcIconSize; xx++)
-                    {
-                        var srcX = srcOriginX + xx;
-                        var srcY = srcOriginY + yy;
+                    var srcX = srcOriginX + xx;
+                    var srcY = srcOriginY + yy;
 
-                        var dstX = dstOriginX + xx;
-                        var dstY = dstOriginY + yy;
+                    var dstX = dstOriginX + xx;
+                    var dstY = dstOriginY + yy;
 
-                        var pixel = srcPixels[srcX + srcWidth * srcY];
-                        destPixels[dstX + dstWidth * dstY] = pixel;
-                    }
+                    var pixel = srcPixels[srcX + srcWidth * srcY];
+                    destPixels[dstX + dstWidth * dstY] = pixel;
                 }
-                dest.SetPixels32(destPixels);
-                dest.Apply(false);
             }
+            dest.SetPixels32(destPixels);
+            dest.Apply(false);
         }
     }
 }
