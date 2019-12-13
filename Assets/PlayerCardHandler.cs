@@ -1,9 +1,5 @@
 ﻿using Fumbbl.Model.Types;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
 using Fumbbl;
 
 public class PlayerCardHandler : MonoBehaviour

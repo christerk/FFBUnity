@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.IO;
 using UnityEngine;
 
@@ -43,7 +42,6 @@ namespace Fumbbl
             }
         }
     }
-
 
     public class ColorSettings
     {

@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Fumbbl.Model.Types
+﻿namespace Fumbbl.Model.Types
 {
     public class PlayerAction : FfbEnumerationFactory
     {
         public PlayerAction(string name) : base(name) { }
+
         public string Action => Name;
         public int Type { get; set; }
         public string ShortDescription { get; set; }

@@ -1,11 +1,6 @@
-﻿using System.Collections;
+﻿using Fumbbl;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
-
-using Fumbbl;
-
 
 public class SoundManager : MonoBehaviour
 {

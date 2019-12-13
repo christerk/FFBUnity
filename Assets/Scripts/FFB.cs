@@ -1,15 +1,12 @@
 ﻿using Fumbbl.Ffb;
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Ffb.Dto.Reports;
-using Fumbbl.Lib;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Fumbbl
 {

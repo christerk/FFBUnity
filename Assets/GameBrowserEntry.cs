@@ -1,8 +1,6 @@
 ﻿using Fumbbl;
 using Fumbbl.Api.Dto.Match;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class GameBrowserEntry : MonoBehaviour

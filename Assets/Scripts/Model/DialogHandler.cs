@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Fumbbl.Model
 {
@@ -42,5 +41,4 @@ namespace Fumbbl.Model
             return new CastedDialogHandler<TTo, TFrom>(generator);
         }
     }
-
 }
