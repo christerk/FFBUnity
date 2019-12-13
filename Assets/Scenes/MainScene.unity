@@ -1152,6 +1152,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Card (Away)
       objectReference: {fileID: 0}
+    - target: {fileID: 6795124815321139549, guid: ea0572b974ad1e94588892a535eb484d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6942656604039670040, guid: ea0572b974ad1e94588892a535eb484d,
         type: 3}
       propertyPath: m_Mesh
@@ -3935,6 +3940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player Card (Home)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795124815321139549, guid: ea0572b974ad1e94588892a535eb484d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6942656604039670040, guid: ea0572b974ad1e94588892a535eb484d,
         type: 3}
