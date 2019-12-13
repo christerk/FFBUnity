@@ -12,7 +12,8 @@
         {
             get
             {
-                string color = IsHome ? "#ff0000" : "#0000ff";
+                var colorsettings = FFB.Instance.Settings.Color;
+                string color = IsHome ? colorsettings.HomeColor : colorsettings.AwayColor;
                 return $"<color={color}>{TextPanelHandler.SanitizeText(Name)}</color>";
             }
         }

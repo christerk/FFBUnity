@@ -11,6 +11,7 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.TurnEnd report)
         {
+            var colorsettings = FFB.Instance.Settings.Color;
             Player scorer = FFB.Instance.Model.GetPlayer(report.playerIdTouchdown);
             if (scorer != null)
             {
@@ -61,11 +62,11 @@ namespace Fumbbl.UI.LogText
             {
                 if (FFB.Instance.Model.HomePlaying)
                 {
-                    yield return new LogRecord($"<size=16><color=#ff0000>{FFB.Instance.Model.TeamHome.Name} start turn {FFB.Instance.Model.TurnHome}.</color></size>");
+                    yield return new LogRecord($"<size=16><color={colorsettings.HomeColor}>{FFB.Instance.Model.TeamHome.Name} start turn {FFB.Instance.Model.TurnHome}.</color></size>");
                 }
                 else
                 {
-                    yield return new LogRecord($"<size=16><color=#0000ff>{FFB.Instance.Model.TeamAway.Name} start turn {FFB.Instance.Model.TurnAway}.</color></size>");
+                    yield return new LogRecord($"<size=16><color={colorsettings.AwayColor}>{FFB.Instance.Model.TeamAway.Name} start turn {FFB.Instance.Model.TurnAway}.</color></size>");
                 }
             }
         }
