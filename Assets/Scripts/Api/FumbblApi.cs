@@ -16,6 +16,7 @@ using ApiDto = Fumbbl.Api.Dto;
 public class FumbblApi
 {
     private string accessToken;
+
     public bool Auth(string clientId, string clientSecret)
     {
         string result = Post("oauth", "token", new Dictionary<string, string>()
@@ -45,17 +46,6 @@ public class FumbblApi
         }
     }
 
-    public string GetToken()
-    {
-        string token = JsonConvert.DeserializeObject<string>(Post("auth", "getToken"));
-        return token;
-    }
-
-    public List<ApiDto.Match.Current> GetCurrentMatches()
-    {
-        return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(Get("match", "current"));
-    }
-
     private string Get(string component, string endpoint)
     {
         using (WebClient client = new WebClient())
@@ -76,6 +66,51 @@ public class FumbblApi
             }
         }
         return null;
+    }
+
+    public List<ApiDto.Match.Current> GetCurrentMatches()
+    {
+        return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(Get("match", "current"));
+    }
+
+    public static async void GetImage(string url, Image target)
+    {
+        Sprite s = await FFB.Instance.SpriteCache.GetAsync(url);
+        FFB.Instance.ExecuteOnMainThread(
+            () =>
+            {
+                if(!target.IsDestroyed())
+                {
+                    target.sprite = s;
+                }
+            }
+        );
+    }
+
+    public static async Task<Sprite> GetSpriteAsync(string url)
+    {
+        Texture2D img = new Texture2D(1,1);
+        try
+        {
+            using (var client = new WebClient())
+            {
+                var data = await client.DownloadDataTaskAsync("https://fumbbl.com/" + url);
+                img.LoadImage(data);
+            }
+        }
+        catch (WebException ex)
+        {
+            Debug.LogError("Failed to download: " + url + " Due to exception: " + ex);
+        }
+        Sprite s = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
+        s.name = url;
+        return s;
+    }
+
+    public string GetToken()
+    {
+        string token = JsonConvert.DeserializeObject<string>(Post("auth", "getToken"));
+        return token;
     }
 
     internal bool Login(string uid, string pwd)
@@ -131,38 +166,5 @@ public class FumbblApi
             }
         }
         return null;
-    }
-
-    public static async void GetImage(string url, Image target)
-    {
-        Sprite s = await FFB.Instance.SpriteCache.GetAsync(url);
-        FFB.Instance.ExecuteOnMainThread(() =>
-        {
-          if(!target.IsDestroyed())
-          {
-            target.sprite = s;
-          }
-         });
-        }
-    
-
-    public static async Task<Sprite> GetSpriteAsync(string url)
-    {
-        Texture2D img = new Texture2D(1,1);
-        try
-        {
-            using (var client = new WebClient())
-            {
-                var data = await client.DownloadDataTaskAsync("https://fumbbl.com/" + url);
-                img.LoadImage(data);
-            }
-        }
-        catch (WebException ex)
-        {
-            Debug.LogError("Failed to download: " + url + " Due to exception: " + ex);
-        }
-        Sprite s = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
-        s.name = url;
-        return s;
     }
 }
