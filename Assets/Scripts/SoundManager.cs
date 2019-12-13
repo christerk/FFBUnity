@@ -30,8 +30,6 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
-    #region Custom Methods
-
     public void Play(string sound)
     {
         AudioClip clip = SoundEffectClips[sound];
@@ -40,5 +38,4 @@ public class SoundManager : MonoBehaviour
             SoundEffectSource.PlayOneShot(clip, FFB.Instance.Settings.Sound.GlobalVolume);
         }
     }
-    #endregion
 }

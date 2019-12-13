@@ -34,13 +34,11 @@ public class ActionInjectorHandler : MonoBehaviour
             action.Invoke();
         }
     }
-    #endregion
 
-    #region Custom Methods
+    #endregion
 
     public void Enqueue(Action action)
     {
         Queue.Enqueue(action);
     }
-    #endregion
 }

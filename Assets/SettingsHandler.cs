@@ -73,9 +73,76 @@ public class SettingsHandler : MonoBehaviour
         SoundEnableToggle.isOn = !FFB.Instance.Settings.Sound.Mute;
         VolumeSlider.value = FFB.Instance.Settings.Sound.GlobalVolume;
     }
+
     #endregion
 
-    #region Custom Methods
+    #region Graphics Panel Methods
+
+    private bool AllowResolution(Resolution r)
+    {
+        return r.width >= 1024 && r.height >= 768;
+    }
+
+    private int GetResolutionKey(Resolution r)
+    {
+        return GetResolutionKey(r.width, r.height);
+    }
+
+    private int GetResolutionKey(int width, int height)
+    {
+        return width * 100000 + height;
+    }
+
+    public void UpdateAbstractIcons()
+    {
+        FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
+        FFB.Instance.Settings.Save();
+    }
+
+    public void UpdateResolution()
+    {
+        if (resolutions.options.Count > 0)
+        {
+            if (fullscreenToggle.isOn)
+            {
+                resolutions.value = 0;
+            }
+
+            string selectedResolution = resolutions.options[resolutions.value].text;
+            Debug.Log($"Current Resoltion {selectedResolution}");
+            Resolution r = RDict[selectedResolution][0];
+            Screen.SetResolution(r.width, r.height, fullscreenToggle.isOn, r.refreshRate);
+        }
+        resolutions.gameObject.SetActive(!fullscreenToggle.isOn);
+    }
+
+    #endregion
+
+    #region Sound Panel Methods
+
+    public void UpdateEnableSound()
+    {
+        FFB.Instance.Settings.Sound.Mute = !SoundEnableToggle.isOn;
+        FFB.Instance.Settings.Save();
+    }
+
+    public void UpdateVolume()
+    {
+        FFB.Instance.Settings.Sound.GlobalVolume = VolumeSlider.value;
+        FFB.Instance.Settings.Save();
+    }
+
+    #endregion
+
+    #region Debug Panel Methods
+
+    public void SetOAuth()
+    {
+        PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
+        PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
+    }
+
+    #endregion
 
     public void Logout()
     {
@@ -121,68 +188,11 @@ public class SettingsHandler : MonoBehaviour
     }
 
 
-    // Graphics Panel
-
-    private bool AllowResolution(Resolution r)
-    {
-        return r.width >= 1024 && r.height >= 768;
-    }
-
-    private int GetResolutionKey(Resolution r)
-    {
-        return GetResolutionKey(r.width, r.height);
-    }
-
-    private int GetResolutionKey(int width, int height)
-    {
-        return width * 100000 + height;
-    }
-
-    public void UpdateAbstractIcons()
-    {
-        FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
-        FFB.Instance.Settings.Save();
-    }
-
-    public void UpdateResolution()
-    {
-        if (resolutions.options.Count > 0)
-        {
-            if (fullscreenToggle.isOn)
-            {
-                resolutions.value = 0;
-            }
-
-            string selectedResolution = resolutions.options[resolutions.value].text;
-            Debug.Log($"Current Resoltion {selectedResolution}");
-            Resolution r = RDict[selectedResolution][0];
-            Screen.SetResolution(r.width, r.height, fullscreenToggle.isOn, r.refreshRate);
-        }
-        resolutions.gameObject.SetActive(!fullscreenToggle.isOn);
-    }
 
 
-    // Sound Panel
-
-    public void UpdateEnableSound()
-    {
-        FFB.Instance.Settings.Sound.Mute = !SoundEnableToggle.isOn;
-        FFB.Instance.Settings.Save();
-    }
-
-    public void UpdateVolume()
-    {
-        FFB.Instance.Settings.Sound.GlobalVolume = VolumeSlider.value;
-        FFB.Instance.Settings.Save();
-    }
 
 
-    // Debug Panel
 
-    public void SetOAuth()
-    {
-        PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
-        PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
-    }
-    #endregion
+
+
 }

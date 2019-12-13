@@ -26,9 +26,8 @@ public class GameBrowserEntry : MonoBehaviour
         FFB.Instance.Connect(matchDetails.id);
         MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
     }
-    #endregion
 
-    #region Custom Methods
+    #endregion
 
     public void SetMatchDetails(Current details)
     {
@@ -56,5 +55,4 @@ public class GameBrowserEntry : MonoBehaviour
             Debug.LogError("Invalid number of teams found when parsing match details");
         }
     }
-    #endregion
 }

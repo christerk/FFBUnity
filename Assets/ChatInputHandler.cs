@@ -13,14 +13,12 @@ public class ChatInputHandler : MonoBehaviour
         field = GetComponent<TMP_InputField>();
         field.placeholder.GetComponent<TMP_Text>().text = "Type here to chat.";
     }
-    #endregion
 
-    #region Custom Methods
+    #endregion
 
     public void OnChatEntered()
     {
         MainHandler.Instance.AddChatEntry(field.text);
         field.text = "";
     }
-    #endregion
 }

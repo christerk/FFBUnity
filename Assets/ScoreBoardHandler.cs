@@ -35,5 +35,6 @@ public class ScoreBoardHandler : MonoBehaviour
             HalfText.text = "Overtime";
         }
     }
+
     #endregion
 }

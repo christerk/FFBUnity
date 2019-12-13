@@ -48,9 +48,8 @@ public class LoginHandler : MonoBehaviour
             };
         }
     }
-    #endregion
 
-    #region Custom Methods
+    #endregion
 
     private void Login()
     {
@@ -85,5 +84,4 @@ public class LoginHandler : MonoBehaviour
             ConnectingLabel.SetActive(false);
         }
     }
-    #endregion
 }

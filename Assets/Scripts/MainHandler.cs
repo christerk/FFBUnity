@@ -39,8 +39,6 @@ namespace Fumbbl
 
         #endregion
 
-        #region Custom Methods
-
         public void AddChatEntry(string text)
         {
             _ = FFB.Instance.Network.Send(new ClientTalk() { talk = text });
@@ -65,7 +63,5 @@ namespace Fumbbl
         {
             SceneManager.LoadScene(scene.ToString());
         }
-
-        #endregion
     }
 }

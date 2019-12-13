@@ -50,9 +50,8 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
-    #endregion
 
-    #region Custom Methods
+    #endregion
 
     public void SwitchToPreviousScene()
     {
@@ -64,5 +63,4 @@ public class InputHandler : MonoBehaviour
         FFB.Instance.PreviousScene = SceneManager.GetActiveScene().name;
         MainHandler.Instance.SetScene(MainHandler.SceneType.SettingsScene);
     }
-    #endregion
 }

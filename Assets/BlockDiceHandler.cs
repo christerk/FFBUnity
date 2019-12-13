@@ -73,9 +73,8 @@ public class BlockDiceHandler : MonoBehaviour
             trn.sizeDelta = SpacerSize;
         }
     };
-    #endregion
 
-    #region Custom Methods
+    #endregion
 
     private Sprite GetSpriteForRoll(Fumbbl.Model.Types.BlockDie roll)
     {
@@ -89,5 +88,4 @@ public class BlockDiceHandler : MonoBehaviour
             default: return PushSprite;
         }
     }
-    #endregion
 }

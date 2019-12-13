@@ -64,5 +64,6 @@ public class ConnectionHandler : MonoBehaviour
             Progress.SetActive(false);
         }
     }
+
     #endregion
 }

@@ -55,9 +55,8 @@ public class TextPanelHandler : MonoBehaviour
 
         scrollRect.onValueChanged.AddListener(OnScroll);
     }
-    #endregion
 
-    #region Custom Methods
+    #endregion
 
     private void AddChat(string coach, ChatSource source, string text)
     {
@@ -144,5 +143,4 @@ public class TextPanelHandler : MonoBehaviour
     {
         return text?.Replace("<", "<noparse><</noparse>");
     }
-    #endregion
 }
