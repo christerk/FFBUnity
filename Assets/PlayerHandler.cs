@@ -20,7 +20,7 @@ public class PlayerHandler : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void Start()
+    private void Start()
     {
         Background = this.transform.GetChild(0).gameObject;
         Outline = this.transform.GetChild(1).gameObject;
@@ -31,7 +31,7 @@ public class PlayerHandler : MonoBehaviour
         Mask = GetComponent<SpriteMask>();
     }
 
-    void Update()
+    private void Update()
     {
         bool active = string.Equals(FFB.Instance.Model.ActingPlayer.PlayerId, Player.Id);
         Outline.SetActive(active);

@@ -34,7 +34,7 @@ namespace Fumbbl
             FFB.Instance.Stop();
         }
 
-        void Start()
+        private void Start()
         {
             Debug.Log("MainHandler Initialized");
             FFB.Instance.Initialize();

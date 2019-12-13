@@ -15,7 +15,7 @@ public class InputHandler : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void Update()
+    private void Update()
     {
         if (Camera != null)
         {

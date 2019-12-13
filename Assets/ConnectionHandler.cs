@@ -23,7 +23,7 @@ public class ConnectionHandler : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         FFB.Instance.Initialize();
         connected = false;
@@ -34,7 +34,7 @@ public class ConnectionHandler : MonoBehaviour
 
 
     // Update is called once per frame
-    async void Update()
+    private async void Update()
     {
         if (!connected)
         {

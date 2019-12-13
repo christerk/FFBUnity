@@ -17,7 +17,7 @@ public class LoginHandler : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         TryLogin();
 
@@ -38,7 +38,7 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -59,7 +59,7 @@ public class LoginHandler : MonoBehaviour
     //  CUSTOM METHODS  ///////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void Login()
+    private void Login()
     {
         bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 

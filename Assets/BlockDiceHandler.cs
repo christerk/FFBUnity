@@ -29,7 +29,7 @@ public class BlockDiceHandler : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         BlockDice = new ViewObjectList<BlockDie>(
             die =>
@@ -50,7 +50,7 @@ public class BlockDiceHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         var dice = FFB.Instance.Model.BlockDice;
         BlockDice.Refresh(dice, RefreshBlockDie);

@@ -42,22 +42,22 @@ public class FieldHandler : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         FFB.Instance.OnReport -= AddReport;
     }
 
-    void OnMouseEnter()
+    private void OnMouseEnter()
     {
         SquareOverlay.SetActive(true);
     }
 
-    void OnMouseExit()
+    private void OnMouseExit()
     {
         SquareOverlay.SetActive(false);
     }
 
-    void OnMouseOver()
+    private void OnMouseOver()
     {
         var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
         var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
@@ -68,7 +68,7 @@ public class FieldHandler : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         FFB.Instance.OnReport += AddReport;
 
@@ -138,7 +138,7 @@ public class FieldHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         var ball = FFB.Instance.Model.Ball;
 	//TODO: converting player dictionary to list is less than optimal!

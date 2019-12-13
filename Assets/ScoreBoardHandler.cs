@@ -16,7 +16,7 @@ public class ScoreBoardHandler : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         HomeTurn.text = FFB.Instance.Model.TurnHome.ToString();
         AwayTurn.text = FFB.Instance.Model.TurnAway.ToString();

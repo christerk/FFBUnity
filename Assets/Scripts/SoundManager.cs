@@ -19,12 +19,12 @@ public class SoundManager : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void OnDisable()
+    private void OnDisable()
     {
         FFB.Instance.OnSound -= Play;
     }
 
-    void Start()
+    private void Start()
     {
         FFB.Instance.OnSound += Play;
         Object[] AudioFiles;

@@ -33,13 +33,13 @@ public class TextPanelHandler : MonoBehaviour
         LogTextFactory = new ReflectedFactory<LogTextGenerator<Report>, Type>();
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         FFB.Instance.OnChat -= AddChat;
         FFB.Instance.OnReport -= AddReport;
     }
 
-    void OnGUI()
+    private void OnGUI()
     {
         if (Dirty)
         {
@@ -48,7 +48,7 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         Items = new List<TextMeshProUGUI>();
         Content = transform.Find("Viewport/Content").gameObject;
@@ -66,7 +66,7 @@ public class TextPanelHandler : MonoBehaviour
     //  CUSTOM METHODS  ///////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void AddChat(string coach, ChatSource source, string text)
+    private void AddChat(string coach, ChatSource source, string text)
     {
         if (this.panelType == FFB.LogPanelType.Chat)
         {
@@ -83,7 +83,7 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void AddReport(Report report)
+    private void AddReport(Report report)
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {

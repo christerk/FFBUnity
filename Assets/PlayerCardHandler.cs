@@ -32,7 +32,7 @@ public class PlayerCardHandler : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void Start()
+    private void Start()
     {
         Color homeColor = new Color(0.4434f, 0.0376f, 0.0376f, 0.8745f);
         Color awayColor = new Color(0.0392f, 0.1588f, 0.4431f, 0.8745f);

@@ -30,7 +30,7 @@ public class SettingsHandler : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void Start()
+    private void Start()
     {
         fullscreenToggle.isOn = Screen.fullScreen;
 

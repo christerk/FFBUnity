@@ -15,7 +15,7 @@ public class ActionInjectorHandler : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void Start()
+    private void Start()
     {
         Queue = new ConcurrentQueue<Action>();
 
@@ -32,7 +32,7 @@ public class ActionInjectorHandler : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         Action action;
         while (Queue.TryDequeue(out action))

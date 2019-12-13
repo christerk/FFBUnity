@@ -27,7 +27,7 @@ public class GameBrowserHandler : MonoBehaviour
     //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void Start()
+    private void Start()
     {
         Debug.Log("Initialise Game Browser");
         api = new FumbblApi();
@@ -42,7 +42,7 @@ public class GameBrowserHandler : MonoBehaviour
         };
     }
 
-    void Update() {
+    private void Update() {
 
         if (Input.GetKeyUp(KeyCode.G))
         {
@@ -74,7 +74,7 @@ public class GameBrowserHandler : MonoBehaviour
     //  CUSTOM METHODS  ///////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    void RefreshMatches()
+    private void RefreshMatches()
     {
         currentMatches = api.GetCurrentMatches();
         foreach (ApiDto.Match.Current match in currentMatches)
