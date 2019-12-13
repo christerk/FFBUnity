@@ -49,7 +49,6 @@ public class InputHandler : MonoBehaviour
             }
             else
             {
-                FFB.Instance.PreviousScene = currentScene;
                 SwitchToSettingsScene();
             }
         }
@@ -62,6 +61,7 @@ public class InputHandler : MonoBehaviour
 
     public void SwitchToSettingsScene()
     {
+        FFB.Instance.PreviousScene = SceneManager.GetActiveScene().name;
         MainHandler.Instance.SetScene(MainHandler.SceneType.SettingsScene);
     }
 }
