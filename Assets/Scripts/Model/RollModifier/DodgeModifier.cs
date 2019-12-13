@@ -6,9 +6,9 @@
 
         public static DodgeModifier Stunty = new DodgeModifier("Stunty", 0) { SignMode = SignMode.Hidden, ShowModifier = false, ShowName = false };
         public static DodgeModifier BreakTackle = new DodgeModifier("Break Tackle", 0) { SignMode = SignMode.Hidden, ShowModifier = false, ShowName = false };
-        public static DodgeModifier TwoHeads = new DodgeModifier("Two Heads", -1) { };
-        public static DodgeModifier DivingTackle = new DodgeModifier("Diving Tackle", 2) { };
-        public static DodgeModifier Titchy = new DodgeModifier("Titchy", -1) { };
+        public static DodgeModifier TwoHeads = new DodgeModifier("Two Heads", -1);
+        public static DodgeModifier DivingTackle = new DodgeModifier("Diving Tackle", 2);
+        public static DodgeModifier Titchy = new DodgeModifier("Titchy", -1);
         public static DodgeModifier Tacklezone1 = new DodgeModifier("1 Tacklezone", 1) { ShowModifier = false };
         public static DodgeModifier Tacklezone2 = new DodgeModifier("2 Tacklezones", 2) { ShowModifier = false };
         public static DodgeModifier Tacklezone3 = new DodgeModifier("3 Tacklezones", 3) { ShowModifier = false };

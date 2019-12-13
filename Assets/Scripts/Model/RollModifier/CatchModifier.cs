@@ -4,10 +4,10 @@
     {
         public CatchModifier(string name, int modifier) : base(name, modifier) { }
 
-        public static CatchModifier AccuratePass = new CatchModifier("Accurate Pass", -1) { };
+        public static CatchModifier AccuratePass = new CatchModifier("Accurate Pass", -1);
         public static CatchModifier NervesOfSteel = new CatchModifier("Nerves of Steel", 0) { SignMode = SignMode.Hidden, ShowModifier = false, ShowName = false };
-        public static CatchModifier ExtraArms = new CatchModifier("Extra Arms", -1) { };
-        public static CatchModifier PouringRain = new CatchModifier("Pouring Rain", 1) { };
+        public static CatchModifier ExtraArms = new CatchModifier("Extra Arms", -1);
+        public static CatchModifier PouringRain = new CatchModifier("Pouring Rain", 1);
         public static CatchModifier Tacklezone1 = new CatchModifier("1 Tacklezone", 1) { ShowModifier = false };
         public static CatchModifier Tacklezone2 = new CatchModifier("2 Tacklezones", 2) { ShowModifier = false };
         public static CatchModifier Tacklezone3 = new CatchModifier("3 Tacklezones", 3) { ShowModifier = false };
@@ -27,7 +27,7 @@
         public static CatchModifier DisturbingPresence9 = new CatchModifier("9 Disturbing Presences", 9) { ShowModifier = false };
         public static CatchModifier DisturbingPresence10 = new CatchModifier("10 Disturbing Presences", 10) { ShowModifier = false };
         public static CatchModifier DisturbingPresence11 = new CatchModifier("11 Disturbing Presences", 11) { ShowModifier = false };
-        public static CatchModifier DivingCatch = new CatchModifier("Diving Catch", -1) { };
-        public static CatchModifier HandOff = new CatchModifier("Hand Off", -1) { };
+        public static CatchModifier DivingCatch = new CatchModifier("Diving Catch", -1);
+        public static CatchModifier HandOff = new CatchModifier("Hand Off", -1);
     }
 }

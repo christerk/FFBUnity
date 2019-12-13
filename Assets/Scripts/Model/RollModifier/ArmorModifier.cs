@@ -2,12 +2,12 @@
 {
     public class ArmorModifier : AbstractModifier
     {
-        public ArmorModifier(string name, int modifier) : base(name, modifier) { 
+        public ArmorModifier(string name, int modifier) : base(name, modifier) {
             SignMode = SignMode.Negative;
         }
 
         public static ArmorModifier Claws = new ArmorModifier("Claws", 0) { SignMode = SignMode.Hidden, ShowModifier = false, ShowName = false };
-        public static ArmorModifier MightyBlow = new ArmorModifier("Mighty Blow", 1) { };
+        public static ArmorModifier MightyBlow = new ArmorModifier("Mighty Blow", 1);
         public static ArmorModifier OffensiveAssist1 = new ArmorModifier("1 Offensive Assist", 1) { ShowModifier = false };
         public static ArmorModifier OffensiveAssist2 = new ArmorModifier("2 Offensive Assists", 2) { ShowModifier = false };
         public static ArmorModifier OffensiveAssist3 = new ArmorModifier("3 Offensive Assists", 3) { ShowModifier = false };
@@ -20,9 +20,9 @@
         public static ArmorModifier DefensiveAssist3 = new ArmorModifier("3 Defensive Assists", -3) { ShowModifier = false };
         public static ArmorModifier DefensiveAssist4 = new ArmorModifier("4 Defensive Assists", -4) { ShowModifier = false };
         public static ArmorModifier DefensiveAssist5 = new ArmorModifier("5 Defensive Assists", -5) { ShowModifier = false };
-        public static ArmorModifier DirtyPlayer = new ArmorModifier("Dirty Player", 1) { };
-        public static ArmorModifier Stakes = new ArmorModifier("Stakes", 1) { };
-        public static ArmorModifier Chainsaw = new ArmorModifier("Chainsaw", 3) { };
-        public static ArmorModifier Foul = new ArmorModifier("Foul", 1) { };
+        public static ArmorModifier DirtyPlayer = new ArmorModifier("Dirty Player", 1);
+        public static ArmorModifier Stakes = new ArmorModifier("Stakes", 1);
+        public static ArmorModifier Chainsaw = new ArmorModifier("Chainsaw", 3);
+        public static ArmorModifier Foul = new ArmorModifier("Foul", 1);
     }
 }
