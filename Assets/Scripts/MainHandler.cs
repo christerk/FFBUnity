@@ -18,9 +18,20 @@ namespace Fumbbl
             GameBrowserScene
         }
 
+
+
+        ///////////////////////////////////////////////////////////////////////
+        //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void OnApplicationQuit()
+        {
+            FFB.Instance.Stop();
         }
 
         void Start()
@@ -30,14 +41,20 @@ namespace Fumbbl
             FFB.Instance.RefreshState();
         }
 
-        public void AddReport(Report text)
-        {
-            FFB.Instance.AddReport(text);
-        }
+
+
+        ///////////////////////////////////////////////////////////////////////
+        //  CUSTOM METHODS  ///////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
 
         public void AddChatEntry(string text)
         {
             _ = FFB.Instance.Network.Send(new ClientTalk() { talk = text });
+        }
+
+        public void AddReport(Report text)
+        {
+            FFB.Instance.AddReport(text);
         }
 
         public void QuitGame()
@@ -45,19 +62,14 @@ namespace Fumbbl
             Application.Quit();
         }
 
-        private void OnApplicationQuit()
+        internal void SetScene(string scene)
         {
-            FFB.Instance.Stop();
+            SceneManager.LoadScene(scene);
         }
 
         public void SetScene(SceneType scene)
         {
             SceneManager.LoadScene(scene.ToString());
-        }
-
-        internal void SetScene(string scene)
-        {
-            SceneManager.LoadScene(scene);
         }
     }
 }

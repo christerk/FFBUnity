@@ -10,11 +10,15 @@ public class PlayerHandler : MonoBehaviour
     private GameObject Prone;
     private GameObject Stunned;
     private Renderer BackgroundRenderer;
-    SpriteMask Mask;
-
+    private SpriteMask Mask;
+    public Player Player;
     public bool HasIcon;
 
-    public Player Player;
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     void Start()
     {

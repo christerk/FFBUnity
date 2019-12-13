@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class ScoreBoardHandler : MonoBehaviour
 {
-    public TMPro.TextMeshProUGUI HomeScore;
     public TMPro.TextMeshProUGUI AwayScore;
-    public TMPro.TextMeshProUGUI HomeTurn;
     public TMPro.TextMeshProUGUI AwayTurn;
     public TMPro.TextMeshProUGUI HalfText;
+    public TMPro.TextMeshProUGUI HomeScore;
+    public TMPro.TextMeshProUGUI HomeTurn;
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     // Update is called once per frame
     void Update()

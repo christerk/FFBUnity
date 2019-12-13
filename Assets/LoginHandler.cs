@@ -4,11 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class LoginHandler : MonoBehaviour
 {
-    public GameObject LoginPanel;
     public GameObject ConnectingLabel;
-    public string NextScene;
+    public GameObject LoginPanel;
     public TMPro.TMP_InputField CoachField;
     public TMPro.TMP_InputField PasswordField;
+    public string NextScene;
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +38,41 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (CoachField.isFocused)
+            {
+                PasswordField.ActivateInputField();
+            }
+            else
+            {
+                CoachField.ActivateInputField();
+            };
+        }
+    }
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    void Login()
+    {
+        bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
+
+        if (success)
+        {
+            TryLogin();
+        }
+        else
+        {
+            CoachField.ActivateInputField();
+        }
+    }
+
     private void TryLogin()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
@@ -49,35 +90,6 @@ public class LoginHandler : MonoBehaviour
         {
             LoginPanel.SetActive(true);
             ConnectingLabel.SetActive(false);
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (CoachField.isFocused)
-            {
-                PasswordField.ActivateInputField();
-            }
-            else
-            {
-                CoachField.ActivateInputField();
-            };
-        }
-    }
-
-    void Login()
-    {
-        bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
-
-        if (success)
-        {
-            TryLogin();
-        }
-        else
-        {
-            CoachField.ActivateInputField();
         }
     }
 }

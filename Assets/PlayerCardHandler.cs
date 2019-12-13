@@ -8,24 +8,29 @@ using Fumbbl;
 
 public class PlayerCardHandler : MonoBehaviour
 {
-    public Sprite HomeBG;
+    private string ShownPlayerId;
+
     public Sprite AwayBG;
     public Sprite EmptyPortrait;
-    public bool Home;
+    public Sprite HomeBG;
+    public SpriteRenderer background;
+    public SpriteRenderer portrait;
     public TMPro.TextMeshPro Name;
     public TMPro.TextMeshPro Position;
+    public TMPro.TextMeshPro SPP;
+    public TMPro.TextMeshPro Level;
     public TMPro.TextMeshPro MA;
     public TMPro.TextMeshPro ST;
     public TMPro.TextMeshPro AG;
     public TMPro.TextMeshPro AV;
-    public TMPro.TextMeshPro SPP;
-    public TMPro.TextMeshPro Level;
     public TMPro.TextMeshPro Skills;
-    
-    public SpriteRenderer background;
-    public SpriteRenderer portrait;
+    public bool Home;
 
-    private string ShownPlayerId;
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     void Start()
     {
@@ -33,6 +38,12 @@ public class PlayerCardHandler : MonoBehaviour
         Color awayColor = new Color(0.0392f, 0.1588f, 0.4431f, 0.8745f);
         background.sprite = Home ? HomeBG : AwayBG;
     }
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     public void SetPlayer(Player player)
     {

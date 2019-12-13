@@ -10,25 +10,42 @@ using static Fumbbl.FFB;
 
 public class TextPanelHandler : MonoBehaviour
 {
-    public FFB.LogPanelType panelType;
-
-    public TMPro.TextMeshProUGUI LogTextPrefab;
-    public bool EnableOcclusion;
-
     private GameObject Content;
-    private RectTransform ContentRect;
-    private ScrollRect scrollRect;
-
     private List<TMPro.TextMeshProUGUI> Items;
-
+    private RectTransform ContentRect;
+    private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
+    private ScrollRect scrollRect;
     private bool Dirty = false;
     private float contentHeight;
 
-    private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
+    public FFB.LogPanelType panelType;
+    public TMPro.TextMeshProUGUI LogTextPrefab;
+    public bool EnableOcclusion;
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     private void Awake()
     {
         LogTextFactory = new ReflectedFactory<LogTextGenerator<Report>, Type>();
+    }
+
+    void OnDisable()
+    {
+        FFB.Instance.OnChat -= AddChat;
+        FFB.Instance.OnReport -= AddReport;
+    }
+
+    void OnGUI()
+    {
+        if (Dirty)
+        {
+            Dirty = false;
+            scrollRect.normalizedPosition = Vector2.zero;
+        }
     }
 
     void Start()
@@ -43,24 +60,11 @@ public class TextPanelHandler : MonoBehaviour
         scrollRect.onValueChanged.AddListener(OnScroll);
     }
 
-    public static string SanitizeText(string text)
-    {
-        return text?.Replace("<", "<noparse><</noparse>");
-    }
 
-    public void OnScroll(Vector2 pos)
-    {
-        float height = ((RectTransform)this.gameObject.transform).rect.height;
-        float viewportTop = Content.transform.localPosition.y - height / 2;
-        float viewportBottom = viewportTop + height;
 
-        foreach (var item in Items)
-        {
-            float itemPos = -item.rectTransform.localPosition.y;
-            float itemHeight = item.rectTransform.rect.height;
-            item.enabled = !EnableOcclusion || (itemPos + itemHeight >= viewportTop && itemPos <= viewportBottom);
-        }
-    }
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     void AddChat(string coach, ChatSource source, string text)
     {
@@ -129,18 +133,22 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void OnGUI()
+    public void OnScroll(Vector2 pos)
     {
-        if (Dirty)
+        float height = ((RectTransform)this.gameObject.transform).rect.height;
+        float viewportTop = Content.transform.localPosition.y - height / 2;
+        float viewportBottom = viewportTop + height;
+
+        foreach (var item in Items)
         {
-            Dirty = false;
-            scrollRect.normalizedPosition = Vector2.zero;
+            float itemPos = -item.rectTransform.localPosition.y;
+            float itemHeight = item.rectTransform.rect.height;
+            item.enabled = !EnableOcclusion || (itemPos + itemHeight >= viewportTop && itemPos <= viewportBottom);
         }
     }
 
-    void OnDisable()
+    public static string SanitizeText(string text)
     {
-        FFB.Instance.OnChat -= AddChat;
-        FFB.Instance.OnReport -= AddReport;
+        return text?.Replace("<", "<noparse><</noparse>");
     }
 }

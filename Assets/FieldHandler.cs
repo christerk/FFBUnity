@@ -13,33 +13,59 @@ using UnityEngine.UI;
 
 public class FieldHandler : MonoBehaviour
 {
-    public Camera MainCamera;
-    public GameObject PlayerIconPrefab;
-    public GameObject AbstractIconPrefab;
-    public GameObject Field;
-    public GameObject DugoutHome;
-    public GameObject DugoutAway;
-    public GameObject BallPrefab;
-    public GameObject ArrowPrefab;
-    public GameObject TrackNumberPrefab;
-    public GameObject ScrollTextPrefab;
-
-    public GameObject PlayerCardHome;
-    public GameObject PlayerCardAway;
-
-    public GameObject SquareOverlay;
-
-    public TMPro.TextMeshProUGUI HomeTeamText;
-    public TMPro.TextMeshProUGUI AwayTeamText;
-
     private GameObject Ball;
+    private Player HoverPlayer;
+    private RectTransform FieldRect;
     private ViewObjectList<Player> Players;
     private ViewObjectList<PushbackSquare> PushbackSquares;
     private ViewObjectList<TrackNumber> TrackNumbers;
 
-    private RectTransform FieldRect;
+    public Camera MainCamera;
+    public GameObject AbstractIconPrefab;
+    public GameObject ArrowPrefab;
+    public GameObject BallPrefab;
+    public GameObject DugoutAway;
+    public GameObject DugoutHome;
+    public GameObject Field;
+    public GameObject PlayerCardAway;
+    public GameObject PlayerCardHome;
+    public GameObject PlayerIconPrefab;
+    public GameObject ScrollTextPrefab;
+    public GameObject SquareOverlay;
+    public GameObject TrackNumberPrefab;
+    public TMPro.TextMeshProUGUI AwayTeamText;
+    public TMPro.TextMeshProUGUI HomeTeamText;
 
-    private Player HoverPlayer;
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    void OnDestroy()
+    {
+        FFB.Instance.OnReport -= AddReport;
+    }
+
+    void OnMouseEnter()
+    {
+        SquareOverlay.SetActive(true);
+    }
+
+    void OnMouseExit()
+    {
+        SquareOverlay.SetActive(false);
+    }
+
+    void OnMouseOver()
+    {
+        var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
+        var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
+        var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
+        // x,y is the zero-based field square coordinate.
+
+        Highlight(x, y);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -108,26 +134,6 @@ public class FieldHandler : MonoBehaviour
         if (FFB.Instance.Model.TeamAway != null)
         {
             AwayTeamText.text = FFB.Instance.Model.TeamAway.Name.ToUpper();
-        }
-    }
-
-    private void AddReport(Report report)
-    {
-        if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
-        {
-            var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
-            if (action.ShowActivity)
-            {
-                Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
-                var scrollText = Instantiate(ScrollTextPrefab);
-                scrollText.gameObject.transform.SetParent(Field.transform);
-                var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
-                text.text = action.ShortDescription;
-                Vector3 coords = FieldToWorldCoordinates(player.Coordinate.X, player.Coordinate.Y, 5);
-                coords.y += 100;
-                scrollText.gameObject.transform.localPosition = coords;
-                scrollText.GetComponent<Animator>().SetTrigger("Scroll");
-            }
         }
     }
 
@@ -257,30 +263,30 @@ public class FieldHandler : MonoBehaviour
         }
     }
 
-    void OnMouseOver()
-    {
-        var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
-        var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
-        var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
-        // x,y is the zero-based field square coordinate.
 
-        Highlight(x, y);
-    }
 
-    private void Highlight(int x, int y)
-    {
-        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(x, y, 1);
-        HoverPlayer = FFB.Instance.Model.GetPlayer(x, y);
-    }
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
-    void OnMouseEnter()
+    private void AddReport(Report report)
     {
-        SquareOverlay.SetActive(true);
-    }
-
-    void OnMouseExit()
-    {
-        SquareOverlay.SetActive(false);
+        if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
+        {
+            var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
+            if (action.ShowActivity)
+            {
+                Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
+                var scrollText = Instantiate(ScrollTextPrefab);
+                scrollText.gameObject.transform.SetParent(Field.transform);
+                var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
+                text.text = action.ShortDescription;
+                Vector3 coords = FieldToWorldCoordinates(player.Coordinate.X, player.Coordinate.Y, 5);
+                coords.y += 100;
+                scrollText.gameObject.transform.localPosition = coords;
+                scrollText.GetComponent<Animator>().SetTrigger("Scroll");
+            }
+        }
     }
 
     internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
@@ -291,16 +297,17 @@ public class FieldHandler : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
+    private void Highlight(int x, int y)
+    {
+        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(x, y, 1);
+        HoverPlayer = FFB.Instance.Model.GetPlayer(x, y);
+    }
+
     internal Vector3 ToDugoutCoordinates(int index)
     {
         int x = index % 5;
         int y = index / 5;
 
         return new Vector3(x * 144 - 280, 160 - y * 144, 0);
-    }
-
-    void OnDestroy()
-    {
-        FFB.Instance.OnReport -= AddReport;
     }
 }

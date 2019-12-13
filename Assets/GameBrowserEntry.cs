@@ -7,18 +7,37 @@ using UnityEngine.UI;
 
 public class GameBrowserEntry : MonoBehaviour
 {
-    public TMPro.TextMeshProUGUI team1;
-    public Image team1Image;
-    public TMPro.TextMeshProUGUI team1Score;
-    public TMPro.TextMeshProUGUI team1Info;
-    public TMPro.TextMeshProUGUI team2;
-    public Image team2Image;
-    public TMPro.TextMeshProUGUI team2Score;
-    public TMPro.TextMeshProUGUI team2Info;
+    private Current matchDetails;
+
     public Image progressBar;
+    public Image team1Image;
+    public Image team2Image;
+    public TMPro.TextMeshProUGUI team1;
+    public TMPro.TextMeshProUGUI team1Info;
+    public TMPro.TextMeshProUGUI team1Score;
+    public TMPro.TextMeshProUGUI team2;
+    public TMPro.TextMeshProUGUI team2Info;
+    public TMPro.TextMeshProUGUI team2Score;
     public TMPro.TextMeshProUGUI turnIndicator;
 
-    private Current matchDetails;
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void OnClick()
+    {
+        FFB.Instance.Stop();
+        FFB.Instance.Connect(matchDetails.id);
+        MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
+    }
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     public void SetMatchDetails(Current details)
     {
@@ -45,12 +64,5 @@ public class GameBrowserEntry : MonoBehaviour
         {
             Debug.LogError("Invalid number of teams found when parsing match details");
         }
-    }
-
-    public void OnClick()
-    {
-        FFB.Instance.Stop();
-        FFB.Instance.Connect(matchDetails.id);
-        MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
     }
 }

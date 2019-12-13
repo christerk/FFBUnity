@@ -9,9 +9,20 @@ using Fumbbl;
 
 public class SoundManager : MonoBehaviour
 {
-
     private Dictionary<string, AudioClip> SoundEffectClips;
+
     public AudioSource SoundEffectSource;
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    void OnDisable()
+    {
+        FFB.Instance.OnSound -= Play;
+    }
 
     void Start()
     {
@@ -27,6 +38,12 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
     public void Play(string sound)
     {
         AudioClip clip = SoundEffectClips[sound];
@@ -34,10 +51,5 @@ public class SoundManager : MonoBehaviour
         {
             SoundEffectSource.PlayOneShot(clip, FFB.Instance.Settings.Sound.GlobalVolume);
         }
-    }
-
-    void OnDisable()
-    {
-        FFB.Instance.OnSound -= Play;
     }
 }

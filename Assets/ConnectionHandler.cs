@@ -9,12 +9,19 @@ using UnityEngine;
 
 public class ConnectionHandler : MonoBehaviour
 {
-    public GameObject Progress;
-    private bool connected;
-
     private RectTransform ProgressRect;
+    private bool connected;
     private int PlayersToLoad = 0;
     private int progress = 0;
+
+    public GameObject Progress;
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +30,8 @@ public class ConnectionHandler : MonoBehaviour
         PlayersToLoad = 0;
         ProgressRect = Progress.GetComponent<RectTransform>();
     }
+
+
 
     // Update is called once per frame
     async void Update()

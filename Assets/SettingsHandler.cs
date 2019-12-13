@@ -6,20 +6,29 @@ using UnityEngine.UI;
 
 public class SettingsHandler : MonoBehaviour
 {
-    public Toggle fullscreenToggle;
-    public TMP_Dropdown resolutions;
-    public TMP_InputField clientId;
-    public TMP_InputField clientSecret;
-    public GameObject initialPanel;
-    public Toggle AbstractIconsToggle;
+    private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
 
     public GameObject currentPanel;
+    public GameObject initialPanel;
 
+    // Graphics Panel
+    public TMP_Dropdown resolutions;
+    public Toggle AbstractIconsToggle;
+    public Toggle fullscreenToggle;
+
+    // Sound Panel
+    public Slider VolumeSlider;
     public Toggle SoundEnableToggle;
 
-    public Slider VolumeSlider;
+    // DebugPanel
+    public TMP_InputField clientId;
+    public TMP_InputField clientSecret;
 
-    private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     void Start()
     {
@@ -69,6 +78,26 @@ public class SettingsHandler : MonoBehaviour
         VolumeSlider.value = FFB.Instance.Settings.Sound.GlobalVolume;
     }
 
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void Logout()
+    {
+        FFB.Instance.Stop();
+        PlayerPrefs.DeleteKey("OAuth.ClientId");
+        PlayerPrefs.DeleteKey("OAuth.ClientSecret");
+        MainHandler.Instance.SetScene(MainHandler.SceneType.LoginScene);
+    }
+
+    public void Quit()
+    {
+        FFB.Instance.Stop();
+        MainHandler.Instance.QuitGame();
+    }
+
     public void ShowPanel(GameObject panel)
     {
         Debug.Log(GetHashCode());
@@ -83,26 +112,6 @@ public class SettingsHandler : MonoBehaviour
         }
     }
 
-    private bool AllowResolution(Resolution r)
-    {
-        return r.width >= 1024 && r.height >= 768;
-    }
-
-    private int GetResolutionKey(Resolution r)
-    {
-        return GetResolutionKey(r.width, r.height);
-    }
-    private int GetResolutionKey(int width, int height)
-    {
-        return width * 100000 + height;
-    }
-
-    public void SetOAuth()
-    {
-        PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
-        PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
-    }
-
     public void SwitchToGameBrowser()
     {
         FFB.Instance.Stop();
@@ -113,16 +122,33 @@ public class SettingsHandler : MonoBehaviour
     {
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
     }
-
     public void SwitchToPreviousScene()
     {
         MainHandler.Instance.SetScene(FFB.Instance.PreviousScene);
     }
 
-    public void Quit()
+
+    // Graphics Panel
+
+    private bool AllowResolution(Resolution r)
     {
-        FFB.Instance.Stop();
-        MainHandler.Instance.QuitGame();
+        return r.width >= 1024 && r.height >= 768;
+    }
+
+    private int GetResolutionKey(Resolution r)
+    {
+        return GetResolutionKey(r.width, r.height);
+    }
+
+    private int GetResolutionKey(int width, int height)
+    {
+        return width * 100000 + height;
+    }
+
+    public void UpdateAbstractIcons()
+    {
+        FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
+        FFB.Instance.Settings.Save();
     }
 
     public void UpdateResolution()
@@ -142,11 +168,9 @@ public class SettingsHandler : MonoBehaviour
         resolutions.gameObject.SetActive(!fullscreenToggle.isOn);
     }
 
-    public void UpdateAbstractIcons()
-    {
-        FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
-        FFB.Instance.Settings.Save();
-    }
+
+    // Sound Panel
+
     public void UpdateEnableSound()
     {
         FFB.Instance.Settings.Sound.Mute = !SoundEnableToggle.isOn;
@@ -158,11 +182,13 @@ public class SettingsHandler : MonoBehaviour
         FFB.Instance.Settings.Sound.GlobalVolume = VolumeSlider.value;
         FFB.Instance.Settings.Save();
     }
-    public void Logout()
+
+
+    // Debug Panel
+
+    public void SetOAuth()
     {
-        FFB.Instance.Stop();
-        PlayerPrefs.DeleteKey("OAuth.ClientId");
-        PlayerPrefs.DeleteKey("OAuth.ClientSecret");
-        MainHandler.Instance.SetScene(MainHandler.SceneType.LoginScene);
+        PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
+        PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
     }
 }

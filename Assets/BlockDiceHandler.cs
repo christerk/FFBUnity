@@ -9,21 +9,24 @@ using static Fumbbl.Model.Types.BlockDie;
 
 public class BlockDiceHandler : MonoBehaviour
 {
+    private ViewObjectList<BlockDie> BlockDice;
+    private static Vector2 FullSize = new Vector2(40, 40);
+    private static Vector2 SmallSize = new Vector2(30, 30);
+    private static Vector2 SpacerSize = new Vector2(12, 30);
+
+    public GameObject BlockDiePrefab;
     public Sprite SkullSprite;
     public Sprite BothDownSprite;
     public Sprite PushSprite;
     public Sprite PushPowSprite;
     public Sprite PowSprite;
-
-    public GameObject BlockDiePrefab;
-
-    private ViewObjectList<BlockDie> BlockDice;
-
     public Transform ContentObject;
 
-    private static Vector2 FullSize = new Vector2(40, 40);
-    private static Vector2 SmallSize = new Vector2(30, 30);
-    private static Vector2 SpacerSize = new Vector2(12, 30);
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +80,12 @@ public class BlockDiceHandler : MonoBehaviour
             trn.sizeDelta = SpacerSize;
         }
     };
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     private Sprite GetSpriteForRoll(Fumbbl.Model.Types.BlockDie roll)
     {
