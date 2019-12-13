@@ -136,6 +136,7 @@ public class TextPanelHandler : MonoBehaviour
 
     void OnDisable()
     {
+        FFB.Instance.OnChat -= AddChat;
         FFB.Instance.OnReport -= AddReport;
     }
 }
