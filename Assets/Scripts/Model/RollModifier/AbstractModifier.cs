@@ -22,6 +22,7 @@ namespace Fumbbl.Model.RollModifier
             Name = name;
             Modifier = modifier;
         }
+
         public string ModifierString
         {
             get
