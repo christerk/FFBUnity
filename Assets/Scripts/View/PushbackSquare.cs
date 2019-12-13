@@ -1,8 +1,10 @@
-﻿namespace Fumbbl.View
+﻿using Fumbbl.Model.Types;
+
+namespace Fumbbl.View
 {
     public class PushbackSquare : ViewObject<PushbackSquare>
     {
-        public Fumbbl.Model.Types.Coordinate Coordinate { get; set; }
+        public Coordinate Coordinate { get; set; }
         public string Direction;
         public bool HomeChoice;
         public bool Locked;
@@ -12,7 +14,7 @@
 
         public PushbackSquare(Ffb.Dto.ModelChanges.PushbackSquare square)
         {
-            Coordinate = Model.Types.Coordinate.Create(square.coordinate);
+            Coordinate = Coordinate.Create(square.coordinate);
             Direction = square.direction.key;
             HomeChoice = square.homeChoice;
             Locked = square.locked;
