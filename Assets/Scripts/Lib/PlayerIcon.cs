@@ -85,22 +85,18 @@ namespace Fumbbl.Lib
             var srcIconSize = s.texture.width / 4;
             var numIcons = s.texture.height / srcIconSize;
 
-            var srcMipLevels = s.texture.mipmapCount;
-
-            Texture2D dest = new Texture2D(4 * NormalizedIconSize, NormalizedIconSize * numIcons, s.texture.format, srcMipLevels, true);
+            Texture2D dest = new Texture2D(4 * NormalizedIconSize, NormalizedIconSize * numIcons, s.texture.format, false);
 
             Color transparent = new Color(0f, 0f, 0f, 0f);
 
-            for (int mip = 0; mip < srcMipLevels; mip++)
+            Color[] data = dest.GetPixels(0);
+            for (int i = 0; i < data.Length; i++)
             {
-                Color[] data = dest.GetPixels(mip);
-                for (int i = 0; i < data.Length; i++)
-                {
-                    data[i] = Color.clear;
-                }
-                dest.SetPixels(data, mip);
+                data[i] = Color.clear;
             }
-            dest.Apply();
+            dest.SetPixels(data);
+
+            dest.Apply(false);
 
             var destMip = 0;
             for (int y = 0; y < numIcons; y++)
@@ -127,7 +123,7 @@ namespace Fumbbl.Lib
             }
             else
             {
-                var srcPixels = s.texture.GetPixels32();
+                var srcPixels = s.texture.GetPixels32(0);
                 var destPixels = dest.GetPixels32();
 
                 int srcOriginX = x * srcIconSize;
@@ -153,7 +149,7 @@ namespace Fumbbl.Lib
                     }
                 }
                 dest.SetPixels32(destPixels);
-                dest.Apply();
+                dest.Apply(false);
             }
         }
     }
