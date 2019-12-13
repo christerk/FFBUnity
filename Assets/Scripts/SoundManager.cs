@@ -30,9 +30,9 @@ public class SoundManager : MonoBehaviour
     public void Play(string sound)
     {
         AudioClip clip = SoundEffectClips[sound];
-        if(clip != null)
+        if(clip != null && !FFB.Instance.Settings.Sound.Mute)
         {
-            SoundEffectSource.PlayOneShot(clip);
+            SoundEffectSource.PlayOneShot(clip, FFB.Instance.Settings.Sound.GlobalVolume);
         }
     }
 
