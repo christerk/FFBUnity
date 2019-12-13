@@ -2,13 +2,13 @@
 {
     public class SeriousInjury : FfbEnumerationFactory
     {
+        public SeriousInjury(string name) : base(name) { }
+
         public string ButtonText;
         public string Description;
         public string Recovery;
         public bool Lasting;
         public InjuryAttribute InjuryAttribute;
-
-        public SeriousInjury(string name) : base(name) { }
 
         public static SeriousInjury BrokenRibsMNG = new SeriousInjury("Broken Ribs (MNG)") { ButtonText = "Broken Ribs (Miss next game)", Description = "has broken some ribs (Miss next game)", Recovery = "is recovering from broken ribs", Lasting = false, InjuryAttribute = null };
         public static SeriousInjury GroinStrainMNG = new SeriousInjury("Groin Strain (MNG)") { ButtonText = "Groin Strain (Miss next game)", Description = "has got a groin strain (Miss next game)", Recovery = "is recovering from a groin strain", Lasting = false, InjuryAttribute = null };
