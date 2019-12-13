@@ -4,8 +4,6 @@
     {
         public int? modelChangeValue;
 
-        public FieldModelSetPlayerState() : base("fieldModelSetPlayerState")
-        {
-        }
+        public FieldModelSetPlayerState() : base("fieldModelSetPlayerState") { }
     }
 }

@@ -4,8 +4,6 @@
     {
         public FfbDialog modelChangeValue;
 
-        public GameSetDialogParameter() : base("gameSetDialogParameter")
-        {
-        }
+        public GameSetDialogParameter() : base("gameSetDialogParameter") { }
     }
 }

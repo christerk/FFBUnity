@@ -4,8 +4,6 @@
     {
         public int? modelChangeValue;
 
-        public GameSetHalf() : base("gameSetHalf")
-        {
-        }
+        public GameSetHalf() : base("gameSetHalf") { }
     }
 }

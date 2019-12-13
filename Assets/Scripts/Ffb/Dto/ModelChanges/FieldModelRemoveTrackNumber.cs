@@ -4,8 +4,6 @@
     {
         public TrackNumber modelChangeValue;
 
-        public FieldModelRemoveTrackNumber() : base("fieldModelRemoveTrackNumber")
-        {
-        }
+        public FieldModelRemoveTrackNumber() : base("fieldModelRemoveTrackNumber") { }
     }
 }

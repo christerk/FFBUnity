@@ -4,8 +4,6 @@
     {
         public PushbackSquare modelChangeValue;
 
-        public FieldModelRemovePushbackSquare() : base("fieldModelRemovePushbackSquare")
-        {
-        }
+        public FieldModelRemovePushbackSquare() : base("fieldModelRemovePushbackSquare") { }
     }
 }

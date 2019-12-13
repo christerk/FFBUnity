@@ -4,8 +4,6 @@
     {
         public bool modelChangeValue;
 
-        public GameSetHomePlaying() : base("gameSetHomePlaying")
-        {
-        }
+        public GameSetHomePlaying() : base("gameSetHomePlaying") { }
     }
 }

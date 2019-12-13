@@ -4,8 +4,6 @@
     {
         public TrackNumber modelChangeValue;
 
-        public FieldModelAddTrackNumber() : base("fieldModelAddTrackNumber")
-        {
-        }
+        public FieldModelAddTrackNumber() : base("fieldModelAddTrackNumber") { }
     }
 }

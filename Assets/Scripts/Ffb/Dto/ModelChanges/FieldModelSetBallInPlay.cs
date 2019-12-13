@@ -4,8 +4,6 @@
     {
         public bool modelChangeValue;
 
-        public FieldModelSetBallInPlay() : base("fieldModelSetBallInPlay")
-        {
-        }
+        public FieldModelSetBallInPlay() : base("fieldModelSetBallInPlay") { }
     }
 }

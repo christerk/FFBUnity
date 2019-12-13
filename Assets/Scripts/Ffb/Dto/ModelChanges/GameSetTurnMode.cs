@@ -4,8 +4,6 @@
     {
         public FFBEnumeration modelChangeValue;
 
-        public GameSetTurnMode() : base("gameSetTurnMode")
-        {
-        }
+        public GameSetTurnMode() : base("gameSetTurnMode") { }
     }
 }

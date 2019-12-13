@@ -4,8 +4,6 @@
     {
         public int modelChangeValue;
 
-        public TurnDataSetTurnNr() : base("turnDataSetTurnNr")
-        {
-        }
+        public TurnDataSetTurnNr() : base("turnDataSetTurnNr") { }
     }
 }

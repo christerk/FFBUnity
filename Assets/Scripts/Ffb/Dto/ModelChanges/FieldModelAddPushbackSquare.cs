@@ -4,8 +4,6 @@
     {
         public PushbackSquare modelChangeValue;
 
-        public FieldModelAddPushbackSquare() : base("fieldModelAddPushbackSquare")
-        {
-        }
+        public FieldModelAddPushbackSquare() : base("fieldModelAddPushbackSquare") { }
     }
 }
