@@ -25,6 +25,7 @@ namespace Fumbbl
         private readonly List<ChatEntry> ChatText;
         public ActionInjectorHandler ActionInjector;
 
+        public Settings Settings;
         public Core Model { get; }
         public string CoachName { get; private set; }
 
@@ -59,6 +60,8 @@ namespace Fumbbl
 
         private FFB()
         {
+            Settings = new Settings();
+            Settings.Load();
             SpriteCache = new Lib.Cache<Sprite>(url => FumbblApi.GetSpriteAsync(url));
             LogText = new List<Report>();
             ChatText = new List<ChatEntry>();
@@ -228,7 +231,8 @@ namespace Fumbbl
                     positions[pos.positionId] = new Position() {
                         AbstractLabel = pos.shorthand,
                         Name = pos.positionName,
-                        IconURL = pos.urlIconSet
+                        IconURL = pos.urlIconSet,
+                        PortraitURL = pos.urlPortrait,
                     };
                     if (pos.skillArray != null)
                     {
@@ -249,6 +253,8 @@ namespace Fumbbl
                         Strength = p.strength,
                         Agility = p.agility,
                         Armour = p.armour,
+                        PortraitURL = p.urlPortrait,
+
                     };
                     if (p.skillArray != null)
                     {
@@ -271,7 +277,8 @@ namespace Fumbbl
                     {
                         AbstractLabel = pos.shorthand,
                         Name = pos.positionName,
-                        IconURL = pos.urlIconSet
+                        IconURL = pos.urlIconSet,
+                        PortraitURL = pos.urlPortrait,
                     };
                     if (pos.skillArray != null)
                     {
@@ -293,6 +300,7 @@ namespace Fumbbl
                         Strength = p.strength,
                         Agility = p.agility,
                         Armour = p.armour,
+                        PortraitURL = p.urlPortrait,
                     };
                     if (p.skillArray != null) {
                         player.Skills.AddRange(p.skillArray.Select(s => s.key));

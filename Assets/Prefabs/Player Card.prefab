@@ -80,9 +80,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 21.62, y: -56}
+  m_AnchoredPosition: {x: 68.1, y: -126.4}
   m_SizeDelta: {x: 95, y: 147}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2522389416630405316
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4d3d7028f3a59f948a00c35fdb59998e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -386,7 +386,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &8190209798119187430
 MeshFilter:
@@ -589,7 +589,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &971782415150188146
 MeshFilter:
@@ -792,7 +792,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &885713236540120410
 MeshFilter:
@@ -1043,7 +1043,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &4881383338584676406
 MeshFilter:
@@ -1246,7 +1246,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &8280540818950864752
 MeshFilter:
@@ -1449,7 +1449,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &6942656604039670040
 MeshFilter:
@@ -1652,7 +1652,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &3061190892062172269
 MeshFilter:
@@ -1781,7 +1781,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 877726631626989707}
-  - component: {fileID: 3453324736384150092}
   - component: {fileID: 3783502709305937711}
   m_Layer: 8
   m_Name: Player Card
@@ -1819,14 +1818,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 240, y: 510}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3453324736384150092
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6795124815321139549}
-  m_CullTransparentMesh: 0
 --- !u!114 &3783502709305937711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1841,6 +1832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HomeBG: {fileID: 21300000, guid: 9488bf201d19f284689e3047d1f376e6, type: 3}
   AwayBG: {fileID: 21300000, guid: c1f29d53e250f6743922dd733245e877, type: 3}
+  EmptyPortrait: {fileID: 0}
   Home: 0
   Name: {fileID: 5079144807960315104}
   Position: {fileID: 3749226343009128103}
@@ -1852,6 +1844,7 @@ MonoBehaviour:
   Level: {fileID: 2940265096434362707}
   Skills: {fileID: 3856390623464197812}
   background: {fileID: 4080256453948790608}
+  portrait: {fileID: 5388307688729291643}
 --- !u!1 &7713404365258790095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,7 +1962,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9488bf201d19f284689e3047d1f376e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2065,7 +2058,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &4966173486760819605
 MeshFilter:
@@ -2313,7 +2306,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1283835931
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
 --- !u!33 &6474251248139019752
 MeshFilter:

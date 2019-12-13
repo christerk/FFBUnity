@@ -10,6 +10,7 @@ namespace Fumbbl.Lib
 {
     public static class PlayerIcon
     {
+        public const int NormalizedIconSize = 60;
         private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f, 1f);
         private static Color AwayColour = new Color(0f, 0f, 0.99f, 1f);
 
@@ -86,7 +87,7 @@ namespace Fumbbl.Lib
 
             var srcMipLevels = s.texture.mipmapCount;
 
-            Texture2D dest = new Texture2D(160, 40 * numIcons, s.texture.format, srcMipLevels, true);
+            Texture2D dest = new Texture2D(4 * NormalizedIconSize, NormalizedIconSize * numIcons, s.texture.format, srcMipLevels, true);
 
             Color transparent = new Color(0f, 0f, 0f, 0f);
 
@@ -121,7 +122,7 @@ namespace Fumbbl.Lib
             {
                 Graphics.CopyTexture(
                     s.texture, 0, destMip, x * srcIconSize, y * srcIconSize, srcIconSize, srcIconSize,
-                    dest, 0, destMip, x * 40 + (40 - srcIconSize) / 2, y * 40 + (40 - srcIconSize) / 2
+                    dest, 0, destMip, x * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2, y * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2
                 );
             }
             else
@@ -133,9 +134,9 @@ namespace Fumbbl.Lib
                 int srcOriginY = y * srcIconSize;
                 int srcWidth = 4 * srcIconSize;
 
-                int dstOriginX = x * 40 + (40 - srcIconSize) / 2;
-                int dstOriginY = y * 40 + (40 - srcIconSize) / 2;
-                int dstWidth = 4 * 40;
+                int dstOriginX = x * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
+                int dstOriginY = y * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
+                int dstWidth = 4 * NormalizedIconSize;
 
                 for (int yy=0; yy<srcIconSize; yy++)
                 {

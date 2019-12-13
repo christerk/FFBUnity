@@ -11,6 +11,7 @@ public class SettingsHandler : MonoBehaviour
     public TMP_InputField clientId;
     public TMP_InputField clientSecret;
     public GameObject initialPanel;
+    public Toggle AbstractIconsToggle;
 
     public GameObject currentPanel;
 
@@ -59,6 +60,7 @@ public class SettingsHandler : MonoBehaviour
         clientId.text = PlayerPrefs.GetString("OAuth.ClientId");
         clientSecret.text = PlayerPrefs.GetString("OAuth.ClientSecret");
         initialPanel.SetActive(true);
+        AbstractIconsToggle.isOn = FFB.Instance.Settings.Graphics.AbstractIcons;
     }
 
     public void ShowPanel(GameObject panel)
@@ -132,6 +134,12 @@ public class SettingsHandler : MonoBehaviour
             Screen.SetResolution(r.width, r.height, fullscreenToggle.isOn, r.refreshRate);
         }
         resolutions.gameObject.SetActive(!fullscreenToggle.isOn);
+    }
+
+    public void UpdateAbstractIcons()
+    {
+        FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
+        FFB.Instance.Settings.Save();
     }
 
     public void Logout()

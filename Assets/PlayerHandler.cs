@@ -1,4 +1,5 @@
 ﻿using Fumbbl;
+using Fumbbl.Lib;
 using Fumbbl.Model.Types;
 using UnityEngine;
 
@@ -43,8 +44,9 @@ public class PlayerHandler : MonoBehaviour
             // Move background image to show the correct sprite from the sheet
             var tex = Background.GetComponent<SpriteRenderer>().sprite.texture;
             int numTextures = 4 * tex.height / tex.width;
-            float x = (Player.IsHome ? 192 * 1.5f : 192 * -0.5f) - (active ? 192f : 0f);
-            float y = 192f * (((float)numTextures) / 2f - 0.5f);
+            float scale = 144f * (float)PlayerIcon.NormalizedIconSize / 30f;
+            float x = (Player.IsHome ? scale * 1.5f : scale * -0.5f) - (active ? scale : 0f);
+            float y = scale * (((float)numTextures) / 2f - 0.5f);
             Background.transform.localPosition = new Vector3(x, y, 0);
 
         }

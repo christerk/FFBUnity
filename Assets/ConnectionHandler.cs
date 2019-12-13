@@ -36,11 +36,13 @@ public class ConnectionHandler : MonoBehaviour
                 connected = true;
                 List<Task> tasks = new List<Task>();
                 progress = 0;
-                PlayersToLoad = players.Count;
+                PlayersToLoad = players.Count * 2;
                 foreach (var player in players)
                 {
                     string icon = player.Position.IconURL;
+                    string portrait = player.PortraitURL ?? player.Position.PortraitURL;
                     tasks.Add(FFB.Instance.SpriteCache.GetAsync(icon, s => { Interlocked.Increment(ref progress); }));
+                    tasks.Add(FFB.Instance.SpriteCache.GetAsync(portrait, s => { Interlocked.Increment(ref progress); }));
                 }
 
                 await Task.WhenAll(tasks);
