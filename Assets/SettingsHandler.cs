@@ -15,6 +15,10 @@ public class SettingsHandler : MonoBehaviour
 
     public GameObject currentPanel;
 
+    public Toggle SoundEnableToggle;
+
+    public Slider VolumeSlider;
+
     private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
 
     void Start()
@@ -61,6 +65,8 @@ public class SettingsHandler : MonoBehaviour
         clientSecret.text = PlayerPrefs.GetString("OAuth.ClientSecret");
         initialPanel.SetActive(true);
         AbstractIconsToggle.isOn = FFB.Instance.Settings.Graphics.AbstractIcons;
+        SoundEnableToggle.isOn = !FFB.Instance.Settings.Sound.Mute;
+        VolumeSlider.value = FFB.Instance.Settings.Sound.GlobalVolume;
     }
 
     public void ShowPanel(GameObject panel)
@@ -141,7 +147,17 @@ public class SettingsHandler : MonoBehaviour
         FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
         FFB.Instance.Settings.Save();
     }
+    public void UpdateEnableSound()
+    {
+        FFB.Instance.Settings.Sound.Mute = !SoundEnableToggle.isOn;
+        FFB.Instance.Settings.Save();
+    }
 
+    public void UpdateVolume()
+    {
+        FFB.Instance.Settings.Sound.GlobalVolume = VolumeSlider.value;
+        FFB.Instance.Settings.Save();
+    }
     public void Logout()
     {
         FFB.Instance.Stop();

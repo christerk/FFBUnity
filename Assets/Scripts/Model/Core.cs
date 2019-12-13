@@ -82,6 +82,7 @@ namespace Fumbbl.Model
         public int Half { get; internal set; }
         public int TurnHome { get; internal set; }
         public int TurnAway { get; internal set; }
+        public TurnMode TurnMode { get; set; }
         public int ScoreHome { get; internal set; }
         public int ScoreAway { get; internal set; }
         public Team TeamHome { get; internal set; }

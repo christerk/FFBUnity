@@ -5,7 +5,7 @@ namespace Fumbbl.Ffb.Dto.Reports
         public TurnEnd() : base("turnEnd") { }
         public string reportId;
         public string playerIdTouchdown;
-        public string[] knockoutRecoveries;
-        public string[] heatExhaustions;
+        public KnockoutRecoveryResult[] knockoutRecoveryArray;
+        public HeatExhaustionResult[] heatExhaustionArray;
     }
 }
