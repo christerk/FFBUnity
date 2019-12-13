@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: FUMBBL
-  productName: FFBClient
+  productName: FUMBBL FFB
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -118,10 +118,10 @@ PlayerSettings:
   vulkanEnableSetSRGBWrite: 0
   m_SupportedAspectRatios:
     4:3: 1
-    5:4: 0
+    5:4: 1
     16:10: 1
     16:9: 1
-    Others: 0
+    Others: 1
   bundleVersion: 2.0.0
   preloadedAssets: []
   metroInputSource: 0
@@ -387,6 +387,9 @@ PlayerSettings:
   - m_BuildTarget: iOSSupport
     m_APIs: 0b000000
     m_Automatic: 0
+  - m_BuildTarget: WindowsStandaloneSupport
+    m_APIs: 02000000
+    m_Automatic: 1
   m_BuildTargetVRSettings: []
   openGLRequireES31: 0
   openGLRequireES31AEP: 0

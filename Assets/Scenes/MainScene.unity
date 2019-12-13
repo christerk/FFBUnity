@@ -1152,6 +1152,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Card (Away)
       objectReference: {fileID: 0}
+    - target: {fileID: 6795124815321139549, guid: ea0572b974ad1e94588892a535eb484d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6942656604039670040, guid: ea0572b974ad1e94588892a535eb484d,
         type: 3}
       propertyPath: m_Mesh
@@ -1554,6 +1559,11 @@ PrefabInstance:
       propertyPath: EnableOclusion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5636266687713046142, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: EnableOcclusion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5636266688109799719, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1602,7 +1612,12 @@ PrefabInstance:
     - target: {fileID: 8687220273833393575, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 80
+      value: -0.000022888184
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687220273833393575, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9f4a263523291a4686711e9bf653c28, type: 3}
@@ -3936,6 +3951,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Card (Home)
       objectReference: {fileID: 0}
+    - target: {fileID: 6795124815321139549, guid: ea0572b974ad1e94588892a535eb484d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6942656604039670040, guid: ea0572b974ad1e94588892a535eb484d,
         type: 3}
       propertyPath: m_Mesh
@@ -4477,9 +4497,9 @@ RectTransform:
   m_Father: {fileID: 1510209914}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -176}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 209}
   m_SizeDelta: {x: 150, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470218832
@@ -6004,6 +6024,11 @@ PrefabInstance:
       propertyPath: debugText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5636266687713046142, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: EnableOcclusion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5636266688109799719, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_text
@@ -6077,7 +6102,7 @@ PrefabInstance:
     - target: {fileID: 8687220273833393575, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 49.99872
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8687220273833393575, guid: d9f4a263523291a4686711e9bf653c28,
         type: 3}
@@ -6088,6 +6113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687220273833393575, guid: d9f4a263523291a4686711e9bf653c28,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9f4a263523291a4686711e9bf653c28, type: 3}

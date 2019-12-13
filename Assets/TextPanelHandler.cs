@@ -13,7 +13,7 @@ public class TextPanelHandler : MonoBehaviour
     public FFB.LogPanelType panelType;
 
     public TMPro.TextMeshProUGUI LogTextPrefab;
-    public bool EnableOclusion;
+    public bool EnableOcclusion;
 
     private GameObject Content;
     private RectTransform ContentRect;
@@ -58,7 +58,7 @@ public class TextPanelHandler : MonoBehaviour
         {
             float itemPos = -item.rectTransform.localPosition.y;
             float itemHeight = item.rectTransform.rect.height;
-            item.enabled = !EnableOclusion || (itemPos + itemHeight >= viewportTop && itemPos <= viewportBottom);
+            item.enabled = !EnableOcclusion || (itemPos + itemHeight >= viewportTop && itemPos <= viewportBottom);
         }
     }
 
@@ -118,6 +118,10 @@ public class TextPanelHandler : MonoBehaviour
                 this.contentHeight += preferredHeight;
                 ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, this.contentHeight);
                 obj.rectTransform.localScale = Vector3.one;
+                obj.rectTransform.localRotation = Quaternion.identity;
+                var pos = obj.rectTransform.localPosition;
+                pos.z = 0f;
+                obj.rectTransform.localPosition = pos;
                 Items.Add(obj);
                 Dirty = true;
                 OnScroll(Vector2.zero);
