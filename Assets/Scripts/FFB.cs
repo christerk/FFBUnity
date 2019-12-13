@@ -325,7 +325,6 @@ namespace Fumbbl
                 FFB.Instance.Model.Half = cmd.game.half;
                 FFB.Instance.Model.TurnHome = cmd.game.turnDataHome.turnNr;
                 FFB.Instance.Model.TurnAway = cmd.game.turnDataAway.turnNr;
-                FFB.Instance.Model.LastTurnMode = cmd.game.lastTurnMode.As<TurnMode>();
                 FFB.Instance.Model.TurnMode = cmd.game.turnMode.As<TurnMode>();
 
                 FFB.Instance.Model.ScoreHome = cmd.game.gameResult.teamResultHome.score;

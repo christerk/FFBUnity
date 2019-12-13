@@ -82,6 +82,7 @@ namespace Fumbbl.Model
         public int Half { get; internal set; }
         public int TurnHome { get; internal set; }
         public int TurnAway { get; internal set; }
+        public TurnMode TurnMode { get; set; }
         public int ScoreHome { get; internal set; }
         public int ScoreAway { get; internal set; }
         public Team TeamHome { get; internal set; }
@@ -92,15 +93,14 @@ namespace Fumbbl.Model
 
         public Core()
         {
-            ActingPlayer = new ActingPlayer();
-            Ball = new Ball();
-            BlockDice = new List<View.BlockDie>();
             //ModelChangeFactory = new ModelChangeFactory();
             ModelChangeFactory = new ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type>();
+            ActingPlayer = new ActingPlayer();
             Players = new Dictionary<string, Player>();
+            Ball = new Ball();
             PushbackSquares = new Dictionary<int, View.PushbackSquare>();
             TrackNumbers = new Dictionary<int, View.TrackNumber>();
-            TurnMode = TurnMode.StartGame;
+            BlockDice = new List<View.BlockDie>();
         }
 
         public void Clear()
@@ -170,29 +170,5 @@ namespace Fumbbl.Model
             }
             return null;
         }
-
-        private TurnMode lastturnmode;
-        public TurnMode LastTurnMode {
-            get { return lastturnmode; }
-            set {
-                if (value == lastturnmode) return;
-                lastturnmode = value;
-                Debug.Log($"LastTurnMode: {lastturnmode.Name}");
-            }
-        }
-        private TurnMode turnmode;
-        public TurnMode TurnMode {
-            get { return turnmode; }
-            set {
-                if (value == turnmode) return;
-                TurnMode cachedlastturnmode = turnmode;
-                turnmode = value;
-                if (cachedlastturnmode != null && !cachedlastturnmode.StoreLast){
-                    LastTurnMode = cachedlastturnmode;
-                }
-                Debug.Log($"TurnMode: {turnmode.Name}");
-            }
-        }
-
     }
 }
