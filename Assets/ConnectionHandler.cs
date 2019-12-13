@@ -25,8 +25,6 @@ public class ConnectionHandler : MonoBehaviour
         ProgressRect = Progress.GetComponent<RectTransform>();
     }
 
-
-
     // Update is called once per frame
     private async void Update()
     {
