@@ -19,8 +19,8 @@ namespace Fumbbl.Ffb.Dto.Commands
         public bool timeoutEnforced;
         public bool concessionPossible;
         public bool testing;
-        public string turnMode;
-        public string lastTurnMode;
+        public FFBEnumeration turnMode;
+        public FFBEnumeration lastTurnMode;
         public string defenderId;
         public string defenderAction;
         public int[] passCoordinate;

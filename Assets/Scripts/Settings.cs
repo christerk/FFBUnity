@@ -7,11 +7,13 @@ namespace Fumbbl
 {
     public class Settings
     {
+        public ColorSettings Color;
         public GraphicsSettings Graphics;
         public SoundSettings Sound;
 
         public Settings()
         {
+            Color = new ColorSettings();
             Graphics = new GraphicsSettings();
             Sound = new SoundSettings();
         }
@@ -31,6 +33,7 @@ namespace Fumbbl
                 string jsonSettings = File.ReadAllText(path);
 
                 Settings settings = JsonConvert.DeserializeObject<Settings>(jsonSettings);
+                this.Color = settings.Color;
                 this.Graphics = settings.Graphics;
                 this.Sound = settings.Sound;
             }
@@ -39,6 +42,13 @@ namespace Fumbbl
                 Save();
             }
         }
+    }
+
+
+    public class ColorSettings
+    {
+        public string HomeColor = "#FF0000";
+        public string AwayColor = "#0000FF";
     }
 
     public class GraphicsSettings

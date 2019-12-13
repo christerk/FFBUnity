@@ -67,8 +67,9 @@ namespace Fumbbl.Model.Types
         {
             get
             {
-                string color = IsHome ? "#ff0000" : "#0000ff";
-                return $"<{color}>{TextPanelHandler.SanitizeText(Name)}</color>";
+                var colorsettings = FFB.Instance.Settings.Color;
+                string color = IsHome ? colorsettings.HomeColor : colorsettings.AwayColor;
+                return $"<color={color}>{TextPanelHandler.SanitizeText(Name)}</color>";
             }
         }
 
