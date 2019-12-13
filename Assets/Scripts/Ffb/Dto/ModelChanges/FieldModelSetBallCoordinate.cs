@@ -4,6 +4,8 @@
     {
         public int[] modelChangeValue;
 
-        public FieldModelSetBallCoordinate() : base("fieldModelSetBallCoordinate") { }
+        public FieldModelSetBallCoordinate() : base("fieldModelSetBallCoordinate")
+        {
+        }
     }
 }

@@ -3,6 +3,5 @@
     public class RegenerationRoll : SkillRoll
     {
         public RegenerationRoll() : base("regenerationRoll") { }
-
     }
 }
