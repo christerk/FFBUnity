@@ -19,11 +19,7 @@ public class BlockDiceHandler : MonoBehaviour
     public Sprite PowSprite;
     public Transform ContentObject;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     // Start is called before the first frame update
     private void Start()
@@ -77,12 +73,9 @@ public class BlockDiceHandler : MonoBehaviour
             trn.sizeDelta = SpacerSize;
         }
     };
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     private Sprite GetSpriteForRoll(Fumbbl.Model.Types.BlockDie roll)
     {
@@ -96,4 +89,5 @@ public class BlockDiceHandler : MonoBehaviour
             default: return PushSprite;
         }
     }
+    #endregion
 }

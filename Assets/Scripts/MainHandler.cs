@@ -18,11 +18,7 @@ namespace Fumbbl
             GameBrowserScene
         }
 
-
-
-        ///////////////////////////////////////////////////////////////////////
-        //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////
+        #region MonoBehaviour Methods
 
         private void Awake()
         {
@@ -41,11 +37,9 @@ namespace Fumbbl
             FFB.Instance.RefreshState();
         }
 
+        #endregion
 
-
-        ///////////////////////////////////////////////////////////////////////
-        //  CUSTOM METHODS  ///////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////
+        #region Custom Methods
 
         public void AddChatEntry(string text)
         {
@@ -71,5 +65,7 @@ namespace Fumbbl
         {
             SceneManager.LoadScene(scene.ToString());
         }
+
+        #endregion
     }
 }

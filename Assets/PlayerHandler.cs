@@ -14,11 +14,7 @@ public class PlayerHandler : MonoBehaviour
     public Player Player;
     public bool HasIcon;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void Start()
     {
@@ -70,4 +66,5 @@ public class PlayerHandler : MonoBehaviour
         Prone.SetActive(state.IsProne);
         Stunned.SetActive(state.IsStunned);
     }
+    #endregion
 }

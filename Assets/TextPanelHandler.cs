@@ -22,11 +22,7 @@ public class TextPanelHandler : MonoBehaviour
     public TMPro.TextMeshProUGUI LogTextPrefab;
     public bool EnableOcclusion;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void Awake()
     {
@@ -59,12 +55,9 @@ public class TextPanelHandler : MonoBehaviour
 
         scrollRect.onValueChanged.AddListener(OnScroll);
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     private void AddChat(string coach, ChatSource source, string text)
     {
@@ -151,4 +144,5 @@ public class TextPanelHandler : MonoBehaviour
     {
         return text?.Replace("<", "<noparse><</noparse>");
     }
+    #endregion
 }

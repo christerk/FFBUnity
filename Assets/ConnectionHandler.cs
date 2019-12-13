@@ -14,11 +14,7 @@ public class ConnectionHandler : MonoBehaviour
 
     public GameObject Progress;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     // Start is called before the first frame update
     private void Start()
@@ -68,4 +64,5 @@ public class ConnectionHandler : MonoBehaviour
             Progress.SetActive(false);
         }
     }
+    #endregion
 }

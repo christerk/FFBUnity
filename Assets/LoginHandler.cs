@@ -10,11 +10,7 @@ public class LoginHandler : MonoBehaviour
     public TMPro.TMP_InputField PasswordField;
     public string NextScene;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     // Start is called before the first frame update
     private void Start()
@@ -52,12 +48,9 @@ public class LoginHandler : MonoBehaviour
             };
         }
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     private void Login()
     {
@@ -92,4 +85,5 @@ public class LoginHandler : MonoBehaviour
             ConnectingLabel.SetActive(false);
         }
     }
+    #endregion
 }

@@ -32,11 +32,7 @@ public class FieldHandler : MonoBehaviour
     public TMPro.TextMeshProUGUI AwayTeamText;
     public TMPro.TextMeshProUGUI HomeTeamText;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void OnDestroy()
     {
@@ -258,12 +254,9 @@ public class FieldHandler : MonoBehaviour
             PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer != null && !HoverPlayer.IsHome ? HoverPlayer : null);
         }
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     private void AddReport(Report report)
     {
@@ -306,4 +299,5 @@ public class FieldHandler : MonoBehaviour
 
         return new Vector3(x * 144 - 280, 160 - y * 144, 0);
     }
+    #endregion
 }

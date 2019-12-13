@@ -18,11 +18,7 @@ public class GameBrowserEntry : MonoBehaviour
     public TMPro.TextMeshProUGUI team2Score;
     public TMPro.TextMeshProUGUI turnIndicator;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     public void OnClick()
     {
@@ -30,12 +26,9 @@ public class GameBrowserEntry : MonoBehaviour
         FFB.Instance.Connect(matchDetails.id);
         MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     public void SetMatchDetails(Current details)
     {
@@ -63,4 +56,5 @@ public class GameBrowserEntry : MonoBehaviour
             Debug.LogError("Invalid number of teams found when parsing match details");
         }
     }
+    #endregion
 }

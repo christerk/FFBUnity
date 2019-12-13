@@ -20,12 +20,7 @@ public class GameBrowserHandler : MonoBehaviour
     public GameObject gameListPanel;
     public GameObject pane;
     public TMP_InputField gameIdInputField;
-
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void Start()
     {
@@ -67,12 +62,8 @@ public class GameBrowserHandler : MonoBehaviour
             }
         }
     }
-
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #endregion
+    #region Custom Methods
 
     private void RefreshMatches()
     {
@@ -102,4 +93,5 @@ public class GameBrowserHandler : MonoBehaviour
         gameIdInputField.text = "";
         mode = Mode.GameList;
     }
+    #endregion
 }

@@ -24,11 +24,7 @@ public class SettingsHandler : MonoBehaviour
     public TMP_InputField clientId;
     public TMP_InputField clientSecret;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void Start()
     {
@@ -77,12 +73,9 @@ public class SettingsHandler : MonoBehaviour
         SoundEnableToggle.isOn = !FFB.Instance.Settings.Sound.Mute;
         VolumeSlider.value = FFB.Instance.Settings.Sound.GlobalVolume;
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     public void Logout()
     {
@@ -191,4 +184,5 @@ public class SettingsHandler : MonoBehaviour
         PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
         PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
     }
+    #endregion
 }

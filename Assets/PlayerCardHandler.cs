@@ -22,11 +22,7 @@ public class PlayerCardHandler : MonoBehaviour
     public TMPro.TextMeshPro Skills;
     public bool Home;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void Start()
     {
@@ -34,12 +30,9 @@ public class PlayerCardHandler : MonoBehaviour
         Color awayColor = new Color(0.0392f, 0.1588f, 0.4431f, 0.8745f);
         background.sprite = Home ? HomeBG : AwayBG;
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     public void SetPlayer(Player player)
     {
@@ -78,4 +71,5 @@ public class PlayerCardHandler : MonoBehaviour
             }
         }
     }
+    #endregion
 }

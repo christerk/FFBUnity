@@ -8,11 +8,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource SoundEffectSource;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void OnDisable()
     {
@@ -32,12 +28,9 @@ public class SoundManager : MonoBehaviour
             SoundEffectClips.Add(file.name, file);
         }
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     public void Play(string sound)
     {
@@ -47,4 +40,5 @@ public class SoundManager : MonoBehaviour
             SoundEffectSource.PlayOneShot(clip, FFB.Instance.Settings.Sound.GlobalVolume);
         }
     }
+    #endregion
 }

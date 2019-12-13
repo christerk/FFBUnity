@@ -9,11 +9,7 @@ public class InputHandler : MonoBehaviour
     public Camera Camera;
     public float mouseSensitivity = 1.0f;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     private void Update()
     {
@@ -54,12 +50,9 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
+    #endregion
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  CUSTOM METHODS  ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region Custom Methods
 
     public void SwitchToPreviousScene()
     {
@@ -71,4 +64,5 @@ public class InputHandler : MonoBehaviour
         FFB.Instance.PreviousScene = SceneManager.GetActiveScene().name;
         MainHandler.Instance.SetScene(MainHandler.SceneType.SettingsScene);
     }
+    #endregion
 }

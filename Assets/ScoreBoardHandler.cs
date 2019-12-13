@@ -9,11 +9,7 @@ public class ScoreBoardHandler : MonoBehaviour
     public TMPro.TextMeshProUGUI HomeScore;
     public TMPro.TextMeshProUGUI HomeTurn;
 
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  MONOBEHAVIOUR METHODS  ////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+    #region MonoBehaviour Methods
 
     // Update is called once per frame
     private void Update()
@@ -39,4 +35,5 @@ public class ScoreBoardHandler : MonoBehaviour
             HalfText.text = "Overtime";
         }
     }
+    #endregion
 }
