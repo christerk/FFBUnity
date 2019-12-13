@@ -10,11 +10,6 @@ public class SoundManager : MonoBehaviour
 
     #region MonoBehaviour Methods
 
-    private void OnDisable()
-    {
-        FFB.Instance.OnSound -= Play;
-    }
-
     private void Start()
     {
         FFB.Instance.OnSound += Play;
@@ -28,6 +23,12 @@ public class SoundManager : MonoBehaviour
             SoundEffectClips.Add(file.name, file);
         }
     }
+
+    private void OnDisable()
+    {
+        FFB.Instance.OnSound -= Play;
+    }
+
     #endregion
 
     public void Play(string sound)

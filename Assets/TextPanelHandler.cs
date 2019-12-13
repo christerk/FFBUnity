@@ -29,6 +29,18 @@ public class TextPanelHandler : MonoBehaviour
         LogTextFactory = new ReflectedFactory<LogTextGenerator<Report>, Type>();
     }
 
+    private void Start()
+    {
+        Items = new List<TextMeshProUGUI>();
+        Content = transform.Find("Viewport/Content").gameObject;
+        scrollRect = GetComponentInChildren<ScrollRect>();
+        FFB.Instance.OnReport += AddReport;
+        FFB.Instance.OnChat += AddChat;
+        ContentRect = Content.GetComponent<RectTransform>();
+
+        scrollRect.onValueChanged.AddListener(OnScroll);
+    }
+
     private void OnDisable()
     {
         FFB.Instance.OnChat -= AddChat;
@@ -42,18 +54,6 @@ public class TextPanelHandler : MonoBehaviour
             Dirty = false;
             scrollRect.normalizedPosition = Vector2.zero;
         }
-    }
-
-    private void Start()
-    {
-        Items = new List<TextMeshProUGUI>();
-        Content = transform.Find("Viewport/Content").gameObject;
-        scrollRect = GetComponentInChildren<ScrollRect>();
-        FFB.Instance.OnReport += AddReport;
-        FFB.Instance.OnChat += AddChat;
-        ContentRect = Content.GetComponent<RectTransform>();
-
-        scrollRect.onValueChanged.AddListener(OnScroll);
     }
 
     #endregion

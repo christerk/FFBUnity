@@ -25,16 +25,16 @@ namespace Fumbbl
             Instance = this;
         }
 
-        private void OnApplicationQuit()
-        {
-            FFB.Instance.Stop();
-        }
-
         private void Start()
         {
             Debug.Log("MainHandler Initialized");
             FFB.Instance.Initialize();
             FFB.Instance.RefreshState();
+        }
+
+        private void OnApplicationQuit()
+        {
+            FFB.Instance.Stop();
         }
 
         #endregion

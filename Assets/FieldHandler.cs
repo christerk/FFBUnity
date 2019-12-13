@@ -34,31 +34,6 @@ public class FieldHandler : MonoBehaviour
 
     #region MonoBehaviour Methods
 
-    private void OnDestroy()
-    {
-        FFB.Instance.OnReport -= AddReport;
-    }
-
-    private void OnMouseEnter()
-    {
-        SquareOverlay.SetActive(true);
-    }
-
-    private void OnMouseExit()
-    {
-        SquareOverlay.SetActive(false);
-    }
-
-    private void OnMouseOver()
-    {
-        var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
-        var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
-        var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
-        // x,y is the zero-based field square coordinate.
-
-        Highlight(x, y);
-    }
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -253,6 +228,31 @@ public class FieldHandler : MonoBehaviour
             PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer != null && HoverPlayer.IsHome ? HoverPlayer : null);
             PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer != null && !HoverPlayer.IsHome ? HoverPlayer : null);
         }
+    }
+
+    private void OnDestroy()
+    {
+        FFB.Instance.OnReport -= AddReport;
+    }
+
+    private void OnMouseEnter()
+    {
+        SquareOverlay.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        SquareOverlay.SetActive(false);
+    }
+
+    private void OnMouseOver()
+    {
+        var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
+        var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
+        var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
+        // x,y is the zero-based field square coordinate.
+
+        Highlight(x, y);
     }
 
     #endregion
