@@ -16,7 +16,7 @@ public class SettingsHandler : MonoBehaviour
 
     // Sound Panel
     public Slider VolumeSlider;
-    public Toggle SoundEnableToggle;
+    public Toggle SoundMuteToggle;
 
     // DebugPanel
     public TMP_InputField clientId;
@@ -70,7 +70,7 @@ public class SettingsHandler : MonoBehaviour
         clientSecret.text = PlayerPrefs.GetString("OAuth.ClientSecret");
         initialPanel.SetActive(true);
         AbstractIconsToggle.isOn = FFB.Instance.Settings.Graphics.AbstractIcons;
-        SoundEnableToggle.isOn = !FFB.Instance.Settings.Sound.Mute;
+        SoundMuteToggle.isOn = !FFB.Instance.Settings.Sound.Mute;
         VolumeSlider.value = FFB.Instance.Settings.Sound.GlobalVolume;
     }
 
@@ -122,7 +122,7 @@ public class SettingsHandler : MonoBehaviour
 
     public void UpdateEnableSound()
     {
-        FFB.Instance.Settings.Sound.Mute = !SoundEnableToggle.isOn;
+        FFB.Instance.Settings.Sound.Mute = !SoundMuteToggle.isOn;
         FFB.Instance.Settings.Save();
     }
 
