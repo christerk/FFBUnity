@@ -4,10 +4,10 @@ namespace Fumbbl.Model.Types
 {
     public class Coordinate
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
 
-        private Coordinate(int x, int y)
+        public Coordinate(int x, int y)
         {
             X = x;
             Y = y;
@@ -27,14 +27,30 @@ namespace Fumbbl.Model.Types
 
         }
 
-        public static Coordinate Create(int x, int y)
+        public override bool Equals(Object obj)
         {
-            return new Coordinate(x, y);
+           if (! (obj is Coordinate)) return false;
+
+           Coordinate p = (Coordinate)obj;
+           return X == p.X & Y == p.Y;
         }
 
-        public bool Equals(Coordinate other)
+        public override int GetHashCode()
         {
-            return other != null && other.X == this.X && other.Y == this.Y;
+            return ShiftAndWrap(X.GetHashCode(), 2) ^ Y.GetHashCode();
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/api/system.object.gethashcode?view=netframework-4.8
+        private int ShiftAndWrap(int value, int positions)
+        {
+            positions = positions & 0x1F;
+
+            // Save the existing bit pattern, but interpret it as an unsigned integer.
+            uint number = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
+            // Preserve the bits to be discarded.
+            uint wrapped = number >> (32 - positions);
+            // Shift and wrap the discarded bits.
+            return BitConverter.ToInt32(BitConverter.GetBytes((number << positions) | wrapped), 0);
         }
 
         public override string ToString()

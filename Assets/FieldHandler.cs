@@ -251,7 +251,7 @@ public class FieldHandler : MonoBehaviour
         var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
         var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
         // x,y is the zero-based field square coordinate.
-        var coord = Coordinate.Create(x, y);
+        var coord = new Coordinate(x, y);
 
         Highlight(coord);
     }
