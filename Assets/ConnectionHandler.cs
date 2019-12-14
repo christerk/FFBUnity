@@ -11,7 +11,7 @@ public class ConnectionHandler : MonoBehaviour
 
     private RectTransform ProgressRect;
     private bool connected;
-    private int PlayersToLoad = 0;
+    private int IconsToLoad = 0;
     private int progress = 0;
 
     #region MonoBehaviour Methods
@@ -21,7 +21,7 @@ public class ConnectionHandler : MonoBehaviour
     {
         FFB.Instance.Initialize();
         connected = false;
-        PlayersToLoad = 0;
+        IconsToLoad = 0;
         ProgressRect = Progress.GetComponent<RectTransform>();
     }
 
@@ -37,13 +37,20 @@ public class ConnectionHandler : MonoBehaviour
                 connected = true;
                 List<Task> tasks = new List<Task>();
                 progress = 0;
-                PlayersToLoad = players.Count * 2;
+                HashSet<string> urls = new HashSet<string>();
                 foreach (var player in players)
                 {
                     string icon = player.Position.IconURL;
                     string portrait = player.PortraitURL ?? player.Position.PortraitURL;
-                    tasks.Add(FFB.Instance.SpriteCache.GetAsync(icon, s => { Interlocked.Increment(ref progress); }));
-                    tasks.Add(FFB.Instance.SpriteCache.GetAsync(portrait, s => { Interlocked.Increment(ref progress); }));
+
+                    urls.Add(icon);
+                    urls.Add(portrait);
+                }
+
+                IconsToLoad = urls.Count;
+                foreach (var url in urls)
+                {
+                    tasks.Add(FFB.Instance.SpriteCache.GetAsync(url, s => { Interlocked.Increment(ref progress); }));
                 }
 
                 await Task.WhenAll(tasks);
@@ -52,9 +59,9 @@ public class ConnectionHandler : MonoBehaviour
             }
         }
 
-        if (PlayersToLoad != 0)
+        if (IconsToLoad != 0)
         {
-            ProgressRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1665 * progress / PlayersToLoad);
+            ProgressRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1665 * progress / IconsToLoad);
             Progress.SetActive(true);
         }
         else
