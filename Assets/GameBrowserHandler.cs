@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class GameBrowserHandler : MonoBehaviour
 {
+    public GameObject button;
+    public GameObject gameListPanel;
+    public GameObject pane;
+    public TMP_InputField gameIdInputField;
+
     private FumbblApi api;
     private List<ApiDto.Match.Current> currentMatches;
     private Mode mode = Mode.GameList;
@@ -15,11 +20,6 @@ public class GameBrowserHandler : MonoBehaviour
         GameList,
         GameIdInput
     }
-
-    public GameObject button;
-    public GameObject gameListPanel;
-    public GameObject pane;
-    public TMP_InputField gameIdInputField;
 
     #region MonoBehaviour Methods
 

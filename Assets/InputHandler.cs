@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class InputHandler : MonoBehaviour
 {
-    private Vector3 lastPosition;
-
     public Camera Camera;
     public float mouseSensitivity = 1.0f;
+
+    private Vector3 lastPosition;
 
     #region MonoBehaviour Methods
 

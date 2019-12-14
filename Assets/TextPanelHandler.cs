@@ -10,6 +10,10 @@ using static Fumbbl.FFB;
 
 public class TextPanelHandler : MonoBehaviour
 {
+    public FFB.LogPanelType panelType;
+    public TMPro.TextMeshProUGUI LogTextPrefab;
+    public bool EnableOcclusion;
+
     private GameObject Content;
     private List<TMPro.TextMeshProUGUI> Items;
     private RectTransform ContentRect;
@@ -17,10 +21,6 @@ public class TextPanelHandler : MonoBehaviour
     private ScrollRect scrollRect;
     private bool Dirty = false;
     private float contentHeight;
-
-    public FFB.LogPanelType panelType;
-    public TMPro.TextMeshProUGUI LogTextPrefab;
-    public bool EnableOcclusion;
 
     #region MonoBehaviour Methods
 
@@ -57,6 +57,25 @@ public class TextPanelHandler : MonoBehaviour
     }
 
     #endregion
+
+    public void OnScroll(Vector2 pos)
+    {
+        float height = ((RectTransform)this.gameObject.transform).rect.height;
+        float viewportTop = Content.transform.localPosition.y - height / 2;
+        float viewportBottom = viewportTop + height;
+
+        foreach (var item in Items)
+        {
+            float itemPos = -item.rectTransform.localPosition.y;
+            float itemHeight = item.rectTransform.rect.height;
+            item.enabled = !EnableOcclusion || (itemPos + itemHeight >= viewportTop && itemPos <= viewportBottom);
+        }
+    }
+
+    public static string SanitizeText(string text)
+    {
+        return text?.Replace("<", "<noparse><</noparse>");
+    }
 
     private void AddChat(string coach, ChatSource source, string text)
     {
@@ -123,24 +142,5 @@ public class TextPanelHandler : MonoBehaviour
                 OnScroll(Vector2.zero);
             }
         }
-    }
-
-    public void OnScroll(Vector2 pos)
-    {
-        float height = ((RectTransform)this.gameObject.transform).rect.height;
-        float viewportTop = Content.transform.localPosition.y - height / 2;
-        float viewportBottom = viewportTop + height;
-
-        foreach (var item in Items)
-        {
-            float itemPos = -item.rectTransform.localPosition.y;
-            float itemHeight = item.rectTransform.rect.height;
-            item.enabled = !EnableOcclusion || (itemPos + itemHeight >= viewportTop && itemPos <= viewportBottom);
-        }
-    }
-
-    public static string SanitizeText(string text)
-    {
-        return text?.Replace("<", "<noparse><</noparse>");
     }
 }

@@ -8,10 +8,6 @@ namespace Fumbbl.Model
 {
     public class Core
     {
-        private Dictionary<string, Player> Players { get; set; }
-        //private ModelChangeFactory ModelChangeFactory { get; }
-        private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
-
         public ActingPlayer ActingPlayer { get; set; }
         public Ball Ball;
         public Coach AwayCoach { get; internal set; }
@@ -29,6 +25,10 @@ namespace Fumbbl.Model
         public int ScoreHome { get; internal set; }
         public int TurnAway { get; internal set; }
         public int TurnHome { get; internal set; }
+
+        private Dictionary<string, Player> Players { get; set; }
+        //private ModelChangeFactory ModelChangeFactory { get; }
+        private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
 
         public Core()
         {

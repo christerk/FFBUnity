@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class SettingsHandler : MonoBehaviour
 {
-    private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
-
     public GameObject currentPanel;
     public GameObject initialPanel;
 
@@ -23,6 +21,8 @@ public class SettingsHandler : MonoBehaviour
     // DebugPanel
     public TMP_InputField clientId;
     public TMP_InputField clientSecret;
+
+    private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
 
     #region MonoBehaviour Methods
 

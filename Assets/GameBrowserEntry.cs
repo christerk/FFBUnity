@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class GameBrowserEntry : MonoBehaviour
 {
-    private Current matchDetails;
-
     public Image progressBar;
     public Image team1Image;
     public Image team2Image;
@@ -17,6 +15,8 @@ public class GameBrowserEntry : MonoBehaviour
     public TMPro.TextMeshProUGUI team2Info;
     public TMPro.TextMeshProUGUI team2Score;
     public TMPro.TextMeshProUGUI turnIndicator;
+
+    private Current matchDetails;
 
     #region MonoBehaviour Methods
 

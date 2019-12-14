@@ -4,8 +4,6 @@ using Fumbbl;
 
 public class PlayerCardHandler : MonoBehaviour
 {
-    private string ShownPlayerId;
-
     public Sprite AwayBG;
     public Sprite EmptyPortrait;
     public Sprite HomeBG;
@@ -21,6 +19,8 @@ public class PlayerCardHandler : MonoBehaviour
     public TMPro.TextMeshPro AV;
     public TMPro.TextMeshPro Skills;
     public bool Home;
+
+    private string ShownPlayerId;
 
     #region MonoBehaviour Methods
 

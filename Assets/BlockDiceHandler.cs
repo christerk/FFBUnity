@@ -6,11 +6,6 @@ using static Fumbbl.Model.Types.BlockDie;
 
 public class BlockDiceHandler : MonoBehaviour
 {
-    private ViewObjectList<BlockDie> BlockDice;
-    private static Vector2 FullSize = new Vector2(40, 40);
-    private static Vector2 SmallSize = new Vector2(30, 30);
-    private static Vector2 SpacerSize = new Vector2(12, 30);
-
     public GameObject BlockDiePrefab;
     public Sprite SkullSprite;
     public Sprite BothDownSprite;
@@ -18,6 +13,11 @@ public class BlockDiceHandler : MonoBehaviour
     public Sprite PushPowSprite;
     public Sprite PowSprite;
     public Transform ContentObject;
+
+    private ViewObjectList<BlockDie> BlockDice;
+    private static Vector2 FullSize = new Vector2(40, 40);
+    private static Vector2 SmallSize = new Vector2(30, 30);
+    private static Vector2 SpacerSize = new Vector2(12, 30);
 
     #region MonoBehaviour Methods
 

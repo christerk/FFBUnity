@@ -15,6 +15,16 @@ namespace Fumbbl.Model
         }
     }
 
+    public static class DialogHandlerExtensions
+    {
+        public static DialogHandler<TTo> CastGenerator<TFrom, TTo>(this DialogHandler<TFrom> generator)
+            where TTo : Ffb.Dto.FfbDialog
+            where TFrom : Ffb.Dto.FfbDialog
+        {
+            return new CastedDialogHandler<TTo, TFrom>(generator);
+        }
+    }
+
     internal class CastedDialogHandler<TTo, TFrom> : DialogHandler<TTo>
         where TTo : Ffb.Dto.FfbDialog
         where TFrom : Ffb.Dto.FfbDialog
@@ -29,16 +39,6 @@ namespace Fumbbl.Model
         public override void Apply(TTo report)
         {
             Generator.Apply(report as TFrom);
-        }
-    }
-
-    public static class DialogHandlerExtensions
-    {
-        public static DialogHandler<TTo> CastGenerator<TFrom, TTo>(this DialogHandler<TFrom> generator)
-            where TTo : Ffb.Dto.FfbDialog
-            where TFrom : Ffb.Dto.FfbDialog
-        {
-            return new CastedDialogHandler<TTo, TFrom>(generator);
         }
     }
 }

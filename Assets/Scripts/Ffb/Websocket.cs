@@ -11,12 +11,13 @@ namespace Fumbbl.Ffb
 {
     class Websocket : IWebsocket
     {
+        public bool IsConnected => Socket != null && Socket.State == WebSocketState.Open;
+
         private const int receiveChunkSize = 100;
         private readonly Action<string> ReceiveAction;
         private readonly ClientWebSocket Socket;
         private readonly CancellationTokenSource CancellationSource;
         private CancellationToken CancellationToken;
-        public bool IsConnected => Socket != null && Socket.State == WebSocketState.Open;
 
 
         public Websocket(Action<string> receiveDelegate)
@@ -44,6 +45,11 @@ namespace Fumbbl.Ffb
             {
                 Debug.Log($"Unhandled exception in Send: {e.Message}");
             }
+        }
+
+        public async Task Start()
+        {
+            await Receive();
         }
 
         public void Stop()
@@ -121,11 +127,5 @@ namespace Fumbbl.Ffb
         {
             ReceiveAction?.Invoke(data);
         }
-
-        public async Task Start()
-        {
-            await Receive();
-        }
     }
-
 }

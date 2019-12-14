@@ -10,6 +10,7 @@ namespace Fumbbl
     {
         private static ReflectedFactory<FfbDialog, string> DialogFactory = new ReflectedFactory<FfbDialog, string>();
         private JsonSerializer Serializer;
+
         public FfbDialogConverter() : base()
         {
             Serializer = new JsonSerializer();

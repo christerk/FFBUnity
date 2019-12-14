@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
+    public Player Player;
+    public bool HasIcon;
+
     private GameObject Background;
     private GameObject Outline;
     private GameObject Prone;
     private GameObject Stunned;
     private Renderer BackgroundRenderer;
     private SpriteMask Mask;
-    public Player Player;
-    public bool HasIcon;
 
     #region MonoBehaviour Methods
 

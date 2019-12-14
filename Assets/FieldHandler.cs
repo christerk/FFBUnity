@@ -9,13 +9,6 @@ using UnityEngine;
 
 public class FieldHandler : MonoBehaviour
 {
-    private GameObject Ball;
-    private Player HoverPlayer;
-    private RectTransform FieldRect;
-    private ViewObjectList<Player> Players;
-    private ViewObjectList<PushbackSquare> PushbackSquares;
-    private ViewObjectList<TrackNumber> TrackNumbers;
-
     public Camera MainCamera;
     public GameObject AbstractIconPrefab;
     public GameObject ArrowPrefab;
@@ -31,6 +24,13 @@ public class FieldHandler : MonoBehaviour
     public GameObject TrackNumberPrefab;
     public TMPro.TextMeshProUGUI AwayTeamText;
     public TMPro.TextMeshProUGUI HomeTeamText;
+
+    private GameObject Ball;
+    private Player HoverPlayer;
+    private RectTransform FieldRect;
+    private ViewObjectList<Player> Players;
+    private ViewObjectList<PushbackSquare> PushbackSquares;
+    private ViewObjectList<TrackNumber> TrackNumbers;
 
     #region MonoBehaviour Methods
 
@@ -257,6 +257,22 @@ public class FieldHandler : MonoBehaviour
 
     #endregion
 
+    internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
+    {
+        x = x * 144 - 13 * 144 + 72;
+        y = 2160 / 2 - 72 - y * 144;
+
+        return new Vector3(x, y, z);
+    }
+
+    internal Vector3 ToDugoutCoordinates(int index)
+    {
+        int x = index % 5;
+        int y = index / 5;
+
+        return new Vector3(x * 144 - 280, 160 - y * 144, 0);
+    }
+
     private void AddReport(Report report)
     {
         if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
@@ -277,25 +293,9 @@ public class FieldHandler : MonoBehaviour
         }
     }
 
-    internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
-    {
-        x = x * 144 - 13 * 144 + 72;
-        y = 2160 / 2 - 72 - y * 144;
-
-        return new Vector3(x, y, z);
-    }
-
     private void Highlight(int x, int y)
     {
         SquareOverlay.transform.localPosition = FieldToWorldCoordinates(x, y, 1);
         HoverPlayer = FFB.Instance.Model.GetPlayer(x, y);
-    }
-
-    internal Vector3 ToDugoutCoordinates(int index)
-    {
-        int x = index % 5;
-        int y = index / 5;
-
-        return new Vector3(x * 144 - 280, 160 - y * 144, 0);
     }
 }

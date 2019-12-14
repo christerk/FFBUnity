@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class ConnectionHandler : MonoBehaviour
 {
+    public GameObject Progress;
+
     private RectTransform ProgressRect;
     private bool connected;
     private int PlayersToLoad = 0;
     private int progress = 0;
-
-    public GameObject Progress;
 
     #region MonoBehaviour Methods
 

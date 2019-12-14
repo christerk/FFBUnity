@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private Dictionary<string, AudioClip> SoundEffectClips;
-
     public AudioSource SoundEffectSource;
+
+    private Dictionary<string, AudioClip> SoundEffectClips;
 
     #region MonoBehaviour Methods
 
