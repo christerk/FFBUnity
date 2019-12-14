@@ -8,7 +8,7 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.BlockChoice report)
         {
-            BlockDie blockResult = report.blockResult.AsBlockDie();
+            BlockDie blockResult = report.blockResult.As<BlockDie>();
 
             yield return new LogRecord($"<b>Block Result [ {blockResult.Name} ]</b>");
 

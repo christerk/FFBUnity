@@ -251,8 +251,9 @@ public class FieldHandler : MonoBehaviour
         var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
         var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
         // x,y is the zero-based field square coordinate.
+        var coord = new Coordinate(x, y);
 
-        Highlight(x, y);
+        Highlight(coord);
     }
 
     #endregion
@@ -293,9 +294,9 @@ public class FieldHandler : MonoBehaviour
         }
     }
 
-    private void Highlight(int x, int y)
+    private void Highlight(Coordinate coord)
     {
-        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(x, y, 1);
-        HoverPlayer = FFB.Instance.Model.GetPlayer(x, y);
+        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(coord.X, coord.Y, 1);
+        HoverPlayer = FFB.Instance.Model.GetPlayer(coord);
     }
 }
