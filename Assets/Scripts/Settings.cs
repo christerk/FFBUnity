@@ -16,12 +16,6 @@ namespace Fumbbl
             Graphics = new GraphicsSettings();
             Sound = new SoundSettings();
         }
-        public void Save()
-        {
-            string jsonSettings = JsonConvert.SerializeObject(this);
-            string path = Path.Combine(Application.persistentDataPath, "Settings.json");
-            File.WriteAllText(path, jsonSettings);
-        }
 
         public void Load()
         {
@@ -40,6 +34,13 @@ namespace Fumbbl
             {
                 Save();
             }
+        }
+
+        public void Save()
+        {
+            string jsonSettings = JsonConvert.SerializeObject(this);
+            string path = Path.Combine(Application.persistentDataPath, "Settings.json");
+            File.WriteAllText(path, jsonSettings);
         }
     }
 
