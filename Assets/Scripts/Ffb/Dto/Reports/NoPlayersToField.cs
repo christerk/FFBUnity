@@ -2,9 +2,9 @@
 {
     public class NoPlayersToField : Report
     {
-        public NoPlayersToField() : base("noPlayersToField") { }
-
         public string reportId;
         public string teamId;
+
+        public NoPlayersToField() : base("noPlayersToField") { }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class ConfusionRoll : SkillRoll
     {
-        public ConfusionRoll() : base("confusionRoll") { }
-
         public string confusionSkill;
+
+        public ConfusionRoll() : base("confusionRoll") { }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class ClientTalk : AbstractCommand
     {
-        public ClientTalk() : base("clientTalk") { }
-
         public string talk;
+
+        public ClientTalk() : base("clientTalk") { }
     }
 }

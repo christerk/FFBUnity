@@ -5,12 +5,6 @@ namespace Fumbbl.Model.Types
 {
     public class Player : ViewObject<Player>
     {
-        public Player()
-        {
-            Team = new Team();
-            Skills = new List<string>();
-        }
-
         public Gender Gender;
         public List<string> Skills { get; set; }
         public PlayerState PlayerState { get; internal set; }
@@ -41,11 +35,6 @@ namespace Fumbbl.Model.Types
             }
         }
 
-        internal bool HasSkill(SkillType skillType)
-        {
-            return false;
-        }
-
         public string Level
         {
             get
@@ -57,6 +46,17 @@ namespace Fumbbl.Model.Types
                 if (Spp > 15) { return "Veteran"; }
                 return "Rookie";
             }
+        }
+
+        public Player()
+        {
+            Team = new Team();
+            Skills = new List<string>();
+        }
+
+        internal bool HasSkill(SkillType skillType)
+        {
+            return false;
         }
 
         public override void Refresh(Player data)

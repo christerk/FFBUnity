@@ -2,8 +2,8 @@
 {
     public class ClientPing : AbstractCommand
     {
-        public ClientPing() : base("clientPing") { }
-
         public long timestamp;
+
+        public ClientPing() : base("clientPing") { }
     }
 }

@@ -2,10 +2,10 @@
 {
     public class PlayerAction : Report
     {
-        public PlayerAction() : base("playerAction") { }
-
         public string reportId;
         public string actingPlayerId;
         public FFBEnumeration playerAction;
+
+        public PlayerAction() : base("playerAction") { }
     }
 }

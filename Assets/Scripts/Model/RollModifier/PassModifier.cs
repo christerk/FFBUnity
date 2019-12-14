@@ -2,9 +2,10 @@
 {
     public class PassModifier : AbstractModifier
     {
-        public PassModifier(string name, int modifier) : base(name, modifier) { }
         public bool DistanceModifier { get; set; } = false;
         public string Shortcut { get; set; }
+
+        public PassModifier(string name, int modifier) : base(name, modifier) { }
 
         public static PassModifier QuickPass = new PassModifier("Quick Pass", -1) { DistanceModifier = true, Shortcut = "Q" };
         public static PassModifier ShortPass = new PassModifier("Short Pass", 0) { DistanceModifier = true, Shortcut = "S" };

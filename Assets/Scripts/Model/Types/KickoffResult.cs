@@ -2,10 +2,10 @@
 {
     public class KickoffResult : FfbEnumerationFactory
     {
-        public KickoffResult(string name) : base(name) { }
-
         public string Title;
         public string Description;
+
+        public KickoffResult(string name) : base(name) { }
 
         public static KickoffResult GetTheRef = new KickoffResult("Get the Ref") { Title = "Get the Ref", Description = "Each coach receives a free bribe." };
         public static KickoffResult Riot = new KickoffResult("Riot") { Title = "Riot", Description = "The referee adjusts the clock after the riot clears." };

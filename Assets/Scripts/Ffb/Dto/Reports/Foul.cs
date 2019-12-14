@@ -2,9 +2,9 @@
 {
     public class Foul : Report
     {
-        public Foul() : base("foul") { }
-
         public string reportId;
         public string defenderId;
+
+        public Foul() : base("foul") { }
     }
 }

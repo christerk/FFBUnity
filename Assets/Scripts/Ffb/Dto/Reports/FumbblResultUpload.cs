@@ -2,10 +2,10 @@
 {
     public class FumbblResultUpload : Report
     {
-        public FumbblResultUpload() : base("fumbblResultUpload") { }
-
         public string reportId;
         public bool successful;
         public string uploadStatus;
+
+        public FumbblResultUpload() : base("fumbblResultUpload") { }
     }
 }

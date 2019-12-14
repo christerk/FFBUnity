@@ -2,10 +2,10 @@
 {
     public class KickoffResult : Report
     {
-        public KickoffResult() : base("kickoffResult") { }
-
         public string reportId;
         public FFBEnumeration kickoffResult;
         public int[] kickoffRoll;
+
+        public KickoffResult() : base("kickoffResult") { }
     }
 }
