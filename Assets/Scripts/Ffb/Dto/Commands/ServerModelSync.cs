@@ -3,6 +3,5 @@
     public class ServerModelSync : NetCommand
     {
         public ServerModelSync() : base("serverModelSync") { }
-
     }
 }
