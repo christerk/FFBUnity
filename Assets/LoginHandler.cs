@@ -51,7 +51,7 @@ public class LoginHandler : MonoBehaviour
 
     #endregion
 
-    private void Login()
+    public void Login()
     {
         bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
