@@ -37,20 +37,8 @@ namespace Fumbbl.Model.Types
 
         public override int GetHashCode()
         {
-            return ShiftAndWrap(X.GetHashCode(), 2) ^ Y.GetHashCode();
-        }
-
-        // https://docs.microsoft.com/en-us/dotnet/api/system.object.gethashcode?view=netframework-4.8
-        private int ShiftAndWrap(int value, int positions)
-        {
-            positions = positions & 0x1F;
-
-            // Save the existing bit pattern, but interpret it as an unsigned integer.
-            uint number = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
-            // Preserve the bits to be discarded.
-            uint wrapped = number >> (32 - positions);
-            // Shift and wrap the discarded bits.
-            return BitConverter.ToInt32(BitConverter.GetBytes((number << positions) | wrapped), 0);
+            // weighting the coordinates to ensure unique hash code over the set of possible coordinates of the game board
+            return (10000 * Y + X).GetHashCode();
         }
 
         public override string ToString()
