@@ -67,7 +67,7 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
-    void Login()
+    public void Login()
     {
         bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
