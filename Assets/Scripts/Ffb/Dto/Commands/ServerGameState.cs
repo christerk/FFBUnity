@@ -2,9 +2,9 @@
 {
     public class ServerGameState : NetCommand
     {
-        public ServerGameState() : base("serverGameState") { }
-
         public int commandNr;
         public Game game;
+
+        public ServerGameState() : base("serverGameState") { }
     }
 }

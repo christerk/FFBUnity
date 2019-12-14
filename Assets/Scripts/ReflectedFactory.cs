@@ -70,24 +70,17 @@ namespace Fumbbl
             }
         }
 
-        private static bool IsAssignableToGenericType(Type givenType, Type genericType)
+        internal T DeserializeJson(JToken jsonObject, K key)
         {
-            var interfaceTypes = givenType.GetInterfaces();
-
-            foreach (var it in interfaceTypes)
+            Type t = GetReflectedClass(key);
+            if (t != null)
             {
-                if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
-                    return true;
+                T result = (T)jsonObject.ToObject(t, Serializer);
+                return result;
             }
-
-            if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
-                return true;
-
-            Type baseType = givenType.BaseType;
-            if (baseType == null) return false;
-
-            return IsAssignableToGenericType(baseType, genericType);
+            return null;
         }
+
         internal Type GetReflectedClass(K key)
         {
             if (GeneratorClasses.ContainsKey(key))
@@ -106,15 +99,24 @@ namespace Fumbbl
             return null;
         }
 
-        internal T DeserializeJson(JToken jsonObject, K key)
+        private static bool IsAssignableToGenericType(Type givenType, Type genericType)
         {
-            Type t = GetReflectedClass(key);
-            if (t != null)
+            var interfaceTypes = givenType.GetInterfaces();
+
+            foreach (var it in interfaceTypes)
             {
-                T result = (T)jsonObject.ToObject(t, Serializer);
-                return result;
+                if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
+                    return true;
             }
-            return null;
+
+            if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
+                return true;
+
+            Type baseType = givenType.BaseType;
+            if (baseType == null) return false;
+
+            return IsAssignableToGenericType(baseType, genericType);
         }
+
     }
 }

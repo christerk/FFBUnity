@@ -1,24 +1,33 @@
 ﻿using Fumbbl;
 using Fumbbl.Api.Dto.Match;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class GameBrowserEntry : MonoBehaviour
 {
-    public TMPro.TextMeshProUGUI team1;
-    public Image team1Image;
-    public TMPro.TextMeshProUGUI team1Score;
-    public TMPro.TextMeshProUGUI team1Info;
-    public TMPro.TextMeshProUGUI team2;
-    public Image team2Image;
-    public TMPro.TextMeshProUGUI team2Score;
-    public TMPro.TextMeshProUGUI team2Info;
     public Image progressBar;
+    public Image team1Image;
+    public Image team2Image;
+    public TMPro.TextMeshProUGUI team1;
+    public TMPro.TextMeshProUGUI team1Info;
+    public TMPro.TextMeshProUGUI team1Score;
+    public TMPro.TextMeshProUGUI team2;
+    public TMPro.TextMeshProUGUI team2Info;
+    public TMPro.TextMeshProUGUI team2Score;
     public TMPro.TextMeshProUGUI turnIndicator;
 
     private Current matchDetails;
+
+    #region MonoBehaviour Methods
+
+    public void OnClick()
+    {
+        FFB.Instance.Stop();
+        FFB.Instance.Connect(matchDetails.id);
+        MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
+    }
+
+    #endregion
 
     public void SetMatchDetails(Current details)
     {
@@ -45,12 +54,5 @@ public class GameBrowserEntry : MonoBehaviour
         {
             Debug.LogError("Invalid number of teams found when parsing match details");
         }
-    }
-
-    public void OnClick()
-    {
-        FFB.Instance.Stop();
-        FFB.Instance.Connect(matchDetails.id);
-        MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
     }
 }

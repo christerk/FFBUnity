@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace Fumbbl.Model.Types
+﻿namespace Fumbbl.Model.Types
 {
     public class PlayerAction : FfbEnumerationFactory
     {
-        public PlayerAction(string name) : base(name) { }
         public string Action => Name;
         public int Type { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public bool ShowActivity => Description != null;
+
+        public PlayerAction(string name) : base(name) { }
 
         public static PlayerAction move = new PlayerAction("move") { ShortDescription="Move", Description = "starts a Move Action" };
         public static PlayerAction block = new PlayerAction("block") { ShortDescription = "Block", Description = "starts a Block Action" };

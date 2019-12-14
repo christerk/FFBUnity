@@ -2,7 +2,6 @@
 
 namespace Fumbbl.Model.RollModifier
 {
-
     public enum SignMode
     {
         Negative = -1,
@@ -17,11 +16,6 @@ namespace Fumbbl.Model.RollModifier
         public bool ShowModifier { get; set; } = true;
         public bool ShowName { get; set; } = true;
 
-        public AbstractModifier(string name, int modifier) : base(name)
-        {
-            Name = name;
-            Modifier = modifier;
-        }
         public string ModifierString
         {
             get
@@ -41,6 +35,12 @@ namespace Fumbbl.Model.RollModifier
 
                 return $"{sign}{modifier}{name}";
             }
+        }
+
+        public AbstractModifier(string name, int modifier) : base(name)
+        {
+            Name = name;
+            Modifier = modifier;
         }
     }
 }

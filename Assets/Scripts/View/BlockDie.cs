@@ -1,11 +1,4 @@
-﻿using Fumbbl.Model.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fumbbl.View
+﻿namespace Fumbbl.View
 {
     public class BlockDie : ViewObject<BlockDie>
     {

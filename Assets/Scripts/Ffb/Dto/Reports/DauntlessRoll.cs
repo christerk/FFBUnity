@@ -2,8 +2,8 @@
 {
     public class DauntlessRoll : SkillRoll
     {
-        public DauntlessRoll() : base("dauntlessRoll") { }
-
         public int strength;
+
+        public DauntlessRoll() : base("dauntlessRoll") { }
     }
 }

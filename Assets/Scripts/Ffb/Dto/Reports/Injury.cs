@@ -2,8 +2,6 @@
 {
     public class Injury : Report
     {
-        public Injury() : base("injury") { }
-
         public string reportId;
         public string defenderId;
         public string injuryType;
@@ -19,5 +17,7 @@
         public string attackerId;
         public FFBEnumeration[] armorModifiers;
         public FFBEnumeration[] injuryModifiers;
+
+        public Injury() : base("injury") { }
     }
 }

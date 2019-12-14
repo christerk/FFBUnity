@@ -11,27 +11,25 @@ using static Fumbbl.FFB;
 public class TextPanelHandler : MonoBehaviour
 {
     public FFB.LogPanelType panelType;
-
     public TMPro.TextMeshProUGUI LogTextPrefab;
     public bool EnableOcclusion;
 
     private GameObject Content;
-    private RectTransform ContentRect;
-    private ScrollRect scrollRect;
-
     private List<TMPro.TextMeshProUGUI> Items;
-
+    private RectTransform ContentRect;
+    private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
+    private ScrollRect scrollRect;
     private bool Dirty = false;
     private float contentHeight;
 
-    private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
+    #region MonoBehaviour Methods
 
     private void Awake()
     {
         LogTextFactory = new ReflectedFactory<LogTextGenerator<Report>, Type>();
     }
 
-    void Start()
+    private void Start()
     {
         Items = new List<TextMeshProUGUI>();
         Content = transform.Find("Viewport/Content").gameObject;
@@ -43,10 +41,22 @@ public class TextPanelHandler : MonoBehaviour
         scrollRect.onValueChanged.AddListener(OnScroll);
     }
 
-    public static string SanitizeText(string text)
+    private void OnDisable()
     {
-        return text?.Replace("<", "<noparse><</noparse>");
+        FFB.Instance.OnChat -= AddChat;
+        FFB.Instance.OnReport -= AddReport;
     }
+
+    private void OnGUI()
+    {
+        if (Dirty)
+        {
+            Dirty = false;
+            scrollRect.normalizedPosition = Vector2.zero;
+        }
+    }
+
+    #endregion
 
     public void OnScroll(Vector2 pos)
     {
@@ -62,7 +72,12 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void AddChat(string coach, ChatSource source, string text)
+    public static string SanitizeText(string text)
+    {
+        return text?.Replace("<", "<noparse><</noparse>");
+    }
+
+    private void AddChat(string coach, ChatSource source, string text)
     {
         if (this.panelType == FFB.LogPanelType.Chat)
         {
@@ -79,7 +94,7 @@ public class TextPanelHandler : MonoBehaviour
         }
     }
 
-    void AddReport(Report report)
+    private void AddReport(Report report)
     {
         if (this.panelType == FFB.LogPanelType.Log)
         {
@@ -127,20 +142,5 @@ public class TextPanelHandler : MonoBehaviour
                 OnScroll(Vector2.zero);
             }
         }
-    }
-
-    void OnGUI()
-    {
-        if (Dirty)
-        {
-            Dirty = false;
-            scrollRect.normalizedPosition = Vector2.zero;
-        }
-    }
-
-    void OnDisable()
-    {
-        FFB.Instance.OnChat -= AddChat;
-        FFB.Instance.OnReport -= AddReport;
     }
 }

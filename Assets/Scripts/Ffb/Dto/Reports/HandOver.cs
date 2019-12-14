@@ -2,9 +2,9 @@
 {
     public class HandOver : Report
     {
-        public HandOver() : base("handOver") { }
-
         public string reportId;
         public string catcherId;
+
+        public HandOver() : base("handOver") { }
     }
 }

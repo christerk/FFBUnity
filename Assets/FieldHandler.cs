@@ -1,48 +1,41 @@
 ﻿using Fumbbl;
 using Fumbbl.Ffb.Dto;
-using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Lib;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using Fumbbl.View;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FieldHandler : MonoBehaviour
 {
     public Camera MainCamera;
-    public GameObject PlayerIconPrefab;
     public GameObject AbstractIconPrefab;
-    public GameObject Field;
-    public GameObject DugoutHome;
-    public GameObject DugoutAway;
-    public GameObject BallPrefab;
     public GameObject ArrowPrefab;
-    public GameObject TrackNumberPrefab;
-    public GameObject ScrollTextPrefab;
-
-    public GameObject PlayerCardHome;
+    public GameObject BallPrefab;
+    public GameObject DugoutAway;
+    public GameObject DugoutHome;
+    public GameObject Field;
     public GameObject PlayerCardAway;
-
+    public GameObject PlayerCardHome;
+    public GameObject PlayerIconPrefab;
+    public GameObject ScrollTextPrefab;
     public GameObject SquareOverlay;
-
-    public TMPro.TextMeshProUGUI HomeTeamText;
+    public GameObject TrackNumberPrefab;
     public TMPro.TextMeshProUGUI AwayTeamText;
+    public TMPro.TextMeshProUGUI HomeTeamText;
 
     private GameObject Ball;
+    private Player HoverPlayer;
+    private RectTransform FieldRect;
     private ViewObjectList<Player> Players;
     private ViewObjectList<PushbackSquare> PushbackSquares;
     private ViewObjectList<TrackNumber> TrackNumbers;
 
-    private RectTransform FieldRect;
-
-    private Player HoverPlayer;
+    #region MonoBehaviour Methods
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         FFB.Instance.OnReport += AddReport;
 
@@ -111,28 +104,8 @@ public class FieldHandler : MonoBehaviour
         }
     }
 
-    private void AddReport(Report report)
-    {
-        if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
-        {
-            var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
-            if (action.ShowActivity)
-            {
-                Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
-                var scrollText = Instantiate(ScrollTextPrefab);
-                scrollText.gameObject.transform.SetParent(Field.transform);
-                var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
-                text.text = action.ShortDescription;
-                Vector3 coords = FieldToWorldCoordinates(player.Coordinate.X, player.Coordinate.Y, 5);
-                coords.y += 100;
-                scrollText.gameObject.transform.localPosition = coords;
-                scrollText.GetComponent<Animator>().SetTrigger("Scroll");
-            }
-        }
-    }
-
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         var ball = FFB.Instance.Model.Ball;
 	//TODO: converting player dictionary to list is less than optimal!
@@ -257,7 +230,22 @@ public class FieldHandler : MonoBehaviour
         }
     }
 
-    void OnMouseOver()
+    private void OnDestroy()
+    {
+        FFB.Instance.OnReport -= AddReport;
+    }
+
+    private void OnMouseEnter()
+    {
+        SquareOverlay.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        SquareOverlay.SetActive(false);
+    }
+
+    private void OnMouseOver()
     {
         var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
         var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
@@ -267,21 +255,7 @@ public class FieldHandler : MonoBehaviour
         Highlight(x, y);
     }
 
-    private void Highlight(int x, int y)
-    {
-        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(x, y, 1);
-        HoverPlayer = FFB.Instance.Model.GetPlayer(x, y);
-    }
-
-    void OnMouseEnter()
-    {
-        SquareOverlay.SetActive(true);
-    }
-
-    void OnMouseExit()
-    {
-        SquareOverlay.SetActive(false);
-    }
+    #endregion
 
     internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
     {
@@ -299,8 +273,29 @@ public class FieldHandler : MonoBehaviour
         return new Vector3(x * 144 - 280, 160 - y * 144, 0);
     }
 
-    void OnDestroy()
+    private void AddReport(Report report)
     {
-        FFB.Instance.OnReport -= AddReport;
+        if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
+        {
+            var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
+            if (action.ShowActivity)
+            {
+                Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
+                var scrollText = Instantiate(ScrollTextPrefab);
+                scrollText.gameObject.transform.SetParent(Field.transform);
+                var text = scrollText.GetComponentInChildren<TMPro.TextMeshPro>();
+                text.text = action.ShortDescription;
+                Vector3 coords = FieldToWorldCoordinates(player.Coordinate.X, player.Coordinate.Y, 5);
+                coords.y += 100;
+                scrollText.gameObject.transform.localPosition = coords;
+                scrollText.GetComponent<Animator>().SetTrigger("Scroll");
+            }
+        }
+    }
+
+    private void Highlight(int x, int y)
+    {
+        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(x, y, 1);
+        HoverPlayer = FFB.Instance.Model.GetPlayer(x, y);
     }
 }

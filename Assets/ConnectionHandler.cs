@@ -1,6 +1,4 @@
 ﻿using Fumbbl;
-using Fumbbl.Lib;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,13 +8,16 @@ using UnityEngine;
 public class ConnectionHandler : MonoBehaviour
 {
     public GameObject Progress;
-    private bool connected;
 
     private RectTransform ProgressRect;
+    private bool connected;
     private int PlayersToLoad = 0;
     private int progress = 0;
+
+    #region MonoBehaviour Methods
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         FFB.Instance.Initialize();
         connected = false;
@@ -25,7 +26,7 @@ public class ConnectionHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    async void Update()
+    private async void Update()
     {
         if (!connected)
         {
@@ -61,4 +62,6 @@ public class ConnectionHandler : MonoBehaviour
             Progress.SetActive(false);
         }
     }
+
+    #endregion
 }

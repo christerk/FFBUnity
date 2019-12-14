@@ -42,7 +42,7 @@ namespace Fumbbl.Ffb
         /**
          * LZString Java Implementation by diogoduailibe. source
          * https://github.com/diogoduailibe/lzstring4j
-         * 
+         *
          * Based on JavaScript lz-string by pieroxy source
          * http://pieroxy.net/blog/pages/lz-string/index.html
          */
@@ -50,7 +50,6 @@ namespace Fumbbl.Ffb
         {
             public static String Compress(String uncompressed)
             {
-
                 if (uncompressed == null)
                     return "";
                 int value;

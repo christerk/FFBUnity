@@ -18,12 +18,14 @@ namespace Fumbbl
             GameBrowserScene
         }
 
+        #region MonoBehaviour Methods
+
         private void Awake()
         {
             Instance = this;
         }
 
-        void Start()
+        private void Start()
         {
             Debug.Log("MainHandler Initialized");
             Application.targetFrameRate = 60;
@@ -31,24 +33,26 @@ namespace Fumbbl
             FFB.Instance.RefreshState();
         }
 
-        public void AddReport(Report text)
+        private void OnApplicationQuit()
         {
-            FFB.Instance.AddReport(text);
+            FFB.Instance.Stop();
         }
+
+        #endregion
 
         public void AddChatEntry(string text)
         {
             _ = FFB.Instance.Network.Send(new ClientTalk() { talk = text });
         }
 
+        public void AddReport(Report text)
+        {
+            FFB.Instance.AddReport(text);
+        }
+
         public void QuitGame()
         {
             Application.Quit();
-        }
-
-        private void OnApplicationQuit()
-        {
-            FFB.Instance.Stop();
         }
 
         public void SetScene(SceneType scene)

@@ -2,8 +2,8 @@
 {
     public class BombOutOfBounds : Report
     {
-        public BombOutOfBounds() : base("bombOutOfBounds") { }
-
         public string reportId;
+
+        public BombOutOfBounds() : base("bombOutOfBounds") { }
     }
 }

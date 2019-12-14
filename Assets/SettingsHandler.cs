@@ -6,22 +6,27 @@ using UnityEngine.UI;
 
 public class SettingsHandler : MonoBehaviour
 {
-    public Toggle fullscreenToggle;
-    public TMP_Dropdown resolutions;
-    public TMP_InputField clientId;
-    public TMP_InputField clientSecret;
-    public GameObject initialPanel;
-    public Toggle AbstractIconsToggle;
-
     public GameObject currentPanel;
+    public GameObject initialPanel;
 
+    // Graphics Panel
+    public TMP_Dropdown resolutions;
+    public Toggle AbstractIconsToggle;
+    public Toggle fullscreenToggle;
+
+    // Sound Panel
+    public Slider VolumeSlider;
     public Toggle SoundEnableToggle;
 
-    public Slider VolumeSlider;
+    // DebugPanel
+    public TMP_InputField clientId;
+    public TMP_InputField clientSecret;
 
     private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
 
-    void Start()
+    #region MonoBehaviour Methods
+
+    private void Start()
     {
         fullscreenToggle.isOn = Screen.fullScreen;
 
@@ -69,19 +74,9 @@ public class SettingsHandler : MonoBehaviour
         VolumeSlider.value = FFB.Instance.Settings.Sound.GlobalVolume;
     }
 
-    public void ShowPanel(GameObject panel)
-    {
-        Debug.Log(GetHashCode());
-        if (panel != currentPanel)
-        {
-            if (currentPanel != null)
-            {
-                currentPanel.GetComponent<Animator>().SetTrigger("Hide");
-            }
-            panel.GetComponent<Animator>().SetTrigger("Show");
-            currentPanel = panel;
-        }
-    }
+    #endregion
+
+    #region Graphics Panel Methods
 
     private bool AllowResolution(Resolution r)
     {
@@ -92,37 +87,16 @@ public class SettingsHandler : MonoBehaviour
     {
         return GetResolutionKey(r.width, r.height);
     }
+
     private int GetResolutionKey(int width, int height)
     {
         return width * 100000 + height;
     }
 
-    public void SetOAuth()
+    public void UpdateAbstractIcons()
     {
-        PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
-        PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
-    }
-
-    public void SwitchToGameBrowser()
-    {
-        FFB.Instance.Stop();
-        MainHandler.Instance.SetScene(MainHandler.SceneType.GameBrowserScene);
-    }
-
-    public void SwitchToMainScene()
-    {
-        MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
-    }
-
-    public void SwitchToPreviousScene()
-    {
-        MainHandler.Instance.SetScene(FFB.Instance.PreviousScene);
-    }
-
-    public void Quit()
-    {
-        FFB.Instance.Stop();
-        MainHandler.Instance.QuitGame();
+        FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
+        FFB.Instance.Settings.Save();
     }
 
     public void UpdateResolution()
@@ -142,11 +116,10 @@ public class SettingsHandler : MonoBehaviour
         resolutions.gameObject.SetActive(!fullscreenToggle.isOn);
     }
 
-    public void UpdateAbstractIcons()
-    {
-        FFB.Instance.Settings.Graphics.AbstractIcons = AbstractIconsToggle.isOn;
-        FFB.Instance.Settings.Save();
-    }
+    #endregion
+
+    #region Sound Panel Methods
+
     public void UpdateEnableSound()
     {
         FFB.Instance.Settings.Sound.Mute = !SoundEnableToggle.isOn;
@@ -158,6 +131,19 @@ public class SettingsHandler : MonoBehaviour
         FFB.Instance.Settings.Sound.GlobalVolume = VolumeSlider.value;
         FFB.Instance.Settings.Save();
     }
+
+    #endregion
+
+    #region Debug Panel Methods
+
+    public void SetOAuth()
+    {
+        PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
+        PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
+    }
+
+    #endregion
+
     public void Logout()
     {
         FFB.Instance.Stop();
@@ -165,4 +151,48 @@ public class SettingsHandler : MonoBehaviour
         PlayerPrefs.DeleteKey("OAuth.ClientSecret");
         MainHandler.Instance.SetScene(MainHandler.SceneType.LoginScene);
     }
+
+    public void Quit()
+    {
+        FFB.Instance.Stop();
+        MainHandler.Instance.QuitGame();
+    }
+
+    public void ShowPanel(GameObject panel)
+    {
+        Debug.Log(GetHashCode());
+        if (panel != currentPanel)
+        {
+            if (currentPanel != null)
+            {
+                currentPanel.GetComponent<Animator>().SetTrigger("Hide");
+            }
+            panel.GetComponent<Animator>().SetTrigger("Show");
+            currentPanel = panel;
+        }
+    }
+
+    public void SwitchToGameBrowser()
+    {
+        FFB.Instance.Stop();
+        MainHandler.Instance.SetScene(MainHandler.SceneType.GameBrowserScene);
+    }
+
+    public void SwitchToMainScene()
+    {
+        MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
+    }
+    public void SwitchToPreviousScene()
+    {
+        MainHandler.Instance.SetScene(FFB.Instance.PreviousScene);
+    }
+
+
+
+
+
+
+
+
+
 }

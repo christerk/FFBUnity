@@ -4,8 +4,6 @@
     {
         public string modelChangeValue;
 
-        public ActingPlayerSetPlayerId() : base("actingPlayerSetPlayerId")
-        {
-        }
+        public ActingPlayerSetPlayerId() : base("actingPlayerSetPlayerId") { }
     }
 }

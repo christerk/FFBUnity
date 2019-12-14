@@ -1,9 +1,5 @@
 ﻿using Fumbbl.Model.Types;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Fumbbl.Lib
@@ -11,6 +7,7 @@ namespace Fumbbl.Lib
     public static class PlayerIcon
     {
         public const int NormalizedIconSize = 60;
+
         private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f, 1f);
         private static Color AwayColour = new Color(0f, 0f, 0.99f, 1f);
 
@@ -46,15 +43,6 @@ namespace Fumbbl.Lib
             return obj;
         }
 
-        private static GameObject CreatePlayerIcon(Player p, GameObject prefab)
-        {
-            GameObject obj = GameObject.Instantiate(prefab);
-            var handler = obj.GetComponent<PlayerHandler>();
-            handler.Player = p;
-            obj.name = p.Id;
-            return obj;
-        }
-
         public static void LoadSprite(string iconURL, GameObject target)
         {
             Sprite resized = LoadIconSpriteSheet(iconURL);
@@ -65,6 +53,46 @@ namespace Fumbbl.Lib
                 rect.sizeDelta = new Vector2(192, 192);
                 renderer.sprite = resized;
             });
+        }
+
+        private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int destMip, int y, int x)
+        {
+            var srcPixels = s.texture.GetPixels32(0);
+            var destPixels = dest.GetPixels32();
+
+            int srcOriginX = x * srcIconSize;
+            int srcOriginY = y * srcIconSize;
+            int srcWidth = 4 * srcIconSize;
+
+            int dstOriginX = x * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
+            int dstOriginY = y * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
+            int dstWidth = 4 * NormalizedIconSize;
+
+            for (int yy=0; yy<srcIconSize; yy++)
+            {
+                for (int xx=0; xx<srcIconSize; xx++)
+                {
+                    var srcX = srcOriginX + xx;
+                    var srcY = srcOriginY + yy;
+
+                    var dstX = dstOriginX + xx;
+                    var dstY = dstOriginY + yy;
+
+                    var pixel = srcPixels[srcX + srcWidth * srcY];
+                    destPixels[dstX + dstWidth * dstY] = pixel;
+                }
+            }
+            dest.SetPixels32(destPixels);
+            dest.Apply(false);
+        }
+
+        private static GameObject CreatePlayerIcon(Player p, GameObject prefab)
+        {
+            GameObject obj = GameObject.Instantiate(prefab);
+            var handler = obj.GetComponent<PlayerHandler>();
+            handler.Player = p;
+            obj.name = p.Id;
+            return obj;
         }
 
         private static Sprite LoadIconSpriteSheet(string iconURL)
@@ -110,37 +138,6 @@ namespace Fumbbl.Lib
             // TODO: This should be a "Icon Scaling Mode" setting
             dest.filterMode = FilterMode.Point;
             return Sprite.Create(dest, new Rect(0, 0, dest.width, dest.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
-        }
-
-        private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int destMip, int y, int x)
-        {
-            var srcPixels = s.texture.GetPixels32(0);
-            var destPixels = dest.GetPixels32();
-
-            int srcOriginX = x * srcIconSize;
-            int srcOriginY = y * srcIconSize;
-            int srcWidth = 4 * srcIconSize;
-
-            int dstOriginX = x * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
-            int dstOriginY = y * NormalizedIconSize + (NormalizedIconSize - srcIconSize) / 2;
-            int dstWidth = 4 * NormalizedIconSize;
-
-            for (int yy=0; yy<srcIconSize; yy++)
-            {
-                for (int xx=0; xx<srcIconSize; xx++)
-                {
-                    var srcX = srcOriginX + xx;
-                    var srcY = srcOriginY + yy;
-
-                    var dstX = dstOriginX + xx;
-                    var dstY = dstOriginY + yy;
-
-                    var pixel = srcPixels[srcX + srcWidth * srcY];
-                    destPixels[dstX + dstWidth * dstY] = pixel;
-                }
-            }
-            dest.SetPixels32(destPixels);
-            dest.Apply(false);
         }
     }
 }

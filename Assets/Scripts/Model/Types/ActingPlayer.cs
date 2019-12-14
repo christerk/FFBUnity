@@ -2,8 +2,8 @@
 {
     public class ActingPlayer
     {
-        public string PlayerId;
         public ActionType CurrentAction { get; internal set; }
+        public string PlayerId;
 
         public enum ActionType
         {

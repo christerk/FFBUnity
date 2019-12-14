@@ -2,9 +2,9 @@
 {
     public class BiteSpectator : Report
     {
-        public BiteSpectator() : base("biteSpectator") { }
-
         public string reportId;
         public string playerId;
+
+        public BiteSpectator() : base("biteSpectator") { }
     }
 }

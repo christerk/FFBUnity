@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+
 namespace Fumbbl.Ffb
 {
     interface IWebsocket

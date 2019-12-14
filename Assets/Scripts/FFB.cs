@@ -1,15 +1,12 @@
 ﻿using Fumbbl.Ffb;
 using Fumbbl.Ffb.Dto;
 using Fumbbl.Ffb.Dto.Reports;
-using Fumbbl.Lib;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Fumbbl
 {
@@ -17,32 +14,21 @@ namespace Fumbbl
     {
         public static FFB Instance = new FFB();
 
-        private bool Initialized;
+        public Lib.Cache<Sprite> SpriteCache { get; set; }
+        public ActionInjectorHandler ActionInjector;
+        public Core Model { get; }
         public FumbblApi Api;
         public Networking Network;
-        private readonly List<Report> LogText;
-
-        private readonly List<ChatEntry> ChatText;
-        public ActionInjectorHandler ActionInjector;
-
         public Settings Settings;
-        public Core Model { get; }
-        public string CoachName { get; private set; }
-
-        public delegate void AddReportDelegate(Report text);
-        public event AddReportDelegate OnReport;
-
-        public delegate void AddSoundDelegate(string sound);
-        public event AddSoundDelegate OnSound;
-
-
         public delegate void AddChatDelegate(string coach, ChatSource source, string text);
+        public delegate void AddReportDelegate(Report text);
+        public delegate void AddSoundDelegate(string sound);
         public event AddChatDelegate OnChat;
-
+        public event AddReportDelegate OnReport;
+        public event AddSoundDelegate OnSound;
         public int GameId { get; private set; }
+        public string CoachName { get; private set; }
         public string PreviousScene { get; internal set; }
-
-	    public Lib.Cache<Sprite> SpriteCache { get; set; }
 
         public enum ChatSource
         {
@@ -51,12 +37,17 @@ namespace Fumbbl
             Away,
             Spectator
         }
+
         public enum LogPanelType
         {
             None,
             Log,
             Chat
         }
+
+        private bool Initialized;
+        private readonly List<ChatEntry> ChatText;
+        private readonly List<Report> LogText;
 
         private FFB()
         {
@@ -98,11 +89,33 @@ namespace Fumbbl
             GameId = 0;
         }
 
+        public void PlaySound(string sound)
+        {
+            TriggerSoundChanged(sound);
+        }
+
         public void Stop()
         {
             GameId = 0;
             Model.Clear();
             Network.Disconnect();
+        }
+
+        internal void AddChatEntry(string coach, string text)
+        {
+            ChatSource source = ChatSource.Spectator;
+            if (string.Equals(FFB.Instance.Model.HomeCoach.Name, coach))
+            {
+                source = ChatSource.Home;
+            }
+            if (string.Equals(FFB.Instance.Model.AwayCoach.Name, coach))
+            {
+                source = ChatSource.Away;
+            }
+
+            ChatEntry entry = new ChatEntry(coach, source, text);
+            ChatText.Add(entry);
+            TriggerChatChanged(entry);
         }
 
         internal void AddReport(Report report)
@@ -111,9 +124,9 @@ namespace Fumbbl
             TriggerLogChanged(report);
         }
 
-        internal List<Report> GetLog()
+        internal void ExecuteOnMainThread(Action action)
         {
-            return LogText;
+            ActionInjector.Enqueue(action);
         }
 
         internal List<ChatEntry> GetChat()
@@ -121,39 +134,9 @@ namespace Fumbbl
             return ChatText;
         }
 
-        private void TriggerLogChanged(Report text)
+        internal List<Report> GetLog()
         {
-            try
-            {
-                OnReport?.Invoke(text);
-            }
-            catch (Exception e)
-            {
-                Debug.Log($"Exception during Report Handling: {e.Message}");
-                Debug.Log(e.StackTrace);
-            }
-        }
-
-        private void TriggerLogRefresh()
-        {
-            if (OnReport != null)
-            {
-                foreach (Report entry in LogText)
-                {
-                    OnReport(entry);
-                }
-            }
-        }
-
-        internal void SetCoachName(string coachName)
-        {
-            CoachName = coachName;
-        }
-
-        internal void RefreshState()
-        {
-            TriggerLogRefresh();
-            TriggerChatRefresh();
+            return LogText;
         }
 
         internal bool HandleNetCommand(NetCommand netCommand)
@@ -333,42 +316,22 @@ namespace Fumbbl
             return false;
         }
 
-        internal void ExecuteOnMainThread(Action action)
+        internal void RefreshState()
         {
-            ActionInjector.Enqueue(action);
+            TriggerLogRefresh();
+            TriggerChatRefresh();
         }
 
-        public void PlaySound(string sound)
+        internal void SetCoachName(string coachName)
         {
-            TriggerSoundChanged(sound);
-        }
-
-        private void TriggerSoundChanged(string sound)
-        {
-            OnSound?.Invoke(sound);
-        }
-
-        internal void AddChatEntry(string coach, string text)
-        {
-            ChatSource source = ChatSource.Spectator;
-            if (string.Equals(FFB.Instance.Model.HomeCoach.Name, coach))
-            {
-                source = ChatSource.Home;
-            }
-            if (string.Equals(FFB.Instance.Model.AwayCoach.Name, coach))
-            {
-                source = ChatSource.Away;
-            }
-
-            ChatEntry entry = new ChatEntry(coach, source, text);
-            ChatText.Add(entry);
-            TriggerChatChanged(entry);
+            CoachName = coachName;
         }
 
         private void TriggerChatChanged(ChatEntry entry)
         {
             OnChat?.Invoke(entry.Coach, entry.Source, entry.Text);
         }
+
         private void TriggerChatRefresh()
         {
             if (OnChat != null)
@@ -378,6 +341,35 @@ namespace Fumbbl
                     OnChat(entry.Coach, entry.Source, entry.Text);
                 }
             }
+        }
+
+        private void TriggerLogChanged(Report text)
+        {
+            try
+            {
+                OnReport?.Invoke(text);
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Exception during Report Handling: {e.Message}");
+                Debug.Log(e.StackTrace);
+            }
+        }
+
+        private void TriggerLogRefresh()
+        {
+            if (OnReport != null)
+            {
+                foreach (Report entry in LogText)
+                {
+                    OnReport(entry);
+                }
+            }
+        }
+
+        private void TriggerSoundChanged(string sound)
+        {
+            OnSound?.Invoke(sound);
         }
     }
 }

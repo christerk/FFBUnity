@@ -4,7 +4,7 @@
     {
         public RightStuffModifier(string name, int modifier) : base(name, modifier) { }
 
-        public static RightStuffModifier Swoop = new RightStuffModifier("Swoop", -1) { };
+        public static RightStuffModifier Swoop = new RightStuffModifier("Swoop", -1);
         public static RightStuffModifier Tacklezone1 = new RightStuffModifier("1 Tacklezone", 1) { ShowModifier = false };
         public static RightStuffModifier Tacklezone2 = new RightStuffModifier("2 Tacklezones", 2) { ShowModifier = false };
         public static RightStuffModifier Tacklezone3 = new RightStuffModifier("3 Tacklezones", 3) { ShowModifier = false };

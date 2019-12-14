@@ -5,9 +5,9 @@
         public InterceptionModifier(string name, int modifier) : base(name, modifier) { }
 
         public static InterceptionModifier NervesOfSteel = new InterceptionModifier("Nerves of Steel", 0) { SignMode = SignMode.Hidden, ShowModifier = false, ShowName = false };
-        public static InterceptionModifier ExtraArms = new InterceptionModifier("Extra Arms", -1) { };
-        public static InterceptionModifier VeryLongLegs = new InterceptionModifier("Very Long Legs", -1) { };
-        public static InterceptionModifier PouringRain = new InterceptionModifier("Pouring Rain", 1) { };
+        public static InterceptionModifier ExtraArms = new InterceptionModifier("Extra Arms", -1);
+        public static InterceptionModifier VeryLongLegs = new InterceptionModifier("Very Long Legs", -1);
+        public static InterceptionModifier PouringRain = new InterceptionModifier("Pouring Rain", 1);
         public static InterceptionModifier Tacklezone1 = new InterceptionModifier("1 Tacklezone", 1) { ShowModifier = false };
         public static InterceptionModifier Tacklezone2 = new InterceptionModifier("2 Tacklezones", 2) { ShowModifier = false };
         public static InterceptionModifier Tacklezone3 = new InterceptionModifier("3 Tacklezones", 3) { ShowModifier = false };
@@ -27,7 +27,7 @@
         public static InterceptionModifier DisturbingPresence9 = new InterceptionModifier("9 Disturbing Presences", 9) { ShowModifier = false };
         public static InterceptionModifier DisturbingPresence10 = new InterceptionModifier("10 Disturbing Presences", 10) { ShowModifier = false };
         public static InterceptionModifier DisturbingPresence11 = new InterceptionModifier("11 Disturbing Presences", 11) { ShowModifier = false };
-        public static InterceptionModifier FawndoughsHeadband = new InterceptionModifier("Fawndough's Headband", -1) { };
-        public static InterceptionModifier MagicGlovesOfJarkLongarm = new InterceptionModifier("Magic Gloves of Jark Longarm", -1) { };
+        public static InterceptionModifier FawndoughsHeadband = new InterceptionModifier("Fawndough's Headband", -1);
+        public static InterceptionModifier MagicGlovesOfJarkLongarm = new InterceptionModifier("Magic Gloves of Jark Longarm", -1);
     }
 }

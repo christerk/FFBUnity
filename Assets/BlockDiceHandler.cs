@@ -1,32 +1,28 @@
 ﻿using Fumbbl;
 using Fumbbl.View;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Fumbbl.Model;
 using static Fumbbl.Model.Types.BlockDie;
 
 public class BlockDiceHandler : MonoBehaviour
 {
+    public GameObject BlockDiePrefab;
     public Sprite SkullSprite;
     public Sprite BothDownSprite;
     public Sprite PushSprite;
     public Sprite PushPowSprite;
     public Sprite PowSprite;
-
-    public GameObject BlockDiePrefab;
-
-    private ViewObjectList<BlockDie> BlockDice;
-
     public Transform ContentObject;
 
+    private ViewObjectList<BlockDie> BlockDice;
     private static Vector2 FullSize = new Vector2(40, 40);
     private static Vector2 SmallSize = new Vector2(30, 30);
     private static Vector2 SpacerSize = new Vector2(12, 30);
 
+    #region MonoBehaviour Methods
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         BlockDice = new ViewObjectList<BlockDie>(
             die =>
@@ -47,7 +43,7 @@ public class BlockDiceHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         var dice = FFB.Instance.Model.BlockDice;
         BlockDice.Refresh(dice, RefreshBlockDie);
@@ -77,6 +73,8 @@ public class BlockDiceHandler : MonoBehaviour
             trn.sizeDelta = SpacerSize;
         }
     };
+
+    #endregion
 
     private Sprite GetSpriteForRoll(Fumbbl.Model.Types.BlockDie roll)
     {

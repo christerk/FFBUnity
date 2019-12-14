@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
+    public Player Player;
+    public bool HasIcon;
+
     private GameObject Background;
     private GameObject Outline;
     private GameObject Prone;
     private GameObject Stunned;
     private Renderer BackgroundRenderer;
-    SpriteMask Mask;
+    private SpriteMask Mask;
 
-    public bool HasIcon;
+    #region MonoBehaviour Methods
 
-    public Player Player;
-
-    void Start()
+    private void Start()
     {
         Background = this.transform.GetChild(0).gameObject;
         Outline = this.transform.GetChild(1).gameObject;
@@ -27,7 +28,7 @@ public class PlayerHandler : MonoBehaviour
         Mask = GetComponent<SpriteMask>();
     }
 
-    void Update()
+    private void Update()
     {
         bool active = string.Equals(FFB.Instance.Model.ActingPlayer.PlayerId, Player.Id);
         Outline.SetActive(active);
@@ -66,4 +67,6 @@ public class PlayerHandler : MonoBehaviour
         Prone.SetActive(state.IsProne);
         Stunned.SetActive(state.IsStunned);
     }
+
+    #endregion
 }

@@ -3,6 +3,7 @@
     public class ReflectedGenerator<T> : IReflectedObject<T>
     {
         private readonly T Key;
+
         public ReflectedGenerator(T key)
         {
             Key = key;
@@ -12,6 +13,5 @@
         {
             return Key;
         }
-
     }
 }

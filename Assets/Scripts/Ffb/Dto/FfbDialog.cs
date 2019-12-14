@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fumbbl.Ffb.Dto
+﻿namespace Fumbbl.Ffb.Dto
 {
     public abstract class FfbDialog : ReflectedGenerator<string>
     {
