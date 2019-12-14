@@ -12,6 +12,5 @@
             Genetive = "his",
             Nominative = "he"
         };
-
     }
 }
