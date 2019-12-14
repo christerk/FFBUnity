@@ -20,10 +20,10 @@ namespace Fumbbl.Lib
                 PlayerIcon.LoadSprite(p.Position.IconURL, target);
                 return obj;
             }
-            catch(Exception ex)
+            catch(MissingPlayerIconException ex1)
             {
                 GameObject.Destroy(obj);
-                Debug.LogError("Exception loading player sprite, falling back to abstract icons: " + ex);
+                Debug.LogWarning($"Exception loading player sprite, falling back to abstract icons: {ex1}");
                 return GeneratePlayerIconAbstract(p, fallbackPrefab);
             }
         }
@@ -98,6 +98,9 @@ namespace Fumbbl.Lib
         private static Sprite LoadIconSpriteSheet(string iconURL)
         {
             Sprite s = FFB.Instance.SpriteCache.Get(iconURL);
+            if (s == null) {
+                 throw new MissingPlayerIconException($"Missing Player icon: \"{iconURL}\"");
+            };
             var iconSize = s.texture.width / 4;
             int numTextures = s.texture.height / iconSize;
 
@@ -140,4 +143,19 @@ namespace Fumbbl.Lib
             return Sprite.Create(dest, new Rect(0, 0, dest.width, dest.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
         }
     }
+
+    // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/exceptions/creating-and-throwing-exceptions#defining-exception-classes
+    [Serializable()]
+    public class MissingPlayerIconException : System.Exception
+    {
+        public MissingPlayerIconException() : base() { }
+        public MissingPlayerIconException(string message) : base(message) { }
+        public MissingPlayerIconException(string message, System.Exception inner) : base(message, inner) { }
+
+        // A constructor is needed for serialization when an
+        // exception propagates from a remoting server to the client.
+        protected MissingPlayerIconException(System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
+
 }

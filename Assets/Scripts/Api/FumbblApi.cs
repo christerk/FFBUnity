@@ -100,7 +100,9 @@ public class FumbblApi
         }
         catch (WebException ex)
         {
-            Debug.LogError("Failed to download: " + url + " Due to exception: " + ex);
+            HttpWebResponse resp = ex.Response as HttpWebResponse;
+            Debug.LogWarning($"Failed to download ({(int)resp.StatusCode}, {resp.StatusCode}): \"{url}\"");
+            return null;
         }
         Sprite s = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
         s.name = url;
