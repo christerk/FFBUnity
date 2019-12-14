@@ -4,10 +4,10 @@ namespace Fumbbl.Model.Types
 {
     public class Coordinate
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
 
-        private Coordinate(int x, int y)
+        public Coordinate(int x, int y)
         {
             X = x;
             Y = y;
@@ -27,14 +27,18 @@ namespace Fumbbl.Model.Types
 
         }
 
-        public static Coordinate Create(int x, int y)
+        public override bool Equals(Object obj)
         {
-            return new Coordinate(x, y);
+           if (! (obj is Coordinate)) return false;
+
+           Coordinate p = (Coordinate)obj;
+           return X == p.X & Y == p.Y;
         }
 
-        public bool Equals(Coordinate other)
+        public override int GetHashCode()
         {
-            return other != null && other.X == this.X && other.Y == this.Y;
+            // weighting the coordinates to ensure unique hash code over the set of possible coordinates of the game board
+            return (10000 * Y + X).GetHashCode();
         }
 
         public override string ToString()
