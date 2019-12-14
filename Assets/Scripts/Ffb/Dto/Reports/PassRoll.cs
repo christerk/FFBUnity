@@ -2,11 +2,11 @@
 {
     public class PassRoll : SkillRoll
     {
-        public string passingDistance;
-        public bool fumble;
-        public bool safeThrowHold;
-        public bool hailMaryPass;
+        public FFBEnumeration passingDistance;
         public bool bomb;
+        public bool fumble;
+        public bool hailMaryPass;
+        public bool safeThrowHold;
 
         public PassRoll() : base("passRoll") { }
     }

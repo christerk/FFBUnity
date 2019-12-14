@@ -12,6 +12,7 @@ namespace Fumbbl.Model
         public Ball Ball;
         public Coach AwayCoach { get; internal set; }
         public Coach HomeCoach { get; internal set; }
+        public Coordinate PassCoordinate { get; internal set; }
         public Dictionary<int, View.PushbackSquare> PushbackSquares;
         public Dictionary<int, View.TrackNumber> TrackNumbers;
         public List<View.BlockDie> BlockDice;
@@ -126,11 +127,11 @@ namespace Fumbbl.Model
             return Players[playerId];
         }
 
-        internal Player GetPlayer(int x, int y)
+        internal Player GetPlayer(Coordinate coord)
         {
             foreach (Player p in Players.Values)
             {
-                if (p.Coordinate.X == x && p.Coordinate.Y == y)
+                if (p.Coordinate.Equals(coord))
                 {
                     return p;
                 }
