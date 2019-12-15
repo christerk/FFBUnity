@@ -106,12 +106,24 @@ public class SettingsHandler : MonoBehaviour
     public void SwitchToGameBrowser()
     {
         FFB.Instance.Stop();
-        MainHandler.Instance.SetScene(MainHandler.SceneType.GameBrowserScene);
+        if(FFB.Instance.Api.IsAuthenticated()) 
+        {
+            MainHandler.Instance.SetScene(MainHandler.SceneType.GameBrowserScene);
+        }
+        else
+        {
+            SwitchToLoginScene();
+        }
     }
 
     public void SwitchToMainScene()
     {
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
+    }
+
+    public void SwitchToLoginScene()
+    {
+        MainHandler.Instance.SetScene(MainHandler.SceneType.LoginScene);
     }
 
     public void SwitchToPreviousScene()

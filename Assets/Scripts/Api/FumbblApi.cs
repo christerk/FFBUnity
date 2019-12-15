@@ -16,6 +16,14 @@ using ApiDto = Fumbbl.Api.Dto;
 public class FumbblApi
 {
     private string accessToken;
+
+    private bool isAuthenticated = false;
+
+    public bool IsAuthenticated()
+    {
+        return isAuthenticated;
+    }
+
     public bool Auth(string clientId, string clientSecret)
     {
         string result = Post("oauth", "token", new Dictionary<string, string>()
@@ -37,10 +45,12 @@ public class FumbblApi
             result = Get("coach", $"get/{coachId}");
             ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
             FFB.Instance.SetCoachName(coach.name);
+            isAuthenticated = true;
             return true;
         }
         catch
         {
+            isAuthenticated = false;
             return false;
         }
     }
