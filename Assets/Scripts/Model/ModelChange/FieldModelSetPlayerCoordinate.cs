@@ -9,7 +9,6 @@ namespace Fumbbl.Model.ModelChange
         public override void Apply(Ffb.Dto.ModelChanges.FieldModelSetPlayerCoordinate change)
         {
             Player p = FFB.Instance.Model.GetPlayer(change.modelChangeKey);
-
             p.Coordinate = Coordinate.Create(change.modelChangeValue);
         }
     }

@@ -8,8 +8,10 @@ namespace Fumbbl.UI.LogText
         {
             if (!report.passBlockAvailable)
             {
-                var colour = report.teamId == FFB.Instance.Model.TeamHome.Id ? "#ff0000" : "#0000ff";
-                yield return new LogRecord($"<{colour}No pass blockers in range to intercept.</color>");
+                bool IsHome = (report.teamId == FFB.Instance.Model.TeamHome.Id);
+                var colorsettings = FFB.Instance.Settings.Color;
+                string color = IsHome ? colorsettings.HomeColor : colorsettings.AwayColor;
+                yield return new LogRecord($"<color={color}>No pass blockers in range to intercept.</color>");
             }
         }
     }

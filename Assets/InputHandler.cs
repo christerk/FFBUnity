@@ -5,16 +5,13 @@ using UnityEngine.SceneManagement;
 public class InputHandler : MonoBehaviour
 {
     public Camera Camera;
-
     public float mouseSensitivity = 1.0f;
+
     private Vector3 lastPosition;
 
-    void Start()
-    {
+    #region MonoBehaviour Methods
 
-    }
-
-    void Update()
+    private void Update()
     {
         if (Camera != null)
         {
@@ -53,6 +50,8 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
+
+    #endregion
 
     public void SwitchToPreviousScene()
     {

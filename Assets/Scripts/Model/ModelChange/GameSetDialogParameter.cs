@@ -26,10 +26,6 @@ namespace Fumbbl.Model.ModelChange
                     FFB.Instance.Model.AddBlockDie(0);
                 }
             }
-            else
-            {
-
-            }
         }
     }
 }

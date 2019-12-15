@@ -4,6 +4,7 @@
     {
         public string modelChangeId;
         public string modelChangeKey;
+
         public ModelChange(string key) : base(key) { }
     }
 }

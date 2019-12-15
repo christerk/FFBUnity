@@ -1,6 +1,4 @@
 ﻿using Fumbbl;
-using Fumbbl.Lib;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,22 +8,25 @@ using UnityEngine;
 public class ConnectionHandler : MonoBehaviour
 {
     public GameObject Progress;
-    private bool connected;
 
     private RectTransform ProgressRect;
-    private int PlayersToLoad = 0;
+    private bool connected;
+    private int IconsToLoad = 0;
     private int progress = 0;
+
+    #region MonoBehaviour Methods
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         FFB.Instance.Initialize();
         connected = false;
-        PlayersToLoad = 0;
+        IconsToLoad = 0;
         ProgressRect = Progress.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
-    async void Update()
+    private async void Update()
     {
         if (!connected)
         {
@@ -36,13 +37,20 @@ public class ConnectionHandler : MonoBehaviour
                 connected = true;
                 List<Task> tasks = new List<Task>();
                 progress = 0;
-                PlayersToLoad = players.Count * 2;
+                HashSet<string> urls = new HashSet<string>();
                 foreach (var player in players)
                 {
                     string icon = player.Position.IconURL;
                     string portrait = player.PortraitURL ?? player.Position.PortraitURL;
-                    tasks.Add(FFB.Instance.SpriteCache.GetAsync(icon, s => { Interlocked.Increment(ref progress); }));
-                    tasks.Add(FFB.Instance.SpriteCache.GetAsync(portrait, s => { Interlocked.Increment(ref progress); }));
+
+                    urls.Add(icon);
+                    urls.Add(portrait);
+                }
+
+                IconsToLoad = urls.Count;
+                foreach (var url in urls)
+                {
+                    tasks.Add(FFB.Instance.SpriteCache.GetAsync(url, s => { Interlocked.Increment(ref progress); }));
                 }
 
                 await Task.WhenAll(tasks);
@@ -51,9 +59,9 @@ public class ConnectionHandler : MonoBehaviour
             }
         }
 
-        if (PlayersToLoad != 0)
+        if (IconsToLoad != 0)
         {
-            ProgressRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1665 * progress / PlayersToLoad);
+            ProgressRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1665 * progress / IconsToLoad);
             Progress.SetActive(true);
         }
         else
@@ -61,4 +69,6 @@ public class ConnectionHandler : MonoBehaviour
             Progress.SetActive(false);
         }
     }
+
+    #endregion
 }

@@ -6,22 +6,24 @@ using UnityEngine;
 
 public class GameBrowserHandler : MonoBehaviour
 {
+    public GameObject button;
+    public GameObject gameListPanel;
+    public GameObject pane;
+    public TMP_InputField gameIdInputField;
 
     private FumbblApi api;
     private List<ApiDto.Match.Current> currentMatches;
+    private Mode mode = Mode.GameList;
+
     private enum Mode
     {
         GameList,
         GameIdInput
     }
-    private Mode mode = Mode.GameList;
 
-    public GameObject pane;
-    public GameObject button;
-    public GameObject gameListPanel;
-    public TMP_InputField gameIdInputField;
+    #region MonoBehaviour Methods
 
-    void Start()
+    private void Start()
     {
         Debug.Log("Initialise Game Browser");
         api = new FumbblApi();
@@ -36,7 +38,35 @@ public class GameBrowserHandler : MonoBehaviour
         };
     }
 
-    void RefreshMatches()
+    private void Update() {
+
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            if (mode is Mode.GameList)
+            {
+                ShowGameIdInput();
+            }
+            else if (mode is Mode.GameIdInput)
+            {
+                ShowGameList();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+            if (mode is Mode.GameIdInput)
+            {
+                FFB.Instance.Stop();
+                FFB.Instance.Connect(int.Parse(gameIdInputField.text));
+                MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
+                ShowGameList();
+            }
+        }
+    }
+
+    #endregion
+
+    private void RefreshMatches()
     {
         currentMatches = api.GetCurrentMatches();
         foreach (ApiDto.Match.Current match in currentMatches)
@@ -63,33 +93,5 @@ public class GameBrowserHandler : MonoBehaviour
         gameIdInputField.gameObject.SetActive(false);
         gameIdInputField.text = "";
         mode = Mode.GameList;
-    }
-
-
-    void Update() {
-
-        if (Input.GetKeyUp(KeyCode.G))
-        {
-            if (mode is Mode.GameList)
-            {
-                ShowGameIdInput();
-            }
-            else if (mode is Mode.GameIdInput)
-            {
-                ShowGameList();
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Return))
-        {
-            if (mode is Mode.GameIdInput)
-            {
-                FFB.Instance.Stop();
-                FFB.Instance.Connect(int.Parse(gameIdInputField.text));
-                MainHandler.Instance.SetScene(MainHandler.SceneType.ConnectScene);
-                ShowGameList();
-            }
-        }
-
     }
 }

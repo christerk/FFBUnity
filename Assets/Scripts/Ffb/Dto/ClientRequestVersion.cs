@@ -3,6 +3,5 @@
     class ClientRequestVersion : AbstractCommand
     {
         public ClientRequestVersion() : base("clientRequestVersion") { }
-
     }
 }

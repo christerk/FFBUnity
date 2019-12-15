@@ -17,7 +17,7 @@ namespace Fumbbl.UI.LogText
             IEnumerable<PickupModifier> rollModifiers = report.rollModifiers?.Select(r => r.As<PickupModifier>());
 
             yield return new LogRecord($"{player.FormattedName} tries to pick up the ball.", 1);
-           
+
             if (rollModifiers != null && rollModifiers.Contains(PickupModifier.BigHand))
             {
                 yield return new LogRecord($"{player.FormattedName} is using Big Hand to ignore any tacklezones on the ball.", 1);
@@ -48,7 +48,7 @@ namespace Fumbbl.UI.LogText
 
                 if (rollModifiers != null)
                 {
-                    // Only show modifiers strings if the player doesn't have Big Hand 
+                    // Only show modifiers strings if the player doesn't have Big Hand
                     if (!rollModifiers.Contains(PickupModifier.BigHand))
                     {
                         neededRoll += string.Join("", rollModifiers.Select(m => m.ModifierString));

@@ -2,9 +2,9 @@
 {
     public class RawString : Report
     {
-        public RawString() : base("") { }
-
         public string text;
+
+        public RawString() : base("") { }
 
         internal static Report Create(string str)
         {

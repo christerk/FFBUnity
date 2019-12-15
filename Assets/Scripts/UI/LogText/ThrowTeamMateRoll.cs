@@ -1,7 +1,6 @@
 ﻿using Fumbbl.Model;
 using Fumbbl.Model.RollModifier;
 using Fumbbl.Model.Types;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

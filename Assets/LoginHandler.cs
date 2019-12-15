@@ -4,14 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class LoginHandler : MonoBehaviour
 {
-    public GameObject LoginPanel;
     public GameObject ConnectingLabel;
-    public string NextScene;
+    public GameObject LoginPanel;
     public TMPro.TMP_InputField CoachField;
     public TMPro.TMP_InputField PasswordField;
+    public string NextScene;
+
+    #region MonoBehaviour Methods
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         TryLogin();
 
@@ -32,6 +34,37 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (CoachField.isFocused)
+            {
+                PasswordField.ActivateInputField();
+            }
+            else
+            {
+                CoachField.ActivateInputField();
+            };
+        }
+    }
+
+    #endregion
+
+    public void Login()
+    {
+        bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
+
+        if (success)
+        {
+            TryLogin();
+        }
+        else
+        {
+            CoachField.ActivateInputField();
+        }
+    }
+
     private void TryLogin()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
@@ -49,35 +82,6 @@ public class LoginHandler : MonoBehaviour
         {
             LoginPanel.SetActive(true);
             ConnectingLabel.SetActive(false);
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (CoachField.isFocused)
-            {
-                PasswordField.ActivateInputField();
-            }
-            else
-            {
-                CoachField.ActivateInputField();
-            };
-        }
-    }
-
-    public void Login()
-    {
-        bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
-
-        if (success)
-        {
-            TryLogin();
-        }
-        else
-        {
-            CoachField.ActivateInputField();
         }
     }
 }

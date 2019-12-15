@@ -2,16 +2,15 @@
 {
     public class Gender
     {
-        public string Genetive { get; private set; }
         public string Dative { get; private set; }
-        public object Nominative { get; internal set; }
+        public string Genetive { get; private set; }
+        public object Nominative { get; private set; }
 
         public static Gender Male = new Gender()
         {
-            Genetive = "his",
             Dative = "him",
+            Genetive = "his",
             Nominative = "he"
         };
-
     }
 }

@@ -2,7 +2,6 @@ namespace Fumbbl.Ffb.Dto.Reports
 {
     public class TentaclesShadowingRoll : Report
     {
-        public TentaclesShadowingRoll() : base("tentaclesShadowingRoll") { }
         public string reportId;
         public string skill;
         public string defenderId;
@@ -10,5 +9,7 @@ namespace Fumbbl.Ffb.Dto.Reports
         public bool sucessful;
         public int minimumRoll;
         public bool reRolled;
+
+        public TentaclesShadowingRoll() : base("tentaclesShadowingRoll") { }
     }
 }

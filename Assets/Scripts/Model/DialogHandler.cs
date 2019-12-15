@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Fumbbl.Model
 {
@@ -13,6 +12,16 @@ namespace Fumbbl.Model
         public DialogHandler<Ffb.Dto.FfbDialog> AsGenericGenerator()
         {
             return this.CastGenerator<T, Ffb.Dto.FfbDialog>();
+        }
+    }
+
+    public static class DialogHandlerExtensions
+    {
+        public static DialogHandler<TTo> CastGenerator<TFrom, TTo>(this DialogHandler<TFrom> generator)
+            where TTo : Ffb.Dto.FfbDialog
+            where TFrom : Ffb.Dto.FfbDialog
+        {
+            return new CastedDialogHandler<TTo, TFrom>(generator);
         }
     }
 
@@ -32,15 +41,4 @@ namespace Fumbbl.Model
             Generator.Apply(report as TFrom);
         }
     }
-
-    public static class DialogHandlerExtensions
-    {
-        public static DialogHandler<TTo> CastGenerator<TFrom, TTo>(this DialogHandler<TFrom> generator)
-            where TTo : Ffb.Dto.FfbDialog
-            where TFrom : Ffb.Dto.FfbDialog
-        {
-            return new CastedDialogHandler<TTo, TFrom>(generator);
-        }
-    }
-
 }

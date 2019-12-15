@@ -9,25 +9,27 @@ namespace Fumbbl.Model
     public class Core
     {
         public ActingPlayer ActingPlayer { get; set; }
-        public Coach AwayCoach { get; internal set; }
         public Ball Ball;
-        public List<View.BlockDie> BlockDice;
-        public int BlockDieIndex;
-        public int Half { get; internal set; }
+        public Coach AwayCoach { get; internal set; }
         public Coach HomeCoach { get; internal set; }
-        public bool HomePlaying { get; internal set; }
-        //private ModelChangeFactory ModelChangeFactory { get; }
-        private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
-        private Dictionary<string, Player> Players { get; set; }
+        public Coordinate PassCoordinate { get; internal set; }
         public Dictionary<int, View.PushbackSquare> PushbackSquares;
-        public int ScoreAway { get; internal set; }
-        public int ScoreHome { get; internal set; }
+        public Dictionary<int, View.TrackNumber> TrackNumbers;
+        public List<View.BlockDie> BlockDice;
         public Team TeamAway { get; internal set; }
         public Team TeamHome { get; internal set; }
-        public Dictionary<int, View.TrackNumber> TrackNumbers;
+        public TurnMode TurnMode { get; set; }
+        public bool HomePlaying { get; internal set; }
+        public int BlockDieIndex;
+        public int Half { get; internal set; }
+        public int ScoreAway { get; internal set; }
+        public int ScoreHome { get; internal set; }
         public int TurnAway { get; internal set; }
         public int TurnHome { get; internal set; }
-        public TurnMode TurnMode { get; set; }
+
+        private Dictionary<string, Player> Players { get; set; }
+        //private ModelChangeFactory ModelChangeFactory { get; }
+        private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
 
         public Core()
         {
@@ -125,11 +127,11 @@ namespace Fumbbl.Model
             return Players[playerId];
         }
 
-        internal Player GetPlayer(int x, int y)
+        internal Player GetPlayer(Coordinate coord)
         {
             foreach (Player p in Players.Values)
             {
-                if (p.Coordinate.X == x && p.Coordinate.Y == y)
+                if (p.Coordinate.Equals(coord))
                 {
                     return p;
                 }

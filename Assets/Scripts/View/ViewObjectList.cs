@@ -8,6 +8,7 @@ namespace Fumbbl.View
         where T : ViewObject<T>
     {
         public Dictionary<object, ViewObject<T>> Objects;
+
         private readonly List<ViewObject<T>> RemovedObjects;
 
         private readonly Action<T> Constructor;

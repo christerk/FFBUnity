@@ -2,8 +2,8 @@
 {
     public class InterceptionRoll : SkillRoll
     {
-        public InterceptionRoll() : base("interceptionRoll") { }
-
         public bool bomb;
+
+        public InterceptionRoll() : base("interceptionRoll") { }
     }
 }

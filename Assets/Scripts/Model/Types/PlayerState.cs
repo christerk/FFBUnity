@@ -4,8 +4,7 @@ namespace Fumbbl.Model.Types
 {
     public class PlayerState
     {
-        private static readonly Dictionary<int, PlayerState> PlayerStates = new Dictionary<int, PlayerState>();
-        private readonly int State;
+        public bool IsActive => (State & 0x0100) != 0;
 
         public bool IsUnknown => (State & 0xff) == 0x0000;
         public bool IsStanding => (State & 0xff) == 0x0001;
@@ -28,7 +27,8 @@ namespace Fumbbl.Model.Types
         public bool IsHitByLightning => (State & 0xff) == 0x0012;
         public bool IsHitByBomb => (State & 0xff) == 0x0013;
 
-        public bool IsActive => (State & 0x0100) != 0;
+        private static readonly Dictionary<int, PlayerState> PlayerStates = new Dictionary<int, PlayerState>();
+        private readonly int State;
 
         private PlayerState(int state)
         {
@@ -47,7 +47,7 @@ namespace Fumbbl.Model.Types
         }
 
         public string Description
-        {   
+        {
             get
             {
                 switch (State & 0xff)

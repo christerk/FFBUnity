@@ -2,10 +2,10 @@
 {
     public class Pushback : Report
     {
-        public Pushback() : base("pushback") { }
-
         public string reportId;
         public string defenderId;
         public string pushbackMode;
+
+        public Pushback() : base("pushback") { }
     }
 }

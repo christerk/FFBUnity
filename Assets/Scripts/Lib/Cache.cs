@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
-using UnityEngine;
 using System.Threading.Tasks;
 
 namespace Fumbbl.Lib
@@ -40,7 +37,7 @@ namespace Fumbbl.Lib
         {
             cache[key] = new CacheObject<T>(item);
         }
-    
+
         public T Get(string key)
         {
             CacheObject<T> cacheObject = new CacheObject<T>();
@@ -66,7 +63,7 @@ namespace Fumbbl.Lib
 
             completed?.Invoke(cacheObject.Item);
 
-            return cacheObject.Item;       
+            return cacheObject.Item;
         }
 
         public void ClearAll()

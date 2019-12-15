@@ -2,8 +2,8 @@
 {
     public class ServerPong : NetCommand
     {
-        public ServerPong() : base("serverPong") { }
-
         public long timestamp;
+
+        public ServerPong() : base("serverPong") { }
     }
 }

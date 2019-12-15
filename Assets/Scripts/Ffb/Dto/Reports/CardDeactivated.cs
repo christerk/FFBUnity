@@ -2,9 +2,9 @@
 {
     public class CardDeactivated : Report
     {
-        public CardDeactivated() : base("cardDeactivated") { }
-
         public string reportId;
         public string card;
+
+        public CardDeactivated() : base("cardDeactivated") { }
     }
 }

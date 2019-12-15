@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Fumbbl.Model.ModelChange
+﻿namespace Fumbbl.Model.ModelChange
 {
     public class ActingPlayerSetPlayerId : ModelUpdater<Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId>
     {

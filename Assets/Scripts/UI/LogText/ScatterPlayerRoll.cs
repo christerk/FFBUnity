@@ -1,11 +1,6 @@
-﻿using Fumbbl.Model;
-using Fumbbl.Model.Types;
-using Fumbbl.Model.RollModifier;
-using System;
+﻿using Fumbbl.Model.Types;
 using System.Collections.Generic;
 using System.Linq;
-
-using UnityEngine;
 
 namespace Fumbbl.UI.LogText
 {

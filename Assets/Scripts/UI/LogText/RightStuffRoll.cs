@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using UnityEngine;
-
 namespace Fumbbl.UI.LogText
 {
     public class RightStuffRoll : LogTextGenerator<Ffb.Dto.Reports.RightStuffRoll>

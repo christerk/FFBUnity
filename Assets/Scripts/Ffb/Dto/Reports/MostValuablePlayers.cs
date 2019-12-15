@@ -2,10 +2,10 @@
 {
     public class MostValuablePlayers : Report
     {
-        public MostValuablePlayers() : base("mostValuablePlayers") { }
-
         public string reportId;
         public string[] playerIdsHome;
         public string[] playerIdsAway;
+
+        public MostValuablePlayers() : base("mostValuablePlayers") { }
     }
 }

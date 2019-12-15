@@ -1,38 +1,37 @@
 ﻿using Fumbbl.Model.Types;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
 using Fumbbl;
 
 public class PlayerCardHandler : MonoBehaviour
 {
-    public Sprite HomeBG;
     public Sprite AwayBG;
     public Sprite EmptyPortrait;
-    public bool Home;
+    public Sprite HomeBG;
+    public SpriteRenderer background;
+    public SpriteRenderer portrait;
     public TMPro.TextMeshPro Name;
     public TMPro.TextMeshPro Position;
+    public TMPro.TextMeshPro SPP;
+    public TMPro.TextMeshPro Level;
     public TMPro.TextMeshPro MA;
     public TMPro.TextMeshPro ST;
     public TMPro.TextMeshPro AG;
     public TMPro.TextMeshPro AV;
-    public TMPro.TextMeshPro SPP;
-    public TMPro.TextMeshPro Level;
     public TMPro.TextMeshPro Skills;
-    
-    public SpriteRenderer background;
-    public SpriteRenderer portrait;
+    public bool Home;
 
     private string ShownPlayerId;
 
-    void Start()
+    #region MonoBehaviour Methods
+
+    private void Start()
     {
         Color homeColor = new Color(0.4434f, 0.0376f, 0.0376f, 0.8745f);
         Color awayColor = new Color(0.0392f, 0.1588f, 0.4431f, 0.8745f);
         background.sprite = Home ? HomeBG : AwayBG;
     }
+
+    #endregion
 
     public void SetPlayer(Player player)
     {

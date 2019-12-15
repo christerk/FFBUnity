@@ -10,6 +10,8 @@ namespace Fumbbl.Ffb
 {
     public class Networking
     {
+        public bool IsReceiving { get; private set; }
+
         private IWebsocket socket;
         private string ApiToken { get; set; }
         private Protocol Protocol;
@@ -17,8 +19,6 @@ namespace Fumbbl.Ffb
         private readonly ReflectedFactory<Report, string> ReportFactory;
         private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
         private readonly ReflectedFactory<NetCommand, string> NetCommandFactory;
-
-        public bool IsReceiving { get; private set; }
 
         public Networking()
         {
@@ -53,6 +53,49 @@ namespace Fumbbl.Ffb
                 Debug.Log($"<style=\"Error\">Error connecting: {e.Message}</style>");
                 MainHandler.Instance.AddReport(RawString.Create($"<style=\"Error\">Error connecting: {e.Message}</style>"));
             }
+        }
+
+        public void Disconnect()
+        {
+            Debug.Log("Destroying Networking");
+            IsReceiving = false;
+            if (socket != null)
+            {
+                socket.Stop();
+            }
+        }
+
+        public async Task Send(AbstractCommand command)
+        {
+            string serializedCommand = JsonConvert.SerializeObject(command);
+
+            string data = Protocol.Compress(serializedCommand);
+
+            await socket.Send(data);
+        }
+
+        public async void SendPing()
+        {
+            var command = new ClientPing()
+            {
+                timestamp = DateTime.Now.Ticks
+            };
+            await Send(command);
+        }
+
+        public async void Spectate(int game)
+        {
+            var command = new ClientJoin()
+            {
+                clientMode = "spectator",
+                coach = FFB.Instance.CoachName,
+                password = ApiToken,
+                gameId = game,
+                gameName = "",
+                teamId = "",
+                teamName = "",
+            };
+            await Send(command);
         }
 
         public async Task StartReceive()
@@ -114,7 +157,7 @@ namespace Fumbbl.Ffb
                     }
                 }
             }
-            if (obj?["sound"] != null) 
+            if (obj?["sound"] != null)
             {
                 string sound = obj?["sound"]?.ToString();
                 if(sound.Length > 0)
@@ -124,53 +167,10 @@ namespace Fumbbl.Ffb
             }
         }
 
-        public void Disconnect()
-        {
-            Debug.Log("Destroying Networking");
-            IsReceiving = false;
-            if (socket != null)
-            {
-                socket.Stop();
-            }
-        }
-
         private async void RequestVersion()
         {
             var command = new ClientRequestVersion();
             await Send(command);
-        }
-
-        public async void Spectate(int game)
-        {
-            var command = new ClientJoin()
-            {
-                clientMode = "spectator",
-                coach = FFB.Instance.CoachName,
-                password = ApiToken,
-                gameId = game,
-                gameName = "",
-                teamId = "",
-                teamName = "",
-            };
-            await Send(command);
-        }
-
-        public async void SendPing()
-        {
-            var command = new ClientPing()
-            {
-                timestamp = DateTime.Now.Ticks
-            };
-            await Send(command);
-        }
-
-        public async Task Send(AbstractCommand command)
-        {
-            string serializedCommand = JsonConvert.SerializeObject(command);
-
-            string data = Protocol.Compress(serializedCommand);
-
-            await socket.Send(data);
         }
     }
 }

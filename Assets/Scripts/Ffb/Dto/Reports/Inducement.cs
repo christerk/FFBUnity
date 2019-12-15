@@ -2,11 +2,11 @@
 {
     public class Inducement : Report
     {
-        public Inducement() : base("inducement") { }
-
         public string reportId;
         public string teamId;
         public string inducementType;
         public int value;
+
+        public Inducement() : base("inducement") { }
     }
 }

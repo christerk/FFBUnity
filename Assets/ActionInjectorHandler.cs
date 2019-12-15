@@ -1,15 +1,15 @@
 ﻿using Fumbbl;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionInjectorHandler : MonoBehaviour
 {
     private ConcurrentQueue<Action> Queue;
 
-    void Start()
+    #region MonoBehaviour Methods
+
+    private void Start()
     {
         Queue = new ConcurrentQueue<Action>();
 
@@ -26,7 +26,7 @@ public class ActionInjectorHandler : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         Action action;
         while (Queue.TryDequeue(out action))
@@ -35,10 +35,10 @@ public class ActionInjectorHandler : MonoBehaviour
         }
     }
 
+    #endregion
+
     public void Enqueue(Action action)
     {
         Queue.Enqueue(action);
     }
-
-
 }
