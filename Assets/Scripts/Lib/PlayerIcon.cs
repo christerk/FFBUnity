@@ -14,18 +14,15 @@ namespace Fumbbl.Lib
         public static GameObject GeneratePlayerIcon(Player p, GameObject iconPrefab, GameObject fallbackPrefab)
         {
             GameObject obj = PlayerIcon.CreatePlayerIcon(p, iconPrefab);
-            try
-            {
-                var target = obj.transform.GetChild(0).gameObject;
-                PlayerIcon.LoadSprite(p.Position.IconURL, target);
-                return obj;
-            }
-            catch(MissingPlayerIconException ex1)
+            GameObject target = obj.transform.GetChild(0).gameObject;
+            bool success = PlayerIcon.LoadSprite(p.Position.IconURL, target);
+            if (!success)
             {
                 GameObject.Destroy(obj);
-                Debug.LogWarning($"Exception loading player sprite, falling back to abstract icons: {ex1}");
-                return GeneratePlayerIconAbstract(p, fallbackPrefab);
+                Debug.LogWarning($"Unable to load player icons for PlayerId {p.Id}, falling back to abstract");
+                obj = GeneratePlayerIconAbstract(p, fallbackPrefab);
             }
+            return obj;
         }
 
         public static GameObject GeneratePlayerIconAbstract(Player p, GameObject prefab)
@@ -43,9 +40,10 @@ namespace Fumbbl.Lib
             return obj;
         }
 
-        public static void LoadSprite(string iconURL, GameObject target)
+        public static bool LoadSprite(string iconURL, GameObject target)
         {
             Sprite resized = LoadIconSpriteSheet(iconURL);
+            if (resized == null) { return false; };
             FFB.Instance.ExecuteOnMainThread(() =>
             {
                 var renderer = target.GetComponent<SpriteRenderer>();
@@ -53,6 +51,7 @@ namespace Fumbbl.Lib
                 rect.sizeDelta = new Vector2(192, 192);
                 renderer.sprite = resized;
             });
+            return true;
         }
 
         private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int destMip, int y, int x)
@@ -98,9 +97,7 @@ namespace Fumbbl.Lib
         private static Sprite LoadIconSpriteSheet(string iconURL)
         {
             Sprite s = FFB.Instance.SpriteCache.Get(iconURL);
-            if (s == null) {
-                 throw new MissingPlayerIconException($"Missing Player icon: \"{iconURL}\"");
-            };
+            if (s == null) { return s; };
             var iconSize = s.texture.width / 4;
             int numTextures = s.texture.height / iconSize;
 
@@ -143,19 +140,4 @@ namespace Fumbbl.Lib
             return Sprite.Create(dest, new Rect(0, 0, dest.width, dest.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
         }
     }
-
-    // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/exceptions/creating-and-throwing-exceptions#defining-exception-classes
-    [Serializable()]
-    public class MissingPlayerIconException : System.Exception
-    {
-        public MissingPlayerIconException() : base() { }
-        public MissingPlayerIconException(string message) : base(message) { }
-        public MissingPlayerIconException(string message, System.Exception inner) : base(message, inner) { }
-
-        // A constructor is needed for serialization when an
-        // exception propagates from a remoting server to the client.
-        protected MissingPlayerIconException(System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
-
 }
