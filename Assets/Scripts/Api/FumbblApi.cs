@@ -24,6 +24,13 @@ public class FumbblApi
         return isAuthenticated;
     }
 
+    public enum LoginResult
+    {
+        Authenticated,
+        AuthenticationFailed,
+        ConnectionFailed
+    }
+
     public async Task<string> Auth(string clientId, string clientSecret)
     {
         string result = await Post("oauth", "token", new Dictionary<string, string>()
@@ -126,7 +133,7 @@ public class FumbblApi
         return token;
     }
 
-    internal async Task<string> Login(string uid, string pwd)
+    internal async Task<LoginResult> Login(string uid, string pwd)
     {
         string result = await Post("oauth", "createApplication", new Dictionary<string, string>()
         {
@@ -134,17 +141,17 @@ public class FumbblApi
             ["p"] = pwd
         });
 
-        if (result == null) { return "connection failed"; };
+        if (result == null) { return LoginResult.ConnectionFailed; };
 
         JObject obj = JObject.Parse(result);
         if (obj["client_id"] != null && obj["client_secret"] != null)
         {
             PlayerPrefs.SetString("OAuth.ClientId", obj["client_id"].ToString());
             PlayerPrefs.SetString("OAuth.ClientSecret", obj["client_secret"].ToString());
-            return "authenticated";
+            return LoginResult.Authenticated;
         }
 
-        return "authentication failed";
+        return LoginResult.AuthenticationFailed;
     }
 
     private async Task<string> Post(string component, string endpoint, Dictionary<string, string> data = null)

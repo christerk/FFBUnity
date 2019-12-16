@@ -56,9 +56,9 @@ public class LoginHandler : MonoBehaviour
 
     public async void Login()
     {
-        string loginresult = await FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
+        FumbblApi.LoginResult loginresult = await FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
-        if (loginresult == "authenticated")
+        if (loginresult == FumbblApi.LoginResult.Authenticated)
         {
             TryLogin();
         }
