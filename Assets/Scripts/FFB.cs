@@ -6,6 +6,7 @@ using Fumbbl.Model.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Fumbbl
@@ -61,9 +62,9 @@ namespace Fumbbl
             Api = new FumbblApi();
         }
 
-        public string Authenticate(string clientId, string clientSecret)
+        public async Task<string> Authenticate(string clientId, string clientSecret)
         {
-            return Api.Auth(clientId, clientSecret);
+            return await Api.Auth(clientId, clientSecret);
         }
 
         public void Initialize()

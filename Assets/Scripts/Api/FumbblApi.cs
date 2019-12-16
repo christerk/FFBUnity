@@ -24,9 +24,9 @@ public class FumbblApi
         return isAuthenticated;
     }
 
-    public string Auth(string clientId, string clientSecret)
+    public async Task<string> Auth(string clientId, string clientSecret)
     {
-        string result = Post("oauth", "token", new Dictionary<string, string>()
+        string result = await Post("oauth", "token", new Dictionary<string, string>()
         {
             ["grant_type"] = "client_credentials",
             ["client_id"] = clientId,
@@ -41,10 +41,10 @@ public class FumbblApi
 
         try
         {
-            result = Get("oauth", "identity");
+            result = await Get("oauth", "identity");
             int coachId = int.Parse(result);
 
-            result = Get("coach", $"get/{coachId}");
+            result = await Get("coach", $"get/{coachId}");
             ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
             FFB.Instance.SetCoachName(coach.name);
             isAuthenticated = true;
@@ -57,7 +57,7 @@ public class FumbblApi
         }
     }
 
-    private string Get(string component, string endpoint)
+    private async Task<string> Get(string component, string endpoint)
     {
         using (WebClient client = new WebClient())
         {
@@ -68,7 +68,7 @@ public class FumbblApi
                     client.Headers.Add("authorization", $"Bearer {accessToken}");
                 }
 
-                string result = client.DownloadString($"https://fumbbl.com/api/{component}/{endpoint}");
+                string result = await client.DownloadStringTaskAsync($"https://fumbbl.com/api/{component}/{endpoint}");
                 return result;
             }
             catch (Exception e)
@@ -79,9 +79,10 @@ public class FumbblApi
         return null;
     }
 
-    public List<ApiDto.Match.Current> GetCurrentMatches()
+    public async Task<List<ApiDto.Match.Current>> GetCurrentMatches()
     {
-        return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(Get("match", "current"));
+        string res = await Get("match", "current");
+        return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(res);
     }
 
     public static async void GetImage(string url, Image target)
@@ -118,15 +119,16 @@ public class FumbblApi
         return s;
     }
 
-    public string GetToken()
+    public async Task<string> GetToken()
     {
-        string token = JsonConvert.DeserializeObject<string>(Post("auth", "getToken"));
+        string res = await Post("auth", "getToken");
+        string token = JsonConvert.DeserializeObject<string>(res);
         return token;
     }
 
-    internal string Login(string uid, string pwd)
+    internal async Task<string> Login(string uid, string pwd)
     {
-        string result = Post("oauth", "createApplication", new Dictionary<string, string>()
+        string result = await Post("oauth", "createApplication", new Dictionary<string, string>()
         {
             ["c"] = uid,
             ["p"] = pwd
@@ -145,7 +147,7 @@ public class FumbblApi
         return "authentication failed";
     }
 
-    private string Post(string component, string endpoint, Dictionary<string, string> data = null)
+    private async Task<string> Post(string component, string endpoint, Dictionary<string, string> data = null)
     {
         using (WebClient client = new WebClient())
         {
@@ -169,7 +171,7 @@ public class FumbblApi
 
                 Debug.Log(url);
 
-                byte[] result = client.UploadValues(url, "POST", values);
+                byte[] result = await client.UploadValuesTaskAsync(url, "POST", values);
 
                 return UTF8Encoding.UTF8.GetString(result);
             }
