@@ -62,7 +62,7 @@ namespace Fumbbl
             Api = new FumbblApi();
         }
 
-        public async Task<string> Authenticate(string clientId, string clientSecret)
+        public async Task<FumbblApi.LoginResult> Authenticate(string clientId, string clientSecret)
         {
             return await Api.Auth(clientId, clientSecret);
         }

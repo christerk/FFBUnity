@@ -31,7 +31,7 @@ public class FumbblApi
         ConnectionFailed
     }
 
-    public async Task<string> Auth(string clientId, string clientSecret)
+    public async Task<LoginResult> Auth(string clientId, string clientSecret)
     {
         string result = await Post("oauth", "token", new Dictionary<string, string>()
         {
@@ -40,7 +40,7 @@ public class FumbblApi
             ["client_secret"] = clientSecret
         });
 
-        if (result == null) { return "connection failed"; };
+        if (result == null) { return LoginResult.ConnectionFailed; };
 
         ApiDto.Auth.Token token = JsonConvert.DeserializeObject<ApiDto.Auth.Token>(result);
 
@@ -55,12 +55,12 @@ public class FumbblApi
             ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
             FFB.Instance.SetCoachName(coach.name);
             isAuthenticated = true;
-            return "authenticated";
+            return LoginResult.Authenticated;
         }
         catch
         {
             isAuthenticated = false;
-            return "authentication failed";
+            return LoginResult.AuthenticationFailed;
         }
     }
 

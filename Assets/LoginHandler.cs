@@ -77,9 +77,9 @@ public class LoginHandler : MonoBehaviour
         LoginPanel.SetActive(false);
         LoggingInLabel.SetActive(true);
         LoginErrorLabel.SetActive(false);
-        string loginresult = await FFB.Instance.Authenticate(clientId, clientSecret);
+        FumbblApi.LoginResult loginresult = await FFB.Instance.Authenticate(clientId, clientSecret);
 
-        if (loginresult == "authenticated")
+        if (loginresult == FumbblApi.LoginResult.Authenticated)
         {
             SceneManager.LoadScene(NextScene);
         }
