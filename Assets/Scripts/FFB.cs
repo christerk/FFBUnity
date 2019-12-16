@@ -61,7 +61,7 @@ namespace Fumbbl
             Api = new FumbblApi();
         }
 
-        public bool Authenticate(string clientId, string clientSecret)
+        public string Authenticate(string clientId, string clientSecret)
         {
             return Api.Auth(clientId, clientSecret);
         }
