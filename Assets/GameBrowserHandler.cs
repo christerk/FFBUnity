@@ -66,9 +66,9 @@ public class GameBrowserHandler : MonoBehaviour
 
     #endregion
 
-    private void RefreshMatches()
+    private async void RefreshMatches()
     {
-        currentMatches = api.GetCurrentMatches();
+        currentMatches = await api.GetCurrentMatches();
         foreach (ApiDto.Match.Current match in currentMatches)
         {
             GameObject newButton = Instantiate(button) as GameObject;

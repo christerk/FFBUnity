@@ -33,7 +33,7 @@ namespace Fumbbl.Ffb
 
             socket = new Websocket(Receive);
 
-            ApiToken = FFB.Instance.Api.GetToken();
+            ApiToken = await FFB.Instance.Api.GetToken();
 
             try
             {

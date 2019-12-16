@@ -8,44 +8,42 @@ namespace Fumbbl.Lib
     {
         public const int NormalizedIconSize = 60;
 
-        private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f, 1f);
-        private static Color AwayColour = new Color(0f, 0f, 0.99f, 1f);
-
         public static GameObject GeneratePlayerIcon(Player p, GameObject iconPrefab, GameObject fallbackPrefab)
         {
             GameObject obj = PlayerIcon.CreatePlayerIcon(p, iconPrefab);
-            try
-            {
-                var target = obj.transform.GetChild(0).gameObject;
-                PlayerIcon.LoadSprite(p.Position.IconURL, target);
-                return obj;
-            }
-            catch(Exception ex)
+            GameObject target = obj.transform.GetChild(0).gameObject;
+            bool success = PlayerIcon.LoadSprite(p.Position.IconURL, target);
+            if (!success)
             {
                 GameObject.Destroy(obj);
-                Debug.LogError("Exception loading player sprite, falling back to abstract icons: " + ex);
-                return GeneratePlayerIconAbstract(p, fallbackPrefab);
+                Debug.LogWarning($"Unable to load player icons for PlayerId {p.Id}, falling back to abstract");
+                obj = GeneratePlayerIconAbstract(p, fallbackPrefab);
             }
+            return obj;
         }
 
         public static GameObject GeneratePlayerIconAbstract(Player p, GameObject prefab)
         {
             GameObject obj = PlayerIcon.CreatePlayerIcon(p, prefab);
 
-            // Set Background colour
+            // Set Background color
             var child = obj.transform.GetChild(0).gameObject;
-            Renderer s = child.GetComponent<Renderer>();
-            s.material.color = p.IsHome ? HomeColour : AwayColour;
+            SpriteRenderer renderer = child.GetComponent<SpriteRenderer>();
+            string c0 = p.IsHome ? FFB.Instance.Settings.Color.HomeColor : FFB.Instance.Settings.Color.AwayColor;
+            Color c1;
+            bool parseable = ColorUtility.TryParseHtmlString(c0, out c1);
+            if (parseable){ renderer.color = c1; };
 
             // Set text
-            TMPro.TextMeshProUGUI text = obj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            TMPro.TextMeshPro text = obj.GetComponentInChildren<TMPro.TextMeshPro>();
             text.text = p.Position?.AbstractLabel ?? "*";
             return obj;
         }
 
-        public static void LoadSprite(string iconURL, GameObject target)
+        public static bool LoadSprite(string iconURL, GameObject target)
         {
             Sprite resized = LoadIconSpriteSheet(iconURL);
+            if (resized == null) { return false; };
             FFB.Instance.ExecuteOnMainThread(() =>
             {
                 var renderer = target.GetComponent<SpriteRenderer>();
@@ -53,6 +51,7 @@ namespace Fumbbl.Lib
                 rect.sizeDelta = new Vector2(192, 192);
                 renderer.sprite = resized;
             });
+            return true;
         }
 
         private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int destMip, int y, int x)
@@ -98,6 +97,7 @@ namespace Fumbbl.Lib
         private static Sprite LoadIconSpriteSheet(string iconURL)
         {
             Sprite s = FFB.Instance.SpriteCache.Get(iconURL);
+            if (s == null) { return s; };
             var iconSize = s.texture.width / 4;
             int numTextures = s.texture.height / iconSize;
 

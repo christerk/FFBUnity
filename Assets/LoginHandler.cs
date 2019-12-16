@@ -54,11 +54,11 @@ public class LoginHandler : MonoBehaviour
 
     #endregion
 
-    public void Login()
+    public async void Login()
     {
-        string loginresult = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
+        FumbblApi.LoginResult loginresult = await FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
-        if (loginresult == "authenticated")
+        if (loginresult == FumbblApi.LoginResult.Authenticated)
         {
             TryLogin();
         }
@@ -69,7 +69,7 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
-    private void TryLogin()
+    private async void TryLogin()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
         string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
@@ -77,9 +77,9 @@ public class LoginHandler : MonoBehaviour
         LoginPanel.SetActive(false);
         LoggingInLabel.SetActive(true);
         LoginErrorLabel.SetActive(false);
-        string loginresult = FFB.Instance.Authenticate(clientId, clientSecret);
+        FumbblApi.LoginResult loginresult = await FFB.Instance.Authenticate(clientId, clientSecret);
 
-        if (loginresult == "authenticated")
+        if (loginresult == FumbblApi.LoginResult.Authenticated)
         {
             SceneManager.LoadScene(NextScene);
         }
