@@ -100,7 +100,25 @@ public class FumbblApi
         }
         catch (WebException ex)
         {
-            Debug.LogError("Failed to download: " + url + " Due to exception: " + ex);
+            HttpWebResponse resp = ex.Response as HttpWebResponse;
+            if (resp == null)
+            {
+                Debug.LogError($"Failed to download: \"{url}\" Due to exception: {ex}");
+            }
+            else
+            {
+                if (resp.StatusCode == HttpStatusCode.NotFound)
+                {
+                    // 404 (NotFound) is not that serious, some images are naturally missing.
+                    Debug.LogWarning($"Failed to download ({(int)resp.StatusCode}, {resp.StatusCode}): \"{url}\"");
+                    return null;
+                }
+                else
+                {
+                    Debug.LogError($"Failed to download ({(int)resp.StatusCode}, {resp.StatusCode}): \"{url}\"");
+                }
+            }
+            return null;
         }
         Sprite s = Sprite.Create(img, new Rect(0, 0, img.width, img.height), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.FullRect);
         s.name = url;
