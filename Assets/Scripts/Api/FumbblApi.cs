@@ -24,7 +24,7 @@ public class FumbblApi
         return isAuthenticated;
     }
 
-    public bool Auth(string clientId, string clientSecret)
+    public bool? Auth(string clientId, string clientSecret)
     {
         string result = Post("oauth", "token", new Dictionary<string, string>()
         {
@@ -32,6 +32,8 @@ public class FumbblApi
             ["client_id"] = clientId,
             ["client_secret"] = clientSecret
         });
+
+        if (result == null) { return null; };
 
         ApiDto.Auth.Token token = JsonConvert.DeserializeObject<ApiDto.Auth.Token>(result);
 
@@ -122,13 +124,15 @@ public class FumbblApi
         return token;
     }
 
-    internal bool Login(string uid, string pwd)
+    internal bool? Login(string uid, string pwd)
     {
         string result = Post("oauth", "createApplication", new Dictionary<string, string>()
         {
             ["c"] = uid,
             ["p"] = pwd
         });
+
+        if (result == null) { return null; };
 
         JObject obj = JObject.Parse(result);
         if (obj["client_id"] != null && obj["client_secret"] != null)
