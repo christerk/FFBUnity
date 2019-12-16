@@ -1,10 +1,12 @@
 ﻿using Fumbbl;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoginHandler : MonoBehaviour
 {
-    public GameObject ConnectingLabel;
+    public GameObject LoggingInLabel;
+    public GameObject LoginErrorLabel;
     public GameObject LoginPanel;
     public TMPro.TMP_InputField CoachField;
     public TMPro.TMP_InputField PasswordField;
@@ -16,6 +18,7 @@ public class LoginHandler : MonoBehaviour
     private void Start()
     {
         TryLogin();
+        LoginErrorLabel.SetActive(false);
 
         if (CoachField != null)
         {
@@ -62,6 +65,7 @@ public class LoginHandler : MonoBehaviour
         else
         {
             CoachField.ActivateInputField();
+            ShowLoginError();
         }
     }
 
@@ -71,7 +75,8 @@ public class LoginHandler : MonoBehaviour
         string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
 
         LoginPanel.SetActive(false);
-        ConnectingLabel.SetActive(true);
+        LoggingInLabel.SetActive(true);
+        LoginErrorLabel.SetActive(false);
         bool authenticated = FFB.Instance.Authenticate(clientId, clientSecret);
 
         if (authenticated)
@@ -81,7 +86,13 @@ public class LoginHandler : MonoBehaviour
         else
         {
             LoginPanel.SetActive(true);
-            ConnectingLabel.SetActive(false);
+            LoggingInLabel.SetActive(false);
         }
+    }
+
+    private void ShowLoginError()
+    {
+        LoginErrorLabel.SetActive(true);
+        LoggingInLabel.SetActive(false);
     }
 }
