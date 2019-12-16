@@ -26,7 +26,8 @@ namespace Fumbbl
                 string jsonSettings = File.ReadAllText(path);
 
                 Settings settings = JsonConvert.DeserializeObject<Settings>(jsonSettings);
-                this.Color = settings.Color;
+                // Load default colors until panel is made.
+                // this.Color = settings.Color;
                 this.Graphics = settings.Graphics;
                 this.Sound = settings.Sound;
             }
@@ -46,8 +47,8 @@ namespace Fumbbl
 
     public class ColorSettings
     {
-        public string HomeColor = "#FF0000";
-        public string AwayColor = "#0000FF";
+        public string HomeColor = "#B10000";
+        public string AwayColor = "#000AB3";
     }
 
     public class GraphicsSettings

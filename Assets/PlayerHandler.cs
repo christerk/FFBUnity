@@ -12,7 +12,7 @@ public class PlayerHandler : MonoBehaviour
     private GameObject Outline;
     private GameObject Prone;
     private GameObject Stunned;
-    private Renderer BackgroundRenderer;
+    private SpriteRenderer BackgroundRenderer;
     private SpriteMask Mask;
 
     #region MonoBehaviour Methods
@@ -24,7 +24,7 @@ public class PlayerHandler : MonoBehaviour
         Prone = this.transform.GetChild(2).gameObject;
         Stunned = this.transform.GetChild(3).gameObject;
 
-        BackgroundRenderer = Background.GetComponent<Renderer>();
+        BackgroundRenderer = Background.GetComponent<SpriteRenderer>();
         Mask = GetComponent<SpriteMask>();
     }
 
@@ -60,9 +60,9 @@ public class PlayerHandler : MonoBehaviour
             fade = state.IsBeingDragged || (state.IsStanding && !state.IsActive) || (state.IsProne && !state.IsActive);
         }
 
-        Color color = BackgroundRenderer.material.color;
+        Color color = BackgroundRenderer.color;
         color.a = fade ? 0.7f : 1f;
-        BackgroundRenderer.material.color = color;
+        BackgroundRenderer.color = color;
 
         Prone.SetActive(state.IsProne);
         Stunned.SetActive(state.IsStunned);

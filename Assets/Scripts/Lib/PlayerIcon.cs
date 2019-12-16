@@ -8,9 +8,6 @@ namespace Fumbbl.Lib
     {
         public const int NormalizedIconSize = 60;
 
-        private static Color HomeColour = new Color(0.66f, 0.19f, 0.19f, 1f);
-        private static Color AwayColour = new Color(0f, 0f, 0.99f, 1f);
-
         public static GameObject GeneratePlayerIcon(Player p, GameObject iconPrefab, GameObject fallbackPrefab)
         {
             GameObject obj = PlayerIcon.CreatePlayerIcon(p, iconPrefab);
@@ -32,13 +29,16 @@ namespace Fumbbl.Lib
         {
             GameObject obj = PlayerIcon.CreatePlayerIcon(p, prefab);
 
-            // Set Background colour
+            // Set Background color
             var child = obj.transform.GetChild(0).gameObject;
-            Renderer s = child.GetComponent<Renderer>();
-            s.material.color = p.IsHome ? HomeColour : AwayColour;
+            SpriteRenderer renderer = child.GetComponent<SpriteRenderer>();
+            string c0 = p.IsHome ? FFB.Instance.Settings.Color.HomeColor : FFB.Instance.Settings.Color.AwayColor;
+            Color c1;
+            bool parseable = ColorUtility.TryParseHtmlString(c0, out c1);
+            if (parseable){ renderer.color = c1; };
 
             // Set text
-            TMPro.TextMeshProUGUI text = obj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            TMPro.TextMeshPro text = obj.GetComponentInChildren<TMPro.TextMeshPro>();
             text.text = p.Position?.AbstractLabel ?? "*";
             return obj;
         }
