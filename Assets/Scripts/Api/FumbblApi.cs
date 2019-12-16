@@ -24,7 +24,7 @@ public class FumbblApi
         return isAuthenticated;
     }
 
-    public bool? Auth(string clientId, string clientSecret)
+    public string Auth(string clientId, string clientSecret)
     {
         string result = Post("oauth", "token", new Dictionary<string, string>()
         {
@@ -33,7 +33,7 @@ public class FumbblApi
             ["client_secret"] = clientSecret
         });
 
-        if (result == null) { return null; };
+        if (result == null) { return "connection failed"; };
 
         ApiDto.Auth.Token token = JsonConvert.DeserializeObject<ApiDto.Auth.Token>(result);
 
@@ -48,12 +48,12 @@ public class FumbblApi
             ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
             FFB.Instance.SetCoachName(coach.name);
             isAuthenticated = true;
-            return true;
+            return "authenticated";
         }
         catch
         {
             isAuthenticated = false;
-            return false;
+            return "authentication failed";
         }
     }
 
@@ -124,7 +124,7 @@ public class FumbblApi
         return token;
     }
 
-    internal bool? Login(string uid, string pwd)
+    internal string Login(string uid, string pwd)
     {
         string result = Post("oauth", "createApplication", new Dictionary<string, string>()
         {
@@ -132,17 +132,17 @@ public class FumbblApi
             ["p"] = pwd
         });
 
-        if (result == null) { return null; };
+        if (result == null) { return "connection failed"; };
 
         JObject obj = JObject.Parse(result);
         if (obj["client_id"] != null && obj["client_secret"] != null)
         {
             PlayerPrefs.SetString("OAuth.ClientId", obj["client_id"].ToString());
             PlayerPrefs.SetString("OAuth.ClientSecret", obj["client_secret"].ToString());
-            return true;
+            return "authenticated";
         }
 
-        return false;
+        return "authentication failed";
     }
 
     private string Post(string component, string endpoint, Dictionary<string, string> data = null)

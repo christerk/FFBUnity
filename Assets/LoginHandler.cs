@@ -56,9 +56,9 @@ public class LoginHandler : MonoBehaviour
 
     public void Login()
     {
-        bool? success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
+        string loginresult = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
-        if (success == true)
+        if (loginresult == "authenticated")
         {
             TryLogin();
         }
@@ -77,9 +77,9 @@ public class LoginHandler : MonoBehaviour
         LoginPanel.SetActive(false);
         LoggingInLabel.SetActive(true);
         LoginErrorLabel.SetActive(false);
-        bool? authenticated = FFB.Instance.Authenticate(clientId, clientSecret);
+        string loginresult = FFB.Instance.Authenticate(clientId, clientSecret);
 
-        if (authenticated == true)
+        if (loginresult == "authenticated")
         {
             SceneManager.LoadScene(NextScene);
         }
