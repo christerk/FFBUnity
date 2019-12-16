@@ -1,10 +1,12 @@
 ﻿using Fumbbl;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoginHandler : MonoBehaviour
 {
-    public GameObject ConnectingLabel;
+    public GameObject LoggingInLabel;
+    public GameObject LoginErrorLabel;
     public GameObject LoginPanel;
     public TMPro.TMP_InputField CoachField;
     public TMPro.TMP_InputField PasswordField;
@@ -16,6 +18,7 @@ public class LoginHandler : MonoBehaviour
     private void Start()
     {
         TryLogin();
+        LoginErrorLabel.SetActive(false);
 
         if (CoachField != null)
         {
@@ -51,37 +54,45 @@ public class LoginHandler : MonoBehaviour
 
     #endregion
 
-    public void Login()
+    public async void Login()
     {
-        bool success = FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
+        FumbblApi.LoginResult loginresult = await FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
-        if (success)
+        if (loginresult == FumbblApi.LoginResult.Authenticated)
         {
             TryLogin();
         }
         else
         {
             CoachField.ActivateInputField();
+            ShowLoginError();
         }
     }
 
-    private void TryLogin()
+    private async void TryLogin()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
         string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
 
         LoginPanel.SetActive(false);
-        ConnectingLabel.SetActive(true);
-        bool authenticated = FFB.Instance.Authenticate(clientId, clientSecret);
+        LoggingInLabel.SetActive(true);
+        LoginErrorLabel.SetActive(false);
+        FumbblApi.LoginResult loginresult = await FFB.Instance.Authenticate(clientId, clientSecret);
 
-        if (authenticated)
+        if (loginresult == FumbblApi.LoginResult.Authenticated)
         {
             SceneManager.LoadScene(NextScene);
         }
         else
         {
             LoginPanel.SetActive(true);
-            ConnectingLabel.SetActive(false);
+            LoggingInLabel.SetActive(false);
         }
+    }
+
+    private void ShowLoginError()
+    {
+        LoginErrorLabel.SetActive(true);
+        LoggingInLabel.SetActive(false);
     }
 }

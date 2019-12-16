@@ -182,6 +182,12 @@ public class SettingsHandler : MonoBehaviour
     {
         MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
     }
+
+    public void SwitchToLoginScene()
+    {
+        MainHandler.Instance.SetScene(MainHandler.SceneType.LoginScene);
+    }
+
     public void SwitchToPreviousScene()
     {
         MainHandler.Instance.SetScene(FFB.Instance.PreviousScene);

@@ -17,14 +17,30 @@ public class FumbblApi
 {
     private string accessToken;
 
-    public bool Auth(string clientId, string clientSecret)
+    private bool isAuthenticated = false;
+
+    public bool IsAuthenticated()
     {
-        string result = Post("oauth", "token", new Dictionary<string, string>()
+        return isAuthenticated;
+    }
+
+    public enum LoginResult
+    {
+        Authenticated,
+        AuthenticationFailed,
+        ConnectionFailed
+    }
+
+    public async Task<LoginResult> Auth(string clientId, string clientSecret)
+    {
+        string result = await Post("oauth", "token", new Dictionary<string, string>()
         {
             ["grant_type"] = "client_credentials",
             ["client_id"] = clientId,
             ["client_secret"] = clientSecret
         });
+
+        if (result == null) { return LoginResult.ConnectionFailed; };
 
         ApiDto.Auth.Token token = JsonConvert.DeserializeObject<ApiDto.Auth.Token>(result);
 
@@ -32,21 +48,23 @@ public class FumbblApi
 
         try
         {
-            result = Get("oauth", "identity");
+            result = await Get("oauth", "identity");
             int coachId = int.Parse(result);
 
-            result = Get("coach", $"get/{coachId}");
+            result = await Get("coach", $"get/{coachId}");
             ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
             FFB.Instance.SetCoachName(coach.name);
-            return true;
+            isAuthenticated = true;
+            return LoginResult.Authenticated;
         }
         catch
         {
-            return false;
+            isAuthenticated = false;
+            return LoginResult.AuthenticationFailed;
         }
     }
 
-    private string Get(string component, string endpoint)
+    private async Task<string> Get(string component, string endpoint)
     {
         using (WebClient client = new WebClient())
         {
@@ -57,7 +75,7 @@ public class FumbblApi
                     client.Headers.Add("authorization", $"Bearer {accessToken}");
                 }
 
-                string result = client.DownloadString($"https://fumbbl.com/api/{component}/{endpoint}");
+                string result = await client.DownloadStringTaskAsync($"https://fumbbl.com/api/{component}/{endpoint}");
                 return result;
             }
             catch (Exception e)
@@ -68,9 +86,10 @@ public class FumbblApi
         return null;
     }
 
-    public List<ApiDto.Match.Current> GetCurrentMatches()
+    public async Task<List<ApiDto.Match.Current>> GetCurrentMatches()
     {
-        return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(Get("match", "current"));
+        string res = await Get("match", "current");
+        return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(res);
     }
 
     public static async void GetImage(string url, Image target)
@@ -125,32 +144,35 @@ public class FumbblApi
         return s;
     }
 
-    public string GetToken()
+    public async Task<string> GetToken()
     {
-        string token = JsonConvert.DeserializeObject<string>(Post("auth", "getToken"));
+        string res = await Post("auth", "getToken");
+        string token = JsonConvert.DeserializeObject<string>(res);
         return token;
     }
 
-    internal bool Login(string uid, string pwd)
+    internal async Task<LoginResult> Login(string uid, string pwd)
     {
-        string result = Post("oauth", "createApplication", new Dictionary<string, string>()
+        string result = await Post("oauth", "createApplication", new Dictionary<string, string>()
         {
             ["c"] = uid,
             ["p"] = pwd
         });
+
+        if (result == null) { return LoginResult.ConnectionFailed; };
 
         JObject obj = JObject.Parse(result);
         if (obj["client_id"] != null && obj["client_secret"] != null)
         {
             PlayerPrefs.SetString("OAuth.ClientId", obj["client_id"].ToString());
             PlayerPrefs.SetString("OAuth.ClientSecret", obj["client_secret"].ToString());
-            return true;
+            return LoginResult.Authenticated;
         }
 
-        return false;
+        return LoginResult.AuthenticationFailed;
     }
 
-    private string Post(string component, string endpoint, Dictionary<string, string> data = null)
+    private async Task<string> Post(string component, string endpoint, Dictionary<string, string> data = null)
     {
         using (WebClient client = new WebClient())
         {
@@ -174,7 +196,7 @@ public class FumbblApi
 
                 Debug.Log(url);
 
-                byte[] result = client.UploadValues(url, "POST", values);
+                byte[] result = await client.UploadValuesTaskAsync(url, "POST", values);
 
                 return UTF8Encoding.UTF8.GetString(result);
             }
