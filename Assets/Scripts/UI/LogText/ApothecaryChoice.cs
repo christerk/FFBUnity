@@ -7,7 +7,7 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.ApothecaryChoice report)
         {
-            Model.Types.Player player = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
+            Model.Types.Player player = FFB.Instance.Model.GetPlayer(report.playerId);
             Model.Types.Coach coach = player?.Team?.Coach;
 
             if (coach != null && player != null)
