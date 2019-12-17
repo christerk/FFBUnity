@@ -5,11 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LoginHandler : MonoBehaviour
 {
-    public GameObject LoggingInLabel;
-    public GameObject LoginErrorLabel;
-    public GameObject LoginPanel;
     public TMPro.TMP_InputField CoachField;
     public TMPro.TMP_InputField PasswordField;
+    public TMPro.TextMeshProUGUI StatusLabel;
     public string NextScene;
 
     #region MonoBehaviour Methods
@@ -17,8 +15,34 @@ public class LoginHandler : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        TryLogin();
-        LoginErrorLabel.SetActive(false);
+        if (StatusLabel != null)
+        {
+            StatusLabel.text = "Logging in...";
+            StatusLabel.color = new Color(1f,1f,1f);
+        }
+
+        string clientId = PlayerPrefs.GetString("OAuth.ClientId");
+        string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
+        //return await FFB.Instance.Authenticate(clientId, clientSecret);
+        Task<FumbblApi.LoginResult> task = Task.Run<FumbblApi.LoginResult>(async () => await FFB.Instance.Authenticate(clientId, clientSecret));
+        //Task<FumbblApi.LoginResult> task = Task.Run<FumbblApi.LoginResult>(async () => await TryLogin());
+        var loginresult = task.Result;
+        if (
+                (CoachField != null && PasswordField != null)
+                && (string.IsNullOrEmpty(CoachField.text) || string.IsNullOrEmpty(PasswordField.text))
+                && (loginresult == FumbblApi.LoginResult.AuthenticationFailed)
+        )
+        {
+            if (StatusLabel != null)
+            {
+                StatusLabel.text = "Please authenticate yourself.";
+                StatusLabel.color = new Color(1f,1f,1f);
+            }
+        }
+        else{
+            UpdateStatusLabel(loginresult);
+        }
+
 
         if (CoachField != null)
         {
@@ -28,6 +52,7 @@ public class LoginHandler : MonoBehaviour
             });
             CoachField.ActivateInputField();
         }
+
         if (PasswordField != null)
         {
             PasswordField.onSubmit.AddListener(v =>
@@ -56,43 +81,49 @@ public class LoginHandler : MonoBehaviour
 
     public async void Login()
     {
+        StatusLabel.text = "Logging in...";
+        StatusLabel.color = new Color(1f,1f,1f);
+
         FumbblApi.LoginResult loginresult = await FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
         if (loginresult == FumbblApi.LoginResult.Authenticated)
         {
-            TryLogin();
+            loginresult = await TryLogin();
         }
-        else
+        UpdateStatusLabel(loginresult);
+        if (loginresult == FumbblApi.LoginResult.AuthenticationFailed)
         {
             CoachField.ActivateInputField();
-            ShowLoginError();
         }
     }
 
-    private async void TryLogin()
+    private void UpdateStatusLabel(FumbblApi.LoginResult loginresult)
+    {
+        if (StatusLabel != null)
+        {
+            switch (loginresult)
+            {
+                case FumbblApi.LoginResult.Authenticated:
+                    StatusLabel.text = "Authenticated.";
+                    StatusLabel.color = new Color(1f,1f,1f);
+                    SceneManager.LoadScene(NextScene);
+                    break;
+                case FumbblApi.LoginResult.AuthenticationFailed:
+                    StatusLabel.text = "Authentication failed.";
+                    StatusLabel.color = new Color(1f,0.8f,0f);
+                    break;
+                case FumbblApi.LoginResult.ConnectionFailed:
+                    StatusLabel.text = "Connection failed.";
+                    StatusLabel.color = new Color(1f,0f,0f);
+                    break;
+            }
+        }
+    }
+
+    private async Task<FumbblApi.LoginResult> TryLogin()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
         string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
-
-        LoginPanel.SetActive(false);
-        LoggingInLabel.SetActive(true);
-        LoginErrorLabel.SetActive(false);
-        FumbblApi.LoginResult loginresult = await FFB.Instance.Authenticate(clientId, clientSecret);
-
-        if (loginresult == FumbblApi.LoginResult.Authenticated)
-        {
-            SceneManager.LoadScene(NextScene);
-        }
-        else
-        {
-            LoginPanel.SetActive(true);
-            LoggingInLabel.SetActive(false);
-        }
-    }
-
-    private void ShowLoginError()
-    {
-        LoginErrorLabel.SetActive(true);
-        LoggingInLabel.SetActive(false);
+        return await FFB.Instance.Authenticate(clientId, clientSecret);
     }
 }
