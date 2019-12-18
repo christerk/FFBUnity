@@ -149,7 +149,7 @@ namespace Fumbbl
                 Network.Spectate(GameId);
                 return true;
             }
-            if (netCommand is Ffb.Dto.Commands.ServerTalk)
+            else if (netCommand is Ffb.Dto.Commands.ServerTalk)
             {
                 var cmd = (Ffb.Dto.Commands.ServerTalk)netCommand;
                 foreach (var talk in cmd.talks)
@@ -158,11 +158,21 @@ namespace Fumbbl
                 }
                 return true;
             }
-            if (netCommand is Ffb.Dto.Commands.ServerSound)
+            else if (netCommand is Ffb.Dto.Commands.ServerSound)
             {
                 PlaySound(((Ffb.Dto.Commands.ServerSound)netCommand).sound);
             }
-            if (netCommand is Ffb.Dto.Commands.ServerGameState)
+            else if (netCommand is Ffb.Dto.Commands.ServerJoin)
+            {
+                var cmd = (Ffb.Dto.Commands.ServerJoin)netCommand;
+                AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} joins the game"));
+            }
+            else if (netCommand is Ffb.Dto.Commands.ServerLeave)
+            {
+                var cmd = (Ffb.Dto.Commands.ServerLeave)netCommand;
+                AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} leaves the game"));
+            }
+            else if (netCommand is Ffb.Dto.Commands.ServerGameState)
             {
                 FFB.Instance.Model.Clear();
 
@@ -185,7 +195,8 @@ namespace Fumbbl
                     Id = cmd.game.teamHome.teamId,
                     Coach = homeCoach,
                     Name = cmd.game.teamHome.teamName,
-                    Fame = cmd.game.gameResult.teamResultHome.fame
+                    Fame = cmd.game.gameResult.teamResultHome.fame,
+                    FanFactor = cmd.game.teamHome.fanFactor
                 };
 
                 Team awayTeam = new Team()
@@ -193,7 +204,8 @@ namespace Fumbbl
                     Id = cmd.game.teamAway.teamId,
                     Coach = awayCoach,
                     Name = cmd.game.teamAway.teamName,
-                    Fame = cmd.game.gameResult.teamResultAway.fame
+                    Fame = cmd.game.gameResult.teamResultAway.fame,
+                    FanFactor = cmd.game.teamAway.fanFactor
                 };
 
                 FFB.Instance.Model.TeamHome = homeTeam;

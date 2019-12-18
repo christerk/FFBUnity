@@ -29,7 +29,7 @@ public class GameBrowserEntry : MonoBehaviour
 
     #endregion
 
-    public void SetMatchDetails(Current details)
+    public void SetMatchDetails(Current details, System.Collections.Generic.HashSet<string> friends)
     {
         if (details.teams.Count == 2)
         {
@@ -38,10 +38,23 @@ public class GameBrowserEntry : MonoBehaviour
             matchDetails = details;
             team1.text = t1.name;
             team2.text = t2.name;
+
+            var coach1 = TextPanelHandler.SanitizeText(t1.coach);
+            var coach2 = TextPanelHandler.SanitizeText(t2.coach);
+
+            if (friends.Contains(t1.coach))
+            {
+                coach1 = $"<#00F324>{coach1}</color>";
+            }
+            if (friends.Contains(t2.coach))
+            {
+                coach2 = $"<#00F324>{coach2}</color>";
+            }
+
             team1Score.text = t1.score.ToString();
             team2Score.text = t2.score.ToString();
-            team1Info.text = $"({t1.rating}) {t1.coach} TV {t1.tv / 1000}k {t1.race}";
-            team2Info.text = $"{t2.race} TV {t2.tv / 1000}k {t2.coach} ({t2.rating})";
+            team1Info.text = $"({t1.rating}) {coach1} TV {t1.tv / 1000}k {t1.race}";
+            team2Info.text = $"{t2.race} TV {t2.tv / 1000}k {coach2} ({t2.rating})";
             turnIndicator.text = $"h{details.half}t{details.turn}";
 
             float progress = (float)((((float)details.half - 1) * 8) + (float)details.turn) / 16f;

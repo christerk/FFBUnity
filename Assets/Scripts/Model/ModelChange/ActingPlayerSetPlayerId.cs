@@ -7,6 +7,7 @@
         public override void Apply(Ffb.Dto.ModelChanges.ActingPlayerSetPlayerId change)
         {
             FFB.Instance.Model.ActingPlayer.PlayerId = change.modelChangeValue;
+            FFB.Instance.Model.ActingPlayer.CurrentMove = 0;
         }
     }
 }

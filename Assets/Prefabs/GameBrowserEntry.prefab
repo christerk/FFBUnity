@@ -33,9 +33,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: -1015, y: 55}
+  m_SizeDelta: {x: -240, y: 70}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8187033739021067128
 CanvasRenderer:
@@ -276,10 +276,10 @@ RectTransform:
   m_Father: {fileID: 7581937068459950111}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: -1015, y: 55}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -10, y: -70}
+  m_SizeDelta: {x: -234, y: -15}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &961156204703152391
 CanvasRenderer:
@@ -335,12 +335,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24
+  m_fontSize: 32
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 16
+  m_fontSizeMax: 32
   m_fontStyle: 0
   m_textAlignment: 516
   m_characterSpacing: 0
@@ -431,10 +431,10 @@ RectTransform:
   m_Father: {fileID: 7581937068459950111}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: -1015, y: 55}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 10, y: -70}
+  m_SizeDelta: {x: -234, y: -15}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5757424877721817645
 CanvasRenderer:
@@ -490,12 +490,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24
+  m_fontSize: 32
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 16
+  m_fontSizeMax: 32
   m_fontStyle: 0
   m_textAlignment: 513
   m_characterSpacing: 0
@@ -588,7 +588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 160, y: 0}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2372757521650387212
@@ -659,10 +659,10 @@ RectTransform:
   m_Father: {fileID: 7581937068459950111}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: -1015, y: 55}
+  m_SizeDelta: {x: -240, y: 70}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &6912675077033991406
 CanvasRenderer:
@@ -851,15 +851,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd4d9e25404f1ca88838ddd52d99208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team1: {fileID: 3695525872163851261}
-  team1Image: {fileID: 6631580801283013986}
-  team1Score: {fileID: 6925713949460965244}
-  team1Info: {fileID: 2082466296963271970}
-  team2: {fileID: 4940551031503475584}
-  team2Image: {fileID: 5735444918742434003}
-  team2Score: {fileID: 2942347357668611365}
-  team2Info: {fileID: 1998088078934644043}
   progressBar: {fileID: 5287452180409552731}
+  team1Image: {fileID: 6631580801283013986}
+  team2Image: {fileID: 5735444918742434003}
+  team1: {fileID: 3695525872163851261}
+  team1Info: {fileID: 2082466296963271970}
+  team1Score: {fileID: 6925713949460965244}
+  team2: {fileID: 4940551031503475584}
+  team2Info: {fileID: 1998088078934644043}
+  team2Score: {fileID: 2942347357668611365}
   turnIndicator: {fileID: 372862971710086032}
 --- !u!114 &6255620814914557062
 MonoBehaviour:
@@ -1259,7 +1259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
+  m_AnchoredPosition: {x: -160, y: 0}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8096677675585908658
