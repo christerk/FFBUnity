@@ -3,6 +3,7 @@ using Fumbbl;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GameBrowserHandler : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class GameBrowserHandler : MonoBehaviour
     private void Start()
     {
         Debug.Log("Initialise Game Browser");
-        api = new FumbblApi();
+        api = FFB.Instance.Api;
         RefreshMatches();
         gameIdInputField.onValidateInput += (text, charIndex, addedChar) =>
         {
@@ -67,8 +68,20 @@ public class GameBrowserHandler : MonoBehaviour
 
     #endregion
 
+    private async Task<HashSet<string>> LoadFriends()
+    {
+        var friends = new HashSet<string>();
+        var list = await api.GetFriends();
+        foreach (var friend in list)
+        {
+            friends.Add(friend);
+        }
+        return friends;
+    }
+
     private async void RefreshMatches()
     {
+        var friends = await LoadFriends();
         currentMatches = await api.GetCurrentMatches();
         string previousDivision = string.Empty;
         foreach (ApiDto.Match.Current match in currentMatches)
@@ -82,7 +95,7 @@ public class GameBrowserHandler : MonoBehaviour
             }
             GameObject newButton = Instantiate(button);
             newButton.transform.SetParent(pane.transform, false);
-            newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(match);
+            newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(match, friends);
         }
     }
 

@@ -92,6 +92,12 @@ public class FumbblApi
         return JsonConvert.DeserializeObject<List<ApiDto.Match.Current>>(res);
     }
 
+    public async Task<List<string>> GetFriends()
+    {
+        string res = await Get("coach", "friends");
+        return JsonConvert.DeserializeObject<List<string>>(res);
+    }
+
     public static async void GetImage(string url, Image target)
     {
         Sprite s = await FFB.Instance.SpriteCache.GetAsync(url);
