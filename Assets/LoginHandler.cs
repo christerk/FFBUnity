@@ -19,7 +19,6 @@ public class LoginHandler : MonoBehaviour
             Authenticating
         }
 
-    private bool seriousauth;
     private WorkingMode? currentUIworkingmode;
     private IEnumerator workingUIcoro;
 
@@ -31,7 +30,6 @@ public class LoginHandler : MonoBehaviour
         // The scene is assumed to prohibit interactions at this point.
         // Start is a special case as we try to get authenticated immediately
         // with the stored credentials.
-        this.seriousauth = false;
         this.workingUIcoro = null;
 
         // Setup the input fields.
@@ -44,7 +42,8 @@ public class LoginHandler : MonoBehaviour
         FumbblApi.NewLoginResult += OnNewLoginResult;
 
         // Try to authenticate immediately.
-        await TryAuth();
+        FumbblApi.AuthResult authresult = await TryAuth();
+        await OnAuthResult(authresult);
     }
 
     private void Update()
@@ -60,6 +59,12 @@ public class LoginHandler : MonoBehaviour
                 CoachField.ActivateInputField();
             };
         }
+    }
+
+    private void OnDestroy()
+    {
+        FumbblApi.NewAuthResult -= OnNewAuthResult;
+        FumbblApi.NewLoginResult -= OnNewLoginResult;
     }
 
     #endregion
@@ -94,14 +99,10 @@ public class LoginHandler : MonoBehaviour
         switch (loginresult)
         {
             case FumbblApi.LoginResult.LoggedIn:
-                // Wait for the "Logged in." statuslabel.
-                while (currentUIworkingmode != WorkingMode.Authenticating)
-                {
-                    await Task.Delay(25);
-                }
-
-                await TryAuth();
-                // ^We are subscribed to the events it will publish.
+                // Wait for the "Logged in." status label.
+                await Task.Delay(1000);
+                FumbblApi.AuthResult authresult = await TryAuth();
+                await OnAuthResult(authresult);
                 break;
         }
     }
@@ -129,11 +130,17 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
-    protected virtual async void OnNewAuthResult(object source, FumbblApi.AuthResultArgs args)
+    protected virtual void OnNewAuthResult(object source, FumbblApi.AuthResultArgs args)
     {
         EnsureStoppedWorkingUICoroutine();
         switch (args.AuthResult)
         {
+            case FumbblApi.AuthResult.MissingCondition:
+                StatusLabel.text = "";
+                StatusLabel.color = new Color(1f,1f,1f);
+                EnableInteraction();
+                CoachField.ActivateInputField();
+                break;
             case FumbblApi.AuthResult.Authenticating:
                 StatusLabel.text = "Authenticating...";
                 StatusLabel.color = new Color(1f,1f,1f);
@@ -145,21 +152,10 @@ public class LoginHandler : MonoBehaviour
                 StatusLabel.text = "Authenticated.";
                 StatusLabel.color = new Color(1f,1f,1f);
                 DisableInteraction();
-                await Task.Delay(1000);
-                SceneManager.LoadScene(NextScene);
                 break;
             case FumbblApi.AuthResult.AuthenticationFailed:
-                if (seriousauth)
-                {
-                    StatusLabel.text = "Authentication failed.";
-                    StatusLabel.color = new Color(1f,0.8f,0f);
-                }
-                else
-                {
-                    StatusLabel.text = "";
-                    StatusLabel.color = new Color(1f,1f,1f);
-                    seriousauth = true;
-                }
+                StatusLabel.text = "Authentication failed.";
+                StatusLabel.color = new Color(1f,0.8f,0f);
                 EnableInteraction();
                 CoachField.ActivateInputField();
                 break;
@@ -206,10 +202,22 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
-    private async Task TryAuth()
+    private async Task<FumbblApi.AuthResult> TryAuth()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
         string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
-        await FFB.Instance.Authenticate(clientId, clientSecret);
+        return await FFB.Instance.Authenticate(clientId, clientSecret);
+    }
+
+    private async Task OnAuthResult(FumbblApi.AuthResult authresult)
+    {
+        switch (authresult)
+        {
+            case FumbblApi.AuthResult.Authenticated:
+                // Wait for the "Authenticated." status label.
+                await Task.Delay(1000);
+                SceneManager.LoadScene(NextScene);
+                break;
+        }
     }
 }

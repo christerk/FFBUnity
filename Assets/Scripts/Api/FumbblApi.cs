@@ -26,6 +26,7 @@ public class FumbblApi
 
     public enum AuthResult
     {
+        MissingCondition,
         Authenticating,
         Authenticated,
         AuthenticationFailed,
@@ -58,6 +59,11 @@ public class FumbblApi
 
     public async Task<AuthResult> Auth(string clientId, string clientSecret)
     {
+        if (String.IsNullOrEmpty(clientId) || String.IsNullOrEmpty(clientSecret))
+        {
+            if (NewAuthResult != null) NewAuthResult(this, new AuthResultArgs() { AuthResult = AuthResult.MissingCondition});
+            return AuthResult.MissingCondition;
+        }
         if (NewAuthResult != null) NewAuthResult(this, new AuthResultArgs() { AuthResult = AuthResult.Authenticating});
         string result = await Post("oauth", "token", new Dictionary<string, string>()
         {
