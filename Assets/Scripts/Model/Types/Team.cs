@@ -5,6 +5,7 @@
         public Coach Coach { get; internal set; }
         public bool IsHome => Coach.IsHome;
         public int Fame { get; internal set; }
+        public int FanFactor { get; internal set; }
         public string Id { get; internal set; }
         public string Name { get; internal set; }
 
