@@ -3,6 +3,7 @@
     public class ActingPlayer
     {
         public ActionType CurrentAction { get; internal set; }
+        public int CurrentMove { get; set; }
         public string PlayerId;
 
         public enum ActionType

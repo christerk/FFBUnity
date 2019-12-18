@@ -69,5 +69,16 @@ public class PlayerCardHandler : MonoBehaviour
                 ShownPlayerId = null;
             }
         }
+        if (player != null)
+        {
+            if (string.Equals(player.Id, FFB.Instance.Model.ActingPlayer.PlayerId))
+            {
+                MA.text = (player.Movement - FFB.Instance.Model.ActingPlayer.CurrentMove).ToString();
+            }
+            else
+            {
+                MA.text = player.Movement.ToString();
+            }
+        }
     }
 }
