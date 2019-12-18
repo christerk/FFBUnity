@@ -195,7 +195,8 @@ namespace Fumbbl
                     Id = cmd.game.teamHome.teamId,
                     Coach = homeCoach,
                     Name = cmd.game.teamHome.teamName,
-                    Fame = cmd.game.gameResult.teamResultHome.fame
+                    Fame = cmd.game.gameResult.teamResultHome.fame,
+                    FanFactor = cmd.game.teamHome.fanFactor
                 };
 
                 Team awayTeam = new Team()
@@ -203,7 +204,8 @@ namespace Fumbbl
                     Id = cmd.game.teamAway.teamId,
                     Coach = awayCoach,
                     Name = cmd.game.teamAway.teamName,
-                    Fame = cmd.game.gameResult.teamResultAway.fame
+                    Fame = cmd.game.gameResult.teamResultAway.fame,
+                    FanFactor = cmd.game.teamAway.fanFactor
                 };
 
                 FFB.Instance.Model.TeamHome = homeTeam;
