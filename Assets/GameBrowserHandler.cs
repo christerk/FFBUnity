@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameBrowserHandler : MonoBehaviour
 {
     public GameObject button;
+    public GameObject divider;
     public GameObject gameListPanel;
     public GameObject pane;
     public TMP_InputField gameIdInputField;
@@ -69,9 +70,17 @@ public class GameBrowserHandler : MonoBehaviour
     private async void RefreshMatches()
     {
         currentMatches = await api.GetCurrentMatches();
+        string previousDivision = string.Empty;
         foreach (ApiDto.Match.Current match in currentMatches)
         {
-            GameObject newButton = Instantiate(button) as GameObject;
+            if (!string.Equals(previousDivision, match.division))
+            {
+                GameObject divider = Instantiate(this.divider);
+                divider.transform.SetParent(pane.transform, false);
+                divider.transform.GetChild(1).gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = match.division;
+                previousDivision = match.division;
+            }
+            GameObject newButton = Instantiate(button);
             newButton.transform.SetParent(pane.transform, false);
             newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(match);
         }

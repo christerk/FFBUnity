@@ -651,13 +651,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576877060}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1.5092593, y: 1.5092593, z: 1.5092593}
   m_Children:
   - {fileID: 227960866}
-  m_Father: {fileID: 1213054523}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1007,9 +1007,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1662c8a133397aa19a1a10f2848b51f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pane: {fileID: 976340118}
   button: {fileID: 7136149079318302106, guid: 159d1a0127599ef4891fd87454c356fd, type: 3}
+  divider: {fileID: 617146278711650452, guid: 6df0309cc43d104429b99c8c6ebdb249, type: 3}
   gameListPanel: {fileID: 1491694150}
+  pane: {fileID: 976340118}
   gameIdInputField: {fileID: 576877062}
 --- !u!4 &1205606447
 Transform:
@@ -1132,7 +1133,6 @@ RectTransform:
   - {fileID: 2118733581}
   - {fileID: 915991085}
   - {fileID: 1652776396}
-  - {fileID: 576877061}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
