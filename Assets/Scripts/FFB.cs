@@ -27,6 +27,10 @@ namespace Fumbbl
         public event AddChatDelegate OnChat;
         public event AddReportDelegate OnReport;
         public event AddSoundDelegate OnSound;
+        public event Action Authenticating;
+        public event Action Authenticated;
+        public event Action AuthenticationFailed;
+        public event Action ConnectionFailed;
         public int GameId { get; private set; }
         public string CoachName { get; private set; }
         public string PreviousScene { get; internal set; }
@@ -62,9 +66,24 @@ namespace Fumbbl
             Api = new FumbblApi();
         }
 
-        public async Task<FumbblApi.LoginResult> Authenticate(string clientId, string clientSecret)
+        public async Task<FumbblApi.AuthResult> Authenticate(string clientId, string clientSecret)
         {
-            return await Api.Auth(clientId, clientSecret);
+            if (Authenticating != null) Authenticating();
+            FumbblApi.AuthResult loginresult = await Api.Auth(clientId, clientSecret);
+            Debug.Log(loginresult);
+            switch (loginresult)
+            {
+                case FumbblApi.AuthResult.Authenticated:
+                    if (Authenticated != null) ExecuteOnMainThread(Authenticated);
+                    break;
+                case FumbblApi.AuthResult.AuthenticationFailed:
+                    if (AuthenticationFailed != null) ExecuteOnMainThread(AuthenticationFailed);
+                    break;
+                case FumbblApi.AuthResult.ConnectionFailed:
+                    if (ConnectionFailed != null) ExecuteOnMainThread(ConnectionFailed);
+                    break;
+            }
+            return loginresult;
         }
 
         public void Initialize()

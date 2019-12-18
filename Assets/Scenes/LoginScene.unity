@@ -423,22 +423,22 @@ PrefabInstance:
     - target: {fileID: 6166615086351720201, guid: 12aa011584c109b4a8882cd73ad69811,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6166615086351720201, guid: 12aa011584c109b4a8882cd73ad69811,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6166615086351720201, guid: 12aa011584c109b4a8882cd73ad69811,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6166615086351720201, guid: 12aa011584c109b4a8882cd73ad69811,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6166615086351720201, guid: 12aa011584c109b4a8882cd73ad69811,
         type: 3}
@@ -463,7 +463,7 @@ PrefabInstance:
     - target: {fileID: 6166615086351720201, guid: 12aa011584c109b4a8882cd73ad69811,
         type: 3}
       propertyPath: m_text
-      value: '[Status]'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6166615086351720202, guid: 12aa011584c109b4a8882cd73ad69811,
         type: 3}
@@ -736,7 +736,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 504305966}
   m_TextViewport: {fileID: 686443979}
   m_TextComponent: {fileID: 1343312597}
@@ -948,6 +948,7 @@ MonoBehaviour:
   CoachField: {fileID: 1140073121}
   PasswordField: {fileID: 504305965}
   StatusLabel: {fileID: 251627672}
+  LoginButton: {fileID: 2123247137}
   NextScene: GameBrowserScene
 --- !u!4 &623190796
 Transform:
@@ -1208,7 +1209,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1140073122}
   m_TextViewport: {fileID: 107552741}
   m_TextComponent: {fileID: 1786141278}
@@ -2589,7 +2590,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2123247138}
   m_OnClick:
     m_PersistentCalls:
