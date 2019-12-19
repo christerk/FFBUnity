@@ -206,7 +206,7 @@ public class FieldHandler : MonoBehaviour
         if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
         {
             var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
-            if (action.ShowActivity)
+            if (action.ShowActivity && FFB.Instance.ReportMode != FFB.ReportModeType.Silent)
             {
                 Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
                 var scrollText = Instantiate(ScrollTextPrefab);

@@ -30,6 +30,7 @@ namespace Fumbbl
         public int GameId { get; private set; }
         public string CoachName { get; private set; }
         public string PreviousScene { get; internal set; }
+        public ReportModeType ReportMode { get; private set; }
 
         public enum ChatSource
         {
@@ -44,6 +45,12 @@ namespace Fumbbl
             None,
             Log,
             Chat
+        }
+
+        public enum ReportModeType
+        {
+            Normal,
+            Silent
         }
 
         private bool Initialized;
@@ -373,9 +380,17 @@ namespace Fumbbl
         {
             if (OnReport != null)
             {
-                foreach (Report entry in LogText)
+                FFB.Instance.ReportMode = ReportModeType.Silent;
+                try
                 {
-                    OnReport(entry);
+                    foreach (Report entry in LogText)
+                    {
+                        OnReport(entry);
+                    }
+                }
+                finally
+                {
+                    FFB.Instance.ReportMode = ReportModeType.Normal;
                 }
             }
         }
