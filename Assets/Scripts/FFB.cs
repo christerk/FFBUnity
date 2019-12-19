@@ -167,10 +167,26 @@ namespace Fumbbl
                 var cmd = (Ffb.Dto.Commands.ServerJoin)netCommand;
                 AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} joins the game"));
             }
-            else if (netCommand is Ffb.Dto.Commands.ServerLeave)
+            else if (netCommand is Ffb.Dto.Commands.AddPlayer)
             {
-                var cmd = (Ffb.Dto.Commands.ServerLeave)netCommand;
-                AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} leaves the game"));
+                var cmd = (Ffb.Dto.Commands.AddPlayer)netCommand;
+                var p = cmd.player;
+                Team t = FFB.Instance.Model.GetTeam(cmd.teamId);
+                Player player = new Player()
+                    {
+                        Id = p.playerId,
+                        Name = p.playerName,
+                        Team = t,
+                        Gender = Gender.Male,
+                        Movement = p.movement,
+                        Strength = p.strength,
+                        Agility = p.agility,
+                        Armour = p.armour,
+                        PortraitURL = p.urlPortrait,
+
+                    };
+                Debug.Log("ADDING PLAYER");
+                FFB.Instance.Model.AddPlayer(player);
             }
             else if (netCommand is Ffb.Dto.Commands.ServerGameState)
             {

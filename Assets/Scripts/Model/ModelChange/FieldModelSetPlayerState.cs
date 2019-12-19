@@ -1,4 +1,5 @@
 ﻿using Fumbbl.Model.Types;
+using UnityEngine;
 
 namespace Fumbbl.Model.ModelChange
 {
@@ -8,6 +9,7 @@ namespace Fumbbl.Model.ModelChange
 
         public override void Apply(Ffb.Dto.ModelChanges.FieldModelSetPlayerState change)
         {
+            Debug.Log("FieldModelSetPlayerState: " + change.modelChangeKey);
             Player p = FFB.Instance.Model.GetPlayer(change.modelChangeKey);
             PlayerState state = PlayerState.Get(change.modelChangeValue);
             p.PlayerState = state;
