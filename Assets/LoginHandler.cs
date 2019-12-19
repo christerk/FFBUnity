@@ -1,6 +1,7 @@
 ﻿using Fumbbl;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,8 @@ public class LoginHandler : MonoBehaviour
     public TMPro.TMP_InputField PasswordField;
     public TMPro.TextMeshProUGUI StatusLabel;
     public UnityEngine.UI.Button LoginButton;
+    public GameObject StatusPanel;
+    public List<GameObject> Spinners;
     public string NextScene;
 
     private enum WorkingMode
@@ -19,7 +22,6 @@ public class LoginHandler : MonoBehaviour
             Authenticating
         }
 
-    private WorkingMode? currentUIworkingmode;
     private IEnumerator workingUIcoro;
 
     #region MonoBehaviour Methods
@@ -27,6 +29,7 @@ public class LoginHandler : MonoBehaviour
     // Start is called before the first frame update
     private async void Start()
     {
+        StatusPanel.SetActive(false);
         // The scene is assumed to prohibit interactions at this point.
         // Start is a special case as we try to get authenticated immediately
         // with the stored credentials.
@@ -43,7 +46,7 @@ public class LoginHandler : MonoBehaviour
 
         // Try to authenticate immediately.
         FumbblApi.AuthResult authresult = await TryAuth();
-        await OnAuthResult(authresult);
+        OnAuthResult(authresult);
     }
 
     private void Update()
@@ -102,7 +105,7 @@ public class LoginHandler : MonoBehaviour
                 // Wait for the "Logged in." status label.
                 await Task.Delay(1000);
                 FumbblApi.AuthResult authresult = await TryAuth();
-                await OnAuthResult(authresult);
+                OnAuthResult(authresult);
                 break;
         }
     }
@@ -118,7 +121,7 @@ public class LoginHandler : MonoBehaviour
                 statuslabelrootstring = "Logging in";
                 break;
             case WorkingMode.Authenticating:
-                statuslabelrootstring = "Authenticating";
+                statuslabelrootstring = "Logging in....";
                 break;
         }
         while (true)
@@ -136,30 +139,33 @@ public class LoginHandler : MonoBehaviour
         switch (args.AuthResult)
         {
             case FumbblApi.AuthResult.MissingCondition:
+                StatusPanel.SetActive(true);
                 StatusLabel.text = "";
                 StatusLabel.color = new Color(1f,1f,1f);
                 EnableInteraction();
                 CoachField.ActivateInputField();
                 break;
             case FumbblApi.AuthResult.Authenticating:
-                StatusLabel.text = "Authenticating...";
+                StatusLabel.text = "Logging in.......";
                 StatusLabel.color = new Color(1f,1f,1f);
                 DisableInteraction();
                 workingUIcoro = OnworkingUIcoroutine(WorkingMode.Authenticating);
                 StartCoroutine(workingUIcoro);
                 break;
             case FumbblApi.AuthResult.Authenticated:
-                StatusLabel.text = "Authenticated.";
+                StatusLabel.text = "Logged in.";
                 StatusLabel.color = new Color(1f,1f,1f);
                 DisableInteraction();
                 break;
             case FumbblApi.AuthResult.AuthenticationFailed:
-                StatusLabel.text = "Authentication failed.";
+                StatusPanel.SetActive(true);
+                StatusLabel.text = "Login failed.";
                 StatusLabel.color = new Color(1f,0.8f,0f);
                 EnableInteraction();
                 CoachField.ActivateInputField();
                 break;
             case FumbblApi.AuthResult.ConnectionFailed:
+                StatusPanel.SetActive(true);
                 StatusLabel.text = "Connection failed.";
                 StatusLabel.color = new Color(1f,0f,0f);
                 EnableInteraction();
@@ -167,14 +173,12 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
-    protected virtual async void OnNewLoginResult(object source, FumbblApi.LoginResultArgs args)
+    protected virtual void OnNewLoginResult(object source, FumbblApi.LoginResultArgs args)
     {
         EnsureStoppedWorkingUICoroutine();
-        currentUIworkingmode = null;
         switch (args.LoginResult)
         {
             case FumbblApi.LoginResult.LoggingIn:
-                currentUIworkingmode = WorkingMode.LoggingIn;
                 StatusLabel.text = "Logging in...";
                 StatusLabel.color = new Color(1f,1f,1f);
                 DisableInteraction();
@@ -182,11 +186,9 @@ public class LoginHandler : MonoBehaviour
                 StartCoroutine(workingUIcoro);
                 break;
             case FumbblApi.LoginResult.LoggedIn:
-                StatusLabel.text = "Logged in.";
+                StatusLabel.text = "Logging in....";
                 StatusLabel.color = new Color(1f,1f,1f);
                 DisableInteraction();
-                await Task.Delay(1000);
-                currentUIworkingmode = WorkingMode.Authenticating;
                 break;
             case FumbblApi.LoginResult.LoginFailed:
                 StatusLabel.text = "Login failed.";
@@ -209,13 +211,11 @@ public class LoginHandler : MonoBehaviour
         return await FFB.Instance.Authenticate(clientId, clientSecret);
     }
 
-    private async Task OnAuthResult(FumbblApi.AuthResult authresult)
+    private void OnAuthResult(FumbblApi.AuthResult authresult)
     {
         switch (authresult)
         {
             case FumbblApi.AuthResult.Authenticated:
-                // Wait for the "Authenticated." status label.
-                await Task.Delay(1000);
                 SceneManager.LoadScene(NextScene);
                 break;
         }
