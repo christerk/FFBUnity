@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Threading.Tasks;
+using Fumbbl.View;
+using System.Linq;
 
 public class GameBrowserHandler : MonoBehaviour
 {
@@ -16,6 +18,9 @@ public class GameBrowserHandler : MonoBehaviour
     private FumbblApi api;
     private List<ApiDto.Match.Current> currentMatches;
     private Mode mode = Mode.GameList;
+    private HashSet<string> Friends;
+
+    private ViewObjectList<BrowserRecord> Matches;
 
     private enum Mode
     {
@@ -25,8 +30,75 @@ public class GameBrowserHandler : MonoBehaviour
 
     #region MonoBehaviour Methods
 
-    private void Start()
+    private async void Start()
     {
+        Matches = new ViewObjectList<BrowserRecord>(
+            r =>
+            {
+                GameObject newButton = Instantiate(button);
+                r.GameObject = newButton;
+                newButton.transform.SetParent(pane.transform, false);
+
+                var div = r.Record.division;
+                // Find position of new game
+                bool foundSection = false;
+                int position = -1;
+                for(int i=0; i<pane.transform.childCount; i++)
+                {
+                    var currentMatch = pane.transform.GetChild(i).GetComponent<GameBrowserEntry>()?.matchDetails;
+
+                    if (currentMatch != null)
+                    {
+                        if (!foundSection)
+                        {
+                            if (string.Equals(currentMatch.division, div))
+                            {
+                                foundSection = true;
+                            }
+                        }
+                        else
+                        {
+                            if (!string.Equals(currentMatch.division, div))
+                            {
+                                position = i;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // This is a division divider
+                        if (foundSection)
+                        {
+                            position = i;
+                            break;
+                        }
+                    }
+                }
+                if (position >= 0)
+                {
+                    newButton.transform.SetSiblingIndex(position);
+                }
+                else if (!foundSection)
+                {
+                    GameObject divider = Instantiate(this.divider);
+                    divider.transform.SetParent(pane.transform, false);
+                    divider.transform.SetSiblingIndex(pane.transform.childCount - 2);
+                    divider.transform.GetChild(1).gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = div;
+                }
+
+                newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(r.Record, Friends);
+            },
+            r =>
+            {
+                r.GameObject.GetComponent<GameBrowserEntry>().SetMatchDetails(r.Record, Friends);
+            },
+            r =>
+            {
+                Destroy(r.GameObject);
+            }
+        );
+
         Debug.Log("Initialise Game Browser");
         api = FFB.Instance.Api;
         RefreshMatches();
@@ -38,6 +110,10 @@ public class GameBrowserHandler : MonoBehaviour
             }
             return addedChar;
         };
+
+        Friends = await LoadFriends();
+
+        InvokeRepeating("RefreshMatches", 3f, 3f);
     }
 
     private void Update() {
@@ -81,22 +157,10 @@ public class GameBrowserHandler : MonoBehaviour
 
     private async void RefreshMatches()
     {
-        var friends = await LoadFriends();
         currentMatches = await api.GetCurrentMatches();
         string previousDivision = string.Empty;
-        foreach (ApiDto.Match.Current match in currentMatches)
-        {
-            if (!string.Equals(previousDivision, match.division))
-            {
-                GameObject divider = Instantiate(this.divider);
-                divider.transform.SetParent(pane.transform, false);
-                divider.transform.GetChild(1).gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = match.division;
-                previousDivision = match.division;
-            }
-            GameObject newButton = Instantiate(button);
-            newButton.transform.SetParent(pane.transform, false);
-            newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(match, friends);
-        }
+
+        Matches.Refresh(currentMatches.Select(m => new BrowserRecord(m)));
     }
 
     private void ShowGameIdInput()
@@ -115,5 +179,26 @@ public class GameBrowserHandler : MonoBehaviour
         gameIdInputField.gameObject.SetActive(false);
         gameIdInputField.text = "";
         mode = Mode.GameList;
+    }
+
+    private class BrowserRecord : ViewObject<BrowserRecord>
+    {
+        public ApiDto.Match.Current Record;
+        public override object Key => Record.id;
+
+        public BrowserRecord(ApiDto.Match.Current record)
+        {
+            Record = record;
+        }
+
+        public override void Refresh(BrowserRecord data)
+        {
+            Record.id = data.Record.id;
+            Record.division = data.Record.division;
+            Record.half = data.Record.half;
+            Record.teams = data.Record.teams;
+            Record.tournament = data.Record.tournament;
+            Record.turn = data.Record.turn;
+        }
     }
 }

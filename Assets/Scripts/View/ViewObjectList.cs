@@ -12,14 +12,19 @@ namespace Fumbbl.View
         private readonly List<ViewObject<T>> RemovedObjects;
 
         private readonly Action<T> Constructor;
+        private readonly Action<T> Updater;
         private readonly Action<ViewObject<T>> Destructor;
 
         public ViewObjectList(Action<T> constructor, Action<ViewObject<T>> destructor)
+            : this(constructor, null, destructor) { }
+
+        public ViewObjectList(Action<T> constructor, Action<T> updater, Action<ViewObject<T>> destructor)
         {
             Objects = new Dictionary<object, ViewObject<T>>();
             RemovedObjects = new List<ViewObject<T>>();
 
             Constructor = constructor;
+            Updater = updater;
             Destructor = destructor;
         }
 
@@ -35,6 +40,8 @@ namespace Fumbbl.View
                 if (Objects.ContainsKey(o.Key))
                 {
                     Objects[o.Key].Removed = false;
+                    Objects[o.Key].Refresh(o);
+                    Updater?.Invoke((T) Objects[o.Key]);
                 }
                 else
                 {
