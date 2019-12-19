@@ -2,11 +2,11 @@
 
 namespace Fumbbl.View
 {
-    public class ScrollText : ViewObject<ScrollText>
+    public class ScrollText : IKeyedObject<ScrollText>
     {
         public Player Player;
         public string Text;
-        public override object Key => Player.Id;
+        public object Key => Player.Id;
 
         public ScrollText(Player player, string text)
         {
@@ -14,7 +14,7 @@ namespace Fumbbl.View
             Text = text;
         }
 
-        public override void Refresh(ScrollText data)
+        public void Refresh(ScrollText data)
         {
             Player = data.Player;
             Text = data.Text;

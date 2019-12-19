@@ -36,7 +36,6 @@ public class GameBrowserHandler : MonoBehaviour
             r =>
             {
                 GameObject newButton = Instantiate(button);
-                r.GameObject = newButton;
                 newButton.transform.SetParent(pane.transform, false);
 
                 var div = r.Record.division;
@@ -88,10 +87,11 @@ public class GameBrowserHandler : MonoBehaviour
                 }
 
                 newButton.GetComponent<GameBrowserEntry>().SetMatchDetails(r.Record, Friends);
+                return newButton;
             },
             r =>
             {
-                r.GameObject.GetComponent<GameBrowserEntry>().SetMatchDetails(r.Record, Friends);
+                r.GameObject.GetComponent<GameBrowserEntry>().SetMatchDetails(r.ModelObject.Record, Friends);
             },
             r =>
             {
@@ -181,17 +181,17 @@ public class GameBrowserHandler : MonoBehaviour
         mode = Mode.GameList;
     }
 
-    private class BrowserRecord : ViewObject<BrowserRecord>
+    private class BrowserRecord : IKeyedObject<BrowserRecord>
     {
         public ApiDto.Match.Current Record;
-        public override object Key => Record.id;
+        public object Key => Record.id;
 
         public BrowserRecord(ApiDto.Match.Current record)
         {
             Record = record;
         }
 
-        public override void Refresh(BrowserRecord data)
+        public void Refresh(BrowserRecord data)
         {
             Record.id = data.Record.id;
             Record.division = data.Record.division;

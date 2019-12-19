@@ -2,12 +2,12 @@
 
 namespace Fumbbl.View
 {
-    public class TrackNumber : ViewObject<TrackNumber>
+    public class TrackNumber : IKeyedObject<TrackNumber>
     {
         public Fumbbl.Model.Types.Coordinate Coordinate { get; set; }
         public int Number;
 
-        public override object Key => Coordinate.X * 100 + Coordinate.Y;
+        public object Key => Coordinate.X * 100 + Coordinate.Y;
 
         public TextMeshPro LabelObject { get; internal set; }
 
@@ -17,7 +17,7 @@ namespace Fumbbl.View
             Number = square.number;
         }
 
-        public override void Refresh(TrackNumber square)
+        public void Refresh(TrackNumber square)
         {
             Coordinate = square.Coordinate;
             Number = square.Number;
