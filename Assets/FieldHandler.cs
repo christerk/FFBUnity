@@ -49,73 +49,7 @@ public class FieldHandler : MonoBehaviour
         Ball = Instantiate(BallPrefab);
         Ball.transform.SetParent(Field.transform);
 
-        Players = new ViewObjectList<Player>(p =>
-        {
-            GameObject obj;
-
-            if (FFB.Instance.Settings.Graphics.AbstractIcons)
-            {
-                obj = PlayerIcon.GeneratePlayerIconAbstract(p, AbstractIconPrefab);
-            }
-            else
-            {
-                obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab, AbstractIconPrefab);
-            }
-            obj.transform.SetParent(Field.transform);
-            return obj;
-        },
-        p =>
-        {
-            bool active = false;
-            if (p.ModelObject.Coordinate != null && p.GameObject != null)
-            {
-                var state = p.ModelObject.PlayerState;
-                int moveToDugout = -1;
-                if (state.IsReserve || state.IsExhausted || state.IsMissing)
-                {
-                    // Reserves box
-                    moveToDugout = 0;
-                }
-                else if (state.IsKnockedOut)
-                {
-                    // KO Box
-                    moveToDugout = 1;
-                }
-                else if (state.IsBadlyHurt || state.IsSeriousInjury || state.IsRip || state.IsBanned)
-                {
-                    // Cas Box
-                    moveToDugout = 2;
-                }
-
-                if (moveToDugout >= 0)
-                {
-                    GameObject dugout = p.ModelObject.IsHome ? DugoutHome : DugoutAway;
-
-                    Transform box = dugout.transform.GetChild(moveToDugout);
-                    int index = box.childCount;
-                    p.GameObject.transform.SetParent(box);
-
-                    p.GameObject.transform.localPosition = ToDugoutCoordinates(p.ModelObject.Coordinate.Y);
-                }
-                else
-                {
-                    var pos = FieldToWorldCoordinates(p.ModelObject.Coordinate.X, p.ModelObject.Coordinate.Y, 1);
-
-                    p.GameObject.transform.localPosition = pos;
-                    p.GameObject.transform.SetParent(Field.transform);
-                }
-                active = true;
-            }
-
-            if (p.GameObject != null)
-            {
-                p.GameObject.SetActive(active);
-            }
-        },
-        p =>
-        {
-            Destroy(p.GameObject);
-        });
+        Players = new PlayersView(this);
 
         PushbackSquares = new ViewObjectList<PushbackSquare>(s =>
         {

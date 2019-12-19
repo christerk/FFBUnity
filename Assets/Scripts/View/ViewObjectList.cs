@@ -12,9 +12,9 @@ namespace Fumbbl.View
 
         private readonly List<ViewObject<T>> RemovedObjects;
 
-        private readonly Func<T, GameObject> Constructor;
-        private readonly Action<ViewObject<T>> Updater;
-        private readonly Action<ViewObject<T>> Destructor;
+        protected Func<T, GameObject> Constructor;
+        protected Action<ViewObject<T>> Updater;
+        protected Action<ViewObject<T>> Destructor;
 
         public ViewObjectList(Func<T, GameObject> constructor, Action<ViewObject<T>> destructor)
             : this(constructor, null, destructor) { }
@@ -29,7 +29,7 @@ namespace Fumbbl.View
             Destructor = destructor;
         }
 
-        public List<ViewObject<T>> Refresh(IEnumerable<T> newObjects, Action<T> action = null)
+        public List<ViewObject<T>> Refresh(IEnumerable<T> newObjects)
         {
             foreach (var o in Objects.Values)
             {
