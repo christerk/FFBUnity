@@ -332,6 +332,8 @@ namespace Fumbbl
 
                 FFB.Instance.Model.ScoreHome = cmd.game.gameResult.teamResultHome.score;
                 FFB.Instance.Model.ScoreAway = cmd.game.gameResult.teamResultAway.score;
+                FFB.Instance.Model.ActingPlayer.PlayerId = cmd.game.actingPlayer.playerId;
+                FFB.Instance.Model.ActingPlayer.CurrentMove = cmd.game.actingPlayer.currentMove;
             }
             return false;
         }
