@@ -45,6 +45,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101186181536910378}
   m_CullTransparentMesh: 0
+--- !u!1 &373162659448001897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4193230421152791640}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4193230421152791640
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373162659448001897}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1567120100256456060}
+  m_Father: {fileID: 877726631626989707}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 68.1, y: -126.4}
+  m_SizeDelta: {x: 95, y: 147}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &395496752237978010
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,13 +111,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 877726631626989707}
-  m_RootOrder: 1
+  m_Father: {fileID: 4193230421152791640}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 68.1, y: -126.4}
-  m_SizeDelta: {x: 95, y: 147}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.000022888184, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2522389416630405316
 CanvasRenderer:
@@ -1801,7 +1837,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5834385323111133315}
-  - {fileID: 1567120100256456060}
+  - {fileID: 4193230421152791640}
   - {fileID: 1744773642858425810}
   - {fileID: 732086714579064242}
   - {fileID: 2694007199466277191}
@@ -1830,21 +1866,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ee46622f1cf8e408173238f19670a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HomeBG: {fileID: 21300000, guid: 9488bf201d19f284689e3047d1f376e6, type: 3}
   AwayBG: {fileID: 21300000, guid: c1f29d53e250f6743922dd733245e877, type: 3}
-  EmptyPortrait: {fileID: 0}
-  Home: 0
+  EmptyPortrait: {fileID: 21300000, guid: 4d3d7028f3a59f948a00c35fdb59998e, type: 3}
+  HomeBG: {fileID: 21300000, guid: 9488bf201d19f284689e3047d1f376e6, type: 3}
+  background: {fileID: 4080256453948790608}
+  portrait: {fileID: 5388307688729291643}
   Name: {fileID: 5079144807960315104}
   Position: {fileID: 3749226343009128103}
+  SPP: {fileID: 6780081103587757965}
+  Level: {fileID: 2940265096434362707}
   MA: {fileID: 219467846635872256}
   ST: {fileID: 8200447382135590117}
   AG: {fileID: 7667189092893291630}
   AV: {fileID: 3665511149065627884}
-  SPP: {fileID: 6780081103587757965}
-  Level: {fileID: 2940265096434362707}
   Skills: {fileID: 3856390623464197812}
-  background: {fileID: 4080256453948790608}
-  portrait: {fileID: 5388307688729291643}
+  Home: 0
 --- !u!1 &7713404365258790095
 GameObject:
   m_ObjectHideFlags: 0
