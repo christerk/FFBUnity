@@ -2,7 +2,7 @@
 
 namespace Fumbbl.View
 {
-    public class PushbackSquare : ViewObject<PushbackSquare>
+    public class PushbackSquare : IKeyedObject<PushbackSquare>
     {
         public Coordinate Coordinate { get; set; }
         public string Direction;
@@ -10,7 +10,7 @@ namespace Fumbbl.View
         public bool Locked;
         public bool Selected;
 
-        public override object Key => Coordinate.X * 100 + Coordinate.Y;
+        public object Key => Coordinate.X * 100 + Coordinate.Y;
 
         public PushbackSquare(Ffb.Dto.ModelChanges.PushbackSquare square)
         {
@@ -21,7 +21,7 @@ namespace Fumbbl.View
             Selected = square.selected;
         }
 
-        public override void Refresh(PushbackSquare square)
+        public void Refresh(PushbackSquare square)
         {
             Coordinate = square.Coordinate;
             Direction = square.Direction;

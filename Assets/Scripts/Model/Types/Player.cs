@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fumbbl.Model.Types
 {
-    public class Player : ViewObject<Player>
+    public class Player : IKeyedObject<Player>
     {
         public Gender Gender;
         public List<string> Skills { get; set; }
@@ -22,7 +22,7 @@ namespace Fumbbl.Model.Types
         public string PortraitURL;
         public string PositionId;
 
-        public override object Key => Id;
+        public object Key => Id;
         public bool IsHome => Team.IsHome;
 
         public string FormattedName
@@ -59,7 +59,7 @@ namespace Fumbbl.Model.Types
             return false;
         }
 
-        public override void Refresh(Player data)
+        public void Refresh(Player data)
         {
             Id = data.Id;
             PositionId = data.PositionId;
