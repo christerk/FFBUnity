@@ -30,6 +30,7 @@ namespace Fumbbl
         public int GameId { get; private set; }
         public string CoachName { get; private set; }
         public string PreviousScene { get; internal set; }
+        public ReportModeType ReportMode { get; set; }
 
         public enum ChatSource
         {
@@ -44,6 +45,12 @@ namespace Fumbbl
             None,
             Log,
             Chat
+        }
+
+        public enum ReportModeType
+        {
+            Normal,
+            Silent
         }
 
         private bool Initialized;
@@ -325,6 +332,8 @@ namespace Fumbbl
 
                 FFB.Instance.Model.ScoreHome = cmd.game.gameResult.teamResultHome.score;
                 FFB.Instance.Model.ScoreAway = cmd.game.gameResult.teamResultAway.score;
+                FFB.Instance.Model.ActingPlayer.PlayerId = cmd.game.actingPlayer.playerId;
+                FFB.Instance.Model.ActingPlayer.CurrentMove = cmd.game.actingPlayer.currentMove;
             }
             return false;
         }
@@ -373,9 +382,12 @@ namespace Fumbbl
         {
             if (OnReport != null)
             {
-                foreach (Report entry in LogText)
+                using (new ContextSwitcher() { ReportMode = ReportModeType.Silent })
                 {
-                    OnReport(entry);
+                    foreach (Report entry in LogText)
+                    {
+                        OnReport(entry);
+                    }
                 }
             }
         }

@@ -2,12 +2,19 @@
 
 namespace Fumbbl.View
 {
-    public abstract class ViewObject<T>
+    public class ViewObject<T>
+        where T : IKeyedObject<T>
     {
         public bool Removed;
         public GameObject GameObject;
+        public T ModelObject;
 
-        public abstract object Key { get; }
-        public abstract void Refresh(T data);
+        public ViewObject(T modelObject, GameObject gameObject)
+        {
+            ModelObject = modelObject;
+            GameObject = gameObject;
+        }
+        //public abstract object Key { get; }
+        //public abstract void Refresh(T data);
     }
 }

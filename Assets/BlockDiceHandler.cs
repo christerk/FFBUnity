@@ -33,7 +33,31 @@ public class BlockDiceHandler : MonoBehaviour
                 obj.transform.SetParent(ContentObject);
                 obj.transform.localScale = Vector3.one;
                 obj.name = die.Roll.Type.ToString();
-                die.GameObject = obj;
+                return obj;
+            },
+            die =>
+            {
+                var image = die.GameObject.GetComponentInChildren<Image>();
+                var color = image.color;
+                if (die.ModelObject.Roll.Type != DieType.None)
+                {
+                    color.a = die.ModelObject.Active ? 1f : 0.5f;
+                }
+                else
+                {
+                    color.a = 0f;
+                }
+                image.color = color;
+                die.GameObject.transform.localScale = Vector3.one;
+                var trn = die.GameObject.GetComponent<RectTransform>();
+                if (die.ModelObject.Roll.Type != DieType.None)
+                {
+                    trn.sizeDelta = die.ModelObject.Active ? FullSize : SmallSize;
+                }
+                else
+                {
+                    trn.sizeDelta = SpacerSize;
+                }
             },
             die =>
             {
@@ -45,34 +69,8 @@ public class BlockDiceHandler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        var dice = FFB.Instance.Model.BlockDice;
-        BlockDice.Refresh(dice, RefreshBlockDie);
+        BlockDice.Refresh(FFB.Instance.Model.BlockDice);
     }
-
-    private readonly System.Action<BlockDie> RefreshBlockDie = die =>
-    {
-        var image = die.GameObject.GetComponentInChildren<Image>();
-        var color = image.color;
-        if (die.Roll.Type != DieType.None)
-        {
-            color.a = die.Active ? 1f : 0.5f;
-        }
-        else
-        {
-            color.a = 0f;
-        }
-        image.color = color;
-        die.GameObject.transform.localScale = Vector3.one;
-        var trn = die.GameObject.GetComponent<RectTransform>();
-        if (die.Roll.Type != DieType.None)
-        {
-            trn.sizeDelta = die.Active ? FullSize : SmallSize;
-        }
-        else
-        {
-            trn.sizeDelta = SpacerSize;
-        }
-    };
 
     #endregion
 

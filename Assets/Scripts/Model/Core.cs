@@ -9,6 +9,7 @@ namespace Fumbbl.Model
     public class Core
     {
         public ActingPlayer ActingPlayer { get; set; }
+        public string DefenderId { get; internal set; }
         public Ball Ball;
         public Coach AwayCoach { get; internal set; }
         public Coach HomeCoach { get; internal set; }
@@ -30,7 +31,6 @@ namespace Fumbbl.Model
         private Dictionary<string, Player> Players { get; set; }
         //private ModelChangeFactory ModelChangeFactory { get; }
         private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
-
         public Core()
         {
             //ModelChangeFactory = new ModelChangeFactory();

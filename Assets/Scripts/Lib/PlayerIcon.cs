@@ -30,8 +30,7 @@ namespace Fumbbl.Lib
             var child = obj.transform.GetChild(0).gameObject;
             SpriteRenderer renderer = child.GetComponent<SpriteRenderer>();
             string c0 = p.IsHome ? FFB.Instance.Settings.Color.HomeColor : FFB.Instance.Settings.Color.AwayColor;
-            Color c1;
-            bool parseable = ColorUtility.TryParseHtmlString(c0, out c1);
+            bool parseable = ColorUtility.TryParseHtmlString(c0, out Color c1);
             if (parseable){ renderer.color = c1; };
 
             // Set text
@@ -54,7 +53,7 @@ namespace Fumbbl.Lib
             return true;
         }
 
-        private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int destMip, int y, int x)
+        private static void CopyTexture(Sprite s, int srcIconSize, Texture2D dest, int y, int x)
         {
             var srcPixels = s.texture.GetPixels32(0);
             var destPixels = dest.GetPixels32();
@@ -98,8 +97,6 @@ namespace Fumbbl.Lib
         {
             Sprite s = FFB.Instance.SpriteCache.Get(iconURL);
             if (s == null) { return s; };
-            var iconSize = s.texture.width / 4;
-            int numTextures = s.texture.height / iconSize;
 
             Sprite resized = ResizeSprite(s);
             resized.name = s.name;
@@ -115,8 +112,6 @@ namespace Fumbbl.Lib
 
             Texture2D dest = new Texture2D(4 * NormalizedIconSize, NormalizedIconSize * numIcons, s.texture.format, false);
 
-            Color transparent = new Color(0f, 0f, 0f, 0f);
-
             Color[] data = dest.GetPixels(0);
             for (int i = 0; i < data.Length; i++)
             {
@@ -126,12 +121,11 @@ namespace Fumbbl.Lib
 
             dest.Apply(false);
 
-            var destMip = 0;
             for (int y = 0; y < numIcons; y++)
             {
                 for (int x = 0; x < 4; x++)
                 {
-                    CopyTexture(s, srcIconSize, dest, destMip, y, x);
+                    CopyTexture(s, srcIconSize, dest, y, x);
                 }
             }
 

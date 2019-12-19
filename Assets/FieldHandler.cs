@@ -49,31 +49,22 @@ public class FieldHandler : MonoBehaviour
         Ball = Instantiate(BallPrefab);
         Ball.transform.SetParent(Field.transform);
 
-        Players = new ViewObjectList<Player>(p =>
-        {
-            GameObject obj;
-
-            if (FFB.Instance.Settings.Graphics.AbstractIcons)
-            {
-                obj = PlayerIcon.GeneratePlayerIconAbstract(p, AbstractIconPrefab);
-            }
-            else
-            {
-                obj = PlayerIcon.GeneratePlayerIcon(p, PlayerIconPrefab, AbstractIconPrefab);
-            }
-            obj.transform.SetParent(Field.transform);
-            p.GameObject = obj;
-        },
-        p =>
-        {
-            Destroy(p.GameObject);
-        });
+        Players = new PlayersView(this);
 
         PushbackSquares = new ViewObjectList<PushbackSquare>(s =>
         {
-            s.GameObject = Instantiate(ArrowPrefab);
-            var animator = s.GameObject.GetComponent<Animator>();
+            GameObject obj = Instantiate(ArrowPrefab);
+            var animator = obj.GetComponent<Animator>();
             animator.SetTrigger(s.Direction);
+            return obj;
+        },
+        s =>
+        {
+            if (s != null && s.ModelObject.Coordinate != null && s.GameObject != null)
+            {
+                s.GameObject.transform.SetParent(Field.transform);
+                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.ModelObject.Coordinate.X, s.ModelObject.Coordinate.Y, 10);
+            }
         },
         s =>
         {
@@ -83,8 +74,18 @@ public class FieldHandler : MonoBehaviour
 
         TrackNumbers = new ViewObjectList<TrackNumber>(t =>
         {
-            t.GameObject = Instantiate(TrackNumberPrefab);
-            t.LabelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshPro>();
+            GameObject obj = Instantiate(TrackNumberPrefab);
+            t.LabelObject = obj.GetComponentInChildren<TMPro.TextMeshPro>();
+            return obj;
+        },
+        t =>
+        {
+            if (t != null && t.ModelObject.Coordinate != null && t.GameObject != null)
+            {
+                t.GameObject.transform.SetParent(Field.transform);
+                t.GameObject.transform.localPosition = FieldToWorldCoordinates(t.ModelObject.Coordinate.X, t.ModelObject.Coordinate.Y, 10);
+                t.ModelObject.LabelObject.SetText(t.ModelObject.Number.ToString());
+            }
         },
         t =>
         {
@@ -107,64 +108,14 @@ public class FieldHandler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        Players.Refresh(FFB.Instance.Model.GetPlayers());
+        PushbackSquares.Refresh(FFB.Instance.Model.PushbackSquares.Values);
+        TrackNumbers.Refresh(FFB.Instance.Model.TrackNumbers.Values);
+
         var ball = FFB.Instance.Model.Ball;
-	//TODO: converting player dictionary to list is less than optimal!
-        var players = FFB.Instance.Model.GetPlayers().ToList();
-
-        bool ballOnPlayer = false;
-        foreach (var p in players)
-        {
-            bool active = false;
-            if (p.Coordinate != null && p.GameObject != null)
-            {
-                ballOnPlayer |= p.Coordinate.Equals(ball.Coordinate);
-                var state = p.PlayerState;
-                int moveToDugout = -1;
-                if (state.IsReserve || state.IsExhausted || state.IsMissing)
-                {
-                    // Reserves box
-                    moveToDugout = 0;
-                }
-                else if (state.IsKnockedOut)
-                {
-                    // KO Box
-                    moveToDugout = 1;
-                }
-                else if (state.IsBadlyHurt || state.IsSeriousInjury || state.IsRip || state.IsBanned)
-                {
-                    // Cas Box
-                    moveToDugout = 2;
-                }
-
-                if (moveToDugout >= 0)
-                {
-                    GameObject dugout = p.IsHome ? DugoutHome : DugoutAway;
-
-                    Transform box = dugout.transform.GetChild(moveToDugout);
-                    int index = box.childCount;
-                    p.GameObject.transform.SetParent(box);
-
-                    p.GameObject.transform.localPosition = ToDugoutCoordinates(p.Coordinate.Y);
-                }
-                else
-                {
-                    var pos = FieldToWorldCoordinates(p.Coordinate.X, p.Coordinate.Y, 1);
-
-                    p.GameObject.transform.localPosition = pos;
-                    p.GameObject.transform.SetParent(Field.transform);
-                }
-                active = true;
-            }
-
-            if (p.GameObject != null)
-            {
-                p.GameObject.SetActive(active);
-            }
-        }
-
         if (ball != null && ball.Coordinate != null)
         {
-            bool isInPlayerHands = !ball.Moving && ballOnPlayer;
+            bool isInPlayerHands = !ball.Moving && FFB.Instance.Model.GetPlayer(ball.Coordinate) != null;
             Ball.SetActive(true);
 
             Ball.transform.localScale = Vector3.one * (isInPlayerHands ? 0.5f : 1f);
@@ -186,41 +137,18 @@ public class FieldHandler : MonoBehaviour
             Ball.SetActive(false);
         }
 
-        var pushbackSquares = FFB.Instance.Model.PushbackSquares.Values.ToList();
-        PushbackSquares.Refresh(pushbackSquares);
-
-        foreach (var s in pushbackSquares)
-        {
-            if (s != null && s.Coordinate != null && s.GameObject != null)
-            {
-                s.GameObject.transform.SetParent(Field.transform);
-                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate.X, s.Coordinate.Y, 10);
-            }
-        }
-
-        var trackNumbers = FFB.Instance.Model.TrackNumbers.Values.ToList();
-        TrackNumbers.Refresh(trackNumbers);
-        foreach (var s in trackNumbers)
-        {
-            if (s != null && s.Coordinate != null && s.GameObject != null)
-            {
-                s.GameObject.transform.SetParent(Field.transform);
-                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.Coordinate.X, s.Coordinate.Y, 10);
-                s.LabelObject.SetText(s.Number.ToString());
-            }
-        }
-
         var actingPlayer = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
+        var defender = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.DefenderId);
         if (actingPlayer != null)
         {
             if (actingPlayer.IsHome)
             {
                 PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
-                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer);
+                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer ?? defender);
             }
             else
             {
-                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer);
+                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer ?? defender);
                 PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
             }
         } else
@@ -279,7 +207,7 @@ public class FieldHandler : MonoBehaviour
         if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
         {
             var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
-            if (action.ShowActivity)
+            if (action.ShowActivity && FFB.Instance.ReportMode != FFB.ReportModeType.Silent)
             {
                 Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
                 var scrollText = Instantiate(ScrollTextPrefab);

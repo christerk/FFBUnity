@@ -547,26 +547,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 1587948214}
-  PlayerIconPrefab: {fileID: 8773054651039033962, guid: be1737fab3f717d44a98311ce95f5014,
-    type: 3}
   AbstractIconPrefab: {fileID: 4686798834518279698, guid: 5107ba57c8f18d149b5650d5419bd7aa,
-    type: 3}
-  Field: {fileID: 202713960}
-  DugoutHome: {fileID: 416015686}
-  DugoutAway: {fileID: 1798272684}
-  BallPrefab: {fileID: 8311493331242230174, guid: 74b2a600bd2a2ac479731b4e20d5632b,
     type: 3}
   ArrowPrefab: {fileID: 3582683640805112984, guid: fb0dc55674910b544b3acaf330b25c11,
     type: 3}
-  TrackNumberPrefab: {fileID: 4696924523373969304, guid: 4d973e2670169004bb56c5d9d016200e,
+  BallPrefab: {fileID: 8311493331242230174, guid: 74b2a600bd2a2ac479731b4e20d5632b,
+    type: 3}
+  DugoutAway: {fileID: 1798272684}
+  DugoutHome: {fileID: 416015686}
+  Field: {fileID: 202713960}
+  PlayerCardAway: {fileID: 340279254}
+  PlayerCardHome: {fileID: 1349622584}
+  PlayerIconPrefab: {fileID: 8773054651039033962, guid: be1737fab3f717d44a98311ce95f5014,
     type: 3}
   ScrollTextPrefab: {fileID: 8961689332144685034, guid: 7edb87ab6e1ea4f42b7e6418a0e4a479,
     type: 3}
-  PlayerCardHome: {fileID: 1349622584}
-  PlayerCardAway: {fileID: 340279254}
   SquareOverlay: {fileID: 1807401716}
-  HomeTeamText: {fileID: 697949508}
+  TrackNumberPrefab: {fileID: 4696924523373969304, guid: 4d973e2670169004bb56c5d9d016200e,
+    type: 3}
   AwayTeamText: {fileID: 968567042}
+  HomeTeamText: {fileID: 697949508}
 --- !u!61 &202713964
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4514,6 +4514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e471182fdb8ce44293a38f1d2688a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlockDiePrefab: {fileID: 3130784039657804629, guid: 6490453dbac26e244b5e4da048cb9ab2,
+    type: 3}
   SkullSprite: {fileID: 3904753147229709514, guid: 8451c7a4e37ae554dbac80655edfafbe,
     type: 3}
   BothDownSprite: {fileID: -655840930323920070, guid: 8451c7a4e37ae554dbac80655edfafbe,
@@ -4523,8 +4525,6 @@ MonoBehaviour:
   PushPowSprite: {fileID: 8313191733634617353, guid: 8451c7a4e37ae554dbac80655edfafbe,
     type: 3}
   PowSprite: {fileID: 4660387949048856410, guid: 8451c7a4e37ae554dbac80655edfafbe,
-    type: 3}
-  BlockDiePrefab: {fileID: 3130784039657804629, guid: 6490453dbac26e244b5e4da048cb9ab2,
     type: 3}
   ContentObject: {fileID: 1351035674}
 --- !u!114 &1470218833
@@ -5710,11 +5710,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0196adef5f6f94a449289962e31da6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HomeScore: {fileID: 462122172}
   AwayScore: {fileID: 1453242229}
-  HomeTurn: {fileID: 1493830196}
   AwayTurn: {fileID: 361351707}
   HalfText: {fileID: 304496745}
+  HomeScore: {fileID: 462122172}
+  HomeTurn: {fileID: 1493830196}
 --- !u!114 &2036152676
 MonoBehaviour:
   m_ObjectHideFlags: 0
