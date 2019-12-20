@@ -99,7 +99,7 @@ namespace Fumbbl.Ffb
             IsReceiving = true;
             Debug.Log("Networking Receive Loop Started");
 
-            Task socketLoop = socket.Start();
+            _ = socket.Start();
 
             while (socket.IsConnected)
             {

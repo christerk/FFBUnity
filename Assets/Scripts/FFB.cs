@@ -162,7 +162,7 @@ namespace Fumbbl
             }
             else
             {
-                FFB.Instance.AddReport(RawString.Create($"Unhandled NetCommand Handler: {netCommand.GetType().Name}"));
+                FFB.Instance.AddReport(RawString.Create($"Missing handler for NetCommand {netCommand.GetType().Name}"));
             }
         }
 
