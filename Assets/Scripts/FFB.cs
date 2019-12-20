@@ -172,6 +172,17 @@ namespace Fumbbl
                 var cmd = (Ffb.Dto.Commands.AddPlayer)netCommand;
                 var p = cmd.player;
                 Team t = FFB.Instance.Model.GetTeam(cmd.teamId);
+
+                Position position = new Position();
+                if(t.IsHome && FFB.Instance.Model.PositionsHome[p.positionId] != null)
+                {
+                    position = FFB.Instance.Model.PositionsHome[p.positionId];
+                }
+                else if(!t.IsHome && FFB.Instance.Model.PositionsAway[p.positionId] != null)
+                {
+                    position = FFB.Instance.Model.PositionsAway[p.positionId];
+                }
+
                 Player player = new Player()
                     {
                         Id = p.playerId,
@@ -182,10 +193,9 @@ namespace Fumbbl
                         Strength = p.strength,
                         Agility = p.agility,
                         Armour = p.armour,
-                        PortraitURL = p.urlPortrait,
-
+                        PortraitURL = position.PortraitURL,
+                        Position = position
                     };
-                Debug.Log("ADDING PLAYER");
                 FFB.Instance.Model.AddPlayer(player);
             }
             else if (netCommand is Ffb.Dto.Commands.ServerGameState)
@@ -236,11 +246,11 @@ namespace Fumbbl
                 FFB.Instance.Model.Ball.InPlay = cmd.game.fieldModel.ballInPlay;
                 FFB.Instance.Model.Ball.Moving = cmd.game.fieldModel.ballMoving;
 
-                var positions = new Dictionary<string, Position>();
                 var roster = cmd.game.teamHome.roster;
+                FFB.Instance.Model.PositionsHome.Clear();
                 foreach (var pos in roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position() {
+                    FFB.Instance.Model.PositionsHome[pos.positionId] = new Position() {
                         AbstractLabel = pos.shorthand,
                         Name = pos.positionName,
                         IconURL = pos.urlIconSet,
@@ -248,7 +258,7 @@ namespace Fumbbl
                     };
                     if (pos.skillArray != null)
                     {
-                        positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
+                        FFB.Instance.Model.PositionsHome[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
                     }
                 }
 
@@ -260,7 +270,7 @@ namespace Fumbbl
                         Name = p.playerName,
                         Team = homeTeam,
                         Gender = Gender.Male,
-                        Position = positions[p.positionId],
+                        Position = FFB.Instance.Model.PositionsHome[p.positionId],
                         Movement = p.movement,
                         Strength = p.strength,
                         Agility = p.agility,
@@ -281,11 +291,11 @@ namespace Fumbbl
                     player.Spp = p.currentSpps;
                 }
 
-                positions.Clear();
                 roster = cmd.game.teamAway.roster;
+                FFB.Instance.Model.PositionsAway.Clear();
                 foreach (var pos in roster.positionArray)
                 {
-                    positions[pos.positionId] = new Position()
+                    FFB.Instance.Model.PositionsAway[pos.positionId] = new Position()
                     {
                         AbstractLabel = pos.shorthand,
                         Name = pos.positionName,
@@ -294,7 +304,7 @@ namespace Fumbbl
                     };
                     if (pos.skillArray != null)
                     {
-                        positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
+                        FFB.Instance.Model.PositionsAway[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
                     }
                 }
 
@@ -307,7 +317,7 @@ namespace Fumbbl
                         Team = awayTeam,
                         Gender = Gender.Male,
                         PositionId = p.positionId,
-                        Position = positions[p.positionId],
+                        Position = FFB.Instance.Model.PositionsAway[p.positionId],
                         Movement = p.movement,
                         Strength = p.strength,
                         Agility = p.agility,

@@ -41,7 +41,7 @@ namespace Fumbbl.Lib
         public T Get(string key)
         {
             CacheObject<T> cacheObject = new CacheObject<T>();
-            if(cache.TryGetValue(key, out cacheObject))
+            if(key != null && cache.TryGetValue(key, out cacheObject))
             {
                 return cacheObject.Item;
             }

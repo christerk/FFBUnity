@@ -8,8 +8,9 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.ReceiveChoice report)
         {
+            Team team = FFB.Instance.Model.GetTeam(report.teamId);
             string kickorreceive = report.receiveChoice ? "receiving" : "kicking";
-            yield return new LogRecord($"Team {report.receiveChoice} is {kickorreceive}.");
+            yield return new LogRecord($"Team {team.FormattedName} is {kickorreceive}.");
         }
     }
 }
