@@ -19,6 +19,7 @@ public class LoginHandler : MonoBehaviour
 
     private GameObject ActiveSpinner;
     private IEnumerator ActiveSpinnerCoro;
+    private const float SPINNERDELAYSECS = 2f;
 
     #region MonoBehaviour Methods
 
@@ -178,7 +179,7 @@ public class LoginHandler : MonoBehaviour
 
     private IEnumerator SpinnerCoro()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(SPINNERDELAYSECS);
         if (StatusPanel.activeSelf)
         {
             SmallSpinner.SetActive(true);
