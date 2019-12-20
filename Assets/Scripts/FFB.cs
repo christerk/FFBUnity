@@ -31,6 +31,9 @@ namespace Fumbbl
         public string CoachName { get; private set; }
         public string PreviousScene { get; internal set; }
         public ReportModeType ReportMode { get; set; }
+        public readonly ReflectedFactory<Report, string> ReportFactory;
+        public readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
+        private ReflectedFactory<CommandHandler<NetCommand>, Type> CommandFactory { get; }
 
         public enum ChatSource
         {
@@ -67,6 +70,9 @@ namespace Fumbbl
             Network = new Networking();
             Model = new Core();
             Api = new FumbblApi();
+            CommandFactory = new ReflectedFactory<CommandHandler<NetCommand>, Type>();
+            ReportFactory = new ReflectedFactory<Report, string>();
+            ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
         }
 
         public async Task<FumbblApi.AuthResult> Authenticate(string clientId, string clientSecret)
@@ -147,195 +153,17 @@ namespace Fumbbl
             return LogText;
         }
 
-        internal bool HandleNetCommand(NetCommand netCommand)
+        internal void HandleNetCommand(NetCommand netCommand)
         {
-            if (netCommand is Ffb.Dto.Commands.ServerVersion)
+            var commandHandler = CommandFactory.GetReflectedInstance(netCommand.GetType());
+            if (commandHandler != null)
             {
-                var cmd = (Ffb.Dto.Commands.ServerVersion)netCommand;
-                AddReport(RawString.Create($"Connected - Server version {cmd.serverVersion}"));
-                Network.Spectate(GameId);
-                return true;
+                commandHandler.HandleCommand(netCommand);
             }
-            else if (netCommand is Ffb.Dto.Commands.ServerTalk)
+            else
             {
-                var cmd = (Ffb.Dto.Commands.ServerTalk)netCommand;
-                foreach (var talk in cmd.talks)
-                {
-                    AddChatEntry(cmd.coach, talk);
-                }
-                return true;
+                FFB.Instance.AddReport(RawString.Create($"Missing handler for NetCommand {netCommand.GetType().Name}"));
             }
-            else if (netCommand is Ffb.Dto.Commands.ServerSound)
-            {
-                PlaySound(((Ffb.Dto.Commands.ServerSound)netCommand).sound);
-            }
-            else if (netCommand is Ffb.Dto.Commands.ServerJoin)
-            {
-                var cmd = (Ffb.Dto.Commands.ServerJoin)netCommand;
-                AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} joins the game"));
-            }
-            else if (netCommand is Ffb.Dto.Commands.ServerLeave)
-            {
-                var cmd = (Ffb.Dto.Commands.ServerLeave)netCommand;
-                AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} leaves the game"));
-            }
-            else if (netCommand is Ffb.Dto.Commands.ServerGameState)
-            {
-                FFB.Instance.Model.Clear();
-
-                var cmd = (Ffb.Dto.Commands.ServerGameState)netCommand;
-
-                Coach homeCoach = new Coach()
-                {
-                    Name = cmd.game.teamHome.coach,
-                    IsHome = true
-                };
-
-                Coach awayCoach = new Coach()
-                {
-                    Name = cmd.game.teamAway.coach,
-                    IsHome = false
-                };
-
-                Team homeTeam = new Team()
-                {
-                    Id = cmd.game.teamHome.teamId,
-                    Coach = homeCoach,
-                    Name = cmd.game.teamHome.teamName,
-                    Fame = cmd.game.gameResult.teamResultHome.fame,
-                    FanFactor = cmd.game.teamHome.fanFactor
-                };
-
-                Team awayTeam = new Team()
-                {
-                    Id = cmd.game.teamAway.teamId,
-                    Coach = awayCoach,
-                    Name = cmd.game.teamAway.teamName,
-                    Fame = cmd.game.gameResult.teamResultAway.fame,
-                    FanFactor = cmd.game.teamAway.fanFactor
-                };
-
-                FFB.Instance.Model.TeamHome = homeTeam;
-                FFB.Instance.Model.TeamAway = awayTeam;
-
-                FFB.Instance.Model.HomePlaying = cmd.game.homePlaying;
-
-                FFB.Instance.Model.HomeCoach = homeCoach;
-                FFB.Instance.Model.AwayCoach = awayCoach;
-
-                FFB.Instance.Model.Ball.Coordinate = Coordinate.Create(cmd.game.fieldModel.ballCoordinate);
-                FFB.Instance.Model.Ball.InPlay = cmd.game.fieldModel.ballInPlay;
-                FFB.Instance.Model.Ball.Moving = cmd.game.fieldModel.ballMoving;
-
-                var positions = new Dictionary<string, Position>();
-                var roster = cmd.game.teamHome.roster;
-                foreach (var pos in roster.positionArray)
-                {
-                    positions[pos.positionId] = new Position() {
-                        AbstractLabel = pos.shorthand,
-                        Name = pos.positionName,
-                        IconURL = pos.urlIconSet,
-                        PortraitURL = pos.urlPortrait,
-                    };
-                    if (pos.skillArray != null)
-                    {
-                        positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
-                    }
-                }
-
-                foreach (var p in cmd.game.teamHome.playerArray)
-                {
-                    Player player = new Player()
-                    {
-                        Id = p.playerId,
-                        Name = p.playerName,
-                        Team = homeTeam,
-                        Gender = Gender.Male,
-                        Position = positions[p.positionId],
-                        Movement = p.movement,
-                        Strength = p.strength,
-                        Agility = p.agility,
-                        Armour = p.armour,
-                        PortraitURL = p.urlPortrait,
-
-                    };
-                    if (p.skillArray != null)
-                    {
-                        player.Skills.AddRange(p.skillArray.Select(s => s.key));
-                    }
-                    FFB.Instance.Model.AddPlayer(player);
-                }
-
-                foreach (var p in cmd.game.gameResult.teamResultHome.playerResults)
-                {
-                    var player = FFB.Instance.Model.GetPlayer(p.playerId);
-                    player.Spp = p.currentSpps;
-                }
-
-                positions.Clear();
-                roster = cmd.game.teamAway.roster;
-                foreach (var pos in roster.positionArray)
-                {
-                    positions[pos.positionId] = new Position()
-                    {
-                        AbstractLabel = pos.shorthand,
-                        Name = pos.positionName,
-                        IconURL = pos.urlIconSet,
-                        PortraitURL = pos.urlPortrait,
-                    };
-                    if (pos.skillArray != null)
-                    {
-                        positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
-                    }
-                }
-
-                foreach (var p in cmd.game.teamAway.playerArray)
-                {
-                    Player player = new Player()
-                    {
-                        Id = p.playerId,
-                        Name = p.playerName,
-                        Team = awayTeam,
-                        Gender = Gender.Male,
-                        PositionId = p.positionId,
-                        Position = positions[p.positionId],
-                        Movement = p.movement,
-                        Strength = p.strength,
-                        Agility = p.agility,
-                        Armour = p.armour,
-                        PortraitURL = p.urlPortrait,
-                    };
-                    if (p.skillArray != null) {
-                        player.Skills.AddRange(p.skillArray.Select(s => s.key));
-                    }
-                    FFB.Instance.Model.AddPlayer(player);
-                }
-
-                foreach (var p in cmd.game.gameResult.teamResultAway.playerResults)
-                {
-                    var player = FFB.Instance.Model.GetPlayer(p.playerId);
-                    player.Spp = p.currentSpps;
-                }
-
-
-                foreach (var p in cmd.game.fieldModel.playerDataArray)
-                {
-                    Player player = FFB.Instance.Model.GetPlayer(p.playerId);
-                    player.Coordinate = Coordinate.Create(p.playerCoordinate);
-                    player.PlayerState = PlayerState.Get(p.playerState);
-                }
-
-                FFB.Instance.Model.Half = cmd.game.half;
-                FFB.Instance.Model.TurnHome = cmd.game.turnDataHome.turnNr;
-                FFB.Instance.Model.TurnAway = cmd.game.turnDataAway.turnNr;
-                FFB.Instance.Model.TurnMode = cmd.game.turnMode.As<TurnMode>();
-
-                FFB.Instance.Model.ScoreHome = cmd.game.gameResult.teamResultHome.score;
-                FFB.Instance.Model.ScoreAway = cmd.game.gameResult.teamResultAway.score;
-                FFB.Instance.Model.ActingPlayer.PlayerId = cmd.game.actingPlayer.playerId;
-                FFB.Instance.Model.ActingPlayer.CurrentMove = cmd.game.actingPlayer.currentMove;
-            }
-            return false;
         }
 
         internal void RefreshState()
