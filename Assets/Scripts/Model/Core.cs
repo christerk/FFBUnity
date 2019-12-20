@@ -29,7 +29,6 @@ namespace Fumbbl.Model
         public int TurnHome { get; internal set; }
 
         private Dictionary<string, Player> Players { get; set; }
-        //private ModelChangeFactory ModelChangeFactory { get; }
         private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
         public Core()
         {
@@ -113,7 +112,6 @@ namespace Fumbbl.Model
 
         internal void ApplyChange(Ffb.Dto.ModelChange change)
         {
-            //IModelUpdater updater = ModelChangeFactory.Create(change);
             ModelUpdater<Ffb.Dto.ModelChange> updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
             updater?.Apply(change);
         }
