@@ -18,9 +18,9 @@ namespace Fumbbl.Model
         public Dictionary<int, View.TrackNumber> TrackNumbers;
         public List<View.BlockDie> BlockDice;
         public Team TeamAway { get; internal set; }
-        public Dictionary<string, Position> PositionsHome;
+        public Dictionary<string, Position> PositionsHome { get; internal set; }
         public Team TeamHome { get; internal set; }
-        public Dictionary<string, Position> PositionsAway;
+        public Dictionary<string, Position> PositionsAway { get; internal set; }
         public TurnMode TurnMode { get; set; }
         public bool HomePlaying { get; internal set; }
         public int BlockDieIndex;
