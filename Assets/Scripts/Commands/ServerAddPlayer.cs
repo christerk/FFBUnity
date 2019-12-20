@@ -4,9 +4,9 @@ using Fumbbl.Model.Types;
 
 namespace Fumbbl.Commands
 {
-    public class AddPlayer : CommandHandler<Ffb.Dto.Commands.AddPlayer>
+    public class ServerAddPlayer : CommandHandler<Ffb.Dto.Commands.ServerAddPlayer>
     {
-        public override void Apply(Ffb.Dto.Commands.AddPlayer cmd)
+        public override void Apply(Ffb.Dto.Commands.ServerAddPlayer cmd)
         {
             var p = cmd.player;
             Team t = FFB.Instance.Model.GetTeam(cmd.teamId);
