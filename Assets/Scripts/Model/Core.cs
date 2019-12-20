@@ -9,6 +9,7 @@ namespace Fumbbl.Model
     public class Core
     {
         public ActingPlayer ActingPlayer { get; set; }
+        public string DefenderId { get; internal set; }
         public Ball Ball;
         public Coach AwayCoach { get; internal set; }
         public Coach HomeCoach { get; internal set; }
@@ -30,9 +31,7 @@ namespace Fumbbl.Model
         public int TurnHome { get; internal set; }
 
         private Dictionary<string, Player> Players { get; set; }
-        //private ModelChangeFactory ModelChangeFactory { get; }
         private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
-
         public Core()
         {
             //ModelChangeFactory = new ModelChangeFactory();
@@ -117,9 +116,15 @@ namespace Fumbbl.Model
 
         internal void ApplyChange(Ffb.Dto.ModelChange change)
         {
-            //IModelUpdater updater = ModelChangeFactory.Create(change);
             ModelUpdater<Ffb.Dto.ModelChange> updater = ModelChangeFactory.GetReflectedInstance(change.GetType());
-            updater?.Apply(change);
+            if (updater != null)
+            {
+                updater.Apply(change);
+            }
+            else
+            {
+                FFB.Instance.AddReport(Ffb.Dto.Reports.RawString.Create($"Missing handler for ModelChange {change.GetType().Name}"));
+            }
         }
 
         internal Player GetPlayer(string playerId)

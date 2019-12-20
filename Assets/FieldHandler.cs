@@ -138,16 +138,17 @@ public class FieldHandler : MonoBehaviour
         }
 
         var actingPlayer = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
+        var defender = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.DefenderId);
         if (actingPlayer != null)
         {
             if (actingPlayer.IsHome)
             {
                 PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
-                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer);
+                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer ?? defender);
             }
             else
             {
-                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer);
+                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer ?? defender);
                 PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
             }
         } else
@@ -206,7 +207,7 @@ public class FieldHandler : MonoBehaviour
         if (report is Fumbbl.Ffb.Dto.Reports.PlayerAction r)
         {
             var action = r.playerAction.As<Fumbbl.Model.Types.PlayerAction>();
-            if (action.ShowActivity)
+            if (action.ShowActivity && FFB.Instance.ReportMode != FFB.ReportModeType.Silent)
             {
                 Player player = FFB.Instance.Model.GetPlayer(r.actingPlayerId);
                 var scrollText = Instantiate(ScrollTextPrefab);

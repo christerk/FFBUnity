@@ -16,14 +16,10 @@ namespace Fumbbl.Ffb
         private string ApiToken { get; set; }
         private Protocol Protocol;
 
-        private readonly ReflectedFactory<Report, string> ReportFactory;
-        private readonly ReflectedFactory<ModelChange, string> ModelChangeFactory;
         private readonly ReflectedFactory<NetCommand, string> NetCommandFactory;
 
         public Networking()
         {
-            ReportFactory = new ReflectedFactory<Report, string>();
-            ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
             NetCommandFactory = new ReflectedFactory<NetCommand, string>();
         }
 
@@ -103,7 +99,7 @@ namespace Fumbbl.Ffb
             IsReceiving = true;
             Debug.Log("Networking Receive Loop Started");
 
-            Task socketLoop = socket.Start();
+            _ = socket.Start();
 
             while (socket.IsConnected)
             {
@@ -120,6 +116,11 @@ namespace Fumbbl.Ffb
             string message = Protocol.Decompress(data);
             JObject obj = JObject.Parse(message);
 
+            if (obj?["netCommandId"].ToString() == "serverModelSync")
+            {
+
+            }
+
             NetCommand netCommand = NetCommandFactory.DeserializeJson(obj, obj?["netCommandId"]?.ToString());
             if (netCommand != null)
             {
@@ -127,43 +128,7 @@ namespace Fumbbl.Ffb
             }
             else
             {
-                Debug.Log($"Unhandled message: {message}");
-            }
-
-            if (obj?["modelChangeList"]?["modelChangeArray"] != null)
-            {
-                foreach (var x in obj["modelChangeList"]["modelChangeArray"])
-                {
-                    ModelChange change = ModelChangeFactory.DeserializeJson(x, x?["modelChangeId"]?.ToString());
-
-                    if (change != null)
-                    {
-                        FFB.Instance.Model.ApplyChange(change);
-                    }
-                }
-            }
-            if (obj?["reportList"]?["reports"] != null)
-            {
-                foreach (var x in obj["reportList"]["reports"])
-                {
-                    Report report = ReportFactory.DeserializeJson(x, x?["reportId"]?.ToString());
-                    if (report != null)
-                    {
-                        FFB.Instance.AddReport(report);
-                    }
-                    else
-                    {
-                        FFB.Instance.AddReport(RawString.Create($"<b>* * * Missing DTO for {x?["reportId"]} * * *</b>"));
-                    }
-                }
-            }
-            if (obj?["sound"] != null)
-            {
-                string sound = obj?["sound"]?.ToString();
-                if(sound.Length > 0)
-                {
-                    FFB.Instance.PlaySound(sound);
-                }
+                FFB.Instance.AddReport(RawString.Create($"<b>* * * Missing DTO for NetCommand {obj?["netCommandId"]} * * *</b>"));
             }
         }
 

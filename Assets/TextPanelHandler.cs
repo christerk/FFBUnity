@@ -68,7 +68,7 @@ public class TextPanelHandler : MonoBehaviour
         {
             float itemPos = -item.rectTransform.localPosition.y;
             float itemHeight = item.rectTransform.rect.height;
-            item.enabled = !EnableOcclusion || (itemPos + itemHeight >= viewportTop && itemPos <= viewportBottom);
+            item.enabled = !EnableOcclusion || (itemPos + itemHeight >= viewportTop - 5 && itemPos <= viewportBottom + 5);
         }
     }
 
@@ -139,8 +139,13 @@ public class TextPanelHandler : MonoBehaviour
                 obj.rectTransform.localPosition = pos;
                 Items.Add(obj);
                 Dirty = true;
-                OnScroll(Vector2.zero);
+                Invoke("ScrollToBottom", 0.1f);
             }
         }
+    }
+
+    private void ScrollToBottom()
+    {
+        OnScroll(Vector2.zero);
     }
 }
