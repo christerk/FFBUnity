@@ -167,6 +167,11 @@ namespace Fumbbl
                 var cmd = (Ffb.Dto.Commands.ServerJoin)netCommand;
                 AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} joins the game"));
             }
+            else if (netCommand is Ffb.Dto.Commands.ServerLeave)
+             {
+                var cmd = (Ffb.Dto.Commands.ServerLeave)netCommand;
+                AddReport(RawString.Create($"{cmd.clientMode} {cmd.coach} leaves the game"));
+             }
             else if (netCommand is Ffb.Dto.Commands.AddPlayer)
             {
                 var cmd = (Ffb.Dto.Commands.AddPlayer)netCommand;
