@@ -1,12 +1,12 @@
 ﻿namespace Fumbbl.View
 {
-    public class BlockDie : ViewObject<BlockDie>
+    public class BlockDie : IKeyedObject<BlockDie>
     {
         public int Index;
         public Model.Types.BlockDie Roll;
         public bool Active;
 
-        public override object Key => Index;
+        public object Key => Index;
 
         public BlockDie(int index, Model.Types.BlockDie roll)
         {
@@ -15,7 +15,7 @@
             Active = true;
         }
 
-        public override void Refresh(BlockDie data)
+        public void Refresh(BlockDie data)
         {
             Index = data.Index;
             Roll = data.Roll;

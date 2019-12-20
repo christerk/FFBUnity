@@ -16,7 +16,7 @@ public class GameBrowserEntry : MonoBehaviour
     public TMPro.TextMeshProUGUI team2Score;
     public TMPro.TextMeshProUGUI turnIndicator;
 
-    private Current matchDetails;
+    public Current matchDetails;
 
     #region MonoBehaviour Methods
 

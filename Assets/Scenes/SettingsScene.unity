@@ -558,7 +558,7 @@ MonoBehaviour:
   AbstractIconsToggle: {fileID: 247197954}
   fullscreenToggle: {fileID: 819001270}
   VolumeSlider: {fileID: 885814205}
-  SoundMuteToggle: {fileID: 0}
+  SoundMuteToggle: {fileID: 402553313}
   clientId: {fileID: 1856846649}
   clientSecret: {fileID: 258119144}
 --- !u!4 &78186419
@@ -6436,7 +6436,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.97, y: 236}
+  m_AnchoredPosition: {x: 23.970001, y: 236}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1721647116

@@ -1,6 +1,7 @@
 ﻿using Fumbbl.Model.Types;
 using UnityEngine;
 using Fumbbl;
+using System;
 
 public class PlayerCardHandler : MonoBehaviour
 {
@@ -55,7 +56,11 @@ public class PlayerCardHandler : MonoBehaviour
                 var portraitUrl = player.PortraitURL ?? player.Position.PortraitURL;
                 if (portraitUrl != null)
                 {
-                    portrait.sprite = FFB.Instance.SpriteCache.Get(portraitUrl);
+                    var sprite = FFB.Instance.SpriteCache.Get(portraitUrl);
+                    portrait.sprite = sprite;
+
+                    var scale = Math.Min(95f / sprite.rect.width, 147f / sprite.rect.height);
+                    portrait.gameObject.transform.localScale = Vector3.one * scale;
                 }
                 else
                 {
