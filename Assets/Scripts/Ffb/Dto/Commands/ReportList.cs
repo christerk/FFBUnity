@@ -4,6 +4,6 @@ namespace Fumbbl.Ffb.Dto.Commands
 {
     public class ReportList
     {
-        public JToken reportArray;
+        public JToken reports;
     }
 }

@@ -24,7 +24,7 @@ namespace Fumbbl.Commands
                 }
             }
 
-            list = command?.reportList.reportArray;
+            list = command?.reportList?.reports;
             if (list != null)
             {
                 foreach (var obj in list)
