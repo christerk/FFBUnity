@@ -47,7 +47,7 @@ namespace Fumbbl.UI.LogText
             if (report.armorRoll?.Length > 0)
             {
                 int totalArmorRoll = report.armorRoll.Sum();
-                yield return new LogRecord($"<b>Armour Roll [ {report.armorRoll[0]} ][ {report.armorRoll[1]} ]</b>");
+                yield return new LogRecord($"<b>Armour Roll {CreateRollString(report.armorRoll)}</b>");
                 totalArmorText += $"Rolled Total of {totalArmorRoll}";
                 totalArmorText += string.Join("", armorModifiers.Select(m => m.ModifierString));
                 int armorModifiersSum = armorModifiers.Sum(m => m.Modifier);
@@ -75,7 +75,7 @@ namespace Fumbbl.UI.LogText
             if (report.armorBroken && report.injuryRoll?.Length > 0)
             {
                 int totalInjuryRoll = report.injuryRoll.Sum();
-                yield return new LogRecord($"<b>Injury Roll [ {report.injuryRoll[0]} ][ {report.injuryRoll[1]} ]</b>");
+                yield return new LogRecord($"<b>Injury Roll {CreateRollString(report.injuryRoll)}</b>");
                 totalInjuryText += $"Rolled Total of {totalInjuryRoll}";
                 totalInjuryText += string.Join("", injuryModifiers.Select(m => m.ModifierString));
                 int injuryModifiersSum = injuryModifiers.Sum(m => m.Modifier);
@@ -99,7 +99,7 @@ namespace Fumbbl.UI.LogText
             if (report.casualtyRoll?.Length > 0)
             {
                 yield return new LogRecord($"{defender.FormattedName} suffers a casualty.", 1);
-                yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRoll[0]} ][ {report.casualtyRoll[1]} ]</b>");
+                yield return new LogRecord($"<b>Casualty Roll [ {CreateRollString(report.casualtyRoll)}</b>");
                 yield return new LogRecord($"{defender.FormattedName} {playerState.Description}.", 1);
                 if (seriousInjury != null)
                 {
@@ -108,7 +108,7 @@ namespace Fumbbl.UI.LogText
                 if (report.casualtyRollDecay?.Length > 0)
                 {
                     yield return new LogRecord($"{defender.FormattedName}'s body is decaying and {defender.Gender.Nominative} suffers a 2nd casualty.", 1);
-                    yield return new LogRecord($"<b>Casualty Roll [ {report.casualtyRollDecay[0]} ][ {report.casualtyRollDecay[1]} ]</b>");
+                    yield return new LogRecord($"<b>Casualty Roll {CreateRollString(report.casualtyRollDecay)}</b>");
                     yield return new LogRecord($"{defender.FormattedName} {playerState.Description}.", 1);
                     if (seriousInjury != null)
                     {

@@ -19,6 +19,11 @@ namespace Fumbbl.UI
             return Convert((T)report);
         }
 
+        public static string CreateRollString(int[] rolls)
+        {
+            return $"[ {string.Join(" ][ ", rolls)} ]";
+        }
+
         public abstract IEnumerable<LogRecord> Convert(T report);
     }
 
