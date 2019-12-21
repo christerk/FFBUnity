@@ -88,24 +88,20 @@ public class LoginHandler : MonoBehaviour
 
     private void EnsureNoSpinner()
     {
-        if (ActiveSpinnerCoro != null)
-        {
-            StopCoroutine(ActiveSpinnerCoro);
-        }
-        if (ActiveSpinner != null)
-        {
-            ActiveSpinner.SetActive(false);
-            ActiveSpinner = null;
-        }
+        BigSpinner.SetActive(false);
+        SmallSpinner.SetActive(false);
     }
 
-    private void EnsureDelayedSpinner()
+    private void EnsureSpinner()
     {
-        if (ActiveSpinnerCoro == null)
+        if (StatusPanel.activeSelf)
         {
-            ActiveSpinnerCoro = SpinnerCoro();
-            StartCoroutine(ActiveSpinnerCoro);
-        };
+            SmallSpinner.SetActive(true);
+        }
+        else
+        {
+            BigSpinner.SetActive(true);
+        }
     }
 
     protected virtual void OnNewAuthResult(object source, FumbblApi.AuthResultArgs args)
@@ -121,7 +117,7 @@ public class LoginHandler : MonoBehaviour
                 CoachField.ActivateInputField();
                 break;
             case FumbblApi.AuthResult.Authenticating:
-                EnsureDelayedSpinner();
+                EnsureSpinner();
                 StatusLabel.text = "Logging in…";
                 StatusLabel.color = new Color(1f,1f,1f);
                 DisableInteraction();
@@ -156,7 +152,7 @@ public class LoginHandler : MonoBehaviour
         switch (args.LoginResult)
         {
             case FumbblApi.LoginResult.LoggingIn:
-                EnsureDelayedSpinner();
+                EnsureSpinner();
                 StatusLabel.text = "Logging in…";
                 StatusLabel.color = new Color(1f,1f,1f);
                 DisableInteraction();
@@ -174,21 +170,6 @@ public class LoginHandler : MonoBehaviour
                 StatusLabel.color = new Color(1f,0f,0f);
                 EnableInteraction();
                 break;
-        }
-    }
-
-    private IEnumerator SpinnerCoro()
-    {
-        yield return new WaitForSeconds(SPINNERDELAYSECS);
-        if (StatusPanel.activeSelf)
-        {
-            SmallSpinner.SetActive(true);
-            ActiveSpinner = SmallSpinner;
-        }
-        else
-        {
-            BigSpinner.SetActive(true);
-            ActiveSpinner = BigSpinner;
         }
     }
 
