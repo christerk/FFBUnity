@@ -61,12 +61,13 @@ namespace Fumbbl.Model.Types
             Name = player.playerName;
             Team = team;
             Gender = Gender.Male; //TODO: derive this
+            PositionId = player.positionId;
+            Position = position;
             Movement = player.movement;
             Strength = player.strength;
             Agility = player.agility;
             Armour = player.armour;
             PortraitURL = player.urlPortrait ?? position.PortraitURL;
-            Position = position;
             Skills = new List<string>();
             if (player.skillArray != null)
             {
