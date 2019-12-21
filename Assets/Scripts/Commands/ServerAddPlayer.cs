@@ -11,15 +11,7 @@ namespace Fumbbl.Commands
             var p = cmd.player;
             Team t = FFB.Instance.Model.GetTeam(cmd.teamId);
 
-            Position position = new Position();
-            if(t.IsHome && FFB.Instance.Model.PositionsHome[p.positionId] != null)
-            {
-                position = FFB.Instance.Model.PositionsHome[p.positionId];
-            }
-            else if(!t.IsHome && FFB.Instance.Model.PositionsAway[p.positionId] != null)
-            {
-                position = FFB.Instance.Model.PositionsAway[p.positionId];
-            }
+            Position position = FFB.Instance.Model.Positions[p.positionId];
             Player player = Ffb.Conversion.PlayerFactory.Player(p, t, position);
             FFB.Instance.Model.AddPlayer(player);
         }

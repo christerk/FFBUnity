@@ -18,9 +18,8 @@ namespace Fumbbl.Model
         public Dictionary<int, View.TrackNumber> TrackNumbers;
         public List<View.BlockDie> BlockDice;
         public Team TeamAway { get; internal set; }
-        public Dictionary<string, Position> PositionsHome { get; internal set; }
         public Team TeamHome { get; internal set; }
-        public Dictionary<string, Position> PositionsAway { get; internal set; }
+        public Dictionary<string, Position> Positions { get; internal set; }
         public TurnMode TurnMode { get; set; }
         public bool HomePlaying { get; internal set; }
         public int BlockDieIndex;
@@ -42,8 +41,7 @@ namespace Fumbbl.Model
             PushbackSquares = new Dictionary<int, View.PushbackSquare>();
             TrackNumbers = new Dictionary<int, View.TrackNumber>();
             BlockDice = new List<View.BlockDie>();
-            PositionsHome = new Dictionary<string, Position>();
-            PositionsAway = new Dictionary<string, Position>();
+            Positions = new Dictionary<string, Position>();
         }
 
         public void Clear()
