@@ -86,6 +86,18 @@ namespace Fumbbl.Model
             }
         }
 
+        internal void AddPosition(string id, Position position)
+        {
+            if (Positions.ContainsKey(id))
+            {
+                Positions[id] = position;
+            }
+            else
+            {
+                Positions.Add(id, position);
+            }
+        }
+
         internal void AddPushbackSquare(PushbackSquare square)
         {
             int key = square.coordinate[0] * 100 + square.coordinate[1];
@@ -134,6 +146,14 @@ namespace Fumbbl.Model
             return Players[playerId];
         }
 
+        internal Position GetPosition(string positionId)
+        {
+            if (positionId == null)
+            {
+                return null;
+            }
+            return Positions[positionId];
+        }
         internal Player GetPlayer(Coordinate coord)
         {
             foreach (Player p in Players.Values)

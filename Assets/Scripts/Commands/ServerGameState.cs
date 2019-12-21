@@ -55,15 +55,14 @@ namespace Fumbbl.Commands
             FFB.Instance.Model.Ball.Moving = command.game.fieldModel.ballMoving;
 
             var roster = command.game.teamHome.roster;
-            FFB.Instance.Model.Positions.Clear();
             foreach (var pos in roster.positionArray)
             {
-               FFB.Instance.Model.Positions[pos.positionId] = Ffb.Conversion.PositionFactory.Position(pos);
+               FFB.Instance.Model.AddPosition(pos.positionId, Ffb.Conversion.PositionFactory.Position(pos));
             }
 
             foreach (var p in command.game.teamHome.playerArray)
             {
-                Player player = Ffb.Conversion.PlayerFactory.Player(p, homeTeam, FFB.Instance.Model.Positions[p.positionId]);
+                Player player = Ffb.Conversion.PlayerFactory.Player(p, homeTeam, FFB.Instance.Model.GetPosition(p.positionId));
                 FFB.Instance.Model.AddPlayer(player);
             }
 
@@ -76,12 +75,12 @@ namespace Fumbbl.Commands
             roster = command.game.teamAway.roster;
             foreach (var pos in roster.positionArray)
             {
-               FFB.Instance.Model.Positions[pos.positionId] = Ffb.Conversion.PositionFactory.Position(pos);
+               FFB.Instance.Model.AddPosition(pos.positionId, Ffb.Conversion.PositionFactory.Position(pos));
             }
 
             foreach (var p in command.game.teamAway.playerArray)
             {
-                Player player = Ffb.Conversion.PlayerFactory.Player(p, awayTeam, FFB.Instance.Model.Positions[p.positionId]);
+                Player player = Ffb.Conversion.PlayerFactory.Player(p, awayTeam, FFB.Instance.Model.GetPosition(p.positionId));
                 FFB.Instance.Model.AddPlayer(player);
             }
 
