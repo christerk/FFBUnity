@@ -58,22 +58,12 @@ namespace Fumbbl.Commands
             FFB.Instance.Model.PositionsHome.Clear();
             foreach (var pos in roster.positionArray)
             {
-                FFB.Instance.Model.PositionsHome[pos.positionId] = new Position()
-                {
-                    AbstractLabel = pos.shorthand,
-                    Name = pos.positionName,
-                    IconURL = pos.urlIconSet,
-                    PortraitURL = pos.urlPortrait,
-                };
-                if (pos.skillArray != null)
-                {
-                    FFB.Instance.Model.PositionsHome[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
-                }
+               FFB.Instance.Model.PositionsHome[pos.positionId] = Ffb.Conversion.PositionFactory.Position(pos);
             }
 
             foreach (var p in command.game.teamHome.playerArray)
             {
-                Player player = new Player(p, homeTeam, FFB.Instance.Model.PositionsHome[p.positionId]);
+                Player player = Ffb.Conversion.PlayerFactory.Player(p, homeTeam, FFB.Instance.Model.PositionsHome[p.positionId]);
                 FFB.Instance.Model.AddPlayer(player);
             }
 
@@ -87,22 +77,12 @@ namespace Fumbbl.Commands
             FFB.Instance.Model.PositionsAway.Clear();
             foreach (var pos in roster.positionArray)
             {
-               FFB.Instance.Model.PositionsAway[pos.positionId] = new Position()
-                {
-                    AbstractLabel = pos.shorthand,
-                    Name = pos.positionName,
-                    IconURL = pos.urlIconSet,
-                    PortraitURL = pos.urlPortrait,
-                };
-                if (pos.skillArray != null)
-                {
-                    FFB.Instance.Model.PositionsAway[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
-                }
+               FFB.Instance.Model.PositionsAway[pos.positionId] = Ffb.Conversion.PositionFactory.Position(pos);
             }
 
             foreach (var p in command.game.teamAway.playerArray)
             {
-                Player player = new Player(p, awayTeam, FFB.Instance.Model.PositionsAway[p.positionId]);
+                Player player = Ffb.Conversion.PlayerFactory.Player(p, awayTeam, FFB.Instance.Model.PositionsAway[p.positionId]);
                 FFB.Instance.Model.AddPlayer(player);
             }
 

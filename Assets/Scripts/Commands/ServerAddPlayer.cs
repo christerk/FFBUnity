@@ -20,7 +20,7 @@ namespace Fumbbl.Commands
             {
                 position = FFB.Instance.Model.PositionsAway[p.positionId];
             }
-            Player player = new Player(p, t, position);
+            Player player = Ffb.Conversion.PlayerFactory.Player(p, t, position);
             FFB.Instance.Model.AddPlayer(player);
         }
     }
