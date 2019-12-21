@@ -22,6 +22,8 @@ public class TMP_InputField_CaretWidthScaler : UIBehaviour
     private TextMeshProUGUI Placeholder;
     private TextMeshProUGUI Text;
 
+    #region MonoBehaviour Methods
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -53,4 +55,6 @@ public class TMP_InputField_CaretWidthScaler : UIBehaviour
             InputField.caretWidth = (int)(scalefactor * fontsize * WidthFactor / 10);
         }
     }
+
+    #endregion
 }
