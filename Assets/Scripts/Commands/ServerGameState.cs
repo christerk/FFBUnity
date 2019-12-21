@@ -102,7 +102,7 @@ namespace Fumbbl.Commands
 
             foreach (var p in command.game.teamAway.playerArray)
             {
-                Player player = new Player(p, homeTeam, FFB.Instance.Model.PositionsAway[p.positionId]);
+                Player player = new Player(p, awayTeam, FFB.Instance.Model.PositionsAway[p.positionId]);
                 FFB.Instance.Model.AddPlayer(player);
             }
 
