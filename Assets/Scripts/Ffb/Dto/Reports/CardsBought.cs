@@ -7,6 +7,6 @@
         public int nrOfCards;
         public int gold;
 
-        public CardsBought() : base("cardBought") { }
+        public CardsBought() : base("cardsBought") { }
     }
 }

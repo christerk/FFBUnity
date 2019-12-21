@@ -10,13 +10,11 @@ namespace Fumbbl.UI.LogText
             yield return new LogRecord($"<b>Most Valuable Player</b>");
             foreach(string playerId in report.playerIdsHome)
             {
-                string mvps = GenerateMvpText(playerId);
-                yield return new LogRecord(mvps, 1);
+                yield return new LogRecord(GenerateMvpText(playerId), 1);
             }
             foreach(string playerId in report.playerIdsAway)
             {
-                string mvps = GenerateMvpText(playerId);
-                yield return new LogRecord(mvps, 1);
+                yield return new LogRecord(GenerateMvpText(playerId), 1);
             }
         }
 

@@ -6,7 +6,7 @@
 
         public override void Apply(Ffb.Dto.ModelChanges.FieldModelAddPushbackSquare change)
         {
-            FFB.Instance.Model.AddPushbackSquare(change.modelChangeValue);
+            FFB.Instance.Model.Add(change.modelChangeValue);
         }
     }
 }

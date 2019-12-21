@@ -6,7 +6,7 @@
 
         public override void Apply(Ffb.Dto.ModelChanges.FieldModelAddTrackNumber change)
         {
-            FFB.Instance.Model.AddTrackNumber(change.modelChangeValue);
+            FFB.Instance.Model.Add(change.modelChangeValue);
         }
     }
 }
