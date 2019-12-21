@@ -49,6 +49,5 @@ public class TMP_InputField_CaretWidthScaler : UIBehaviour
         if (Text == null) { fontsize = 1f; } else { fontsize = Text.fontSize; };
 
         InputField.caretWidth = (int)(scalefactor * fontsize * WidthFactor / 10);
-        Debug.Log(InputField.caretWidth);
     }
 }
