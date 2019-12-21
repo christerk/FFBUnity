@@ -57,13 +57,13 @@ namespace Fumbbl.Commands
             var roster = command.game.teamHome.roster;
             foreach (var pos in roster.positionArray)
             {
-               FFB.Instance.Model.AddPosition(pos.positionId, Ffb.Conversion.PositionFactory.Position(pos));
+               FFB.Instance.Model.Add(Ffb.Conversion.PositionFactory.Position(pos));
             }
 
             foreach (var p in command.game.teamHome.playerArray)
             {
                 Player player = Ffb.Conversion.PlayerFactory.Player(p, homeTeam, FFB.Instance.Model.GetPosition(p.positionId));
-                FFB.Instance.Model.AddPlayer(player);
+                FFB.Instance.Model.Add(player);
             }
 
             foreach (var p in command.game.gameResult.teamResultHome.playerResults)
@@ -75,13 +75,13 @@ namespace Fumbbl.Commands
             roster = command.game.teamAway.roster;
             foreach (var pos in roster.positionArray)
             {
-               FFB.Instance.Model.AddPosition(pos.positionId, Ffb.Conversion.PositionFactory.Position(pos));
+               FFB.Instance.Model.Add(Ffb.Conversion.PositionFactory.Position(pos));
             }
 
             foreach (var p in command.game.teamAway.playerArray)
             {
                 Player player = Ffb.Conversion.PlayerFactory.Player(p, awayTeam, FFB.Instance.Model.GetPosition(p.positionId));
-                FFB.Instance.Model.AddPlayer(player);
+                FFB.Instance.Model.Add(player);
             }
 
             foreach (var p in command.game.gameResult.teamResultAway.playerResults)

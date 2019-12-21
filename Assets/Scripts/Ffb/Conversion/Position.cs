@@ -12,6 +12,7 @@ namespace Fumbbl.Ffb.Conversion
         {
             Position newPosition = new Position()
             {
+                Id = position.positionId,
                 AbstractLabel = position.shorthand,
                 Name = position.positionName,
                 IconURL = position.urlIconSet,

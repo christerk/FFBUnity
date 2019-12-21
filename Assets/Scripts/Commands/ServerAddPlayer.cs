@@ -12,7 +12,7 @@ namespace Fumbbl.Commands
             Team t = FFB.Instance.Model.GetTeam(cmd.teamId);
             Position position = FFB.Instance.Model.GetPosition(p.positionId);
             Player player = Ffb.Conversion.PlayerFactory.Player(p, t, position);
-            FFB.Instance.Model.AddPlayer(player);
+            FFB.Instance.Model.Add(player);
         }
     }
 }

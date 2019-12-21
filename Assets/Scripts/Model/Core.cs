@@ -74,7 +74,7 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void AddPlayer(Player player)
+        internal void Add(Player player)
         {
             if (Players.ContainsKey(player.Id))
             {
@@ -86,19 +86,19 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void AddPosition(string id, Position position)
+        internal void Add(Position position)
         {
-            if (Positions.ContainsKey(id))
+            if (Positions.ContainsKey(position.Id))
             {
-                Positions[id] = position;
+                Positions[position.Id] = position;
             }
             else
             {
-                Positions.Add(id, position);
+                Positions.Add(position.Id, position);
             }
         }
 
-        internal void AddPushbackSquare(PushbackSquare square)
+        internal void Add(PushbackSquare square)
         {
             int key = square.coordinate[0] * 100 + square.coordinate[1];
             if (!PushbackSquares.ContainsKey(key))
@@ -111,7 +111,7 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void AddTrackNumber(TrackNumber square)
+        internal void Add(TrackNumber square)
         {
             int key = square.coordinate[0] * 100 + square.coordinate[1];
             if (!TrackNumbers.ContainsKey(key))
