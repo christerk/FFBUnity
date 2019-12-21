@@ -8,9 +8,15 @@ namespace Fumbbl.UI.LogText
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.PilingOn report)
         {
             Player player = FFB.Instance.Model.GetPlayer(report.playerId);
-            string used = report.used ? "uses" : "does not use"; 
-            string armourOrInjury = report.used? report.reRollInjury ? " to re-roll Injury" : " to re-roll Armour" : "";
-            yield return new LogRecord($" {player.FormattedName} {used} Piling On{armourOrInjury}.", 1);
+            if(!report.used)
+            {
+                yield return new LogRecord($"{player.FormattedName} does not use Piling On.", 1);
+            }
+            else
+            {
+                string armourOrInjury = report.reRollInjury ? "Injury" : "Armour";
+                yield return new LogRecord($"{player.FormattedName} uses Piling On to re-roll {armourOrInjury}.", 1);
+            }
         }
     }
 }

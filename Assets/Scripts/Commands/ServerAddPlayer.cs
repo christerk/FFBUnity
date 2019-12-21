@@ -20,20 +20,7 @@ namespace Fumbbl.Commands
             {
                 position = FFB.Instance.Model.PositionsAway[p.positionId];
             }
-
-            Player player = new Player()
-            {
-                Id = p.playerId,
-                Name = p.playerName,
-                Team = t,
-                Gender = Gender.Male,
-                Movement = p.movement,
-                Strength = p.strength,
-                Agility = p.agility,
-                Armour = p.armour,
-                PortraitURL = position.PortraitURL,
-                Position = position
-            };
+            Player player = new Player(p, t, position);
             FFB.Instance.Model.AddPlayer(player);
         }
     }

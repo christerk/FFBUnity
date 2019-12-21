@@ -8,11 +8,11 @@ namespace Fumbbl.UI.LogText
     {
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.Spectators report)
         {
-            yield return new LogRecord($"<b>Spectator Roll Home Team {SpectatorRollString(report.spectatorRollHome)}</b>");
+            yield return new LogRecord($"<b>Spectator Roll Home Team {CreateRollString(report.spectatorRollHome)}</b>");
             yield return new LogRecord($"Rolled total of {SpectatorSumString(report.spectatorRollHome)}.", 1);
             yield return new LogRecord($"{report.spectatorsHome} fans have come to support {FFB.Instance.Model.TeamHome.FormattedName}.", 1);
 
-            yield return new LogRecord($"<b>Spectator Roll Away Team {SpectatorRollString(report.spectatorRollAway)}</b>");
+            yield return new LogRecord($"<b>Spectator Roll Away Team {CreateRollString(report.spectatorRollAway)}</b>");
             yield return new LogRecord($"Rolled total of {SpectatorSumString(report.spectatorRollAway)}.", 1);
             yield return new LogRecord($"{report.spectatorsAway} fans have come to support {FFB.Instance.Model.TeamAway.FormattedName}.", 1);
 
@@ -31,17 +31,9 @@ namespace Fumbbl.UI.LogText
             }
         }
 
-        private string SpectatorRollString(int[] rolls)
-        {
-            string rollString = "[ ";
-            rollString += string.Join(" ][ ", rolls);
-            rollString += " ]";
-            return rollString;
-        }
-
         private string SpectatorSumString(int[] rolls)
         {
-            return string.Join(",", rolls) + " Fan Factor = " + rolls.Sum();
+            return $"{string.Join(",", rolls)} Fan Factor = {rolls.Sum()}";
         }
     }
 }

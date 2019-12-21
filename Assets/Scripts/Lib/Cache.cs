@@ -40,15 +40,15 @@ namespace Fumbbl.Lib
 
         public T Get(string key)
         {
-            CacheObject<T> cacheObject = new CacheObject<T>();
-            if(key != null && cache.TryGetValue(key, out cacheObject))
+            if(key != null)
             {
-                return cacheObject.Item;
+                CacheObject<T> cacheObject;
+                if(cache.TryGetValue(key, out cacheObject))
+                {
+                    return cacheObject.Item;
+                }
             }
-            else
-            {
-                return default(T);
-            }
+            return default(T);
         }
 
         public async Task<T> GetAsync(string key, Action<T> completed = null)

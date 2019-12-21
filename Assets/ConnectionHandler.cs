@@ -47,7 +47,7 @@ public class ConnectionHandler : MonoBehaviour
                     urls.Add(portrait);
                 }
                 
-                foreach( var pos in FFB.Instance.Model.PositionsHome)
+                foreach (var pos in FFB.Instance.Model.PositionsHome)
                 {
                     string icon = pos.Value.IconURL;
                     string portrait = pos.Value.PortraitURL;
@@ -55,7 +55,7 @@ public class ConnectionHandler : MonoBehaviour
                     urls.Add(icon);
                     urls.Add(portrait);
                 }
-                foreach( var pos in FFB.Instance.Model.PositionsAway)
+                foreach (var pos in FFB.Instance.Model.PositionsAway)
                 {
                     string icon = pos.Value.IconURL;
                     string portrait = pos.Value.PortraitURL;

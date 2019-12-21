@@ -1,5 +1,6 @@
 ﻿using Fumbbl.View;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fumbbl.Model.Types
 {
@@ -52,6 +53,25 @@ namespace Fumbbl.Model.Types
         {
             Team = new Team();
             Skills = new List<string>();
+        }
+
+        public Player(Ffb.Dto.Commands.Player player, Team team, Position position)
+        {
+            Id = player.playerId;
+            Name = player.playerName;
+            Team = team;
+            Gender = Gender.Male; //TODO: derive this
+            Movement = player.movement;
+            Strength = player.strength;
+            Agility = player.agility;
+            Armour = player.armour;
+            PortraitURL = player.urlPortrait ?? position.PortraitURL;
+            Position = position;
+            Skills = new List<string>();
+            if (player.skillArray != null)
+            {
+                Skills.AddRange(player.skillArray.Select(s => s.key));
+            }
         }
 
         internal bool HasSkill(SkillType skillType)

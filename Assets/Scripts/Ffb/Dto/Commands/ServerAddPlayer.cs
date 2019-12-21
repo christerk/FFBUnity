@@ -4,7 +4,6 @@
     {
         public string teamId;
         public Player player;
-      //  public PlayerState playerState;
         public string sendToBoxReason;
         public int sendToBoxTurn;
         public int sendToBoxHalf;

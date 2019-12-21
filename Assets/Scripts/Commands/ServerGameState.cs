@@ -73,24 +73,7 @@ namespace Fumbbl.Commands
 
             foreach (var p in command.game.teamHome.playerArray)
             {
-                Player player = new Player()
-                {
-                    Id = p.playerId,
-                    Name = p.playerName,
-                    Team = homeTeam,
-                    Gender = Gender.Male,
-                    Position = FFB.Instance.Model.PositionsHome[p.positionId],
-                    Movement = p.movement,
-                    Strength = p.strength,
-                    Agility = p.agility,
-                    Armour = p.armour,
-                    PortraitURL = p.urlPortrait,
-
-                };
-                if (p.skillArray != null)
-                {
-                    player.Skills.AddRange(p.skillArray.Select(s => s.key));
-                }
+                Player player = new Player(p, homeTeam, FFB.Instance.Model.PositionsHome[p.positionId]);
                 FFB.Instance.Model.AddPlayer(player);
             }
 
@@ -119,24 +102,7 @@ namespace Fumbbl.Commands
 
             foreach (var p in command.game.teamAway.playerArray)
             {
-                Player player = new Player()
-                {
-                    Id = p.playerId,
-                    Name = p.playerName,
-                    Team = awayTeam,
-                    Gender = Gender.Male,
-                    PositionId = p.positionId,
-                    Position = FFB.Instance.Model.PositionsAway[p.positionId],
-                    Movement = p.movement,
-                    Strength = p.strength,
-                    Agility = p.agility,
-                    Armour = p.armour,
-                    PortraitURL = p.urlPortrait,
-                };
-                if (p.skillArray != null)
-                {
-                    player.Skills.AddRange(p.skillArray.Select(s => s.key));
-                }
+                Player player = new Player(p, homeTeam, FFB.Instance.Model.PositionsAway[p.positionId]);
                 FFB.Instance.Model.AddPlayer(player);
             }
 

@@ -10,18 +10,8 @@ namespace Fumbbl.UI.LogText
         public override IEnumerable<LogRecord> Convert(Ffb.Dto.Reports.Weather report)
         {
          
-            yield return new LogRecord($"<b>Weather Roll {WeatherRollString(report.weatherRoll)}</b>");
+            yield return new LogRecord($"<b>Weather Roll {CreateRollString(report.weatherRoll)}</b>");
             yield return new LogRecord($"Weather is {report.weather}", 1);
         }
-
-
-        private string WeatherRollString(int[] rolls)
-        {
-            string rollString = "[ ";
-            rollString += string.Join(" ][ ", rolls);
-            rollString += " ]";
-            return rollString;
-        }
-
     }
 }
