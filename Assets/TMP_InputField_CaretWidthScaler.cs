@@ -7,7 +7,7 @@ using TMPro;
 [DisallowMultipleComponent]
 /// <summary>
 ///   Unfortunately the Canvas Scaler misses to scale the caret width of the TextMeshPro Input Fields.
-///   The TMP Input Field Caret Width Scaler component simply takes care of the caret width when the scale of the canvas has changes.
+///   The TMP Input Field Caret Width Scaler component simply takes care of the caret width when the scale of the canvas changes.
 /// </summary>
 /// <remarks>
 /// The caret width is determined by the scale factor of the canvas, the font size, and the custom WidthFactor which is an arbitrary float.!--
