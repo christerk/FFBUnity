@@ -29,6 +29,7 @@ public class TMP_InputField_CaretWidthScaler : UIBehaviour
         var TextArea =  this.gameObject.transform.GetChild(0);
         Placeholder = TextArea.GetChild(0).GetComponent<TextMeshProUGUI>();
         Text = TextArea.GetChild(1).GetComponent<TextMeshProUGUI>();
+        OnRectTransformDimensionsChange();
     }
 
     protected override void OnDisable()
@@ -48,6 +49,8 @@ public class TMP_InputField_CaretWidthScaler : UIBehaviour
         if (Canvas == null) { scalefactor = 1f; } else { scalefactor = Canvas.scaleFactor; };
         if (Text == null) { fontsize = 1f; } else { fontsize = Text.fontSize; };
 
-        InputField.caretWidth = (int)(scalefactor * fontsize * WidthFactor / 10);
+        if (InputField != null) {
+            InputField.caretWidth = (int)(scalefactor * fontsize * WidthFactor / 10);
+        }
     }
 }
