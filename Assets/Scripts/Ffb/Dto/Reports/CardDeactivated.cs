@@ -3,7 +3,7 @@
     public class CardDeactivated : Report
     {
         public string reportId;
-        public string card;
+        public FFBEnumeration card;
 
         public CardDeactivated() : base("cardDeactivated") { }
     }
