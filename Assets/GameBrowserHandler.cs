@@ -130,7 +130,7 @@ public class GameBrowserHandler : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.KeypadEnter))
         {
             if (mode is Mode.GameIdInput)
             {

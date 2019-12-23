@@ -24,15 +24,47 @@ public class FumbblApi
         return isAuthenticated;
     }
 
-    public enum LoginResult
+    public enum AuthResult
     {
+        MissingCondition,
+        Authenticating,
         Authenticated,
         AuthenticationFailed,
         ConnectionFailed
     }
 
-    public async Task<LoginResult> Auth(string clientId, string clientSecret)
+    public enum LoginResult
     {
+        LoggingIn,
+        LoggedIn,
+        LoginFailed,
+        ConnectionFailed
+    }
+
+    public class AuthResultArgs : EventArgs
+    {
+        public AuthResult AuthResult { get; set; }
+    }
+
+    public static event EventHandler<AuthResultArgs> NewAuthResult;
+
+    public class LoginResultArgs : EventArgs
+    {
+        public LoginResult LoginResult { get; set; }
+    }
+
+    public static event EventHandler<LoginResultArgs> NewLoginResult;
+
+
+
+    public async Task<AuthResult> Auth(string clientId, string clientSecret)
+    {
+        if (String.IsNullOrEmpty(clientId) || String.IsNullOrEmpty(clientSecret))
+        {
+            if (NewAuthResult != null) NewAuthResult(this, new AuthResultArgs() { AuthResult = AuthResult.MissingCondition});
+            return AuthResult.MissingCondition;
+        }
+        if (NewAuthResult != null) NewAuthResult(this, new AuthResultArgs() { AuthResult = AuthResult.Authenticating});
         string result = await Post("oauth", "token", new Dictionary<string, string>()
         {
             ["grant_type"] = "client_credentials",
@@ -40,7 +72,10 @@ public class FumbblApi
             ["client_secret"] = clientSecret
         });
 
-        if (result == null) { return LoginResult.ConnectionFailed; };
+        if (result == null) {
+            if (NewAuthResult != null) NewAuthResult(this, new AuthResultArgs() { AuthResult = AuthResult.ConnectionFailed});
+            return AuthResult.ConnectionFailed;
+        };
 
         ApiDto.Auth.Token token = JsonConvert.DeserializeObject<ApiDto.Auth.Token>(result);
 
@@ -55,12 +90,14 @@ public class FumbblApi
             ApiDto.Coach.Get coach = JsonConvert.DeserializeObject<ApiDto.Coach.Get>(result);
             FFB.Instance.SetCoachName(coach.name);
             isAuthenticated = true;
-            return LoginResult.Authenticated;
+            if (NewAuthResult != null) NewAuthResult(this, new AuthResultArgs() { AuthResult = AuthResult.Authenticated});
+            return AuthResult.Authenticated;
         }
         catch
         {
             isAuthenticated = false;
-            return LoginResult.AuthenticationFailed;
+            if (NewAuthResult != null) NewAuthResult(this, new AuthResultArgs() { AuthResult = AuthResult.AuthenticationFailed});
+            return AuthResult.AuthenticationFailed;
         }
     }
 
@@ -159,23 +196,28 @@ public class FumbblApi
 
     internal async Task<LoginResult> Login(string uid, string pwd)
     {
+        if (NewLoginResult != null) NewLoginResult(this, new LoginResultArgs() { LoginResult = LoginResult.LoggingIn});
         string result = await Post("oauth", "createApplication", new Dictionary<string, string>()
         {
             ["c"] = uid,
             ["p"] = pwd
         });
 
-        if (result == null) { return LoginResult.ConnectionFailed; };
+        if (result == null) {
+            if (NewLoginResult != null) NewLoginResult(this, new LoginResultArgs() { LoginResult = LoginResult.ConnectionFailed});
+            return LoginResult.ConnectionFailed;
+        };
 
         JObject obj = JObject.Parse(result);
         if (obj["client_id"] != null && obj["client_secret"] != null)
         {
             PlayerPrefs.SetString("OAuth.ClientId", obj["client_id"].ToString());
             PlayerPrefs.SetString("OAuth.ClientSecret", obj["client_secret"].ToString());
-            return LoginResult.Authenticated;
+            if (NewLoginResult != null) NewLoginResult(this, new LoginResultArgs() { LoginResult = LoginResult.LoggedIn});
+            return LoginResult.LoggedIn;
         }
-
-        return LoginResult.AuthenticationFailed;
+        if (NewLoginResult != null) NewLoginResult(this, new LoginResultArgs() { LoginResult = LoginResult.LoginFailed});
+        return LoginResult.LoginFailed;
     }
 
     private async Task<string> Post(string component, string endpoint, Dictionary<string, string> data = null)

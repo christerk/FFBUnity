@@ -75,7 +75,7 @@ namespace Fumbbl
             ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
         }
 
-        public async Task<FumbblApi.LoginResult> Authenticate(string clientId, string clientSecret)
+        public async Task<FumbblApi.AuthResult> Authenticate(string clientId, string clientSecret)
         {
             return await Api.Auth(clientId, clientSecret);
         }
