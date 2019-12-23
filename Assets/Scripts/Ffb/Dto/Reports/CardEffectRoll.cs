@@ -3,9 +3,9 @@
     public class CardEffectRoll : Report
     {
         public string reportId;
-        public string card;
+        public FFBEnumeration card;
         public int roll;
-        public string cardEffect;
+        public FFBEnumeration cardEffect;
 
         public CardEffectRoll() : base("cardEffectRoll") { }
     }
