@@ -20,7 +20,13 @@ namespace Fumbbl.Ffb.Conversion
             };
             if (position.skillArray != null)
             {
-                newPosition.Skills.AddRange(position.skillArray.Select(s => s.key));
+                for (int i = 0; i < position.skillArray.Length; i++)
+                {
+                    var skill = position.skillArray[i].key;
+                    newPosition.Skills.Add(skill);
+                    var value = position.skillValues[i];
+                    newPosition.Skillvalue[skill] = value;
+                }
             }
 
             return newPosition;
