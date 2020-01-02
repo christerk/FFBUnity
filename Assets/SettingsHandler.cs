@@ -1,5 +1,7 @@
 ﻿using Fumbbl;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +23,8 @@ public class SettingsHandler : MonoBehaviour
     // DebugPanel
     public TMP_InputField clientId;
     public TMP_InputField clientSecret;
+
+    public TMP_Dropdown logLevels;
 
     private readonly Dictionary<string, List<Resolution>> RDict = new Dictionary<string, List<Resolution>>();
 
@@ -72,6 +76,15 @@ public class SettingsHandler : MonoBehaviour
         AbstractIconsToggle.isOn = FFB.Instance.Settings.Graphics.AbstractIcons;
         SoundMuteToggle.isOn = !FFB.Instance.Settings.Sound.Mute;
         VolumeSlider.value = FFB.Instance.Settings.Sound.GlobalVolume;
+
+        string [] levels = Enum.GetNames(typeof(Fumbbl.LogLevel)); 
+        logLevels.options.Clear();
+        foreach(string level in levels)
+        {
+            logLevels.options.Add(new TMP_Dropdown.OptionData(level));
+        }
+        logLevels.value = (int)FFB.Instance.Settings.Debug.LogLevel;
+
     }
 
     #endregion
@@ -140,6 +153,12 @@ public class SettingsHandler : MonoBehaviour
     {
         PlayerPrefs.SetString("OAuth.ClientId", clientId.text);
         PlayerPrefs.SetString("OAuth.ClientSecret", clientSecret.text);
+    }
+
+    public void SetLogLevel()
+    {
+        FFB.Instance.Settings.Debug.LogLevel = (LogLevel)logLevels.value;
+        FFB.Instance.Settings.Save();
     }
 
     #endregion

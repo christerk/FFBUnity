@@ -84,7 +84,7 @@ namespace Fumbbl
         {
             if (!Initialized)
             {
-                Debug.Log("FFB Initialized");
+                LogManager.Debug("FFB Initialized");
                 Initialized = true;
             }
         }
