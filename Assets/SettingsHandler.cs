@@ -130,7 +130,9 @@ public class SettingsHandler : MonoBehaviour
     {
         FFB.Instance.Settings.Sound.GlobalVolume = VolumeSlider.value;
         FFB.Instance.Settings.Save();
+        FFB.Instance.PlaySound(SoundManager.DING_SOUND);
     }
+
 
     #endregion
 
