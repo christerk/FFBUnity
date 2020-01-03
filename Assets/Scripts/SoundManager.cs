@@ -6,8 +6,6 @@ namespace Fumbbl
 {
     public class SoundManager : MonoBehaviour
     {
-
-        public const string DING_SOUND = "ding";
         public AudioSource SoundEffectSource;
 
         private Dictionary<string, AudioClip> SoundEffectClips;
