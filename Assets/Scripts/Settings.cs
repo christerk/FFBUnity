@@ -67,6 +67,6 @@ namespace Fumbbl
 
     public class DebugSettings
     {
-        public Fumbbl.LogLevel LogLevel = LogLevel.INFO;
+        public Fumbbl.LogLevel LogLevel = LogLevel.Info;
     }
 }

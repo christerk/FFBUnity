@@ -6,19 +6,19 @@ namespace Fumbbl
 {
     public enum LogLevel
     {
-        ALL,
-        DEBUG,
-        INFO,
-        WARN,
-        ERROR,
-        OFF,
+        All,
+        Debug,
+        Info,
+        Warn,
+        Error,
+        Off,
     }
     
     class LogManager 
     {
         public static void Debug(string message)
         {
-            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.DEBUG)
+            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.Debug)
             {
                 UnityEngine.Debug.Log(message);
             }
@@ -26,7 +26,7 @@ namespace Fumbbl
 
         public static void Info(string message)
         {
-            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.INFO)
+            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.Info)
             {
                 UnityEngine.Debug.Log(message);
                 FFB.Instance.AddReport(Ffb.Dto.Reports.RawString.Create(message));
@@ -35,7 +35,7 @@ namespace Fumbbl
 
         public static void Warn(string message)
         {
-            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.WARN)
+            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.Warn)
             {
                 UnityEngine.Debug.LogWarning(message);
             }
@@ -43,7 +43,7 @@ namespace Fumbbl
 
         public static void Error(string message)
         {
-            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.ERROR)
+            if(FFB.Instance.Settings.Debug.LogLevel <= LogLevel.Error)
             {
                 UnityEngine.Debug.LogError(message);
             }
