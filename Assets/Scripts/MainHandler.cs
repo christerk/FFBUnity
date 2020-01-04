@@ -27,7 +27,7 @@ namespace Fumbbl
 
         private void Start()
         {
-            Debug.Log("MainHandler Initialized");
+            LogManager.Debug("MainHandler Initialized");
             Application.targetFrameRate = 60;
             FFB.Instance.Initialize();
             FFB.Instance.RefreshState();
