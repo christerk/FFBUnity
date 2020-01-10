@@ -43,7 +43,7 @@ namespace Fumbbl.Ffb
             }
             catch (Exception e)
             {
-                Debug.Log($"Unhandled exception in Send: {e.Message}");
+                LogManager.Warn($"Unhandled exception in Send: {e.Message}");
             }
         }
 
@@ -75,11 +75,11 @@ namespace Fumbbl.Ffb
                             }
                             catch (Exception e)
                             {
-                                Debug.Log(e.Message);
+                                LogManager.Error(e.Message);
                                 Exception c = e;
                                 while (c.InnerException != null)
                                 {
-                                    Debug.Log(c.InnerException);
+                                    LogManager.Error(c.InnerException.ToString());
                                     c = c.InnerException;
                                 }
                                 throw e;
@@ -92,8 +92,8 @@ namespace Fumbbl.Ffb
 
                         if (result.MessageType == WebSocketMessageType.Close)
                         {
-                            Debug.Log("Server Closed Connection");
-                            Debug.Log(result.CloseStatusDescription);
+                            LogManager.Info("Server Closed Connection");
+                            LogManager.Info(result.CloseStatusDescription);
                             //await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, cancellationToken);
                         }
                         else
@@ -107,20 +107,19 @@ namespace Fumbbl.Ffb
                         }
                     }
                 }
-                Debug.Log("Receive Loop ended normally");
+                LogManager.Info("Receive Loop ended normally");
             }
             catch (TaskCanceledException e)
             {
-                Debug.Log($"Receive Task Cancelled: {e.Message}");
+                LogManager.Info($"Receive Task Cancelled: {e.Message}");
             }
             catch (Exception e)
             {
-                Debug.Log(e.StackTrace);
-                Debug.Log($"Unhandled Exception in Receive: {e.Message}");
+                LogManager.Error($"Unhandled Exception in Receive: {e.Message}");
+                LogManager.Error(e.StackTrace);
             }
 
-            Debug.Log("Websocket Receive terminated");
-            FFB.Instance.AddReport(RawString.Create("Websocket Receive terminated"));
+            LogManager.Info("Websocket Receive terminated");
         }
 
         private void ReceiveData(string data)

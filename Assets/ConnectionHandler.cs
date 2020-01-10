@@ -63,7 +63,7 @@ public class ConnectionHandler : MonoBehaviour
                 }
 
                 await Task.WhenAll(tasks);
-                Debug.Log("Loaded Player Icons");
+                LogManager.Debug("Loaded Player Icons");
                 MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
             }
         }

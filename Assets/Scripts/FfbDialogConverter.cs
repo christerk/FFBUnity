@@ -44,7 +44,7 @@ namespace Fumbbl
                 }
             } catch (Exception e)
             {
-                Debug.Log("Error reading JSON: " + e);
+                LogManager.Error("Error reading JSON: " + e);
             }
             return null;
         }

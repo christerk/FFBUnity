@@ -99,7 +99,7 @@ public class GameBrowserHandler : MonoBehaviour
             }
         );
 
-        Debug.Log("Initialise Game Browser");
+        LogManager.Debug("Initialise Game Browser");
         api = FFB.Instance.Api;
         RefreshMatches();
         gameIdInputField.onValidateInput += (text, charIndex, addedChar) =>

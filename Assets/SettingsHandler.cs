@@ -122,7 +122,7 @@ public class SettingsHandler : MonoBehaviour
             }
 
             string selectedResolution = resolutions.options[resolutions.value].text;
-            Debug.Log($"Current Resoltion {selectedResolution}");
+            LogManager.Debug($"Current Resoltion {selectedResolution}");
             Resolution r = RDict[selectedResolution][0];
             Screen.SetResolution(r.width, r.height, fullscreenToggle.isOn, r.refreshRate);
         }
@@ -181,7 +181,7 @@ public class SettingsHandler : MonoBehaviour
 
     public void ShowPanel(GameObject panel)
     {
-        Debug.Log(GetHashCode());
+        LogManager.Debug($"{GetHashCode()}");
         if (panel != currentPanel)
         {
             if (currentPanel != null)

@@ -37,23 +37,23 @@ namespace Fumbbl.Ffb
                 //string uri = "ws://localhost:22227/command";
 
                 await Task.Delay(100);
-                Debug.Log($"Networking Connecting to {uri}");
+                LogManager.Info($"Networking Connecting to {uri}");
                 MainHandler.Instance.AddReport(RawString.Create($"Connecting to {uri}"));
                 await socket.Connect(uri);
-                Debug.Log("Networking Connected");
+                LogManager.Debug("Networking Connected");
 
                 RequestVersion();
             }
             catch (Exception e)
             {
-                Debug.Log($"<style=\"Error\">Error connecting: {e.Message}</style>");
+                LogManager.Error($"<style=\"Error\">Error connecting: {e.Message}</style>");
                 MainHandler.Instance.AddReport(RawString.Create($"<style=\"Error\">Error connecting: {e.Message}</style>"));
             }
         }
 
         public void Disconnect()
         {
-            Debug.Log("Destroying Networking");
+            LogManager.Info("Destroying Networking");
             IsReceiving = false;
             if (socket != null)
             {
@@ -97,7 +97,7 @@ namespace Fumbbl.Ffb
         public async Task StartReceive()
         {
             IsReceiving = true;
-            Debug.Log("Networking Receive Loop Started");
+            LogManager.Debug("Networking Receive Loop Started");
 
             _ = socket.Start();
 
@@ -107,7 +107,7 @@ namespace Fumbbl.Ffb
                 await Task.Delay(2000);
             }
 
-            Debug.Log("Networking Receive Loop Ended");
+            LogManager.Debug("Networking Receive Loop Ended");
             IsReceiving = false;
         }
 

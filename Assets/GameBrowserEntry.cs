@@ -65,7 +65,7 @@ public class GameBrowserEntry : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Invalid number of teams found when parsing match details");
+            LogManager.Error("Invalid number of teams found when parsing match details");
         }
     }
 }
