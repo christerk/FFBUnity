@@ -16,7 +16,7 @@ namespace Fumbbl.Lib
             if (!success)
             {
                 GameObject.Destroy(obj);
-                Debug.LogWarning($"Unable to load player icons for PlayerId {p.Id}, falling back to abstract");
+                LogManager.Warn($"Unable to load player icons for PlayerId {p.Id}, falling back to abstract");
                 obj = GeneratePlayerIconAbstract(p, fallbackPrefab);
             }
             return obj;

@@ -46,7 +46,7 @@ namespace Fumbbl.Model
 
         public void Clear()
         {
-            Debug.Log("Clearing Model");
+            LogManager.Debug("Clearing Model");
             Players.Clear();
             ActingPlayer.Clear();
             PushbackSquares.Clear();
