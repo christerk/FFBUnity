@@ -1,40 +1,40 @@
 ﻿using Fumbbl;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoginHandler : MonoBehaviour
 {
-    public GameObject LoggingInLabel;
-    public GameObject LoginErrorLabel;
-    public GameObject LoginPanel;
     public TMPro.TMP_InputField CoachField;
     public TMPro.TMP_InputField PasswordField;
+    public TMPro.TextMeshProUGUI StatusLabel;
+    public UnityEngine.UI.Button LoginButton;
+    public GameObject StatusPanel;
+    public GameObject BigSpinner;
+    public GameObject SmallSpinner;
     public string NextScene;
+
+    private GameObject ActiveSpinner;
+    private IEnumerator ActiveSpinnerCoro;
+    private const float SPINNERDELAYSECS = 2f;
 
     #region MonoBehaviour Methods
 
     // Start is called before the first frame update
-    private void Start()
+    private async void Start()
     {
-        TryLogin();
-        LoginErrorLabel.SetActive(false);
+        StatusPanel.SetActive(false);
 
-        if (CoachField != null)
-        {
-            CoachField.onSubmit.AddListener(v =>
-            {
-                PasswordField.ActivateInputField();
-            });
-            CoachField.ActivateInputField();
-        }
-        if (PasswordField != null)
-        {
-            PasswordField.onSubmit.AddListener(v =>
-            {
-                Login();
-            });
-        }
+        CoachField.onSubmit.AddListener(v => { PasswordField.ActivateInputField(); });
+        PasswordField.onSubmit.AddListener(v => { Login(); });
+
+        FumbblApi.NewAuthResult += OnNewAuthResult;
+        FumbblApi.NewLoginResult += OnNewLoginResult;
+
+        await TryAuth();
     }
 
     private void Update()
@@ -52,47 +52,131 @@ public class LoginHandler : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        FumbblApi.NewAuthResult -= OnNewAuthResult;
+        FumbblApi.NewLoginResult -= OnNewLoginResult;
+    }
+
     #endregion
 
     public async void Login()
     {
         FumbblApi.LoginResult loginresult = await FFB.Instance.Api.Login(CoachField.text, PasswordField.text);
 
-        if (loginresult == FumbblApi.LoginResult.Authenticated)
+        switch (loginresult)
         {
-            TryLogin();
-        }
-        else
-        {
-            CoachField.ActivateInputField();
-            ShowLoginError();
+            case FumbblApi.LoginResult.LoggedIn:
+                await TryAuth();
+                break;
         }
     }
 
-    private async void TryLogin()
+    private void DisableInteraction()
+    {
+        CoachField.interactable = false;
+        PasswordField.interactable = false;
+        LoginButton.interactable = false;
+    }
+
+    private void EnableInteraction()
+    {
+        CoachField.interactable = true;
+        PasswordField.interactable = true;
+        LoginButton.interactable = true;
+    }
+
+    private void EnsureNoSpinner()
+    {
+        BigSpinner.SetActive(false);
+        SmallSpinner.SetActive(false);
+    }
+
+    private void EnsureSpinner()
+    {
+        if (StatusPanel.activeSelf)
+        {
+            SmallSpinner.SetActive(true);
+        }
+        else
+        {
+            BigSpinner.SetActive(true);
+        }
+    }
+
+    protected virtual void OnNewAuthResult(object source, FumbblApi.AuthResultArgs args)
+    {
+        switch (args.AuthResult)
+        {
+            case FumbblApi.AuthResult.MissingCondition:
+                EnsureNoSpinner();
+                StatusPanel.SetActive(true);
+                StatusLabel.text = "";
+                StatusLabel.color = new Color(1f,1f,1f);
+                EnableInteraction();
+                CoachField.ActivateInputField();
+                break;
+            case FumbblApi.AuthResult.Authenticating:
+                EnsureSpinner();
+                StatusLabel.text = "Logging in…";
+                StatusLabel.color = new Color(1f,1f,1f);
+                DisableInteraction();
+                break;
+            case FumbblApi.AuthResult.Authenticated:
+                EnsureNoSpinner();
+                StatusLabel.text = "Logged in.";
+                StatusLabel.color = new Color(1f,1f,1f);
+                DisableInteraction();
+                SceneManager.LoadScene(NextScene);
+                break;
+            case FumbblApi.AuthResult.AuthenticationFailed:
+                EnsureNoSpinner();
+                StatusPanel.SetActive(true);
+                StatusLabel.text = "Login failed.";
+                StatusLabel.color = new Color(1f,0.8f,0f);
+                EnableInteraction();
+                CoachField.ActivateInputField();
+                break;
+            case FumbblApi.AuthResult.ConnectionFailed:
+                EnsureNoSpinner();
+                StatusPanel.SetActive(true);
+                StatusLabel.text = "Connection failed.";
+                StatusLabel.color = new Color(1f,0f,0f);
+                EnableInteraction();
+                break;
+        }
+    }
+
+    protected virtual void OnNewLoginResult(object source, FumbblApi.LoginResultArgs args)
+    {
+        switch (args.LoginResult)
+        {
+            case FumbblApi.LoginResult.LoggingIn:
+                EnsureSpinner();
+                StatusLabel.text = "Logging in…";
+                StatusLabel.color = new Color(1f,1f,1f);
+                DisableInteraction();
+                break;
+            case FumbblApi.LoginResult.LoginFailed:
+                EnsureNoSpinner();
+                StatusLabel.text = "Login failed.";
+                StatusLabel.color = new Color(1f,0.8f,0f);
+                EnableInteraction();
+                CoachField.ActivateInputField();
+                break;
+            case FumbblApi.LoginResult.ConnectionFailed:
+                EnsureNoSpinner();
+                StatusLabel.text = "Connection failed.";
+                StatusLabel.color = new Color(1f,0f,0f);
+                EnableInteraction();
+                break;
+        }
+    }
+
+    private async Task<FumbblApi.AuthResult> TryAuth()
     {
         string clientId = PlayerPrefs.GetString("OAuth.ClientId");
         string clientSecret = PlayerPrefs.GetString("OAuth.ClientSecret");
-
-        LoginPanel.SetActive(false);
-        LoggingInLabel.SetActive(true);
-        LoginErrorLabel.SetActive(false);
-        FumbblApi.LoginResult loginresult = await FFB.Instance.Authenticate(clientId, clientSecret);
-
-        if (loginresult == FumbblApi.LoginResult.Authenticated)
-        {
-            SceneManager.LoadScene(NextScene);
-        }
-        else
-        {
-            LoginPanel.SetActive(true);
-            LoggingInLabel.SetActive(false);
-        }
-    }
-
-    private void ShowLoginError()
-    {
-        LoginErrorLabel.SetActive(true);
-        LoggingInLabel.SetActive(false);
+        return await FFB.Instance.Authenticate(clientId, clientSecret);
     }
 }

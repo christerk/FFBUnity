@@ -99,7 +99,7 @@ public class GameBrowserHandler : MonoBehaviour
             }
         );
 
-        Debug.Log("Initialise Game Browser");
+        LogManager.Debug("Initialise Game Browser");
         api = FFB.Instance.Api;
         RefreshMatches();
         gameIdInputField.onValidateInput += (text, charIndex, addedChar) =>
@@ -130,7 +130,7 @@ public class GameBrowserHandler : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.KeypadEnter))
         {
             if (mode is Mode.GameIdInput)
             {

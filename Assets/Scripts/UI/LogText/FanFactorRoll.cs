@@ -14,14 +14,14 @@ namespace Fumbbl.UI.LogText
             int totalHome = report.fanFactorRollHome.Sum();
             int resultHome = totalHome + report.fanFactorModifierHome;
             WLD wldHome = CalcResult(FFB.Instance.Model.ScoreHome, FFB.Instance.Model.ScoreAway);
-            yield return new LogRecord($"<b>Fan Factor Roll Home Team {FanFactorRollString(report.fanFactorRollHome)}</b>");
+            yield return new LogRecord($"<b>Fan Factor Roll Home Team {CreateRollString(report.fanFactorRollHome)}</b>");
             yield return new LogRecord($"Fan Factor {FFB.Instance.Model.TeamHome.FanFactor} Result: {totalHome} + {report.fanFactorModifierHome} = {totalHome + report.fanFactorModifierHome}", 1);
             yield return new LogRecord($"{FFB.Instance.Model.TeamHome.FormattedName} {LoseOrKeepString(wldHome, resultHome - FFB.Instance.Model.TeamHome.FanFactor)} fans", 1);
 
             int totalAway = report.fanFactorRollAway.Sum();
             int resultAway = totalAway + report.fanFactorModifierAway;
             WLD wldAway = CalcResult(FFB.Instance.Model.ScoreAway, FFB.Instance.Model.ScoreHome);
-            yield return new LogRecord($"<b>Fan Factor Roll Away Team {FanFactorRollString(report.fanFactorRollAway)}</b>");
+            yield return new LogRecord($"<b>Fan Factor Roll Away Team {CreateRollString(report.fanFactorRollAway)}</b>");
             yield return new LogRecord($"Fan Factor {FFB.Instance.Model.TeamAway.FanFactor} Result: {totalAway} + {report.fanFactorModifierAway} = {totalAway + report.fanFactorModifierAway}", 1);
             yield return new LogRecord($"{FFB.Instance.Model.TeamAway.FormattedName} {LoseOrKeepString(wldAway, resultAway - FFB.Instance.Model.TeamAway.FanFactor)} fans", 1);
         }
@@ -33,13 +33,6 @@ namespace Fumbbl.UI.LogText
             else { return WLD.DRAW;}
         }
 
-        private string FanFactorRollString(int[] rolls)
-        {
-            string rollString = "[ ";
-            rollString += string.Join(" ][ ", rolls);
-            rollString += " ]";
-            return rollString;
-        }
         private string LoseOrKeepString(WLD result, int total)
         {
            if(total < 0 && result != WLD.WIN) 

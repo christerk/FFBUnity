@@ -19,6 +19,7 @@ namespace Fumbbl.Model
         public List<View.BlockDie> BlockDice;
         public Team TeamAway { get; internal set; }
         public Team TeamHome { get; internal set; }
+        public Dictionary<string, Position> Positions { get; internal set; }
         public TurnMode TurnMode { get; set; }
         public bool HomePlaying { get; internal set; }
         public int BlockDieIndex;
@@ -40,11 +41,12 @@ namespace Fumbbl.Model
             PushbackSquares = new Dictionary<int, View.PushbackSquare>();
             TrackNumbers = new Dictionary<int, View.TrackNumber>();
             BlockDice = new List<View.BlockDie>();
+            Positions = new Dictionary<string, Position>();
         }
 
         public void Clear()
         {
-            Debug.Log("Clearing Model");
+            LogManager.Debug("Clearing Model");
             Players.Clear();
             ActingPlayer.Clear();
             PushbackSquares.Clear();
@@ -72,7 +74,7 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void AddPlayer(Player player)
+        internal void Add(Player player)
         {
             if (Players.ContainsKey(player.Id))
             {
@@ -84,7 +86,19 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void AddPushbackSquare(PushbackSquare square)
+        internal void Add(Position position)
+        {
+            if (Positions.ContainsKey(position.Id))
+            {
+                Positions[position.Id] = position;
+            }
+            else
+            {
+                Positions.Add(position.Id, position);
+            }
+        }
+
+        internal void Add(PushbackSquare square)
         {
             int key = square.coordinate[0] * 100 + square.coordinate[1];
             if (!PushbackSquares.ContainsKey(key))
@@ -97,7 +111,7 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void AddTrackNumber(TrackNumber square)
+        internal void Add(TrackNumber square)
         {
             int key = square.coordinate[0] * 100 + square.coordinate[1];
             if (!TrackNumbers.ContainsKey(key))
@@ -119,7 +133,7 @@ namespace Fumbbl.Model
             }
             else
             {
-                FFB.Instance.AddReport(Ffb.Dto.Reports.RawString.Create($"Missing handler for ModelChange {change.GetType().Name}"));
+                LogManager.Info($"Missing handler for ModelChange {change.GetType().Name}");
             }
         }
 
@@ -132,6 +146,14 @@ namespace Fumbbl.Model
             return Players[playerId];
         }
 
+        internal Position GetPosition(string positionId)
+        {
+            if (positionId == null)
+            {
+                return null;
+            }
+            return Positions[positionId];
+        }
         internal Player GetPlayer(Coordinate coord)
         {
             foreach (Player p in Players.Values)

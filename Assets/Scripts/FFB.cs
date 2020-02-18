@@ -75,7 +75,7 @@ namespace Fumbbl
             ModelChangeFactory = new ReflectedFactory<ModelChange, string>();
         }
 
-        public async Task<FumbblApi.LoginResult> Authenticate(string clientId, string clientSecret)
+        public async Task<FumbblApi.AuthResult> Authenticate(string clientId, string clientSecret)
         {
             return await Api.Auth(clientId, clientSecret);
         }
@@ -84,7 +84,7 @@ namespace Fumbbl
         {
             if (!Initialized)
             {
-                Debug.Log("FFB Initialized");
+                LogManager.Debug("FFB Initialized");
                 Initialized = true;
             }
         }
@@ -201,8 +201,8 @@ namespace Fumbbl
             }
             catch (Exception e)
             {
-                Debug.Log($"Exception during Report Handling: {e.Message}");
-                Debug.Log(e.StackTrace);
+                LogManager.Error($"Exception during Report Handling: {e.Message}");
+                LogManager.Error(e.StackTrace);
             }
         }
 

@@ -4,6 +4,7 @@ namespace Fumbbl.Model.Types
 {
     public class Position
     {
+        public string Id { get; set; }
         public string AbstractLabel { get; set; }
         public string IconURL { get; set; }
         public string PortraitURL { get; set; }

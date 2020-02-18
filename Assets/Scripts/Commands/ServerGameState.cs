@@ -54,44 +54,16 @@ namespace Fumbbl.Commands
             FFB.Instance.Model.Ball.InPlay = command.game.fieldModel.ballInPlay;
             FFB.Instance.Model.Ball.Moving = command.game.fieldModel.ballMoving;
 
-            var positions = new Dictionary<string, Position>();
             var roster = command.game.teamHome.roster;
             foreach (var pos in roster.positionArray)
             {
-                positions[pos.positionId] = new Position()
-                {
-                    AbstractLabel = pos.shorthand,
-                    Name = pos.positionName,
-                    IconURL = pos.urlIconSet,
-                    PortraitURL = pos.urlPortrait,
-                };
-                if (pos.skillArray != null)
-                {
-                    positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
-                }
+               FFB.Instance.Model.Add(Ffb.Conversion.PositionFactory.Position(pos));
             }
 
             foreach (var p in command.game.teamHome.playerArray)
             {
-                Player player = new Player()
-                {
-                    Id = p.playerId,
-                    Name = p.playerName,
-                    Team = homeTeam,
-                    Gender = Gender.Male,
-                    Position = positions[p.positionId],
-                    Movement = p.movement,
-                    Strength = p.strength,
-                    Agility = p.agility,
-                    Armour = p.armour,
-                    PortraitURL = p.urlPortrait,
-
-                };
-                if (p.skillArray != null)
-                {
-                    player.Skills.AddRange(p.skillArray.Select(s => s.key));
-                }
-                FFB.Instance.Model.AddPlayer(player);
+                Player player = Ffb.Conversion.PlayerFactory.Player(p, homeTeam, FFB.Instance.Model.GetPosition(p.positionId));
+                FFB.Instance.Model.Add(player);
             }
 
             foreach (var p in command.game.gameResult.teamResultHome.playerResults)
@@ -100,44 +72,16 @@ namespace Fumbbl.Commands
                 player.Spp = p.currentSpps;
             }
 
-            positions.Clear();
             roster = command.game.teamAway.roster;
             foreach (var pos in roster.positionArray)
             {
-                positions[pos.positionId] = new Position()
-                {
-                    AbstractLabel = pos.shorthand,
-                    Name = pos.positionName,
-                    IconURL = pos.urlIconSet,
-                    PortraitURL = pos.urlPortrait,
-                };
-                if (pos.skillArray != null)
-                {
-                    positions[pos.positionId].Skills.AddRange(pos.skillArray.Select(s => s.key));
-                }
+               FFB.Instance.Model.Add(Ffb.Conversion.PositionFactory.Position(pos));
             }
 
             foreach (var p in command.game.teamAway.playerArray)
             {
-                Player player = new Player()
-                {
-                    Id = p.playerId,
-                    Name = p.playerName,
-                    Team = awayTeam,
-                    Gender = Gender.Male,
-                    PositionId = p.positionId,
-                    Position = positions[p.positionId],
-                    Movement = p.movement,
-                    Strength = p.strength,
-                    Agility = p.agility,
-                    Armour = p.armour,
-                    PortraitURL = p.urlPortrait,
-                };
-                if (p.skillArray != null)
-                {
-                    player.Skills.AddRange(p.skillArray.Select(s => s.key));
-                }
-                FFB.Instance.Model.AddPlayer(player);
+                Player player = Ffb.Conversion.PlayerFactory.Player(p, awayTeam, FFB.Instance.Model.GetPosition(p.positionId));
+                FFB.Instance.Model.Add(player);
             }
 
             foreach (var p in command.game.gameResult.teamResultAway.playerResults)

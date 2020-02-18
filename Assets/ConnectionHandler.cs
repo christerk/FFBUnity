@@ -46,6 +46,15 @@ public class ConnectionHandler : MonoBehaviour
                     urls.Add(icon);
                     urls.Add(portrait);
                 }
+                
+                foreach (var pos in FFB.Instance.Model.Positions)
+                {
+                    string icon = pos.Value.IconURL;
+                    string portrait = pos.Value.PortraitURL;
+
+                    urls.Add(icon);
+                    urls.Add(portrait);
+                }
 
                 IconsToLoad = urls.Count;
                 foreach (var url in urls)
@@ -54,7 +63,7 @@ public class ConnectionHandler : MonoBehaviour
                 }
 
                 await Task.WhenAll(tasks);
-                Debug.Log("Loaded Player Icons");
+                LogManager.Debug("Loaded Player Icons");
                 MainHandler.Instance.SetScene(MainHandler.SceneType.MainScene);
             }
         }
