@@ -8,6 +8,9 @@ public class PlayerHandler : MonoBehaviour
     public Player Player;
     public bool HasIcon;
 
+    public Material NormalMaterial;
+    public Material SelectedMaterial;
+
     private GameObject Background;
     private GameObject Outline;
     private GameObject Prone;
@@ -26,12 +29,18 @@ public class PlayerHandler : MonoBehaviour
 
         BackgroundRenderer = Background.GetComponent<SpriteRenderer>();
         Mask = GetComponent<SpriteMask>();
+
+        SelectedMaterial.SetColor("_OutlineColor", Color.yellow);
+        SelectedMaterial.SetFloat("_OutlineThickness", 1f);
     }
 
     private void Update()
     {
         bool active = string.Equals(FFB.Instance.Model.ActingPlayer.PlayerId, Player.Id);
-        Outline.SetActive(active);
+
+        BackgroundRenderer.material = active ? SelectedMaterial : NormalMaterial;
+        
+        //Outline.SetActive(active);
 
         if (HasIcon && Mask != null && Background != null)
         {
@@ -40,7 +49,7 @@ public class PlayerHandler : MonoBehaviour
             Mask.frontSortingOrder = order;
             Mask.backSortingOrder = order - 1;
             Mask.isCustomRangeActive = true;
-            BackgroundRenderer.sortingOrder = order;
+            BackgroundRenderer.sortingOrder = order - 1;
 
             // Move background image to show the correct sprite from the sheet
             var tex = Background.GetComponent<SpriteRenderer>().sprite.texture;
