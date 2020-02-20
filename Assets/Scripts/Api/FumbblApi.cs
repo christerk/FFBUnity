@@ -117,7 +117,7 @@ public class FumbblApi
             }
             catch (Exception e)
             {
-                Debug.Log($"Error during API access {e.Message}");
+                LogManager.Error($"Error during API access {e.Message}");
             }
         }
         return null;
@@ -165,19 +165,19 @@ public class FumbblApi
             HttpWebResponse resp = ex.Response as HttpWebResponse;
             if (resp == null)
             {
-                Debug.LogError($"Failed to download: \"{url}\" Due to exception: {ex}");
+                LogManager.Error($"Failed to download: \"{url}\" Due to exception: {ex}");
             }
             else
             {
                 if (resp.StatusCode == HttpStatusCode.NotFound)
                 {
                     // 404 (NotFound) is not that serious, some images are naturally missing.
-                    Debug.LogWarning($"Failed to download ({(int)resp.StatusCode}, {resp.StatusCode}): \"{url}\"");
+                    LogManager.Warn($"Failed to download ({(int)resp.StatusCode}, {resp.StatusCode}): \"{url}\"");
                     return null;
                 }
                 else
                 {
-                    Debug.LogError($"Failed to download ({(int)resp.StatusCode}, {resp.StatusCode}): \"{url}\"");
+                    LogManager.Error($"Failed to download ({(int)resp.StatusCode}, {resp.StatusCode}): \"{url}\"");
                 }
             }
             return null;
@@ -242,7 +242,7 @@ public class FumbblApi
 
                 string url = $"https://fumbbl.com/api/{component}/{endpoint}";
 
-                Debug.Log(url);
+                LogManager.Debug(url);
 
                 byte[] result = await client.UploadValuesTaskAsync(url, "POST", values);
 
@@ -250,7 +250,7 @@ public class FumbblApi
             }
             catch (Exception e)
             {
-                Debug.Log($"Error during API access {e.Message}");
+                LogManager.Error($"Error during API access {e.Message}");
             }
         }
         return null;

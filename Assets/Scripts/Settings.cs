@@ -9,12 +9,14 @@ namespace Fumbbl
         public ColorSettings Color;
         public GraphicsSettings Graphics;
         public SoundSettings Sound;
+        public DebugSettings Debug;
 
         public Settings()
         {
             Color = new ColorSettings();
             Graphics = new GraphicsSettings();
             Sound = new SoundSettings();
+            Debug = new DebugSettings();
         }
 
         public void Load()
@@ -30,6 +32,7 @@ namespace Fumbbl
                 // this.Color = settings.Color;
                 this.Graphics = settings.Graphics;
                 this.Sound = settings.Sound;
+                this.Debug = settings.Debug;
             }
             else
             {
@@ -60,5 +63,10 @@ namespace Fumbbl
     {
         public bool Mute = false;
         public float GlobalVolume = 1f;
+    }
+
+    public class DebugSettings
+    {
+        public Fumbbl.LogLevel LogLevel = LogLevel.Info;
     }
 }

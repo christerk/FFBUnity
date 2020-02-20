@@ -84,7 +84,7 @@ namespace Fumbbl
         {
             if (!Initialized)
             {
-                Debug.Log("FFB Initialized");
+                LogManager.Debug("FFB Initialized");
                 Initialized = true;
             }
         }
@@ -201,8 +201,8 @@ namespace Fumbbl
             }
             catch (Exception e)
             {
-                Debug.Log($"Exception during Report Handling: {e.Message}");
-                Debug.Log(e.StackTrace);
+                LogManager.Error($"Exception during Report Handling: {e.Message}");
+                LogManager.Error(e.StackTrace);
             }
         }
 

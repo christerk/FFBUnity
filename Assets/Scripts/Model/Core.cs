@@ -46,7 +46,7 @@ namespace Fumbbl.Model
 
         public void Clear()
         {
-            Debug.Log("Clearing Model");
+            LogManager.Debug("Clearing Model");
             Players.Clear();
             ActingPlayer.Clear();
             PushbackSquares.Clear();
@@ -133,7 +133,7 @@ namespace Fumbbl.Model
             }
             else
             {
-                FFB.Instance.AddReport(Ffb.Dto.Reports.RawString.Create($"Missing handler for ModelChange {change.GetType().Name}"));
+                LogManager.Info($"Missing handler for ModelChange {change.GetType().Name}");
             }
         }
 
