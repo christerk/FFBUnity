@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fumbbl.Model;
 
 namespace Fumbbl.UI.LogText
 {
@@ -34,11 +35,21 @@ namespace Fumbbl.UI.LogText
                 }
                 if (0 < report.rolls[i])
                 {
-                    var skillvalue = player.Position.Skillvalue["Secret Weapon"];
-                    yield return new LogRecord($"Penalty roll was {report.rolls[i]}, banned on a {skillvalue}+", 1);
+                    int? skillvalue = null;
+                    foreach (Model.Types.Skill skill in player.Skills)
+                    {
+                        if (skill.Name == Model.Types.Skill.SecretWeapon.Name)
+                        {
+                            skillvalue = skill.Value;
+                            break;
+                        }
+                    }
+                    if (skillvalue != null)
+                    {
+                        yield return new LogRecord($"Penalty roll was {report.rolls[i]}, banned on a {skillvalue}+", 1);
+                    }
                 }
             }
         }
-
     }
 }

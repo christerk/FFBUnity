@@ -7,7 +7,7 @@ namespace Fumbbl.Model.Types
     public class Player : IKeyedObject<Player>
     {
         public Gender Gender;
-        public List<string> Skills { get; set; }
+        public List<Skill> Skills { get; set; }
         public PlayerState PlayerState { get; internal set; }
         public Position Position { get; internal set; }
         public SeriousInjury SeriousInjury { get; internal set; }
@@ -52,7 +52,7 @@ namespace Fumbbl.Model.Types
         public Player()
         {
             Team = new Team();
-            Skills = new List<string>();
+            Skills = new List<Skill>();
         }
 
         internal bool HasSkill(SkillType skillType)

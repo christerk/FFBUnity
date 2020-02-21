@@ -1,0 +1,72 @@
+[
+    {
+        "type": "Group",
+        "name": "FFBJava",
+        "parent_id": null,
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "fanTKsUzu26YVvdh"
+    },
+    {
+        "type": "Group",
+        "name": "FFBUnity",
+        "parent_id": null,
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "0Gq3xojYUSA78OTI"
+    },
+    {
+        "type": "File",
+        "name": "c:\\Users\\Szieberth\\Documents\\Repos\\FFBUnity\\Assets\\Scripts\\Model\\Core.cs",
+        "parent_id": "0Gq3xojYUSA78OTI",
+        "fsPath": "c:\\Users\\Szieberth\\Documents\\Repos\\FFBUnity\\Assets\\Scripts\\Model\\Core.cs",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "fv93TBljP4IeZozr"
+    },
+    {
+        "type": "File",
+        "name": "c:\\Users\\Szieberth\\Documents\\FUMBBL\\FFBClient\\model\\change\\ModelChangeId.java",
+        "parent_id": "fanTKsUzu26YVvdh",
+        "fsPath": "c:\\Users\\Szieberth\\Documents\\FUMBBL\\FFBClient\\model\\change\\ModelChangeId.java",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "lS0RsVXFLPa4Brf6"
+    },
+    {
+        "type": "File",
+        "name": "c:\\Users\\Szieberth\\Documents\\FUMBBL\\FFBClient\\report\\ReportId.java",
+        "parent_id": "fanTKsUzu26YVvdh",
+        "fsPath": "c:\\Users\\Szieberth\\Documents\\FUMBBL\\FFBClient\\report\\ReportId.java",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "ztGNam6TZiwHKnuv"
+    },
+    {
+        "type": "File",
+        "name": "c:\\Users\\Szieberth\\Documents\\FUMBBL\\FFBClient\\client\\StatusReport.java",
+        "parent_id": "fanTKsUzu26YVvdh",
+        "fsPath": "c:\\Users\\Szieberth\\Documents\\FUMBBL\\FFBClient\\client\\StatusReport.java",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "GEC1KnxNvhz4T2wL"
+    },
+    {
+        "type": "Directory",
+        "name": "c:\\Users\\Szieberth\\Documents\\Repos\\FFBUnity\\Assets\\Scripts\\UI\\LogText",
+        "parent_id": "0Gq3xojYUSA78OTI",
+        "fsPath": "c:\\Users\\Szieberth\\Documents\\Repos\\FFBUnity\\Assets\\Scripts\\UI\\LogText",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "sJG8CL4qcp90jPoE"
+    },
+    {
+        "type": "Directory",
+        "name": "c:\\Users\\Szieberth\\Documents\\Repos\\FFBUnity\\Assets\\Scripts\\Ffb\\Dto\\Reports",
+        "parent_id": "0Gq3xojYUSA78OTI",
+        "fsPath": "c:\\Users\\Szieberth\\Documents\\Repos\\FFBUnity\\Assets\\Scripts\\Ffb\\Dto\\Reports",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "W5C8eAcFMJzy0jPg"
+    }
+]
