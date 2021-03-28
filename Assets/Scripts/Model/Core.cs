@@ -162,5 +162,11 @@ namespace Fumbbl.Model
         {
             SquareInformation.Remove(trackNumber);
         }
+
+        internal void RemoveMoveSquare(Types.MoveSquare moveSquare)
+        {
+            SquareInformation.Remove(moveSquare);
+        }
+
     }
 }

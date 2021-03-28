@@ -2,7 +2,7 @@
 {
     public class FieldModelRemoveMoveSquare : ModelChange
     {
-        public TrackNumber modelChangeValue;
+        public MoveSquare modelChangeValue;
 
         public FieldModelRemoveMoveSquare() : base("fieldModelRemoveMoveSquare") { }
     }

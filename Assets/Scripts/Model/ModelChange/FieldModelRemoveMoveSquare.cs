@@ -8,7 +8,7 @@ namespace Fumbbl.Model.ModelChange
 
         public override void Apply(Ffb.Dto.ModelChanges.FieldModelRemoveMoveSquare change)
         {
-            FFB.Instance.Model.RemoveTrackNumber(TrackNumberFactory.TrackNumber(change.modelChangeValue));
+            FFB.Instance.Model.RemoveMoveSquare(MoveSquareFactory.MoveSquare(change.modelChangeValue));
         }
     }
 }
