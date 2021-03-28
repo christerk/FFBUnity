@@ -79,3 +79,10 @@
     width: 20%;
     background-color: rgba(76, 197, 87, 0.28);
 }
+
+.ScrollPanel {
+    flex-grow: 0;
+    width: 100%;
+    justify-content: flex-start;
+    height: 100%;
+}

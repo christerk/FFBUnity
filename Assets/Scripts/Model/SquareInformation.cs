@@ -15,6 +15,7 @@ namespace Fumbbl.Model
         private int FieldHeight;
         public List<Types.PushbackSquare> PushbackSquares { get; private set; }
         public List<Types.TrackNumber> TrackNumbers { get; private set; }
+        public List<Types.MoveSquare> MoveSquares { get; private set; }
 
         private SquareData[] squareData;
 
@@ -24,6 +25,7 @@ namespace Fumbbl.Model
             FieldHeight = fieldHeight;
             PushbackSquares = new List<Types.PushbackSquare>();
             TrackNumbers = new List<Types.TrackNumber>();
+            MoveSquares = new List<Types.MoveSquare>();
 
             squareData = new SquareData[FieldWidth * FieldHeight];
 
@@ -41,6 +43,7 @@ namespace Fumbbl.Model
             }
             PushbackSquares.Clear();
             TrackNumbers.Clear();
+            MoveSquares.Clear();
         }
 
         internal void Add(Types.PushbackSquare square)
@@ -61,6 +64,16 @@ namespace Fumbbl.Model
             {
                 data.TrackNumberIndex = TrackNumbers.Count();
                 TrackNumbers.Add(data.TrackNumber);
+            }
+        }
+
+        internal void Add(Types.MoveSquare moveSquare)
+        {
+            var data = squareData[GetIndex(moveSquare.Coordinate)];
+            if (data.Set(moveSquare))
+            {
+                data.MoveSquareIndex = MoveSquares.Count();
+                MoveSquares.Add(data.MoveSquare);
             }
         }
 
@@ -90,6 +103,19 @@ namespace Fumbbl.Model
             }
         }
 
+        internal void Remove(Types.MoveSquare moveSquare)
+        {
+            var data = squareData[GetIndex(moveSquare.Coordinate)];
+            if (data.UnsetMoveSquare())
+            {
+                MoveSquares.RemoveAt(data.MoveSquareIndex);
+                for (int i = data.MoveSquareIndex; i < MoveSquares.Count; i++)
+                {
+                    squareData[GetIndex(MoveSquares[i].Coordinate)].MoveSquareIndex--;
+                }
+            }
+        }
+
         internal int GetIndex(Coordinate coordinate)
         {
             return coordinate.Y * FieldWidth + coordinate.X;
@@ -99,20 +125,24 @@ namespace Fumbbl.Model
         {
             public int PushbackSquareIndex;
             public int TrackNumberIndex;
+            public int MoveSquareIndex;
             public Types.PushbackSquare PushbackSquare;
             public Types.TrackNumber TrackNumber;
+            public Types.MoveSquare MoveSquare;
 
             public SquareData()
             {
                 PushbackSquare = new Types.PushbackSquare() { Active = false };
                 TrackNumber = new Types.TrackNumber() { Active = false };
+                MoveSquare = new Types.MoveSquare() { Active = false };
             }
 
             public bool Clear()
             {
-                bool active = PushbackSquare.Active || TrackNumber.Active;
+                bool active = PushbackSquare.Active || TrackNumber.Active || MoveSquare.Active;
                 PushbackSquare.Unset();
                 TrackNumber.Unset();
+                MoveSquare.Unset();
                 return active;
             }
 
@@ -130,6 +160,13 @@ namespace Fumbbl.Model
                 return !active;
             }
 
+            internal bool Set(Types.MoveSquare moveSquare)
+            {
+                bool active = MoveSquare.Active;
+                MoveSquare.Set(moveSquare);
+                return !active;
+            }
+
             internal bool UnsetPushbackSquare()
             {
                 bool result = PushbackSquare.Active;
@@ -141,6 +178,13 @@ namespace Fumbbl.Model
             {
                 bool result = TrackNumber.Active;
                 TrackNumber.Unset();
+                return result;
+            }
+
+            internal bool UnsetMoveSquare()
+            {
+                bool result = MoveSquare.Active;
+                MoveSquare.Unset();
                 return result;
             }
         }

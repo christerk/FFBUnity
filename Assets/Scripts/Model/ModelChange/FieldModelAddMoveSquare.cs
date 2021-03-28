@@ -1,4 +1,6 @@
-﻿namespace Fumbbl.Model.ModelChange
+﻿using Fumbbl.Ffb.Conversion;
+
+namespace Fumbbl.Model.ModelChange
 {
     public class FieldModelAddMoveSquare : ModelUpdater<Ffb.Dto.ModelChanges.FieldModelAddMoveSquare>
     {
@@ -6,7 +8,7 @@
 
         public override void Apply(Ffb.Dto.ModelChanges.FieldModelAddMoveSquare change)
         {
-            FFB.Instance.Model.Add(change.modelChangeValue);
+            FFB.Instance.Model.Add(MoveSquareFactory.MoveSquare(change.modelChangeValue));
         }
     }
 }

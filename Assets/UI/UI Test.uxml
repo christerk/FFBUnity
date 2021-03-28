@@ -17,13 +17,13 @@
             <ui:VisualElement name="BottomPanel" class="BottomPanel" style="max-height: none; height: 20%; background-color: rgba(255, 255, 255, 0.32); flex-grow: 1;">
                 <ui:VisualElement class="StatusPanel" style="width: 17%;" />
                 <ui:VisualElement name="LogPanel" class="LogPanel TextPanel" style="align-items: center; justify-content: center; width: 28%; flex-grow: 0;">
-                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" name="logScroll" style="flex-grow: 0; width: 100%; justify-content: flex-start; height: 100%;" />
+                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" name="logScroll" class="ScrollPanel" />
                 </ui:VisualElement>
                 <ui:VisualElement name="ScoreBoardPanel" class="ScoreBoardPanel" style="width: 10%; justify-content: center; align-items: center;">
                     <ui:Label text="Score Board" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="ChatPanel" class="ChatPanel TextPanel" style="flex-grow: 0; justify-content: center; align-items: center; width: 28%;">
-                    <ui:Label text="Chat" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="chatScroll" horizontal-scroller-visibility="Hidden" class="ScrollPanel" />
                 </ui:VisualElement>
                 <ui:VisualElement class="StatusPanel" style="width: 17%;" />
             </ui:VisualElement>

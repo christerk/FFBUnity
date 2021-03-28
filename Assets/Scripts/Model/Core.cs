@@ -105,6 +105,11 @@ namespace Fumbbl.Model
             SquareInformation.Add(trackNumber);
         }
 
+        internal void Add(Types.MoveSquare moveSquare)
+        {
+            SquareInformation.Add(moveSquare);
+        }
+
         internal void ApplyChange(Ffb.Dto.ModelChange change)
         {
             ModelUpdater<Ffb.Dto.ModelChange> updater = ModelChangeFactory.GetReflectedInstance(change.GetType());

@@ -12,6 +12,7 @@ public class UIEventHandler : MonoBehaviour
 {
     private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
     private ScrollView logScroll;
+    private ScrollView chatScroll;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class UIEventHandler : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         logScroll = root.Q<ScrollView>("logScroll");
+        chatScroll = root.Q<ScrollView>("chatScroll");
 
     }
 
@@ -40,7 +42,15 @@ public class UIEventHandler : MonoBehaviour
 
     private void AddChat(string coach, ChatSource source, string text)
     {
-
+        string colour;
+        switch (source)
+        {
+            case ChatSource.Home: colour = "#ff0000"; break;
+            case ChatSource.Away: colour = "#0000ff"; break;
+            default: colour = "#336633"; break;
+        }
+        string line = $"<<{colour}>{TextPanelHandler.SanitizeText(coach)}</color>> {TextPanelHandler.SanitizeText(text)}";
+        AddChatText(line);
     }
 
     private void AddReport(Report report)
@@ -59,6 +69,18 @@ public class UIEventHandler : MonoBehaviour
         }
     }
 
+    private void AddChatText(string text)
+    {
+        if (text != null)
+        {
+            Label label = new Label();
+            label.text = text;
+            label.style.fontSize = 10;
+            chatScroll.Add(label);
+            Invoke("ScrollChatToBottom", 0.05f);
+        }
+    }
+
 
     private void AddLogText(string text, int indent)
     {
@@ -69,9 +91,18 @@ public class UIEventHandler : MonoBehaviour
             label.text = text;
             label.style.fontSize = 10;
             logScroll.Add(label);
-            //Invoke("ScrollToBottom", 0.1f);
-            logScroll.scrollOffset = new Vector2(0f, 1f);
+            Invoke("ScrollLogToBottom", 0.05f);
         }
     }
 
+    private void ScrollLogToBottom()
+    {
+        var bottom = logScroll.contentContainer.localBound.height;
+        logScroll.scrollOffset = new Vector2(0f, bottom);
+    }
+    private void ScrollChatToBottom()
+    {
+        var bottom = chatScroll.contentContainer.localBound.height;
+        chatScroll.scrollOffset = new Vector2(0f, bottom);
+    }
 }

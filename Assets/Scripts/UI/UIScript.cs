@@ -1,4 +1,5 @@
 using Fumbbl;
+using Fumbbl.Ffb.Dto.Reports;
 using Fumbbl.Model.Types;
 using System;
 using System.Collections;
@@ -41,6 +42,19 @@ public class UIScript : MonoBehaviour
 
     private void DebugClicked(ClickEvent ev)
     {
+        FFB.Instance.Model.HomeCoach = new Coach()
+        {
+            Name = "Foo",
+            IsHome = true
+        };
+
+        FFB.Instance.Model.AwayCoach = new Coach()
+        {
+            Name = "Bar",
+            IsHome = false
+        };
+
+
         ev.StopPropagation();
         var pos = new Fumbbl.Model.Types.Position();
         pos.IconURL = "i/585610";
@@ -67,5 +81,12 @@ public class UIScript : MonoBehaviour
         FFB.Instance.Model.Add(pushbackSquare);
 
         FFB.Instance.Model.ActingPlayer.PlayerId = p.Id;
+
+        for (int i = 0; i < 20; i++)
+        {
+            FFB.Instance.AddReport(RawString.Create($"<b>* * * Test message {i} * * *</b>"));
+            FFB.Instance.AddChatEntry(i % 2 == 0 ? "Foo" : "Bar", $"Test Chat message {i}");
+        }
+
     }
 }
