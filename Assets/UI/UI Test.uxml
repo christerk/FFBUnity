@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="PlayerCard" src="PlayerCard.uxml" />
+    <Style src="Style.uss" />
+    <ui:VisualElement name="RootContainer" usage-hints="None" class="Root">
+        <ui:VisualElement name="MenuBar" class="MenuBar" style="justify-content: center; height: 4%; min-height: auto;">
+            <ui:Label text="Menu" display-tooltip-when-elided="true" style="-unity-text-align: upper-left; align-items: stretch; color: rgb(255, 255, 255);" />
+            <ui:Button text="Debug&#10;" display-tooltip-when-elided="true" name="debug-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Middle" class="Middle">
+            <ui:Instance template="PlayerCard" name="homepanel" style="font-size: 100%; flex-grow: 0; color: rgb(255, 255, 255); background-color: rgb(51, 0, 0); height: 100%; display: flex; visibility: hidden; width: 17%;" />
+            <ui:Instance template="PlayerCard" name="awaypanel" style="flex-grow: 0; background-color: rgb(0, 0, 51); height: 100%; visibility: hidden; width: 17%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Bottom" class="MainContent" style="flex-grow: 0; flex-direction: column; justify-content: flex-start; height: 26%; width: auto;">
+            <ui:VisualElement name="StatusBar" class="StatusBar" style="height: 30px; width: 100%; background-color: rgba(33, 154, 31, 0.54); align-items: center;">
+                <ui:Label text="Status Bar" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="BottomPanel" class="BottomPanel" style="max-height: none; height: 20%; background-color: rgba(255, 255, 255, 0.32); flex-grow: 1;">
+                <ui:VisualElement class="StatusPanel" style="width: 17%;" />
+                <ui:VisualElement name="LogPanel" class="LogPanel TextPanel" style="align-items: center; justify-content: center; width: 28%; flex-grow: 0;">
+                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" name="logScroll" style="flex-grow: 0; width: 100%; justify-content: flex-start; height: 100%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ScoreBoardPanel" class="ScoreBoardPanel" style="width: 10%; justify-content: center; align-items: center;">
+                    <ui:Label text="Score Board" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ChatPanel" class="ChatPanel TextPanel" style="flex-grow: 0; justify-content: center; align-items: center; width: 28%;">
+                    <ui:Label text="Chat" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+                <ui:VisualElement class="StatusPanel" style="width: 17%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

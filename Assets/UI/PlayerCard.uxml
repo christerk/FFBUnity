@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="PlayerCard.uss" />
+    <ui:VisualElement name="root" style="flex-grow: 1;">
+        <ui:Label text="Player Name&#10;" display-tooltip-when-elided="true" name="name" style="color: rgba(255, 255, 255, 255); -unity-text-align: middle-center; font-size: 30px;" />
+        <ui:Label text="#3 Lineman" display-tooltip-when-elided="true" name="position" style="font-size: 16px; -unity-text-align: middle-center; color: rgba(255, 255, 255, 255);" />
+        <ui:VisualElement name="info" style="flex-direction: row; justify-content: space-around; flex-grow: 0; height: auto; background-image: none; -unity-background-scale-mode: scale-to-fit; align-items: flex-start; padding-top: 14px;">
+            <ui:VisualElement name="portrait" style="background-image: url(&apos;/Assets/Images/Portrait BG.png&apos;); width: 50%; height: 147px; -unity-background-scale-mode: scale-to-fit;" />
+            <ui:VisualElement name="sppcontainer" style="flex-grow: 1; align-items: center; width: 50%; justify-content: flex-start; height: auto;">
+                <ui:Label text="SPP" display-tooltip-when-elided="true" name="SPPLabel" style="align-items: center; color: rgba(255, 255, 255, 255); -unity-text-align: upper-center; font-size: 16px; bottom: 0; padding-bottom: 6px;" />
+                <ui:Label text="123+5" display-tooltip-when-elided="true" name="spp" style="color: rgba(255, 255, 255, 255); background-color: rgba(0, 0, 0, 0.5); padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; font-size: 21px; margin-bottom: 0;" />
+                <ui:Label text="Emerging Star" display-tooltip-when-elided="true" name="level" style="color: rgba(255, 255, 255, 255); padding-top: 6px; font-size: 12px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="stats" style="flex-direction: row; justify-content: space-between;">
+            <ui:VisualElement name="MAContainer" class="StatContainer" style="flex-direction: column;">
+                <ui:Label text="MA&#10;" display-tooltip-when-elided="true" class="StatLabel" />
+                <ui:Label text="6" display-tooltip-when-elided="true" name="stat-ma" class="StatValue" />
+            </ui:VisualElement>
+            <ui:VisualElement name="STContainer" class="StatContainer" style="flex-grow: 1;">
+                <ui:Label text="ST" display-tooltip-when-elided="true" class="StatLabel" />
+                <ui:Label text="3" display-tooltip-when-elided="true" name="stat-st" class="StatValue" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AGContainer" class="StatContainer" style="flex-grow: 1;">
+                <ui:Label text="AG" display-tooltip-when-elided="true" class="StatLabel" />
+                <ui:Label text="3+" display-tooltip-when-elided="true" name="stat-ag" class="StatValue" />
+            </ui:VisualElement>
+            <ui:VisualElement name="PAContainer" class="StatContainer" style="flex-grow: 1;">
+                <ui:Label text="PA" display-tooltip-when-elided="true" class="StatLabel" />
+                <ui:Label text="3+" display-tooltip-when-elided="true" name="stat-pa" class="StatValue" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AVContainer" class="StatContainer" style="flex-grow: 1;">
+                <ui:Label text="AV" display-tooltip-when-elided="true" class="StatLabel" />
+                <ui:Label text="8+" display-tooltip-when-elided="true" name="stat-av" class="StatValue" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="skills" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.5); padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 5px;">
+            <ui:Label text="Skills" display-tooltip-when-elided="true" style="color: rgba(255, 255, 255, 255); font-size: 24px;" />
+            <ui:Label text="Block&#10;Dodge" display-tooltip-when-elided="true" style="flex-grow: 1; color: rgba(255, 255, 255, 255); font-size: 16px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

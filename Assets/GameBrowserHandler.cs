@@ -160,7 +160,7 @@ public class GameBrowserHandler : MonoBehaviour
         currentMatches = await api.GetCurrentMatches();
         string previousDivision = string.Empty;
 
-        Matches.Refresh(currentMatches.Select(m => new BrowserRecord(m)));
+        Matches.Refresh(currentMatches.Select(m => new BrowserRecord(m)).ToList());
     }
 
     private void ShowGameIdInput()
@@ -185,13 +185,14 @@ public class GameBrowserHandler : MonoBehaviour
     {
         public ApiDto.Match.Current Record;
         public object Key => Record.id;
+        public bool Active;
 
         public BrowserRecord(ApiDto.Match.Current record)
         {
             Record = record;
         }
 
-        public void Refresh(BrowserRecord data)
+        public void Set(BrowserRecord data)
         {
             Record.id = data.Record.id;
             Record.division = data.Record.division;
@@ -199,6 +200,12 @@ public class GameBrowserHandler : MonoBehaviour
             Record.teams = data.Record.teams;
             Record.tournament = data.Record.tournament;
             Record.turn = data.Record.turn;
+            Active = true;
+        }
+
+        public void Unset()
+        {
+            Active = false;
         }
     }
 }

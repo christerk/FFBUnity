@@ -37,10 +37,13 @@ namespace Fumbbl
 
         public void Play(string sound)
         {
-            AudioClip clip = SoundEffectClips[sound];
-            if (clip != null && !FFB.Instance.Settings.Sound.Mute)
+            if (SoundEffectClips.ContainsKey(sound))
             {
-                SoundEffectSource.PlayOneShot(clip, FFB.Instance.Settings.Sound.GlobalVolume);
+                AudioClip clip = SoundEffectClips[sound];
+                if (clip != null && !FFB.Instance.Settings.Sound.Mute)
+                {
+                    SoundEffectSource.PlayOneShot(clip, FFB.Instance.Settings.Sound.GlobalVolume);
+                }
             }
         }
     }

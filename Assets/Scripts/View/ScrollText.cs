@@ -6,6 +6,8 @@ namespace Fumbbl.View
     {
         public Player Player;
         public string Text;
+        public bool Active;
+
         public object Key => Player.Id;
 
         public ScrollText(Player player, string text)
@@ -18,6 +20,18 @@ namespace Fumbbl.View
         {
             Player = data.Player;
             Text = data.Text;
+        }
+
+        public void Set(ScrollText o)
+        {
+            Player = o.Player;
+            Text = o.Text;
+            Active = true;
+        }
+
+        public void Unset()
+        {
+            Active = false;
         }
     }
 }

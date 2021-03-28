@@ -30,7 +30,7 @@ public class ConnectionHandler : MonoBehaviour
     {
         if (!connected)
         {
-            var players = FFB.Instance.Model.GetPlayers().ToList();
+            var players = FFB.Instance.Model.Players;
             if (players.Count > 0)
             {
                 // Load player icon sprites.

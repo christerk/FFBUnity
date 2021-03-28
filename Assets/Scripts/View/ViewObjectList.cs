@@ -29,7 +29,7 @@ namespace Fumbbl.View
             Destructor = destructor;
         }
 
-        public List<ViewObject<T>> Refresh(IEnumerable<T> newObjects)
+        public void Refresh(List<T> newObjects)
         {
             foreach (var o in Objects.Values)
             {
@@ -41,7 +41,7 @@ namespace Fumbbl.View
                 if (Objects.ContainsKey(o.Key))
                 {
                     Objects[o.Key].Removed = false;
-                    Objects[o.Key].ModelObject.Refresh(o);
+                    Objects[o.Key].ModelObject.Set(o);
                 }
                 else
                 {
@@ -63,12 +63,11 @@ namespace Fumbbl.View
                 }
             }
 
-            foreach (var key in Objects.Values.Where(o => o.Removed).Select(o => o.ModelObject.Key).ToList())
+            foreach (var removedObject in RemovedObjects)
             {
-                Objects.Remove(key);
+                Objects.Remove(removedObject.Key);
             }
-
-            return RemovedObjects;
+            RemovedObjects.Clear();
         }
     }
 }

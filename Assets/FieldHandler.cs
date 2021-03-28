@@ -4,6 +4,7 @@ using Fumbbl.Lib;
 using Fumbbl.Model;
 using Fumbbl.Model.Types;
 using Fumbbl.View;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -22,15 +23,27 @@ public class FieldHandler : MonoBehaviour
     public GameObject ScrollTextPrefab;
     public GameObject SquareOverlay;
     public GameObject TrackNumberPrefab;
-    public TMPro.TextMeshProUGUI AwayTeamText;
-    public TMPro.TextMeshProUGUI HomeTeamText;
+    public GameObject SelectionMarker;
+    public TMPro.TextMeshPro AwayTeamText;
+    public TMPro.TextMeshPro HomeTeamText;
 
     private GameObject Ball;
     private Player HoverPlayer;
     private RectTransform FieldRect;
     private ViewObjectList<Player> Players;
-    private ViewObjectList<PushbackSquare> PushbackSquares;
-    private ViewObjectList<TrackNumber> TrackNumbers;
+    private ViewObjectList<Fumbbl.Model.Types.PushbackSquare> PushbackSquares;
+    private ViewObjectList<Fumbbl.Model.Types.TrackNumber> TrackNumbers;
+
+    public GameObject FieldPlayers;
+    public GameObject HomePlayers;
+    public GameObject AwayPlayers;
+
+    public float IconHoverDistance = 20f;
+
+    public Player homeCardPlayer { get; private set; } = null;
+    public Player awayCardPlayer { get; private set; } = null;
+
+
 
     #region MonoBehaviour Methods
 
@@ -47,11 +60,11 @@ public class FieldHandler : MonoBehaviour
         }
 
         Ball = Instantiate(BallPrefab);
-        Ball.transform.SetParent(Field.transform);
+        Ball.transform.SetParent(FieldPlayers.transform);
 
         Players = new PlayersView(this);
 
-        PushbackSquares = new ViewObjectList<PushbackSquare>(s =>
+        PushbackSquares = new ViewObjectList<Fumbbl.Model.Types.PushbackSquare>(s =>
         {
             GameObject obj = Instantiate(ArrowPrefab);
             var animator = obj.GetComponent<Animator>();
@@ -62,8 +75,8 @@ public class FieldHandler : MonoBehaviour
         {
             if (s != null && s.ModelObject.Coordinate != null && s.GameObject != null)
             {
-                s.GameObject.transform.SetParent(Field.transform);
-                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.ModelObject.Coordinate.X, s.ModelObject.Coordinate.Y, 10);
+                s.GameObject.transform.SetParent(FieldPlayers.transform);
+                s.GameObject.transform.localPosition = FieldToWorldCoordinates(s.ModelObject.Coordinate.X, s.ModelObject.Coordinate.Y, 1f);
             }
         },
         s =>
@@ -72,19 +85,19 @@ public class FieldHandler : MonoBehaviour
             animator.SetTrigger("FadeOut");
         });
 
-        TrackNumbers = new ViewObjectList<TrackNumber>(t =>
+        TrackNumbers = new ViewObjectList<Fumbbl.Model.Types.TrackNumber>(t =>
         {
             GameObject obj = Instantiate(TrackNumberPrefab);
-            t.LabelObject = obj.GetComponentInChildren<TMPro.TextMeshPro>();
             return obj;
         },
         t =>
         {
             if (t != null && t.ModelObject.Coordinate != null && t.GameObject != null)
             {
-                t.GameObject.transform.SetParent(Field.transform);
-                t.GameObject.transform.localPosition = FieldToWorldCoordinates(t.ModelObject.Coordinate.X, t.ModelObject.Coordinate.Y, 10);
-                t.ModelObject.LabelObject.SetText(t.ModelObject.Number.ToString());
+                t.GameObject.transform.SetParent(FieldPlayers.transform);
+                t.GameObject.transform.localPosition = FieldToWorldCoordinates(t.ModelObject.Coordinate.X, t.ModelObject.Coordinate.Y, 0.1f);
+                var labelObject = t.GameObject.GetComponentInChildren<TMPro.TextMeshPro>();
+                labelObject.SetText(t.ModelObject.Number.ToString());
             }
         },
         t =>
@@ -92,7 +105,7 @@ public class FieldHandler : MonoBehaviour
             Destroy(t.GameObject);
         });
 
-        var players = FFB.Instance.Model.GetPlayers();
+        var players = FFB.Instance.Model.Players;
         Players.Refresh(players);
 
         if (FFB.Instance.Model.TeamHome != null)
@@ -108,9 +121,9 @@ public class FieldHandler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Players.Refresh(FFB.Instance.Model.GetPlayers());
-        PushbackSquares.Refresh(FFB.Instance.Model.PushbackSquares.Values);
-        TrackNumbers.Refresh(FFB.Instance.Model.TrackNumbers.Values);
+        Players.Refresh(FFB.Instance.Model.Players);
+        PushbackSquares.Refresh(FFB.Instance.Model.PushbackSquares);
+        TrackNumbers.Refresh(FFB.Instance.Model.TrackNumbers);
 
         var ball = FFB.Instance.Model.Ball;
         if (ball != null && ball.Coordinate != null)
@@ -122,15 +135,15 @@ public class FieldHandler : MonoBehaviour
 
             float translate = isInPlayerHands ? 36f : 0f;
 
-            var ballPos = FieldToWorldCoordinates(ball.Coordinate.X, ball.Coordinate.Y, 4);
+            var ballPos = FieldToWorldCoordinates(ball.Coordinate.X, ball.Coordinate.Y, 3f);
             ballPos.x += translate;
             ballPos.y -= translate;
             Ball.transform.localPosition = ballPos;
 
-            var ballRenderer = Ball.GetComponentInChildren<SpriteRenderer>();
-            Color c = ballRenderer.color;
-            c.a = ball.InPlay ? 1f : 0.7f;
-            ballRenderer.color = c;
+            //var ballRenderer = Ball.GetComponentInChildren<SpriteRenderer>();
+            //Color c = ballRenderer.color;
+            //c.a = ball.InPlay ? 1f : 0.7f;
+            //ballRenderer.color = c;
         }
         else
         {
@@ -139,23 +152,27 @@ public class FieldHandler : MonoBehaviour
 
         var actingPlayer = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.ActingPlayer.PlayerId);
         var defender = FFB.Instance.Model.GetPlayer(FFB.Instance.Model.DefenderId);
+
         if (actingPlayer != null)
         {
             if (actingPlayer.IsHome)
             {
-                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
-                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer ?? defender);
+                homeCardPlayer = actingPlayer;
+                awayCardPlayer = HoverPlayer ?? defender;
             }
             else
             {
-                PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer ?? defender);
-                PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(actingPlayer);
+                homeCardPlayer = HoverPlayer ?? defender;
+                awayCardPlayer = actingPlayer;
             }
         } else
         {
-            PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer != null && HoverPlayer.IsHome ? HoverPlayer : null);
-            PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(HoverPlayer != null && !HoverPlayer.IsHome ? HoverPlayer : null);
+            homeCardPlayer = HoverPlayer != null && HoverPlayer.IsHome ? HoverPlayer : null;
+            awayCardPlayer = HoverPlayer != null && !HoverPlayer.IsHome ? HoverPlayer : null;
         }
+
+        PlayerCardHome.GetComponent<PlayerCardHandler>().SetPlayer(homeCardPlayer);
+        PlayerCardAway.GetComponent<PlayerCardHandler>().SetPlayer(awayCardPlayer);
     }
 
     private void OnDestroy()
@@ -175,23 +192,38 @@ public class FieldHandler : MonoBehaviour
 
     private void OnMouseOver()
     {
-        var point = MainCamera.ScreenToWorldPoint(Input.mousePosition) - Field.transform.localPosition;
-        var x = (int)(point.x - FieldRect.offsetMin.x + FieldRect.anchoredPosition.x) / 144;
-        var y = (int)(FieldRect.sizeDelta.y - (point.y - FieldRect.offsetMin.y + FieldRect.anchoredPosition.y)) / 144;
-        // x,y is the zero-based field square coordinate.
-        var coord = new Coordinate(x, y);
+        var ray = MainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        Physics.Raycast(ray, out hitInfo);
+        var worldPoint = hitInfo.point;
 
-        Highlight(coord);
+        var highlightPosition = SquareOverlay.transform.position;
+        highlightPosition.x = (float) Math.Floor(worldPoint.x / 10f) * 10f + 5f;
+        highlightPosition.z = (float) Math.Floor((worldPoint.z+5) / 10f) * 10f;
+
+        SquareOverlay.transform.position = highlightPosition;
+
+        //Highlight(coord);
     }
 
     #endregion
 
     internal Vector3 FieldToWorldCoordinates(float x, float y, float z)
     {
-        x = x * 144 - 13 * 144 + 72;
-        y = 2160 / 2 - 72 - y * 144;
+        var minX = -13f;
+        var maxX = 13f;
 
-        return new Vector3(x, y, z);
+        var minY = -7.5f;
+        var maxY = 7.5f;
+
+
+        var squareX = (maxX - minX) / 26f;
+        var squareY = (maxY - minY) / 15f;
+
+        x = x * 10 - 125;
+        y = y * 10 - 70;
+
+        return new Vector3(x, z, -y);
     }
 
     internal Vector3 ToDugoutCoordinates(int index)
@@ -220,11 +252,5 @@ public class FieldHandler : MonoBehaviour
                 scrollText.GetComponent<Animator>().SetTrigger("Scroll");
             }
         }
-    }
-
-    private void Highlight(Coordinate coord)
-    {
-        SquareOverlay.transform.localPosition = FieldToWorldCoordinates(coord.X, coord.Y, 1);
-        HoverPlayer = FFB.Instance.Model.GetPlayer(coord);
     }
 }

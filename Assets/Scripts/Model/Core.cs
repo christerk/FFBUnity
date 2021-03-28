@@ -1,5 +1,6 @@
 ﻿using Fumbbl.Ffb.Dto.ModelChanges;
 using Fumbbl.Model.Types;
+using Fumbbl.View;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,6 @@ namespace Fumbbl.Model
         public Coach AwayCoach { get; internal set; }
         public Coach HomeCoach { get; internal set; }
         public Coordinate PassCoordinate { get; internal set; }
-        public Dictionary<int, View.PushbackSquare> PushbackSquares;
-        public Dictionary<int, View.TrackNumber> TrackNumbers;
         public List<View.BlockDie> BlockDice;
         public Team TeamAway { get; internal set; }
         public Team TeamHome { get; internal set; }
@@ -29,29 +28,34 @@ namespace Fumbbl.Model
         public int TurnAway { get; internal set; }
         public int TurnHome { get; internal set; }
 
-        private Dictionary<string, Player> Players { get; set; }
+        private PlayerStore PlayerStore;
         private ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type> ModelChangeFactory { get; }
+
+        private SquareInformation SquareInformation;
+
         public Core()
         {
             //ModelChangeFactory = new ModelChangeFactory();
             ModelChangeFactory = new ReflectedFactory<ModelUpdater<Ffb.Dto.ModelChange>, Type>();
             ActingPlayer = new ActingPlayer();
-            Players = new Dictionary<string, Player>();
+            PlayerStore = new PlayerStore();
             Ball = new Ball();
-            PushbackSquares = new Dictionary<int, View.PushbackSquare>();
-            TrackNumbers = new Dictionary<int, View.TrackNumber>();
             BlockDice = new List<View.BlockDie>();
             Positions = new Dictionary<string, Position>();
+            SquareInformation = new SquareInformation(26, 15);
         }
+
+        internal List<Types.TrackNumber> TrackNumbers => SquareInformation.TrackNumbers;
+        internal List<Types.PushbackSquare> PushbackSquares => SquareInformation.PushbackSquares;
+        internal List<Types.Player> Players => PlayerStore.Players;
 
         public void Clear()
         {
             LogManager.Debug("Clearing Model");
-            Players.Clear();
+            PlayerStore.Clear();
             ActingPlayer.Clear();
-            PushbackSquares.Clear();
-            TrackNumbers.Clear();
             BlockDice.Clear();
+            SquareInformation.Clear();
         }
 
         public void AddBlockDie(int roll)
@@ -63,7 +67,7 @@ namespace Fumbbl.Model
                     BlockDice.Clear();
                 }
                 int index = BlockDieIndex++;
-                BlockDice.Add(new View.BlockDie(index, BlockDie.Get(roll)));
+                BlockDice.Add(new View.BlockDie(index, Types.BlockDie.Get(roll)));
             }
             else
             {
@@ -76,14 +80,7 @@ namespace Fumbbl.Model
 
         internal void Add(Player player)
         {
-            if (Players.ContainsKey(player.Id))
-            {
-                Players[player.Id] = player;
-            }
-            else
-            {
-                Players.Add(player.Id, player);
-            }
+            PlayerStore.Add(player);
         }
 
         internal void Add(Position position)
@@ -98,30 +95,14 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void Add(PushbackSquare square)
+        internal void Add(Types.PushbackSquare square)
         {
-            int key = square.coordinate[0] * 100 + square.coordinate[1];
-            if (!PushbackSquares.ContainsKey(key))
-            {
-                PushbackSquares.Add(key, new View.PushbackSquare(square));
-            }
-            else
-            {
-                PushbackSquares[key].Refresh(new View.PushbackSquare(square));
-            }
+            SquareInformation.Add(square);
         }
 
-        internal void Add(TrackNumber square)
+        internal void Add(Types.TrackNumber trackNumber)
         {
-            int key = square.coordinate[0] * 100 + square.coordinate[1];
-            if (!TrackNumbers.ContainsKey(key))
-            {
-                TrackNumbers.Add(key, new View.TrackNumber(square));
-            }
-            else
-            {
-                TrackNumbers[key].Refresh(new View.TrackNumber(square));
-            }
+            SquareInformation.Add(trackNumber);
         }
 
         internal void ApplyChange(Ffb.Dto.ModelChange change)
@@ -139,11 +120,7 @@ namespace Fumbbl.Model
 
         internal Player GetPlayer(string playerId)
         {
-            if (playerId == null)
-            {
-                return null;
-            }
-            return Players[playerId];
+            return PlayerStore.GetPlayer(playerId);
         }
 
         internal Position GetPosition(string positionId)
@@ -154,21 +131,9 @@ namespace Fumbbl.Model
             }
             return Positions[positionId];
         }
-        internal Player GetPlayer(Coordinate coord)
+        internal Player GetPlayer(Coordinate coordinate)
         {
-            foreach (Player p in Players.Values)
-            {
-                if (p.Coordinate.Equals(coord))
-                {
-                    return p;
-                }
-            }
-            return null;
-        }
-
-        internal IEnumerable<Player> GetPlayers()
-        {
-            return Players.Values;
+            return PlayerStore.GetPlayer(coordinate);
         }
 
         internal Team GetTeam(string teamId)
@@ -183,16 +148,14 @@ namespace Fumbbl.Model
             }
         }
 
-        internal void RemovePushbackSquare(PushbackSquare square)
+        internal void RemovePushbackSquare(Types.PushbackSquare square)
         {
-            int key = square.coordinate[0] * 100 + square.coordinate[1];
-            PushbackSquares.Remove(key);
+            SquareInformation.Remove(square);
         }
 
-        internal void RemoveTrackNumber(TrackNumber square)
+        internal void RemoveTrackNumber(Types.TrackNumber trackNumber)
         {
-            int key = square.coordinate[0] * 100 + square.coordinate[1];
-            TrackNumbers.Remove(key);
+            SquareInformation.Remove(trackNumber);
         }
     }
 }

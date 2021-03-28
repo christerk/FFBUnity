@@ -26,6 +26,8 @@ namespace Fumbbl.Model.Types
         public object Key => Id;
         public bool IsHome => Team.IsHome;
 
+        public bool Active;
+
         public string FormattedName
         {
             get
@@ -60,7 +62,7 @@ namespace Fumbbl.Model.Types
             return false;
         }
 
-        public void Refresh(Player data)
+        public void Set(Player data)
         {
             Id = data.Id;
             PositionId = data.PositionId;
@@ -75,6 +77,12 @@ namespace Fumbbl.Model.Types
             Strength = data.Strength;
             Agility = data.Agility;
             Armour = data.Armour;
+            Active = true;
+        }
+
+        public void Unset()
+        {
+            Active = false;
         }
     }
 }

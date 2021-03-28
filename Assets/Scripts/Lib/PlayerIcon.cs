@@ -12,13 +12,15 @@ namespace Fumbbl.Lib
         {
             GameObject obj = PlayerIcon.CreatePlayerIcon(p, iconPrefab);
             GameObject target = obj.transform.GetChild(0).gameObject;
-            bool success = PlayerIcon.LoadSprite(p.Position.IconURL, target);
+            float height;
+            bool success = PlayerIcon.LoadSprite(p.Position.IconURL, target, out height);
             if (!success)
             {
                 GameObject.Destroy(obj);
                 LogManager.Warn($"Unable to load player icons for PlayerId {p.Id}, falling back to abstract");
                 obj = GeneratePlayerIconAbstract(p, fallbackPrefab);
             }
+            p.Position.IconHeight = height;
             return obj;
         }
 
@@ -39,16 +41,24 @@ namespace Fumbbl.Lib
             return obj;
         }
 
-        public static bool LoadSprite(string iconURL, GameObject target)
+        public static bool LoadSprite(string iconURL, GameObject target, out float height)
         {
-            Sprite resized = LoadIconSpriteSheet(iconURL);
+            Sprite resized = LoadIconSpriteSheet(iconURL, out height);
             if (resized == null) { return false; };
             FFB.Instance.ExecuteOnMainThread(() =>
             {
-                var renderer = target.GetComponent<SpriteRenderer>();
-                RectTransform rect = target.GetComponent<RectTransform>();
-                rect.sizeDelta = new Vector2(192, 192);
-                renderer.sprite = resized;
+                var shader = Shader.Find("Shader Graphs/PlayerIconShader");
+                Material material = new Material(shader);
+                material.SetTextureScale("_MainTex", new Vector2(1, 1));
+                material.mainTexture = resized.texture;
+
+                var srcIconSize = resized.texture.width / 4;
+                var numIcons = resized.texture.height / srcIconSize;
+
+                material.SetFloat("NumRows", numIcons);
+
+                var renderer = target.GetComponent<MeshRenderer>();
+                renderer.material = material;
             });
             return true;
         }
@@ -93,22 +103,24 @@ namespace Fumbbl.Lib
             return obj;
         }
 
-        private static Sprite LoadIconSpriteSheet(string iconURL)
+        private static Sprite LoadIconSpriteSheet(string iconURL, out float height)
         {
             Sprite s = FFB.Instance.SpriteCache.Get(iconURL);
-            if (s == null) { return s; };
+            if (s == null) { height = 0;  return s; };
 
-            Sprite resized = ResizeSprite(s);
+            Sprite resized = ResizeSprite(s, out height);
             resized.name = s.name;
 
             return resized;
         }
 
-        private static Sprite ResizeSprite(Sprite s)
+        private static Sprite ResizeSprite(Sprite s, out float height)
         {
             s.texture.filterMode = FilterMode.Point;
             var srcIconSize = s.texture.width / 4;
             var numIcons = s.texture.height / srcIconSize;
+
+            height = 20f * srcIconSize / NormalizedIconSize;
 
             Texture2D dest = new Texture2D(4 * NormalizedIconSize, NormalizedIconSize * numIcons, s.texture.format, false);
 

@@ -1,4 +1,6 @@
-﻿using Fumbbl.Ffb.Dto;
+﻿using Cinemachine;
+using Fumbbl.Ffb.Dto;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,9 +30,21 @@ namespace Fumbbl
         private void Start()
         {
             LogManager.Debug("MainHandler Initialized");
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = 75;
             FFB.Instance.Initialize();
             FFB.Instance.RefreshState();
+
+            if (FFB.Instance.ActionInjector is null)
+            {
+                var obj = new GameObject("ActionInjector");
+                obj.AddComponent(Type.GetType("ActionInjectorHandler"));
+            }
+
+            // Disable GUI Layout for cinemachine. Gets rid of 368B of GC alloc per frame
+            var cinemachine = Camera.main.GetComponent<CinemachineBrain>();
+            if (cinemachine != null) {
+                cinemachine.useGUILayout = false;
+            }
         }
 
         private void OnApplicationQuit()

@@ -12,9 +12,9 @@ namespace Fumbbl.View
     public class PlayersView : ViewObjectList<Player>
     {
         public FieldHandler Handler { get; }
-        private GameObject DugoutHome => Handler.DugoutHome;
-        private GameObject DugoutAway => Handler.DugoutAway;
-        private GameObject Field => Handler.Field;
+        private GameObject DugoutHome => Handler.HomePlayers;
+        private GameObject DugoutAway => Handler.AwayPlayers;
+        private GameObject Field => Handler.FieldPlayers;
         private GameObject AbstractIconPrefab => Handler.AbstractIconPrefab;
         private GameObject PlayerIconPrefab => Handler.PlayerIconPrefab;
 
@@ -60,7 +60,17 @@ namespace Fumbbl.View
                 }
                 else
                 {
-                    var pos = Handler.FieldToWorldCoordinates(p.ModelObject.Coordinate.X, p.ModelObject.Coordinate.Y, 1);
+                    var squareCenter = Handler.FieldToWorldCoordinates(p.ModelObject.Coordinate.X, p.ModelObject.Coordinate.Y, 0f);
+
+                    Vector3 zeroIntersect = GetIntersectPoint(squareCenter, 0.01f, Color.magenta);
+
+                    var cameraAngle = Handler.MainCamera.transform.eulerAngles.x;
+                    var cosAngle = Mathf.Cos(Mathf.Deg2Rad * (-cameraAngle));
+
+                    var pos = new Vector3(zeroIntersect.x, 0.1f + cosAngle * p.ModelObject.Position.IconHeight/2, zeroIntersect.z);
+
+                    //var backgroundObject = p.GameObject.transform.GetChild(0);
+                    //backgroundObject.transform.localPosition = new Vector3(0f, 0.1f + cosAngle * Handler.IconHoverDistance, 0f);
 
                     p.GameObject.transform.localPosition = pos;
                     p.GameObject.transform.SetParent(Field.transform);
@@ -72,6 +82,16 @@ namespace Fumbbl.View
             {
                 p.GameObject.SetActive(active);
             }
+        }
+
+        private Vector3 GetIntersectPoint(Vector3 point, float height, Color debugColor)
+        {
+            Plane elevatedPlane = new Plane(Vector3.down, height);
+            var cameraRay = Handler.MainCamera.ScreenPointToRay(Handler.MainCamera.WorldToScreenPoint(point));
+            float hoverIntersect = 0f;
+            elevatedPlane.Raycast(cameraRay, out hoverIntersect);
+            var intersectPoint = cameraRay.GetPoint(hoverIntersect);
+            return intersectPoint;
         }
 
         private GameObject Construct(Player p)

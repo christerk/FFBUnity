@@ -1,0 +1,28 @@
+.StatLabel {
+    color: rgba(255, 255, 255, 255);
+    -unity-text-align: middle-center;
+    font-size: 18px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.StatValue {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 255);
+    -unity-text-align: middle-center;
+    font-size: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.StatContainer {
+    flex-grow: 1;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

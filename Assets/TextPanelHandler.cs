@@ -19,7 +19,7 @@ public class TextPanelHandler : MonoBehaviour
     private RectTransform ContentRect;
     private ReflectedFactory<LogTextGenerator<Report>, Type> LogTextFactory;
     private ScrollRect scrollRect;
-    private bool Dirty = false;
+    //private bool Dirty = false;
     private float contentHeight;
 
     #region MonoBehaviour Methods
@@ -47,14 +47,14 @@ public class TextPanelHandler : MonoBehaviour
         FFB.Instance.OnReport -= AddReport;
     }
 
-    private void OnGUI()
-    {
-        if (Dirty)
-        {
-            Dirty = false;
-            scrollRect.normalizedPosition = Vector2.zero;
-        }
-    }
+    //private void OnGUI()
+    //{
+    //    if (Dirty)
+    //    {
+    //        Dirty = false;
+    //        scrollRect.normalizedPosition = Vector2.zero;
+    //    }
+    //}
 
     #endregion
 
@@ -138,7 +138,7 @@ public class TextPanelHandler : MonoBehaviour
                 pos.z = 0f;
                 obj.rectTransform.localPosition = pos;
                 Items.Add(obj);
-                Dirty = true;
+                //Dirty = true;
                 Invoke("ScrollToBottom", 0.1f);
             }
         }

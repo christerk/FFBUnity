@@ -15,10 +15,16 @@
             Active = true;
         }
 
-        public void Refresh(BlockDie data)
+        public void Set(BlockDie data)
         {
             Index = data.Index;
             Roll = data.Roll;
+            Active = true;
+        }
+
+        public void Unset()
+        {
+            Active = false;
         }
     }
 }
