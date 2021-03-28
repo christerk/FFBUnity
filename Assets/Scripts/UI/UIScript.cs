@@ -85,7 +85,7 @@ public class UIScript : MonoBehaviour
         for (int i = 0; i < 20; i++)
         {
             FFB.Instance.AddReport(RawString.Create($"<b>* * * Test message {i} * * *</b>"));
-            FFB.Instance.AddChatEntry(i % 2 == 0 ? "Foo" : "Bar", $"Test Chat message {i}");
+            FFB.Instance.AddChatEntry(i % 2 == 0 ? "Foo" : "Bar", $"Test Chat message {i} - long line to force line wrapping to happen... Blah blah blah.");
         }
 
     }

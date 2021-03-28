@@ -76,6 +76,7 @@ public class UIEventHandler : MonoBehaviour
             Label label = new Label();
             label.text = text;
             label.style.fontSize = 10;
+            label.style.whiteSpace = WhiteSpace.Normal;
             chatScroll.Add(label);
             Invoke("ScrollChatToBottom", 0.05f);
         }
@@ -90,6 +91,7 @@ public class UIEventHandler : MonoBehaviour
             label.style.marginLeft = indent * 10;
             label.text = text;
             label.style.fontSize = 10;
+            label.style.whiteSpace = WhiteSpace.Normal;
             logScroll.Add(label);
             Invoke("ScrollLogToBottom", 0.05f);
         }
