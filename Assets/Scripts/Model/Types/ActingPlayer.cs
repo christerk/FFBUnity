@@ -6,6 +6,8 @@
         public int CurrentMove { get; set; }
         public string PlayerId;
 
+        public int Strength;
+
         public enum ActionType
         {
             Block,
