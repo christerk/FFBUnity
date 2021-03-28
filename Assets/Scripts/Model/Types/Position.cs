@@ -9,11 +9,11 @@ namespace Fumbbl.Model.Types
         public string IconURL { get; set; }
         public string PortraitURL { get; set; }
         public string Name { get; internal set; }
-        public List<string> Skills { get; set; }
+        public List<PositionSkill> Skills { get; set; }
 
         public Position()
         {
-            Skills = new List<string>();
+            Skills = new List<PositionSkill>();
         }
     }
 }

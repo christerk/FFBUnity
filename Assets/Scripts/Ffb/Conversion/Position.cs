@@ -1,16 +1,15 @@
 
-using Fumbbl.Model.Types;
-using System.Collections.Generic;
-using System.Linq;
+using Fumbbl.Model;
 
 
 namespace Fumbbl.Ffb.Conversion
 {
     static class PositionFactory
     {
-        public static Position Position(Ffb.Dto.Commands.Position position)
+        public static Model.Types.Position Position(Ffb.Dto.Commands.Position position)
         {
-            Position newPosition = new Position()
+            Model.Types.Skill skill = null;
+            Model.Types.Position newPosition = new Model.Types.Position()
             {
                 Id = position.positionId,
                 AbstractLabel = position.shorthand,
@@ -20,7 +19,11 @@ namespace Fumbbl.Ffb.Conversion
             };
             if (position.skillArray != null)
             {
-                newPosition.Skills.AddRange(position.skillArray.Select(s => s.key));
+                for (int i = 0; i < position.skillArray.Length; i++)
+                {
+                    skill = position.skillArray[i].As<Model.Types.Skill>();
+                    newPosition.Skills.Add(skill.Create(value: position.skillValues[i]));
+                }
             }
 
             return newPosition;

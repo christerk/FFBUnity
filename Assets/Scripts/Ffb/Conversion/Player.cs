@@ -1,21 +1,19 @@
 
-using Fumbbl.Model.Types;
-using System.Collections.Generic;
-using System.Linq;
+using Fumbbl.Model;
 
 
 namespace Fumbbl.Ffb.Conversion
 {
     static class PlayerFactory
     {
-        public static Player Player(Ffb.Dto.Commands.Player player, Team team, Position position)
+        public static Model.Types.Player Player(Ffb.Dto.Commands.Player player, Model.Types.Team team, Model.Types.Position position)
         {
-            Player newPlayer = new Player()
+            Model.Types.Player newPlayer = new Model.Types.Player()
             {
                 Id = player.playerId,
                 Name = player.playerName,
                 Team = team,
-                Gender = Gender.Male, //TODO: derive this
+                Gender = Model.Types.Gender.Male, //TODO: derive this
                 PositionId = player.positionId,
                 Position = position,
                 Movement = player.movement,
@@ -27,7 +25,19 @@ namespace Fumbbl.Ffb.Conversion
 
             if (player.skillArray != null)
             {
-                newPlayer.Skills.AddRange(player.skillArray.Select(s => s.key));
+                for (int i = 0; i < player.skillArray.Length; i++)
+                {
+                    var skill = player.skillArray[i].As<Model.Types.Skill>();
+                    foreach (Model.Types.Skill posskill in newPlayer.Position.Skills)
+                    {
+                        if (skill.Name == posskill.Name)
+                        {
+                            skill = posskill;
+                            break;
+                        }
+                    }
+                    newPlayer.Skills.Add(skill);
+                }
             }
             return newPlayer;
         }
